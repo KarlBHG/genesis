@@ -84,6 +84,25 @@ export default function HomePage() {
         <p className="text-lg text-muted-foreground">
           Treaties, institutions, events, and a public-record layer for sectors, money flows, and office-holders. Icelandic names stay in Icelandic: Alþingi, Seðlabanki Íslands, the króna.
         </p>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            nativeButton={false}
+            render={<a download="alltikerfi-catalog.json" href="/api/catalog" />}
+            variant="outline"
+          >
+            Download catalog JSON
+          </Button>
+          <Button
+            nativeButton={false}
+            render={<a download="alltikerfi-connections.csv" href="/api/connections" />}
+            variant="outline"
+          >
+            Download connections CSV
+          </Button>
+          <Button nativeButton={false} render={<Link href="/compare" />} variant="outline">
+            Compare entries
+          </Button>
+        </div>
       </section>
       <SearchPanel docs={toSearchDocs(entries)} />
       <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

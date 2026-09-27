@@ -223,6 +223,16 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           >
             Back to {kindLabel(entry.kind).toLowerCase()}
           </Button>
+          <Button
+            nativeButton={false}
+            render={
+              <a download={`${entry.slug}.json`} href={`/api/entry/${entry.slug}`} />
+            }
+            size="sm"
+            variant="outline"
+          >
+            Export JSON
+          </Button>
         </div>
         <h1 className="text-3xl font-medium tracking-tight sm:text-4xl">
           {entry.title}

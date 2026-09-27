@@ -24,6 +24,7 @@ const NAV = [
   { href: "/money", label: "Money" },
   { href: "/players", label: "Players" },
   { href: "/connections", label: "Connections" },
+  { href: "/compare", label: "Compare" },
 ];
 
 function isCurrent(pathname: string, href: string) {
