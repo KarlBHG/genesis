@@ -5,7 +5,7 @@ type: "institution"
 founded: ""
 role: "fiscal-policy"
 parent: ""
-related: ["sedlabanki", "landsvirkjun", "landsbankinn", "dadi-mar-kristofersson"]
+related: ["sedlabanki", "landsvirkjun", "landsbankinn", "dadi-mar-kristofersson", "treasury-budget-2026", "treasury-debt"]
 website: "https://www.government.is/ministries/ministry-of-finance-and-economic-affairs/"
 connections:
   - to: landsvirkjun
@@ -27,6 +27,10 @@ The ministry says its principal functions are the state's financial and economic
 
 The central-bank act says the bank operates under the auspices of the Minister. It does not name this ministry in that sentence → [[sedlabanki]]. The minister of this office, as of the ministry page, is [[dadi-mar-kristofersson]].
 
+The 2026 budget law is the Treasury’s Part A1 plan for that year. Its totals are recorded on the budget page, including where a ministry release prints a different balance → [[treasury-budget-2026]]. The debt strategy of 30 December 2024 says this ministry is responsible for central-government debt management → [[treasury-debt]].
+
 ## Sources
 - [Government of Iceland: Ministry of Finance and Economic Affairs](https://www.government.is/ministries/ministry-of-finance-and-economic-affairs/)
 - [Seðlabanki: Um Seðlabankann](https://english.sedlabanki.is/um-sedlabankann/)
+- [Stjórnarráðið: Fjárlög fyrir árið 2026, lagagreinar](https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/)
+- [Medium-Term Debt Management Strategy 2025–2029](https://www.government.is/library/01-Ministries/Ministry-of-Finance/Medium%20term%20debt%20management%20strategy%202025-2029.pdf)
