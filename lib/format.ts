@@ -16,6 +16,21 @@ const LABELS: Record<string, string> = {
   treaty: "Treaty",
   institution: "Institution",
   event: "Event",
+  sector: "Sector",
+  flow: "Money flow",
+  player: "Player",
+  organization: "Organization",
+  person: "Person",
+  owns: "Owns",
+  regulates: "Regulates",
+  appoints: "Appoints",
+  "sells-power-to": "Sells power to",
+  represents: "Represents",
+  funds: "Funds",
+  fisheries: "Fisheries",
+  energy: "Energy",
+  tourism: "Tourism",
+  banking: "Banking",
   crisis: "Crisis",
   program: "Program",
 };
@@ -25,16 +40,30 @@ export function labelize(value: string): string {
   return LABELS[value] ?? value;
 }
 
-export function kindLabel(kind: "treaty" | "institution" | "event"): string {
-  if (kind === "treaty") return "Treaties";
-  if (kind === "institution") return "Institutions";
-  return "Events";
+const KIND_LABELS = {
+  treaty: "Treaties",
+  institution: "Institutions",
+  event: "Events",
+  sector: "Business",
+  flow: "Money",
+  player: "Players",
+} as const;
+
+const KIND_PATHS = {
+  treaty: "/treaties",
+  institution: "/institutions",
+  event: "/events",
+  sector: "/business",
+  flow: "/money",
+  player: "/players",
+} as const;
+
+export function kindLabel(kind: keyof typeof KIND_LABELS): string {
+  return KIND_LABELS[kind];
 }
 
-export function kindPath(kind: "treaty" | "institution" | "event"): string {
-  if (kind === "treaty") return "/treaties";
-  if (kind === "institution") return "/institutions";
-  return "/events";
+export function kindPath(kind: keyof typeof KIND_PATHS): string {
+  return KIND_PATHS[kind];
 }
 
 export function formatDate(value: string): string {

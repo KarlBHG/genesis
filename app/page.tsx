@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getCatalog, hrefFor, toSearchDocs } from "@/lib/content";
+import { getCatalog, getEdges, hrefFor, toSearchDocs } from "@/lib/content";
 
 const FEATURED = ["eea-agreement", "sedlabanki", "1994-eea-entry"];
 
@@ -21,6 +21,10 @@ export default function HomePage() {
     (entry) => entry.kind === "institution",
   ).length;
   const events = entries.filter((entry) => entry.kind === "event").length;
+  const sectors = entries.filter((entry) => entry.kind === "sector").length;
+  const flows = entries.filter((entry) => entry.kind === "flow").length;
+  const players = entries.filter((entry) => entry.kind === "player").length;
+  const connections = getEdges().length;
   const featured = FEATURED.map((slug) =>
     entries.find((entry) => entry.slug === slug),
   ).filter((entry) => entry != null);
@@ -44,6 +48,30 @@ export default function HomePage() {
       href: "/events",
       text: "A dated list, from EEA entry to the 2008 program.",
     },
+    {
+      label: "Business",
+      count: sectors,
+      href: "/business",
+      text: "Fisheries, power, tourism, and banking after 2008.",
+    },
+    {
+      label: "Money",
+      count: flows,
+      href: "/money",
+      text: "Published aggregates, each labeled with its year.",
+    },
+    {
+      label: "Players",
+      count: players,
+      href: "/players",
+      text: "Organizations and people in a public office.",
+    },
+    {
+      label: "Connections",
+      count: connections,
+      href: "/connections",
+      text: "Typed links taken from entry frontmatter.",
+    },
   ];
 
   return (
@@ -54,11 +82,11 @@ export default function HomePage() {
           Map how Iceland is wired.
         </h1>
         <p className="text-lg text-muted-foreground">
-          Treaties, institutions, and events, cross-linked and cited. Icelandic names stay in Icelandic: Alþingi, Seðlabanki Íslands, the króna.
+          Treaties, institutions, events, and a public-record layer for sectors, money flows, and office-holders. Icelandic names stay in Icelandic: Alþingi, Seðlabanki Íslands, the króna.
         </p>
       </section>
       <SearchPanel docs={toSearchDocs(entries)} />
-      <section className="grid grid-cols-1 gap-3 md:grid-cols-3">
+      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {counts.map((item) => (
           <Card key={item.href}>
             <CardHeader>

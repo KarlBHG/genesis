@@ -35,7 +35,7 @@ export function SearchPanel({ docs }: { docs: SearchDoc[] }) {
             id="map-search"
             autoComplete="off"
             onValueChange={(next) => setQuery(next)}
-            placeholder="Try EEA, króna, Alþingi, Schengen"
+            placeholder="Try EEA, Landsvirkjun, króna, quota"
             type="search"
             value={query}
           />
@@ -49,7 +49,7 @@ export function SearchPanel({ docs }: { docs: SearchDoc[] }) {
           <EmptyHeader>
             <EmptyTitle>Nothing matches “{trimmed}”</EmptyTitle>
             <EmptyDescription>
-              Try a treaty, an institution, or a year. Only written entries are indexed.
+              Try a treaty, a sector, a bank, or a year. Only written entries are indexed.
             </EmptyDescription>
           </EmptyHeader>
         </Empty>

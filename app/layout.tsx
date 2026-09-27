@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s · AlltÍkerfi",
   },
   description:
-    "Map how Iceland is wired: treaties, institutions, and events, each with its sources.",
+    "Map how Iceland is wired: treaties, institutions, events, and a sourced public-record layer.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="flex-1">{children}</div>
         <footer className="border-t">
           <p className="mx-auto w-full max-w-5xl px-4 py-6 text-sm text-muted-foreground sm:px-6">
-            AlltÍkerfi is a reading map of Icelandic treaties, institutions, and events. Sources sit on each entry.
+            AlltÍkerfi is a reading map of Icelandic treaties, institutions, events, sectors, money flows, and public office-holders. Sources sit on each entry.
           </p>
         </footer>
       </body>

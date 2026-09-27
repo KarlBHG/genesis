@@ -20,6 +20,10 @@ const NAV = [
   { href: "/treaties", label: "Treaties" },
   { href: "/institutions", label: "Institutions" },
   { href: "/events", label: "Events" },
+  { href: "/business", label: "Business" },
+  { href: "/money", label: "Money" },
+  { href: "/players", label: "Players" },
+  { href: "/connections", label: "Connections" },
 ];
 
 function isCurrent(pathname: string, href: string) {
@@ -36,7 +40,7 @@ export function SiteHeader() {
         <Link className="text-lg font-medium tracking-tight" href="/">
           AlltÍkerfi
         </Link>
-        <nav className="ml-auto hidden items-center gap-1 md:flex">
+        <nav className="ml-auto hidden max-w-[42rem] flex-wrap items-center justify-end gap-1 md:flex">
           {NAV.map((item) => (
             <Button
               key={item.href}

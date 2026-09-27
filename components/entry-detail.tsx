@@ -17,9 +17,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { resolveSlug } from "@/lib/content";
+import { edgesFor, resolveSlug } from "@/lib/content";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
-import type { Entry } from "@/lib/types";
+import type { Edge, Entry } from "@/lib/types";
 
 function Fact({
   term,
@@ -96,6 +96,30 @@ function Record({ entry }: { entry: Entry }) {
               <Fact term="Type">{labelize(entry.type)}</Fact>
             </>
           ) : null}
+          {entry.kind === "sector" ? (
+            <Fact term="Area">{labelize(entry.area)}</Fact>
+          ) : null}
+          {entry.kind === "flow" ? (
+            <Fact term="Year">{entry.year}</Fact>
+          ) : null}
+          {entry.kind === "player" ? (
+            <>
+              <Fact term="Type">{labelize(entry.playerType)}</Fact>
+              <Fact term="Role">{entry.role}</Fact>
+              <Fact term="As of">
+                {entry.asOf ? formatDate(entry.asOf) : "Not dated on the source page"}
+              </Fact>
+              <Fact term="Website">
+                {entry.website ? (
+                  <a href={entry.website} rel="noreferrer" target="_blank">
+                    {entry.website.replace(/^https:\/\//, "")}
+                  </a>
+                ) : (
+                  "Not stated"
+                )}
+              </Fact>
+            </>
+          ) : null}
         </dl>
       </CardContent>
     </Card>
@@ -130,8 +154,43 @@ function Related({ slugs }: { slugs: string[] }) {
   );
 }
 
+function EdgeList({ edges, direction }: { edges: Edge[]; direction: "out" | "in" }) {
+  if (edges.length === 0) return null;
+  return (
+    <ul className="flex flex-col gap-3">
+      {edges.map((edge) => {
+        const other = direction === "out" ? edge.to : edge.from;
+        const otherTitle = direction === "out" ? edge.toTitle : edge.fromTitle;
+        const target = resolveSlug(other);
+        return (
+          <li key={`${edge.from}-${edge.relationship}-${edge.to}`} className="flex flex-col gap-1">
+            <p>
+              <Badge variant="outline">{labelize(edge.relationship)}</Badge>{" "}
+              {target ? (
+                <Link className="underline underline-offset-4" href={target.href}>
+                  {otherTitle}
+                </Link>
+              ) : (
+                otherTitle
+              )}
+              {edge.asOf ? (
+                <span className="text-muted-foreground"> · {formatDate(edge.asOf)}</span>
+              ) : null}
+            </p>
+            <p className="text-sm text-muted-foreground">{edge.note}</p>
+            <a className="text-sm break-all" href={edge.source} rel="noreferrer" target="_blank">
+              {edge.source}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 export function EntryDetail({ entry }: { entry: Entry }) {
   const section = kindLabel(entry.kind);
+  const { out, inn } = edgesFor(entry.slug);
 
   return (
     <article className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-8 sm:px-6">
@@ -160,6 +219,18 @@ export function EntryDetail({ entry }: { entry: Entry }) {
       </header>
       <Record entry={entry} />
       <MarkdownBody source={entry.body} />
+      {out.length > 0 || inn.length > 0 ? (
+        <>
+          <Separator />
+          <section className="flex flex-col gap-3">
+            <h2 className="text-xl font-medium">Connections</h2>
+            <div className="flex flex-col gap-4">
+              <EdgeList direction="out" edges={out} />
+              <EdgeList direction="in" edges={inn} />
+            </div>
+          </section>
+        </>
+      ) : null}
       <Separator />
       <section className="flex flex-col gap-3">
         <h2 className="text-xl font-medium">Related</h2>

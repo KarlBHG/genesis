@@ -1,4 +1,26 @@
-export type Kind = "treaty" | "institution" | "event";
+export type Kind =
+  | "treaty"
+  | "institution"
+  | "event"
+  | "sector"
+  | "flow"
+  | "player";
+
+export type Relationship =
+  | "owns"
+  | "regulates"
+  | "appoints"
+  | "sells-power-to"
+  | "represents"
+  | "funds";
+
+export type Connection = {
+  to: string;
+  relationship: Relationship;
+  source: string;
+  note: string;
+  asOf: string;
+};
 
 export type Treaty = {
   kind: "treaty";
@@ -11,6 +33,7 @@ export type Treaty = {
   status: string;
   topics: string[];
   related: string[];
+  connections: Connection[];
   source: string;
   body: string;
   sources: string;
@@ -26,6 +49,7 @@ export type Institution = {
   role: string;
   parent: string;
   related: string[];
+  connections: Connection[];
   website: string;
   body: string;
   sources: string;
@@ -39,12 +63,52 @@ export type MapEvent = {
   date: string;
   type: string;
   related: string[];
+  connections: Connection[];
   body: string;
   sources: string;
   summary: string;
 };
 
-export type Entry = Treaty | Institution | MapEvent;
+export type Sector = {
+  kind: "sector";
+  title: string;
+  slug: string;
+  area: string;
+  related: string[];
+  connections: Connection[];
+  body: string;
+  sources: string;
+  summary: string;
+};
+
+export type Flow = {
+  kind: "flow";
+  title: string;
+  slug: string;
+  year: string;
+  related: string[];
+  connections: Connection[];
+  body: string;
+  sources: string;
+  summary: string;
+};
+
+export type Player = {
+  kind: "player";
+  title: string;
+  slug: string;
+  playerType: "organization" | "person";
+  role: string;
+  asOf: string;
+  website: string;
+  related: string[];
+  connections: Connection[];
+  body: string;
+  sources: string;
+  summary: string;
+};
+
+export type Entry = Treaty | Institution | MapEvent | Sector | Flow | Player;
 
 export type SearchDoc = {
   title: string;
@@ -54,4 +118,15 @@ export type SearchDoc = {
   summary: string;
   topics: string[];
   body: string;
+};
+
+export type Edge = {
+  from: string;
+  fromTitle: string;
+  to: string;
+  toTitle: string;
+  relationship: Relationship;
+  source: string;
+  note: string;
+  asOf: string;
 };
