@@ -11,7 +11,7 @@ npm install
 npm run dev -- --hostname 0.0.0.0 --port 38471
 ```
 
-Open [http://127.0.0.1:38471](http://127.0.0.1:38471).
+Open [http://127.0.0.1:38471](http://127.0.0.1:38471). That address opens System. Overview keeps the budget drawing. Connections groups edges into the seven map views, plus a leftover of three. The map opens with Authority, Ownership, and Trade on. Anomalies lists contradictions, repeated invoices, and audit sentences. `data/changes.json` records a field that differs from an earlier reading.
 
 ## Content
 

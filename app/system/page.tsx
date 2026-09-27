@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { getBySlug, getEdges, hrefFor } from "@/lib/content";
-import { labelize } from "@/lib/format";
+import { getBySlug, getChanges, getEdges, hrefFor } from "@/lib/content";
+import { formatDate, labelize } from "@/lib/format";
+import { tradeValueNote } from "@/lib/notes";
 
 export const metadata: Metadata = {
   title: "System",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 const CHAIN = ["owns", "appoints", "elects", "incorporates", "imported-from", "exported-to"] as const;
 
 export default function SystemPage() {
+  const changes = getChanges();
   const republic = getBySlug("republic-of-iceland");
   const treasury = getBySlug("rikissjodur");
   const bank = getBySlug("sedlabanki");
@@ -30,7 +32,7 @@ export default function SystemPage() {
       <header className="flex max-w-3xl flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">How the system operates</h1>
         <p className="text-muted-foreground">
-          The records below are sentences from pages opened for this pass. A country named as a trade partner is not a company, and a legal form on the registry is not an influence score.
+          The records below are sentences from pages opened for this pass. A country named as a trade partner is not a company, and a legal form on the registry is not an influence score. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
         </p>
       </header>
 
@@ -113,8 +115,33 @@ export default function SystemPage() {
             .map((edge) => (
               <li className="min-w-0 break-words text-sm leading-6" key={`${edge.relationship}-${edge.to}`}>
                 {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
+                {tradeValueNote(edge.relationship) ? (
+                  <span className="mt-0.5 block text-muted-foreground">{tradeValueNote(edge.relationship)}</span>
+                ) : null}
               </li>
             ))}
+        </ul>
+      </section>
+
+      <section className="flex min-w-0 flex-col gap-3">
+        <h2 className="text-xl font-medium">Change log</h2>
+        <p className="text-muted-foreground">
+          A record is appended when an edge field that was stored before differs from a later reading. This pass did not rewrite an invoice date or a career date. The Landsbankinn shareholder count is the disagreement already kept as a contradiction. The owns line was not rewritten.
+        </p>
+        <ul className="flex min-w-0 flex-col gap-3">
+          {changes.map((change) => (
+            <li className="min-w-0 rounded-lg border p-4" key={change.id}>
+              <p className="break-words font-medium">
+                {change.edgeId} · {change.field}
+              </p>
+              <p className="mt-1 break-words text-sm leading-6">
+                {change.oldValue} → {change.newValue}. Observed {formatDate(change.observed)}.
+              </p>
+              <a className="mt-1 block break-all text-sm underline underline-offset-4" href={change.source} rel="noreferrer" target="_blank">
+                {change.source}
+              </a>
+            </li>
+          ))}
         </ul>
       </section>
     </main>

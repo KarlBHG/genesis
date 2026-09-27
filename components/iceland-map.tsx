@@ -40,6 +40,8 @@ export type MapEdgeView = {
   start: string | null;
   end: string | null;
   channel: "political" | "business" | null;
+  organizationTitle: string | null;
+  note: string | null;
   view: ViewId | null;
   fromPlace: PlaceId | null;
   toPlace: PlaceId | null;
@@ -133,7 +135,18 @@ function RoleFigure({ layer }: { layer: LayerId }) {
 }
 
 function edgeKey(edge: MapEdgeView): string {
-  return [edge.from, edge.relationship, edge.to, edge.asOf, edge.start ?? ""].join("|");
+  return [edge.from, edge.relationship, edge.to, edge.asOf, edge.start ?? "", edge.quotation].join("|");
+}
+
+function careerHolding(edge: MapEdgeView): boolean {
+  return edge.relationship === "invests-in" && edge.channel != null;
+}
+
+function placeLabel(edge: MapEdgeView): string {
+  if (edge.relationship === "holds-office" && edge.organizationTitle) {
+    return `${edge.toTitle} · ${edge.organizationTitle}`;
+  }
+  return edge.toTitle;
 }
 
 function careerRank(start: string | null): string {
@@ -169,10 +182,10 @@ export function IcelandMap({
   });
   const [viewsOn, setViewsOn] = useState<Record<ViewId, boolean>>({
     ownership: true,
-    investments: true,
-    money: true,
-    careers: true,
-    spending: true,
+    investments: false,
+    money: false,
+    careers: false,
+    spending: false,
     authority: true,
     trade: true,
   });
@@ -185,7 +198,11 @@ export function IcelandMap({
     PLACES.map((place) => [place.id, scene.project(place.lon, place.lat)]),
   ) as Record<PlaceId, { x: number; y: number }>;
 
-  const shown = edges.filter((edge) => edge.view != null && viewsOn[edge.view]);
+  const shown = edges.filter(
+    (edge) =>
+      (edge.view != null && viewsOn[edge.view]) ||
+      (viewsOn.careers && careerHolding(edge)),
+  );
   const lit = selectedSlug
     ? shown.filter((edge) => edge.from === selectedSlug || edge.to === selectedSlug)
     : shown;
@@ -478,7 +495,7 @@ export function IcelandMap({
                           <span className="block text-xs tracking-wide text-[#e6d3a4] uppercase">
                             {edge.channel === "political" ? "Political" : "Business"} · {labelize(edge.relationship)}
                           </span>
-                          {edge.from === focus.slug ? edge.toTitle : edge.fromTitle}
+                          {edge.from === focus.slug ? placeLabel(edge) : edge.fromTitle}
                           <span className="mt-0.5 block text-[#9a917f]">{careerSpan(edge)}</span>
                           <span className="mt-0.5 block text-[#9a917f]">{edge.quotation}</span>
                         </li>
@@ -491,11 +508,12 @@ export function IcelandMap({
                 <ul className="flex flex-col gap-2">
                   {panelLines.map((edge) => (
                     <li key={edgeKey(edge)} className="text-sm leading-5 break-words text-[#d5cdbf]">
-                      {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
+                      {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {placeLabel(edge)}
                       {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
-                      {edge.view === "careers" || edge.view === "spending" ? (
+                      {edge.view === "careers" || edge.view === "spending" || careerHolding(edge) ? (
                         <span className="mt-0.5 block text-[#9a917f]">{edge.quotation}</span>
                       ) : null}
+                      {edge.note ? <span className="mt-0.5 block text-[#9a917f]">{edge.note}</span> : null}
                     </li>
                   ))}
                 </ul>
@@ -585,7 +603,10 @@ export function IcelandMap({
       <div className="flex min-w-0 flex-col gap-4">
         {MAP_VIEWS.map((view) => {
           if (!viewsOn[view.id]) return null;
-          const lines = shown.filter((edge) => edge.view === view.id);
+          const lines =
+            view.id === "careers"
+              ? shown.filter((edge) => edge.view === "careers" || careerHolding(edge))
+              : shown.filter((edge) => edge.view === view.id);
           return (
             <section key={view.id} className="min-w-0">
               <h2 className="text-sm font-medium text-[#f3ecdf]">
@@ -597,11 +618,12 @@ export function IcelandMap({
                 <ul className="mt-2 flex flex-col gap-1">
                   {lines.map((edge) => (
                     <li key={edgeKey(edge)} className="min-w-0 text-sm leading-5 break-words text-[#d5cdbf]" style={lineStyle(edge)}>
-                      {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
+                      {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {placeLabel(edge)}
                       {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
-                      {edge.view === "careers" || edge.view === "spending" ? (
+                      {edge.view === "careers" || edge.view === "spending" || careerHolding(edge) ? (
                         <span className="mt-0.5 block text-[#9a917f]">{edge.quotation}</span>
                       ) : null}
+                      {edge.note ? <span className="mt-0.5 block text-[#9a917f]">{edge.note}</span> : null}
                     </li>
                   ))}
                 </ul>

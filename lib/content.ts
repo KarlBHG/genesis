@@ -5,7 +5,9 @@ import matter from "gray-matter";
 
 import { kindPath, labelize } from "@/lib/format";
 import type {
+  AuditFinding,
   CareerChannel,
+  ChangeRecord,
   Connection,
   Contradiction,
   Edge,
@@ -275,12 +277,16 @@ export const getCatalog = cache((): Entry[] => {
   }
   loadedEdges = buildEdges(entries);
   loadedContradictions = buildContradictions(entries);
+  loadedChanges = buildChanges();
+  loadedAudits = buildAudits(entries);
   assertRecords(entries);
   return entries;
 });
 
 let loadedEdges: Edge[] = [];
 let loadedContradictions: Contradiction[] = [];
+let loadedChanges: ChangeRecord[] = [];
+let loadedAudits: AuditFinding[] = [];
 
 const EDGE_FIELDS = ["from", "to", "type", "asOf", "source", "quotation"] as const;
 
@@ -292,30 +298,34 @@ function requireEdgeString(row: Record<string, unknown>, key: string, index: num
   return value.trim();
 }
 
-function officeTitles(): Map<string, string> {
+function officeRecords(): Map<string, { title: string; organization: string }> {
   const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "offices.json"), "utf8"));
   if (!Array.isArray(parsed)) throw new Error("data/offices.json must be a list");
-  const titles = new Map<string, string>();
+  const offices = new Map<string, { title: string; organization: string }>();
   for (const item of parsed) {
     if (item == null || typeof item !== "object" || Array.isArray(item)) continue;
     const row = item as Record<string, unknown>;
-    if (typeof row.id === "string" && typeof row.title === "string") {
-      titles.set(row.id, row.title);
+    if (
+      typeof row.id === "string" &&
+      typeof row.title === "string" &&
+      typeof row.organization === "string"
+    ) {
+      offices.set(row.id, { title: row.title, organization: row.organization });
     }
   }
-  return titles;
+  return offices;
 }
 
 function buildEdges(entries: Entry[]): Edge[] {
   const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "edges.json"), "utf8"));
   if (!Array.isArray(parsed)) throw new Error("data/edges.json must be a list");
   const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
-  const offices = officeTitles();
+  const offices = officeRecords();
   const titleOf = (slug: string, index: number, side: "from" | "to"): string => {
     const entry = bySlug.get(slug);
     if (entry) return entry.title;
     const office = offices.get(slug);
-    if (office) return office;
+    if (office) return office.title;
     throw new Error(`data/edges.json edge ${index + 1} ${side} "${slug}" does not exist`);
   };
   return parsed.map((item, index) => {
@@ -361,6 +371,13 @@ function buildEdges(entries: Entry[]): Edge[] {
       }
       channel = channelValue;
     }
+    const office = offices.get(to);
+    const organizationEntry = office ? bySlug.get(office.organization) : undefined;
+    if (office && !organizationEntry) {
+      throw new Error(
+        `data/edges.json edge ${index + 1} office "${to}" organization does not exist`,
+      );
+    }
     return {
       from,
       fromTitle: titleOf(from, index, "from"),
@@ -373,6 +390,64 @@ function buildEdges(entries: Entry[]): Edge[] {
       start,
       end,
       channel,
+      organization: office?.organization ?? null,
+      organizationTitle: organizationEntry?.title ?? null,
+    };
+  });
+}
+
+function requireRecordString(row: Record<string, unknown>, key: string, file: string, index: number): string {
+  const value = row[key];
+  if (typeof value !== "string" || !value.trim()) {
+    throw new Error(`${file} record ${index + 1} is missing ${key}`);
+  }
+  return value.trim();
+}
+
+function buildChanges(): ChangeRecord[] {
+  const file = "data/changes.json";
+  const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "changes.json"), "utf8"));
+  if (!Array.isArray(parsed)) throw new Error(`${file} must be a list`);
+  return parsed.map((item, index) => {
+    if (item == null || typeof item !== "object" || Array.isArray(item)) {
+      throw new Error(`${file} record ${index + 1} must be an object`);
+    }
+    const row = item as Record<string, unknown>;
+    return {
+      id: requireRecordString(row, "id", file, index),
+      edgeId: requireRecordString(row, "edgeId", file, index),
+      field: requireRecordString(row, "field", file, index),
+      oldValue: requireRecordString(row, "oldValue", file, index),
+      newValue: requireRecordString(row, "newValue", file, index),
+      observed: requireRecordString(row, "observed", file, index),
+      source: requireRecordString(row, "source", file, index),
+    };
+  });
+}
+
+function buildAudits(entries: Entry[]): AuditFinding[] {
+  const file = "data/audits.json";
+  const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "audits.json"), "utf8"));
+  if (!Array.isArray(parsed)) throw new Error(`${file} must be a list`);
+  const slugs = new Set(entries.map((entry) => entry.slug));
+  return parsed.map((item, index) => {
+    if (item == null || typeof item !== "object" || Array.isArray(item)) {
+      throw new Error(`${file} record ${index + 1} must be an object`);
+    }
+    const row = item as Record<string, unknown>;
+    const listed = row.entries;
+    if (!Array.isArray(listed) || listed.length === 0 || listed.some((slug) => typeof slug !== "string")) {
+      throw new Error(`${file} record ${index + 1} entries must be a list of slugs`);
+    }
+    for (const slug of listed) {
+      if (!slugs.has(slug)) throw new Error(`${file} record ${index + 1} names missing slug "${slug}"`);
+    }
+    return {
+      id: requireRecordString(row, "id", file, index),
+      entries: listed.map((slug) => slug.trim()),
+      published: requireRecordString(row, "published", file, index),
+      source: requireRecordString(row, "source", file, index),
+      quotation: requireRecordString(row, "quotation", file, index),
     };
   });
 }
@@ -552,6 +627,16 @@ export function getContradictions(): Contradiction[] {
   return loadedContradictions;
 }
 
+export function getChanges(): ChangeRecord[] {
+  getCatalog();
+  return loadedChanges;
+}
+
+export function getAudits(): AuditFinding[] {
+  getCatalog();
+  return loadedAudits;
+}
+
 export function edgesFor(slug: string): { out: Edge[]; inn: Edge[] } {
   const edges = getEdges();
   return {
@@ -596,13 +681,13 @@ export function toSearchDocs(entries: Entry[] = getCatalog()): SearchDoc[] {
     const label = labelize(edge.relationship);
     return {
       title: `${edge.fromTitle} ${label.toLowerCase()} ${edge.toTitle}`,
-      slug: `edge:${edge.from}:${edge.relationship}:${edge.to}:${edge.asOf}:${edge.start ?? ""}`,
+      slug: `edge:${edge.from}:${edge.relationship}:${edge.to}:${edge.asOf}:${edge.start ?? ""}:${edge.quotation}`,
       kind: "edge",
       href: from ? hrefFor(from) : "/connections",
       summary: `${label}. ${edge.quotation}`,
       topics: [label, edge.relationship],
       body: plainBody(
-        `${label} ${edge.relationship} ${edge.quotation} ${edge.fromTitle} ${edge.toTitle}`,
+        `${label} ${edge.relationship} ${edge.quotation} ${edge.fromTitle} ${edge.toTitle} ${edge.organizationTitle ?? ""}`,
       ),
     };
   });

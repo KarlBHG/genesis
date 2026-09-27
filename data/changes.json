@@ -1,0 +1,11 @@
+[
+  {
+    "id": "landsbankinn-shareholder-count",
+    "edgeId": "ministry-of-finance:owns:landsbankinn",
+    "field": "shareholder-count",
+    "oldValue": "around 800",
+    "newValue": "approximately 819",
+    "observed": "2026-09-27",
+    "source": "https://www.landsbankinn.is/uploads/documents/arsskyrsluroguppgjor/fact-book-2025-en.pdf"
+  }
+]

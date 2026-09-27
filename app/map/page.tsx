@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
 import { IcelandMap, type MapEdgeView, type MapEntryView } from "@/components/iceland-map";
-import { getCatalog, getEdges, hrefFor } from "@/lib/content";
+import { getCatalog, getContradictions, getEdges, hrefFor } from "@/lib/content";
 import { MAP_ENTRIES, viewOf, type PlaceId } from "@/lib/geo-map";
+import { ownsRowNote, tradeValueNote } from "@/lib/notes";
 
 export const metadata: Metadata = {
   title: "Map",
@@ -51,6 +52,7 @@ export default function MapPage() {
     };
   });
 
+  const contradictions = getContradictions();
   const edges: MapEdgeView[] = getEdges().map((edge) => ({
     from: edge.from,
     to: edge.to,
@@ -62,6 +64,8 @@ export default function MapPage() {
     start: edge.start,
     end: edge.end,
     channel: edge.channel,
+    organizationTitle: edge.organizationTitle,
+    note: [tradeValueNote(edge.relationship), ownsRowNote(edge, contradictions)].filter(Boolean).join(" ") || null,
     view: viewOf(edge.relationship),
     fromPlace: (placeBySlug.get(edge.from) ?? null) as PlaceId | null,
     toPlace: (placeBySlug.get(edge.to) ?? null) as PlaceId | null,

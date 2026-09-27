@@ -1305,5 +1305,293 @@
     "asOf": "undated on the cited page",
     "source": "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/",
     "quotation": "Every few weeks EEA-relevant pieces of legislation are incorporated into the EEA Agreement by decision of the EEA Joint Committee."
+  },
+  {
+    "from": "fjarskiptastofa",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-08-19",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjarskiptastofa; 2026-08-19; Advania Ísland ehf.; INV840690; 931908"
+  },
+  {
+    "from": "fjarskiptastofa",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-08-20",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjarskiptastofa; 2026-08-20; Advania Ísland ehf.; INV840057; 488576"
+  },
+  {
+    "from": "vinnumalastofnun",
+    "to": "bilaleiga-flugleida",
+    "type": "pays",
+    "asOf": "2026-08-25",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Vinnumálastofnun; 2026-08-25; Bílaleiga Flugleiða ehf.; 83284807-1; 55202"
+  },
+  {
+    "from": "vinnumalastofnun",
+    "to": "bilaleiga-flugleida",
+    "type": "pays",
+    "asOf": "2026-08-25",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Vinnumálastofnun; 2026-08-25; Bílaleiga Flugleiða ehf.; 83286099-1; 136925"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-07-03",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-07-03; Hreyfill svf.; 485512; 206106"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-07-03",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-07-03; Hreyfill svf.; 485514; 28421"
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "iclean",
+    "type": "pays",
+    "asOf": "2026-07-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjármála- og efnahagsráðuneyti, aðalskrifstofa; 2026-07-31; Iclean ehf.; 0024725; 126466"
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "iclean",
+    "type": "pays",
+    "asOf": "2026-08-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjármála- og efnahagsráðuneyti, aðalskrifstofa; 2026-08-31; Iclean ehf.; 0025126; 126466"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "kronan",
+    "type": "pays",
+    "asOf": "2026-08-14",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-08-14; Krónan ehf.; 179-10192-708960; 54545"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "kronan",
+    "type": "pays",
+    "asOf": "2026-08-14",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-08-14; Krónan ehf.; 179-10192-712797; 18396"
+  },
+  {
+    "from": "natturuverndarstofnun",
+    "to": "n1",
+    "type": "pays",
+    "asOf": "2026-08-28",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Náttúruverndarstofnun; 2026-08-28; N1 ehf.; Srn27960663; 8954"
+  },
+  {
+    "from": "natturuverndarstofnun",
+    "to": "n1",
+    "type": "pays",
+    "asOf": "2026-08-28",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Náttúruverndarstofnun; 2026-08-28; N1 ehf.; Srn27980745; 2606"
+  },
+  {
+    "from": "fjarskiptastofa",
+    "to": "nings",
+    "type": "pays",
+    "asOf": "2026-07-16",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjarskiptastofa; 2026-07-16; Nings ehf.; 0644108; 2201"
+  },
+  {
+    "from": "fjarskiptastofa",
+    "to": "nings",
+    "type": "pays",
+    "asOf": "2026-07-17",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjarskiptastofa; 2026-07-17; Nings ehf.; 0644122; 10596"
+  },
+  {
+    "from": "personuvernd",
+    "to": "opin-kerfi",
+    "type": "pays",
+    "asOf": "2026-08-07",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Persónuvernd; 2026-08-07; Opin kerfi hf.; 26-0026276; 33629"
+  },
+  {
+    "from": "personuvernd",
+    "to": "opin-kerfi",
+    "type": "pays",
+    "asOf": "2026-08-28",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Persónuvernd; 2026-08-28; Opin kerfi hf.; 26-0027125; 141231"
+  },
+  {
+    "from": "prime-ministers-office",
+    "to": "veitur",
+    "type": "pays",
+    "asOf": "2026-08-20",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Forsætisráðuneyti, aðalskrifstofa; 2026-08-20; Veitur ohf.; 20261659277; 20205"
+  },
+  {
+    "from": "prime-ministers-office",
+    "to": "veitur",
+    "type": "pays",
+    "asOf": "2026-08-20",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Forsætisráðuneyti, aðalskrifstofa; 2026-08-20; Veitur ohf.; 20261659280; 10163"
+  },
+  {
+    "from": "ministry-of-health",
+    "to": "rekstrarfelag-stjornarradsins",
+    "type": "pays",
+    "asOf": "2026-08-28",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2123992; 51750"
+  },
+  {
+    "from": "ministry-of-health",
+    "to": "rekstrarfelag-stjornarradsins",
+    "type": "pays",
+    "asOf": "2026-08-28",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2124032; 283200"
+  },
+  {
+    "from": "vinnumalastofnun",
+    "to": "securitas",
+    "type": "pays",
+    "asOf": "2026-07-24",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Vinnumálastofnun; 2026-07-24; Securitas hf.; ÞR+26137312; 226771"
+  },
+  {
+    "from": "vinnumalastofnun",
+    "to": "securitas",
+    "type": "pays",
+    "asOf": "2026-07-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Vinnumálastofnun; 2026-07-31; Securitas hf.; ÞR+26137710; 37093"
+  },
+  {
+    "from": "landspitali",
+    "to": "trackwell",
+    "type": "pays",
+    "asOf": "2026-08-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landspítali; 2026-08-31; Trackwell hf.; SR26-11815; 4955"
+  },
+  {
+    "from": "landspitali",
+    "to": "trackwell",
+    "type": "pays",
+    "asOf": "2026-08-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landspítali; 2026-08-31; Trackwell hf.; SR26-11816; 4886"
+  },
+  {
+    "from": "landspitali",
+    "to": "verifone-a-islandi",
+    "type": "pays",
+    "asOf": "2026-07-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landspítali; 2026-07-31; Verifone á Íslandi ehf.; R633054; 15214"
+  },
+  {
+    "from": "landspitali",
+    "to": "verifone-a-islandi",
+    "type": "pays",
+    "asOf": "2026-07-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landspítali; 2026-07-31; Verifone á Íslandi ehf.; R633055; 15214"
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "arvakur",
+    "type": "pays",
+    "asOf": "2026-08-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Utanríkisráðuneyti, aðalskrifstofa; 2026-08-31; Árvakur hf.; SR26-0120423; 14121"
+  },
+  {
+    "from": "competition-authority",
+    "to": "arvakur",
+    "type": "pays",
+    "asOf": "2026-08-25",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Samkeppniseftirlitið; 2026-08-25; Árvakur hf.; SR26-0119633; 11180"
+  },
+  {
+    "from": "natturuverndarstofnun",
+    "to": "forlagid",
+    "type": "pays",
+    "asOf": "2026-07-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Náttúruverndarstofnun; 2026-07-31; Forlagið ehf.; 226990; 97031"
+  },
+  {
+    "from": "natturuverndarstofnun",
+    "to": "forlagid",
+    "type": "pays",
+    "asOf": "2026-08-31",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Náttúruverndarstofnun; 2026-08-31; Forlagið ehf.; 230005; 260770"
+  },
+  {
+    "from": "competition-authority",
+    "to": "creditinfo-lanstraust",
+    "type": "pays",
+    "asOf": "2026-07-27",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Samkeppniseftirlitið; 2026-07-27; Creditinfo Lánstraust hf.; SR291656; 146266"
+  },
+  {
+    "from": "competition-authority",
+    "to": "creditinfo-lanstraust",
+    "type": "pays",
+    "asOf": "2026-08-25",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Samkeppniseftirlitið; 2026-08-25; Creditinfo Lánstraust hf.; SR295030; 148719"
+  },
+  {
+    "from": "prime-ministers-office",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-07-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Forsætisráðuneyti, aðalskrifstofa; 2026-07-30; Síminn hf.; 0615318339; 10750"
+  },
+  {
+    "from": "prime-ministers-office",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-07-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Forsætisráðuneyti, aðalskrifstofa; 2026-07-30; Síminn hf.; 0615323509; 41168"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-08-12",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-08-12; Síminn hf.; 100000117308; 122087"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "syn",
+    "type": "pays",
+    "asOf": "2026-08-04",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-08-04; Sýn hf.; PB14843449; 77658"
   }
 ]

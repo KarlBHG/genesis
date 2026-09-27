@@ -147,6 +147,26 @@ export type Edge = {
   start: string | null;
   end: string | null;
   channel: CareerChannel | null;
+  organization: string | null;
+  organizationTitle: string | null;
+};
+
+export type ChangeRecord = {
+  id: string;
+  edgeId: string;
+  field: string;
+  oldValue: string;
+  newValue: string;
+  observed: string;
+  source: string;
+};
+
+export type AuditFinding = {
+  id: string;
+  entries: string[];
+  published: string;
+  source: string;
+  quotation: string;
 };
 
 export type ContradictionSide = {

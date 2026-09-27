@@ -174,6 +174,9 @@ function EdgeList({ edges, direction }: { edges: Edge[]; direction: "out" | "in"
               ) : (
                 otherTitle
               )}
+              {edge.relationship === "holds-office" && edge.organizationTitle ? (
+                <span> · {edge.organizationTitle}</span>
+              ) : null}
               {edge.asOf ? (
                 <span className="text-muted-foreground"> · {formatDate(edge.asOf)}</span>
               ) : null}
@@ -198,7 +201,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink render={<Link href="/" />}>Overview</BreadcrumbLink>
+            <BreadcrumbLink render={<Link href="/overview" />}>Overview</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { ConnectionStrips, edgeKey } from "@/components/connection-graph";
+import { edgeKey } from "@/components/connection-graph";
 import { Badge } from "@/components/ui/badge";
-import { getCatalog, getEdges, hrefFor, resolveSlug } from "@/lib/content";
+import { getCatalog, getContradictions, getEdges, hrefFor, resolveSlug } from "@/lib/content";
 import { formatDate, kindLabel, labelize } from "@/lib/format";
-import type { Kind } from "@/lib/types";
+import { MAP_VIEWS, viewOf } from "@/lib/geo-map";
+import { officeLabel, ownsRowNote, tradeValueNote } from "@/lib/notes";
+import type { Edge, Kind } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Connections",
@@ -14,9 +16,53 @@ export const metadata: Metadata = {
 
 const KIND_ORDER: Kind[] = ["treaty", "institution", "event", "sector", "flow", "player"];
 
+function EdgeLine({ edge, note }: { edge: Edge; note: string | null }) {
+  const from = resolveSlug(edge.from);
+  const to = resolveSlug(edge.to);
+  const org = resolveSlug(edge.organization ?? "");
+  const targetTitle = officeLabel(edge);
+  return (
+    <li className="flex min-w-0 flex-col gap-1 border-b py-3">
+      <p className="break-words">
+        {from ? (
+          <Link className="font-medium underline underline-offset-4" href={from.href}>
+            {edge.fromTitle}
+          </Link>
+        ) : (
+          edge.fromTitle
+        )}{" "}
+        <Badge variant="secondary">{labelize(edge.relationship)}</Badge>{" "}
+        {to ? (
+          <Link className="font-medium underline underline-offset-4" href={to.href}>
+            {edge.relationship === "holds-office" ? edge.toTitle : targetTitle}
+          </Link>
+        ) : (
+          edge.toTitle
+        )}
+        {edge.relationship === "holds-office" && edge.organizationTitle ? (
+          <>
+            {" · "}
+            {org ? (
+              <Link className="underline underline-offset-4" href={org.href}>
+                {edge.organizationTitle}
+              </Link>
+            ) : (
+              edge.organizationTitle
+            )}
+          </>
+        ) : null}
+        <span className="text-sm text-muted-foreground"> · {formatDate(edge.asOf)}</span>
+      </p>
+      <p className="break-words text-sm leading-6">{edge.quotation}</p>
+      {note ? <p className="break-words text-sm leading-6 text-muted-foreground">{note}</p> : null}
+    </li>
+  );
+}
+
 export default function ConnectionsPage() {
   const entries = getCatalog();
   const edges = getEdges();
+  const contradictions = getContradictions();
   const drawn = new Set(edges.flatMap((edge) => [edge.from, edge.to]));
   const missing = entries
     .filter((entry) => !drawn.has(entry.slug))
@@ -25,19 +71,68 @@ export default function ConnectionsPage() {
       if (kind !== 0) return kind;
       return a.title.localeCompare(b.title, "en");
     });
-  const listed = edges
+  const sortEdges = (list: Edge[]) =>
+    list
+      .slice()
+      .sort((a, b) => a.fromTitle.localeCompare(b.fromTitle, "en") || a.toTitle.localeCompare(b.toTitle, "en") || a.asOf.localeCompare(b.asOf) || a.quotation.localeCompare(b.quotation));
+  const holdings = edges.filter((edge) => edge.relationship === "invests-in" && edge.channel != null);
+  const byView = MAP_VIEWS.map((view) => ({
+    ...view,
+    edges: sortEdges(
+      view.id === "careers"
+        ? [...edges.filter((edge) => viewOf(edge.relationship) === view.id), ...holdings]
+        : edges.filter((edge) => viewOf(edge.relationship) === view.id),
+    ),
+  }));
+  const leftover = edges
+    .filter((edge) => viewOf(edge.relationship) == null)
     .slice()
-    .sort((a, b) => a.fromTitle.localeCompare(b.fromTitle, "en") || a.toTitle.localeCompare(b.toTitle, "en") || a.asOf.localeCompare(b.asOf));
+    .sort((a, b) => a.relationship.localeCompare(b.relationship) || a.fromTitle.localeCompare(b.fromTitle, "en"));
 
   return (
     <main className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-8 px-4 py-8 sm:px-6">
       <header className="flex max-w-3xl flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">Connections</h1>
         <p className="text-muted-foreground">
-          Each line is one relationship from an entry, with the year on the line. Full names wrap. Nothing here scrolls sideways.
+          Seven views, the same buckets as the map. Each line is one typed relationship. Full names wrap. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
         </p>
       </header>
-      <ConnectionStrips edges={edges} />
+      {byView.map((view) => (
+        <section className="flex min-w-0 flex-col gap-2" id={view.id} key={view.id}>
+          <h2 className="text-xl font-medium">
+            {view.label} · {view.edges.length}
+          </h2>
+          {view.id === "spending" ? (
+            <p className="text-sm text-muted-foreground">Each line is one invoice. Amounts are not added together.</p>
+          ) : null}
+          {view.id === "ownership" ? (
+            <p className="text-sm text-muted-foreground">Owns only. Stakes are under Investments.</p>
+          ) : null}
+          {view.id === "careers" ? (
+            <p className="text-sm text-muted-foreground">Dated personal holdings are listed here as well as under Investments. Ásgeir Jónsson has no dated appointment, so he is not on a line.</p>
+          ) : null}
+          <ul className="flex min-w-0 flex-col">
+            {view.edges.map((edge) => (
+              <EdgeLine
+                edge={edge}
+                key={edgeKey(edge)}
+                note={[tradeValueNote(edge.relationship), ownsRowNote(edge, contradictions)].filter(Boolean).join(" ") || null}
+              />
+            ))}
+          </ul>
+        </section>
+      ))}
+      <section className="flex min-w-0 flex-col gap-2" id="leftover">
+        <h2 className="text-xl font-medium">Leftover · {leftover.length}</h2>
+        <p className="text-sm text-muted-foreground">
+          These three typed lines are outside the seven views: one represents, and two tariff-terms.
+        </p>
+        <ul className="flex min-w-0 flex-col">
+          {leftover.map((edge) => (
+            <EdgeLine edge={edge} key={edgeKey(edge)} note={null} />
+          ))}
+        </ul>
+      </section>
       <p>
         <a className="underline underline-offset-4" href="#not-on-the-drawing">
           {missing.length} of {entries.length} entries are not on this drawing.
@@ -58,49 +153,6 @@ export default function ConnectionsPage() {
             </li>
           ))}
         </ul>
-      </section>
-      <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-medium">Notes</h2>
-        <ol className="flex flex-col gap-4">
-          {listed.map((edge) => {
-            const from = resolveSlug(edge.from);
-            const to = resolveSlug(edge.to);
-            return (
-              <li
-                className="flex flex-col gap-2 rounded-lg border p-4"
-                key={edgeKey(edge)}
-              >
-                <p className="flex flex-wrap items-center gap-2">
-                  {from ? (
-                    <Link className="font-medium underline underline-offset-4" href={from.href}>
-                      {edge.fromTitle}
-                    </Link>
-                  ) : (
-                    edge.fromTitle
-                  )}
-                  <Badge variant="secondary">{labelize(edge.relationship)}</Badge>
-                  {edge.asOf ? (
-                    <span className="text-sm text-muted-foreground">{formatDate(edge.asOf)}</span>
-                  ) : null}
-                  {to ? (
-                    <Link className="font-medium underline underline-offset-4" href={to.href}>
-                      {edge.toTitle}
-                    </Link>
-                  ) : (
-                    edge.toTitle
-                  )}
-                </p>
-                <p>{edge.quotation}</p>
-                <p className="text-sm text-muted-foreground">
-                  {edge.asOf ? `As of ${formatDate(edge.asOf)}. ` : "The source page does not date this sentence. "}
-                  <a className="break-all underline underline-offset-4" href={edge.source} rel="noreferrer" target="_blank">
-                    {edge.source}
-                  </a>
-                </p>
-              </li>
-            );
-          })}
-        </ol>
       </section>
       <p className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
         <a className="underline underline-offset-4" download="alltikerfi-catalog.json" href="/api/catalog">

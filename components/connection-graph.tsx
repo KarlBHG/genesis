@@ -5,7 +5,7 @@ import type { Edge } from "@/lib/types";
 export type StripId = "budget" | "power" | "ownership";
 
 export function edgeKey(edge: Edge): string {
-  return [edge.from, edge.relationship, edge.to, edge.asOf, edge.start ?? "", edge.source].join("|");
+  return [edge.from, edge.relationship, edge.to, edge.asOf, edge.start ?? "", edge.quotation].join("|");
 }
 
 function figureOnLine(note: string): string | null {

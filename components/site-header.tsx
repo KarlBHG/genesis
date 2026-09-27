@@ -16,9 +16,9 @@ import {
 } from "@/components/ui/sheet";
 
 const NAV = [
-  { href: "/", label: "Overview" },
-  { href: "/map", label: "Map" },
   { href: "/system", label: "System" },
+  { href: "/overview", label: "Overview" },
+  { href: "/map", label: "Map" },
   { href: "/treaties", label: "Treaties" },
   { href: "/institutions", label: "Institutions" },
   { href: "/events", label: "Events" },
@@ -26,6 +26,7 @@ const NAV = [
   { href: "/money", label: "Money" },
   { href: "/players", label: "Players" },
   { href: "/connections", label: "Connections" },
+  { href: "/anomalies", label: "Anomalies" },
   { href: "/contradictions", label: "Contradictions" },
   { href: "/compare", label: "Compare" },
 ];
