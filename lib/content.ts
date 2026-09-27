@@ -3,7 +3,7 @@ import path from "path";
 import { cache } from "react";
 import matter from "gray-matter";
 
-import { kindPath } from "@/lib/format";
+import { kindPath, labelize } from "@/lib/format";
 import type {
   Connection,
   Edge,
@@ -338,7 +338,8 @@ export function edgesFor(slug: string): { out: Edge[]; inn: Edge[] } {
 }
 
 export function toSearchDocs(entries: Entry[] = getCatalog()): SearchDoc[] {
-  return entries.map((entry) => ({
+  const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const entryDocs: SearchDoc[] = entries.map((entry) => ({
     title: entry.title,
     slug: entry.slug,
     kind: entry.kind,
@@ -358,8 +359,29 @@ export function toSearchDocs(entries: Entry[] = getCatalog()): SearchDoc[] {
                 : [entry.type],
     body: plainBody(
       `${entry.body}\n${entry.sources}\n${entry.connections
-        .map((connection) => `${connection.relationship} ${connection.note}`)
+        .map(
+          (connection) =>
+            `${labelize(connection.relationship)} ${connection.relationship} ${connection.note}`,
+        )
         .join("\n")}`,
     ),
   }));
+
+  const edgeDocs: SearchDoc[] = getEdges().map((edge) => {
+    const from = bySlug.get(edge.from);
+    const label = labelize(edge.relationship);
+    return {
+      title: `${edge.fromTitle} ${label.toLowerCase()} ${edge.toTitle}`,
+      slug: `edge:${edge.from}:${edge.relationship}:${edge.to}`,
+      kind: "edge",
+      href: from ? hrefFor(from) : "/connections",
+      summary: `${label}. ${edge.note}`,
+      topics: [label, edge.relationship],
+      body: plainBody(
+        `${label} ${edge.relationship} ${edge.note} ${edge.fromTitle} ${edge.toTitle}`,
+      ),
+    };
+  });
+
+  return [...entryDocs, ...edgeDocs];
 }

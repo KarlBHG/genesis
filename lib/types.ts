@@ -114,10 +114,12 @@ export type Player = {
 
 export type Entry = Treaty | Institution | MapEvent | Sector | Flow | Player;
 
+export type SearchKind = Kind | "edge";
+
 export type SearchDoc = {
   title: string;
   slug: string;
-  kind: Kind;
+  kind: SearchKind;
   href: string;
   summary: string;
   topics: string[];

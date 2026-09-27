@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { MarkdownBody } from "@/components/markdown-body";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -212,7 +213,17 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         </BreadcrumbList>
       </Breadcrumb>
       <header className="flex flex-col gap-3">
-        <p className="text-sm text-muted-foreground">{labelize(entry.kind)}</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="text-sm text-muted-foreground">{labelize(entry.kind)}</p>
+          <Button
+            nativeButton={false}
+            render={<Link href={kindPath(entry.kind)} />}
+            size="sm"
+            variant="outline"
+          >
+            Back to {kindLabel(entry.kind).toLowerCase()}
+          </Button>
+        </div>
         <h1 className="text-3xl font-medium tracking-tight sm:text-4xl">
           {entry.title}
         </h1>

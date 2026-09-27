@@ -1,22 +1,14 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { EventTimeline } from "@/components/event-timeline";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { getEvents } from "@/lib/content";
-import { dateSortKey, formatDate, labelize, yearOf } from "@/lib/format";
+import { getEvents, resolveSlug } from "@/lib/content";
+import { formatDate, labelize, yearOf } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -24,24 +16,30 @@ export const metadata: Metadata = {
 };
 
 export default function EventsPage() {
-  const events = getEvents()
-    .slice()
-    .sort((a, b) => dateSortKey(a.date).localeCompare(dateSortKey(b.date)));
-
-  const groups = new Map<string, typeof events>();
-  for (const event of events) {
-    const year = yearOf(event.date);
-    const list = groups.get(year) ?? [];
-    list.push(event);
-    groups.set(year, list);
-  }
+  const events = getEvents().map((event) => ({
+    slug: event.slug,
+    title: event.title,
+    date: event.date,
+    dateLabel: formatDate(event.date),
+    yearOnly: /^\d{4}$/.test(event.date),
+    year: yearOf(event.date),
+    type: event.type,
+    typeLabel: labelize(event.type),
+    summary: event.summary,
+    related: event.related.map((slug) => {
+      const target = resolveSlug(slug);
+      return target
+        ? { slug, title: target.title, href: target.href }
+        : { slug, title: slug, href: "" };
+    }),
+  }));
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8 sm:px-6">
       <header className="flex flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">Events</h1>
         <p className="text-muted-foreground">
-          A chronological list, earliest first. This is not a chart.
+          Oldest first. Filter by type, or reverse the order. Open a title to see what it links to. A full date is shown when the source gave one; otherwise the year.
         </p>
       </header>
       {events.length === 0 ? (
@@ -54,29 +52,7 @@ export default function EventsPage() {
           </EmptyHeader>
         </Empty>
       ) : (
-        [...groups.entries()].map(([year, group]) => (
-          <section className="flex flex-col gap-3" key={year}>
-            <h2 className="text-lg font-medium">{year}</h2>
-            <ol className="flex flex-col gap-3">
-              {group.map((event) => (
-                <li key={event.slug}>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>
-                        <Link className="underline underline-offset-4" href={`/events/${event.slug}`}>{event.title}</Link>
-                      </CardTitle>
-                      <CardDescription>{event.summary}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-wrap gap-1">
-                      <Badge variant="secondary">{formatDate(event.date)}</Badge>
-                      <Badge variant="outline">{labelize(event.type)}</Badge>
-                    </CardContent>
-                  </Card>
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))
+        <EventTimeline events={events} />
       )}
     </main>
   );

@@ -47,6 +47,7 @@ const LABELS: Record<string, string> = {
   election: "Election",
   agreement: "Agreement",
   program: "Program",
+  edge: "Connection",
 };
 
 export function labelize(value: string): string {
