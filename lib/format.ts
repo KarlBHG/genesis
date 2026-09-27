@@ -30,6 +30,7 @@ const LABELS: Record<string, string> = {
   "export-of": "Export line of",
   "import-line-of": "Import line for",
   "tariff-terms": "Tariff terms for",
+  "invests-in": "Invests in",
   fisheries: "Fisheries",
   energy: "Energy",
   tourism: "Tourism",

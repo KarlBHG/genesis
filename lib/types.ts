@@ -15,7 +15,8 @@ export type Relationship =
   | "funds"
   | "export-of"
   | "import-line-of"
-  | "tariff-terms";
+  | "tariff-terms"
+  | "invests-in";
 
 export type Connection = {
   to: string;

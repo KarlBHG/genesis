@@ -31,6 +31,7 @@ const RELATIONSHIPS = new Set<Relationship>([
   "export-of",
   "import-line-of",
   "tariff-terms",
+  "invests-in",
 ]);
 
 const FOLDERS: { folder: string; kind: Kind }[] = [

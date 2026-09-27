@@ -58,13 +58,13 @@ export default function HomePage() {
       label: "Money",
       count: flows,
       href: "/money",
-      text: "The 2026 Treasury budget, Treasury debt, goods trade, and other published aggregates, each labeled with its year.",
+      text: "The 2026 Treasury budget, Treasury debt, 2025 pension savings, goods trade, and other published aggregates, each labeled with its year.",
     },
     {
       label: "Players",
       count: players,
       href: "/players",
-      text: "Organizations and people in a public office.",
+      text: "Organizations and people in a public office, including pension funds.",
     },
     {
       label: "Connections",

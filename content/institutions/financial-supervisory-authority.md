@@ -5,7 +5,28 @@ type: "institution"
 founded: ""
 role: "supervision"
 parent: "sedlabanki"
-related: ["sedlabanki"]
+related: ["sedlabanki", "pension-savings-2025", "lsr", "bru", "birta", "stapi"]
+connections:
+  - to: lsr
+    relationship: regulates
+    source: "https://www.althingi.is/lagas/nuna/1997129.html"
+    note: "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
+    asOf: "consolidated statute"
+  - to: bru
+    relationship: regulates
+    source: "https://www.althingi.is/lagas/nuna/1997129.html"
+    note: "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
+    asOf: "consolidated statute"
+  - to: birta
+    relationship: regulates
+    source: "https://www.althingi.is/lagas/nuna/1997129.html"
+    note: "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
+    asOf: "consolidated statute"
+  - to: stapi
+    relationship: regulates
+    source: "https://www.althingi.is/lagas/nuna/1997129.html"
+    note: "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
+    asOf: "consolidated statute"
 website: "https://english.sedlabanki.is/um-sedlabankann/"
 ---
 
@@ -18,7 +39,11 @@ This entry does not give a separate founding year for the old authority. The act
 
 Decisions that law assigns to the Financial Supervisory Authority are taken by the Central Bank or its Financial Supervision Committee → [[sedlabanki]].
 
+Article 44 of the consolidated Act No. 129/1997 on mandatory pension insurance and the operation of pension funds says Fjármálaeftirlitið supervises that the operations of pension funds, and of custodians of pension savings, comply with that act. The 25 June 2026 summary of pension-fund annual accounts is published by Fjármálaeftirlit Seðlabanka Íslands → [[pension-savings-2025]]. The funds already on this map are [[lsr]], [[bru]], [[birta]], and [[stapi]].
+
 ## Sources
 - [Lög um Seðlabanka Íslands, nr. 92/2019](https://www.althingi.is/lagas/nuna/2019092.html)
 - [English translation of Act No. 92/2019](https://www.cb.is/library/Skraarsafn---EN/Central-Bank/Central_Bank_Act_92_2019)
 - [Seðlabanki: Um Seðlabankann](https://english.sedlabanki.is/um-sedlabankann/)
+- [Lög um skyldutryggingu lífeyrisréttinda og starfsemi lífeyrissjóða, nr. 129/1997](https://www.althingi.is/lagas/nuna/1997129.html)
+- [Seðlabanki: Samantekt úr ársreikningum lífeyrissjóða, 25 June 2026](https://sedlabanki.is/frettir-og-utgefid-efni/grein/samantekt-ur-arsreikningum-lifeyrissjoda)
