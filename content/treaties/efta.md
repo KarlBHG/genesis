@@ -7,7 +7,7 @@ effective: "1970"
 parties: ["Iceland", "Liechtenstein", "Norway", "Switzerland"]
 status: "active"
 topics: ["trade"]
-related: ["eea-agreement"]
+related: ["eea-agreement", "2013-icesave-judgment"]
 source: "https://www.efta.int/trade-relations/free-trade-network/republic-iceland"
 ---
 

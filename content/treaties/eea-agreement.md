@@ -7,7 +7,7 @@ effective: "1994-01-01"
 parties: ["Iceland", "EU", "Norway", "Liechtenstein"]
 status: "active"
 topics: ["trade", "regulation", "single-market"]
-related: ["schengen", "efta", "fisheries-and-quotas", "agriculture"]
+related: ["schengen", "efta", "fisheries-and-quotas", "agriculture", "2009-eu-application", "2015-eu-candidate-letter", "2013-icesave-judgment"]
 source: "https://www.efta.int/about-efta/legal-documents/eea-legal-texts"
 connections:
   - to: fisheries-and-quotas

@@ -3,7 +3,7 @@ title: "2008 financial crisis"
 slug: "2008-financial-crisis"
 date: "2008-10-23"
 type: "crisis"
-related: ["sedlabanki", "imf-program-2008", "ministry-of-finance"]
+related: ["sedlabanki", "imf-program-2008", "ministry-of-finance", "2008-capital-controls"]
 ---
 
 # 2008 financial crisis

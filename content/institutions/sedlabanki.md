@@ -5,7 +5,7 @@ type: "institution"
 founded: ""
 role: "monetary-policy"
 parent: "independent"
-related: ["ministry-of-finance", "financial-supervisory-authority", "althingi", "arion-banki", "treasury-debt"]
+related: ["ministry-of-finance", "financial-supervisory-authority", "althingi", "arion-banki", "treasury-debt", "2008-capital-controls", "2017-capital-controls"]
 website: "https://www.sedlabanki.is"
 connections:
   - to: arion-banki

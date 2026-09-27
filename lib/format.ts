@@ -38,6 +38,11 @@ const LABELS: Record<string, string> = {
   agriculture: "Agriculture",
   healthcare: "Healthcare",
   crisis: "Crisis",
+  founding: "Founding",
+  referendum: "Referendum",
+  judgment: "Judgment",
+  election: "Election",
+  agreement: "Agreement",
   program: "Program",
 };
 
@@ -99,6 +104,6 @@ export function dateSortKey(value: string): string {
 }
 
 export function yearOf(value: string): string {
-  const year = value.slice(0, 4);
-  return /^\d{4}$/.test(year) ? year : "Undated";
+  const year = value.split("-")[0] ?? "";
+  return /^\d{3,4}$/.test(year) ? year : "Undated";
 }

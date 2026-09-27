@@ -5,7 +5,7 @@ type: "institution"
 founded: "930"
 role: "legislature"
 parent: ""
-related: ["sedlabanki", "ministry-of-health", "landspitali", "healthcare", "treasury-budget-2026", "treasury-debt"]
+related: ["sedlabanki", "ministry-of-health", "landspitali", "healthcare", "treasury-budget-2026", "treasury-debt", "930-althingi", "1874-constitution", "1944-republic", "2009-eu-application", "2024-parliamentary-election"]
 website: "https://www.althingi.is/"
 connections:
   - to: ministry-of-health
@@ -28,7 +28,7 @@ connections:
 # Alþingi
 
 ## Summary
-Alþingi is Iceland's parliament. The Government of Iceland says it was established in 930, and that the electorate chooses 63 representatives by secret ballot every four years. Legislative power is vested in both the parliament and the president.
+Alþingi is Iceland's parliament. The Government of Iceland says it was established in 930, and that the electorate chooses 63 representatives by secret ballot every four years. Legislative power is vested in both the parliament and the president. The founding entry is [[930-althingi]]. The republic and its constitution are [[1944-republic]].
 
 ## Connection to the central bank
 The Central Bank Act provides for a seven-member Supervisory Board elected by Alþingi → [[sedlabanki]].

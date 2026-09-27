@@ -5,7 +5,7 @@ type: "institution"
 founded: ""
 role: "fiscal-policy"
 parent: ""
-related: ["sedlabanki", "landsvirkjun", "landsbankinn", "dadi-mar-kristofersson", "treasury-budget-2026", "treasury-debt"]
+related: ["sedlabanki", "landsvirkjun", "landsbankinn", "dadi-mar-kristofersson", "treasury-budget-2026", "treasury-debt", "2008-capital-controls", "2017-capital-controls", "2010-icesave-referendum"]
 website: "https://www.government.is/ministries/ministry-of-finance-and-economic-affairs/"
 connections:
   - to: landsvirkjun

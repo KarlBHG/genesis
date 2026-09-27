@@ -7,7 +7,7 @@ effective: "1949-04-04"
 parties: ["Iceland"]
 status: "active"
 topics: ["security"]
-related: ["althingi"]
+related: ["althingi", "1944-republic", "1951-defense-agreement", "2006-keflavik-base"]
 source: "https://www.nato.int/en/about-us/nato-history/history-by-theme/my-country-and-nato/iceland-and-nato"
 ---
 

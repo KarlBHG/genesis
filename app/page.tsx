@@ -46,7 +46,7 @@ export default function HomePage() {
       label: "Events",
       count: events,
       href: "/events",
-      text: "A dated list, from EEA entry to the 2008 program.",
+      text: "A dated list, from the founding of Alþingi and the 1944 republic through the EU application, Icesave, and capital controls.",
     },
     {
       label: "Business",
