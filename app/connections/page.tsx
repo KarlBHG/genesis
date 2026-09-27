@@ -122,17 +122,19 @@ export default function ConnectionsPage() {
           </ul>
         </section>
       ))}
-      <section className="flex min-w-0 flex-col gap-2" id="leftover">
-        <h2 className="text-xl font-medium">Leftover · {leftover.length}</h2>
-        <p className="text-sm text-muted-foreground">
-          These three typed lines are outside the seven views: one represents, and two tariff-terms.
-        </p>
-        <ul className="flex min-w-0 flex-col">
-          {leftover.map((edge) => (
-            <EdgeLine edge={edge} key={edgeKey(edge)} note={null} />
-          ))}
-        </ul>
-      </section>
+      {leftover.length > 0 ? (
+        <section className="flex min-w-0 flex-col gap-2" id="leftover">
+          <h2 className="text-xl font-medium">Leftover · {leftover.length}</h2>
+          <p className="text-sm text-muted-foreground">
+            These typed lines are outside the seven views.
+          </p>
+          <ul className="flex min-w-0 flex-col">
+            {leftover.map((edge) => (
+              <EdgeLine edge={edge} key={edgeKey(edge)} note={null} />
+            ))}
+          </ul>
+        </section>
+      ) : null}
       <p>
         <a className="underline underline-offset-4" href="#not-on-the-drawing">
           {missing.length} of {entries.length} entries are not on this drawing.

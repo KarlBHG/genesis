@@ -2129,5 +2129,93 @@
     "asOf": "2026-08-20",
     "source": "https://opnirreikningar.is/",
     "quotation": "Umhverfis- og orkustofnun; 2026-08-20; Orka náttúrunnar ohf.; 20260938117; 18764"
+  },
+  {
+    "from": "republic-of-iceland",
+    "to": "ruv",
+    "type": "owns",
+    "asOf": "2025",
+    "source": "https://arsskyrsla.ruv.is/wp-content/uploads/2026/04/Arsreikningur-samstaeda-2025.pdf",
+    "quotation": "At the end of 2025 there was one shareholder, as at its founding, and the company is owned by the Icelandic state."
+  },
+  {
+    "from": "orkuveita-reykjavikur",
+    "to": "landsnet",
+    "type": "invests-in",
+    "asOf": "2023",
+    "source": "https://www.landsnet.is/library?itemid=13a2a64a-96a9-478c-bc67-f01822ab5b5f",
+    "quotation": "Reykjavík Energy continues to hold 6.78% of Landsnet after the state’s acquisition of the other 93.22%"
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "il-sjodur",
+    "type": "regulates",
+    "asOf": "2024-06-30",
+    "source": "https://www.stjornarradid.is/library/02-Rit-skyrslur-og-skrar/%C3%8DL-sj%C3%B3%C3%B0ur%20-%20%C3%81rshlutareikningur%20%C3%8DL-sj%C3%B3%C3%B0ur%2030.6.2024.pdf",
+    "quotation": "The same accounts say the Minister of Finance and Economic Affairs has oversight of ÍL-sjóður and of the settlement of the assets and liabilities the fund took over"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "courts",
+    "type": "regulates",
+    "asOf": "consolidated statute",
+    "source": "https://www.government.is/ministries/ministry-of-justice/about-the-ministry/",
+    "quotation": "The Ministry of Justice about page says the courts and the justice system are among the ministry’s tasks."
+  },
+  {
+    "from": "ministry-of-health",
+    "to": "embaetti-landlaeknis",
+    "type": "regulates",
+    "asOf": "institutions list",
+    "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
+    "quotation": "The government’s institutions list places Embætti landlæknis under Heilbrigðisráðuneytið"
+  },
+  {
+    "from": "samband-islenskra-sveitarfelaga",
+    "to": "ministry-of-infrastructure",
+    "type": "represents",
+    "asOf": "consolidated statute",
+    "source": "https://www.samband.is/icelandic-association-of-local-authorities",
+    "quotation": "the association is the joint representative of the country’s local authorities under the Local Government Act, No. 138/2011, and that it works with the government and Alþingi."
+  },
+  {
+    "from": "sa-confederation",
+    "to": "fisheries-iceland",
+    "type": "represents",
+    "asOf": "undated on the about page",
+    "source": "https://sa.is/en",
+    "quotation": "The page lists the six as Samtök orku- og veitufyrirtækja, Samtök verslunar og þjónustu, Samtök fyrirtækja í sjávarútvegi, Samtök fyrirtækja í fjármálaþjónustu, Samtök ferðaþjónustunnar, and Samtök iðnaðarins."
+  },
+  {
+    "from": "republic-of-iceland",
+    "to": "nato",
+    "type": "represents",
+    "asOf": "1949-04-04",
+    "source": "https://www.nato.int/en/about-us/nato-history/history-by-theme/my-country-and-nato/iceland-and-nato",
+    "quotation": "Alþingi voted on 30 March 1949 to join, and that five days later, on 4 April 1949, Iceland formally joined by signing the North Atlantic Treaty in Washington."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "efta",
+    "type": "represents",
+    "asOf": "1970",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "The Government of Iceland describes the EFTA Convention as an agreement among Iceland, Liechtenstein, Norway, and Switzerland. It says the convention was originally signed in 1960, that Iceland became a member in 1970, and that the revised EFTA Convention entered into force on 1 June 2002."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "schengen",
+    "type": "represents",
+    "asOf": "1996-12",
+    "source": "https://www.government.is/topics/foreign-affairs/iceland-in-europe/schengen/",
+    "quotation": "The Ministry for Foreign Affairs records that Iceland signed an association agreement on participation in the Schengen cooperation in December 1996, together with Denmark, Finland, Norway, and Sweden."
+  },
+  {
+    "from": "sedlabanki",
+    "to": "financial-supervisory-authority",
+    "type": "regulates",
+    "asOf": "2020-01-01",
+    "source": "https://www.althingi.is/lagas/nuna/2019092.html",
+    "quotation": "Act No. 92/2019 says the bank undertakes the tasks entrusted to the Financial Supervisory Authority, and that the authority is part of the bank. Article 47 transfers those tasks to the central bank when the act enters into force on 1 January 2020."
   }
 ]

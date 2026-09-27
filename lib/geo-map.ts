@@ -47,12 +47,12 @@ export const MAP_VIEWS = [
   {
     id: "authority",
     label: "Authority",
-    relationships: ["appoints", "elects", "regulates", "incorporates"],
+    relationships: ["appoints", "elects", "regulates", "incorporates", "represents"],
   },
   {
     id: "trade",
     label: "Trade partners",
-    relationships: ["imported-from", "exported-to"],
+    relationships: ["imported-from", "exported-to", "tariff-terms"],
   },
 ] as const;
 
@@ -113,5 +113,24 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "hordur-arnarson", layer: "companies", place: "reykjavik" },
   { slug: "lilja-bjork-einarsdottir", layer: "companies", place: "reykjavik" },
   { slug: "jon-gudni-omarsson", layer: "companies", place: "reykjavik" },
+  { slug: "ruv", layer: "companies", place: "reykjavik" },
+  { slug: "landsnet", layer: "companies", place: "reykjavik" },
+  { slug: "il-sjodur", layer: "state", place: "reykjavik" },
+  { slug: "orka-natturunnar", layer: "companies", place: "reykjavik" },
+  { slug: "on-power", layer: "companies", place: "reykjavik" },
+  { slug: "competition-authority", layer: "state", place: "reykjavik" },
+  { slug: "personuvernd", layer: "state", place: "reykjavik" },
+  { slug: "fjarskiptastofa", layer: "state", place: "reykjavik" },
+  { slug: "umhverfis-og-orkustofnun", layer: "state", place: "reykjavik" },
+  { slug: "natturuverndarstofnun", layer: "state", place: "reykjavik" },
+  { slug: "courts", layer: "state", place: "reykjavik" },
+  { slug: "embaetti-landlaeknis", layer: "state", place: "reykjavik" },
+  { slug: "samband-islenskra-sveitarfelaga", layer: "state", place: "reykjavik" },
+  { slug: "reykjavikurborg", layer: "state", place: "reykjavik" },
+  { slug: "samfylkingin", layer: "state", place: "reykjavik" },
+  { slug: "vidreisn", layer: "state", place: "reykjavik" },
+  { slug: "flokkur-folksins", layer: "state", place: "reykjavik" },
+  { slug: "sa-confederation", layer: "companies", place: "reykjavik" },
+  { slug: "fisheries-iceland", layer: "companies", place: "reykjavik" },
 ];
 
