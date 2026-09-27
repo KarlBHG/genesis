@@ -2,7 +2,7 @@
 
 A searchable reference for how Iceland is wired: treaties, institutions, events, business sectors, published money flows, and public office-holders. The interface is English. Icelandic proper names keep their spelling (Alþingi, Seðlabanki Íslands, króna).
 
-Typed edges live in `data/edges.json`. Each one has from, to, type, asOf, source, and quotation. The app refuses to load if a field is missing, the type is not on the allowlist, or either end does not exist. `related` in the Markdown stays untyped and is not drawn. The connections page and the map read that same edge file.
+Typed edges live in `data/edges.json`. Each one has from, to, type, asOf, source, and quotation. The app refuses to load if a field is missing, the type is not on the allowlist, or either end does not exist. A career line (`holds-office`, `sits-on-board`, or a person’s disclosed holding) also needs a start, an end, and a channel, `political` or `business`. When a page prints only one end of the term, the other field is the words `not printed`. `data/contradictions.json` keeps two sourced sentences about the same entries and does not pick a winner. `related` in the Markdown stays untyped and is not drawn. The connections page, the contradictions page, and the map read those files.
 
 ## Run locally
 

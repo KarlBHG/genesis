@@ -25,6 +25,7 @@ export type MapEntryView = {
   fact: string;
   layer: LayerId;
   place: PlaceId;
+  person: boolean;
   flows: MapFlowLink[];
 };
 
@@ -36,6 +37,9 @@ export type MapEdgeView = {
   relationship: string;
   asOf: string;
   quotation: string;
+  start: string | null;
+  end: string | null;
+  channel: "political" | "business" | null;
   view: ViewId | null;
   fromPlace: PlaceId | null;
   toPlace: PlaceId | null;
@@ -129,7 +133,22 @@ function RoleFigure({ layer }: { layer: LayerId }) {
 }
 
 function edgeKey(edge: MapEdgeView): string {
-  return [edge.from, edge.relationship, edge.to, edge.asOf].join("|");
+  return [edge.from, edge.relationship, edge.to, edge.asOf, edge.start ?? ""].join("|");
+}
+
+function careerRank(start: string | null): string {
+  if (!start || start === "not printed") return "9999-99-99";
+  if (/^\d{4}$/.test(start)) return `${start}-00-00`;
+  return start;
+}
+
+function printedEnd(value: string | null, side: "start" | "end"): string {
+  if (!value || value === "not printed") return `${side} not printed`;
+  return value;
+}
+
+function careerSpan(edge: MapEdgeView): string {
+  return `${printedEnd(edge.start, "start")} – ${printedEnd(edge.end, "end")}`;
 }
 
 export function IcelandMap({
@@ -200,6 +219,21 @@ export function IcelandMap({
     ? visible.filter((entry) => entry.place === selectedPlace)
     : [];
   const focus = entries.find((entry) => entry.slug === selectedSlug) ?? null;
+  const timeline =
+    focus?.person === true
+      ? edges
+          .filter(
+            (edge) =>
+              edge.channel != null && (edge.from === focus.slug || edge.to === focus.slug),
+          )
+          .slice()
+          .sort(
+            (a, b) =>
+              careerRank(a.start).localeCompare(careerRank(b.start)) ||
+              a.toTitle.localeCompare(b.toTitle, "en"),
+          )
+      : [];
+  const panelLines = focus?.person === true ? lit.filter((edge) => edge.channel == null) : lit;
   const placeName = PLACES.find((place) => place.id === selectedPlace)?.name;
   const grouped = LAYERS.map((layer) => ({
     layer,
@@ -430,9 +464,30 @@ export function IcelandMap({
               <a className="text-sm text-[#e6d3a4] underline underline-offset-4" href={focus.href}>
                 Open the entry
               </a>
-              {lit.length > 0 ? (
+              {focus.person ? (
+                <div className="flex min-w-0 flex-col gap-2">
+                  <h3 className="text-sm font-medium text-[#f3ecdf]">Career</h3>
+                  {timeline.length === 0 ? (
+                    <p className="text-sm leading-6 text-[#9a917f]">No career lines are on file.</p>
+                  ) : (
+                    <ol className="flex min-w-0 flex-col gap-3">
+                      {timeline.map((edge) => (
+                        <li key={edgeKey(edge)} className="min-w-0 text-sm leading-5 break-words text-[#d5cdbf]">
+                          <span className="block text-xs tracking-wide text-[#e6d3a4] uppercase">
+                            {edge.channel === "political" ? "Political" : "Business"} · {labelize(edge.relationship)}
+                          </span>
+                          {edge.from === focus.slug ? edge.toTitle : edge.fromTitle}
+                          <span className="mt-0.5 block text-[#9a917f]">{careerSpan(edge)}</span>
+                          <span className="mt-0.5 block text-[#9a917f]">{edge.quotation}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </div>
+              ) : null}
+              {panelLines.length > 0 ? (
                 <ul className="flex flex-col gap-2">
-                  {lit.map((edge) => (
+                  {panelLines.map((edge) => (
                     <li key={edgeKey(edge)} className="text-sm leading-5 break-words text-[#d5cdbf]">
                       {labelize(edge.relationship)} {edge.from === focus.slug ? edge.toTitle : edge.fromTitle}
                       {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
@@ -442,7 +497,7 @@ export function IcelandMap({
                     </li>
                   ))}
                 </ul>
-              ) : (
+              ) : focus.person ? null : (
                 <p className="text-sm leading-6 text-[#9a917f]">No lines in the views that are on.</p>
               )}
               {focus.flows.length > 0 ? (

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "eea-country-count",
+    "entries": ["eea-agreement"],
+    "summary": "One government page says 30 EEA countries. Another says 31 EEA States. Both sentences stay.",
+    "sides": [
+      {
+        "source": "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/",
+        "quotation": "Citizens of all 30 countries have the right to move freely throughout the EEA"
+      },
+      {
+        "source": "https://www.government.is/topics/business-and-industry/the-eea-agreement/",
+        "quotation": "The EEA Agreement provides for the inclusion of EU legislation covering the four freedoms — the free movement of goods, services, persons and capital — throughout the 31 EEA States."
+      }
+    ]
+  },
+  {
+    "id": "landsvirkjun-form-and-holding",
+    "entries": ["landsvirkjun"],
+    "summary": "The company registry prints one legal form. The act prints an ownership split. Neither sentence replaces the other.",
+    "sides": [
+      {
+        "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4202691299",
+        "quotation": "B1 Sameignarfélag almennt (sf)"
+      },
+      {
+        "source": "https://www.althingi.is/lagas/nuna/1983042.html",
+        "quotation": "Á ríkissjóður 99,9% eignarhluta í fyrirtækinu og Eignarhlutir ehf. 0,1%."
+      }
+    ]
+  },
+  {
+    "id": "services-import-growth",
+    "entries": ["services-trade-2024"],
+    "summary": "The same release prints a 12% heading and an 8% sentence for the growth in service imports. Both stay.",
+    "sides": [
+      {
+        "source": "https://statice.is/publications/news-archive/external-trade/trade-in-services-by-classification-and-countries-2024/",
+        "quotation": "Imports of services increased by 12% between years"
+      },
+      {
+        "source": "https://statice.is/publications/news-archive/external-trade/trade-in-services-by-classification-and-countries-2024/",
+        "quotation": "In 2024, the total value of service imports was 55.4 billion ISK higher than in 2023, representing an 8% increase at current exchange rates."
+      }
+    ]
+  },
+  {
+    "id": "landsbankinn-shareholder-count",
+    "entries": ["landsbankinn", "landsbankinn-state-holding"],
+    "summary": "The ownership page says shareholders are around 800 and does not date that sentence. The fact sheet dated 31 December 2025 says the number amounts to approximately 819. Both print a 98.2% state holding.",
+    "sides": [
+      {
+        "source": "https://www.landsbankinn.is/en/the-bank/about-us/strategy-and-organisation/ownership",
+        "quotation": "Landsbankinn's shareholders are around 800 with the National Treasury as the largest owner of a 98.2% share."
+      },
+      {
+        "source": "https://www.landsbankinn.is/uploads/documents/arsskyrsluroguppgjor/fact-book-2025-en.pdf",
+        "quotation": "The Icelandic State holds 98.2% of the shares and the total number of shareholders amount to approximately 819."
+      }
+    ]
+  }
+]

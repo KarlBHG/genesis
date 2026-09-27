@@ -5,7 +5,9 @@ import matter from "gray-matter";
 
 import { kindPath, labelize } from "@/lib/format";
 import type {
+  CareerChannel,
   Connection,
+  Contradiction,
   Edge,
   Entry,
   Flow,
@@ -268,11 +270,13 @@ export const getCatalog = cache((): Entry[] => {
     }
   }
   loadedEdges = buildEdges(entries);
+  loadedContradictions = buildContradictions(entries);
   assertRecords(entries);
   return entries;
 });
 
 let loadedEdges: Edge[] = [];
+let loadedContradictions: Contradiction[] = [];
 
 const EDGE_FIELDS = ["from", "to", "type", "asOf", "source", "quotation"] as const;
 
@@ -328,15 +332,123 @@ function buildEdges(entries: Entry[]): Edge[] {
       throw new Error(`data/edges.json edge ${index + 1} has unknown type "${type}"`);
     }
     if (from === to) throw new Error(`data/edges.json edge ${index + 1} points at itself`);
+    const relationship = type as Relationship;
+    const fromEntry = bySlug.get(from);
+    const career =
+      relationship === "holds-office" ||
+      relationship === "sits-on-board" ||
+      (relationship === "invests-in" &&
+        fromEntry?.kind === "player" &&
+        fromEntry.playerType === "person");
+    let start: string | null = null;
+    let end: string | null = null;
+    let channel: CareerChannel | null = null;
+    if (career) {
+      for (const key of ["start", "end", "channel"] as const) {
+        if (!(key in row)) {
+          throw new Error(`data/edges.json edge ${index + 1} is missing ${key}`);
+        }
+      }
+      start = requireEdgeString(row, "start", index);
+      end = requireEdgeString(row, "end", index);
+      const channelValue = requireEdgeString(row, "channel", index);
+      if (channelValue !== "political" && channelValue !== "business") {
+        throw new Error(`data/edges.json edge ${index + 1} has unknown channel "${channelValue}"`);
+      }
+      channel = channelValue;
+    }
     return {
       from,
       fromTitle: titleOf(from, index, "from"),
       to,
       toTitle: titleOf(to, index, "to"),
-      relationship: type as Relationship,
+      relationship,
       source,
       quotation,
       asOf,
+      start,
+      end,
+      channel,
+    };
+  });
+}
+
+function buildContradictions(entries: Entry[]): Contradiction[] {
+  const parsed: unknown = JSON.parse(
+    fs.readFileSync(path.join(DATA, "contradictions.json"), "utf8"),
+  );
+  if (!Array.isArray(parsed)) throw new Error("data/contradictions.json must be a list");
+  const slugs = new Set(entries.map((entry) => entry.slug));
+  return parsed.map((item, index) => {
+    if (item == null || typeof item !== "object" || Array.isArray(item)) {
+      throw new Error(`data/contradictions.json record ${index + 1} must be an object`);
+    }
+    const row = item as Record<string, unknown>;
+    for (const key of ["id", "entries", "summary", "sides"] as const) {
+      if (!(key in row)) {
+        throw new Error(`data/contradictions.json record ${index + 1} is missing ${key}`);
+      }
+    }
+    if (typeof row.id !== "string" || !row.id.trim()) {
+      throw new Error(`data/contradictions.json record ${index + 1} is missing id`);
+    }
+    const summary = row.summary;
+    if (typeof summary !== "string" || !summary.trim()) {
+      throw new Error(`data/contradictions.json record ${index + 1} is missing summary`);
+    }
+    if (!Array.isArray(row.entries) || row.entries.length === 0) {
+      throw new Error(`data/contradictions.json record ${index + 1} is missing entries`);
+    }
+    const entrySlugs = row.entries.map((slug, entryIndex) => {
+      if (typeof slug !== "string" || !slug.trim()) {
+        throw new Error(
+          `data/contradictions.json record ${index + 1} entry ${entryIndex + 1} is missing`,
+        );
+      }
+      if (!slugs.has(slug)) {
+        throw new Error(
+          `data/contradictions.json record ${index + 1} entry "${slug}" does not exist`,
+        );
+      }
+      return slug;
+    });
+    if (!Array.isArray(row.sides) || row.sides.length !== 2) {
+      throw new Error(`data/contradictions.json record ${index + 1} needs two sides`);
+    }
+    const sides = row.sides.map((side, sideIndex) => {
+      if (side == null || typeof side !== "object" || Array.isArray(side)) {
+        throw new Error(
+          `data/contradictions.json record ${index + 1} side ${sideIndex + 1} must be an object`,
+        );
+      }
+      const sideRow = side as Record<string, unknown>;
+      for (const key of ["source", "quotation"] as const) {
+        if (!(key in sideRow)) {
+          throw new Error(
+            `data/contradictions.json record ${index + 1} side ${sideIndex + 1} is missing ${key}`,
+          );
+        }
+        if (typeof sideRow[key] !== "string" || !sideRow[key].trim()) {
+          throw new Error(
+            `data/contradictions.json record ${index + 1} side ${sideIndex + 1} is missing ${key}`,
+          );
+        }
+      }
+      return {
+        source: (sideRow.source as string).trim(),
+        quotation: (sideRow.quotation as string).trim(),
+      };
+    });
+    const first = sides[0];
+    const second = sides[1];
+    if (!first || !second) {
+      throw new Error(`data/contradictions.json record ${index + 1} needs two sides`);
+    }
+    return {
+      id: (row.id as string).trim(),
+      entries: entrySlugs,
+      summary: summary.trim(),
+      sides: [first, second],
     };
   });
 }
@@ -431,6 +543,11 @@ export function getEdges(): Edge[] {
   return loadedEdges;
 }
 
+export function getContradictions(): Contradiction[] {
+  getCatalog();
+  return loadedContradictions;
+}
+
 export function edgesFor(slug: string): { out: Edge[]; inn: Edge[] } {
   const edges = getEdges();
   return {
@@ -475,7 +592,7 @@ export function toSearchDocs(entries: Entry[] = getCatalog()): SearchDoc[] {
     const label = labelize(edge.relationship);
     return {
       title: `${edge.fromTitle} ${label.toLowerCase()} ${edge.toTitle}`,
-      slug: `edge:${edge.from}:${edge.relationship}:${edge.to}:${edge.asOf}`,
+      slug: `edge:${edge.from}:${edge.relationship}:${edge.to}:${edge.asOf}:${edge.start ?? ""}`,
       kind: "edge",
       href: from ? hrefFor(from) : "/connections",
       summary: `${label}. ${edge.quotation}`,

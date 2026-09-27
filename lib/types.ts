@@ -129,6 +129,8 @@ export type SearchDoc = {
   body: string;
 };
 
+export type CareerChannel = "political" | "business";
+
 export type Edge = {
   from: string;
   fromTitle: string;
@@ -138,4 +140,19 @@ export type Edge = {
   source: string;
   quotation: string;
   asOf: string;
+  start: string | null;
+  end: string | null;
+  channel: CareerChannel | null;
+};
+
+export type ContradictionSide = {
+  source: string;
+  quotation: string;
+};
+
+export type Contradiction = {
+  id: string;
+  entries: string[];
+  summary: string;
+  sides: [ContradictionSide, ContradictionSide];
 };

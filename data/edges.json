@@ -437,7 +437,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1417",
-    "quotation": "Forsætisráðherra síðan 21. desember 2024."
+    "quotation": "Forsætisráðherra síðan 21. desember 2024.",
+    "start": "2024-12-21",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "kristrun-frostadottir",
@@ -445,7 +448,10 @@
     "type": "holds-office",
     "asOf": "2022",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1417",
-    "quotation": "Formaður Samfylkingarinnar síðan 2022."
+    "quotation": "Formaður Samfylkingarinnar síðan 2022.",
+    "start": "2022",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "kristrun-frostadottir",
@@ -453,7 +459,10 @@
     "type": "holds-office",
     "asOf": "2021",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1417",
-    "quotation": "Alþingismaður Reykjavíkurkjördæmis suður síðan 2021 (Samfylkingin)."
+    "quotation": "Alþingismaður Reykjavíkurkjördæmis suður síðan 2021 (Samfylkingin).",
+    "start": "2021",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "dadi-mar-kristofersson",
@@ -461,7 +470,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1448",
-    "quotation": "Fjármála- og efnahagsráðherra síðan 21. desember 2024."
+    "quotation": "Fjármála- og efnahagsráðherra síðan 21. desember 2024.",
+    "start": "2024-12-21",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "dadi-mar-kristofersson",
@@ -469,7 +481,10 @@
     "type": "holds-office",
     "asOf": "2021-2024",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1448",
-    "quotation": "Varaþingmaður Reykjavíkurkjördæmis suður desember 2021, júní 2022, desember 2022, nóvember 2023 og september–október 2024 (Viðreisn)."
+    "quotation": "Varaþingmaður Reykjavíkurkjördæmis suður desember 2021, júní 2022, desember 2022, nóvember 2023 og september–október 2024 (Viðreisn).",
+    "start": "2021",
+    "end": "2024",
+    "channel": "political"
   },
   {
     "from": "dadi-mar-kristofersson",
@@ -477,7 +492,10 @@
     "type": "holds-office",
     "asOf": "2020",
     "source": "https://www.government.is/ministries/ministry-of-finance-and-economic-affairs/minister-of-finance-and-economic-affairs/",
-    "quotation": "Daði Már is the vice-chair of Viðreisn, a position to which he was elected in 2020."
+    "quotation": "Daði Már is the vice-chair of Viðreisn, a position to which he was elected in 2020.",
+    "start": "2020",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "alma-d-moller",
@@ -485,7 +503,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1510",
-    "quotation": "Heilbrigðisráðherra síðan 21. desember 2024."
+    "quotation": "Heilbrigðisráðherra síðan 21. desember 2024.",
+    "start": "2024-12-21",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "alma-d-moller",
@@ -493,7 +514,10 @@
     "type": "holds-office",
     "asOf": "2024",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1510",
-    "quotation": "Alþingismaður Suðvesturkjördæmis síðan 2024 (Samfylkingin)."
+    "quotation": "Alþingismaður Suðvesturkjördæmis síðan 2024 (Samfylkingin).",
+    "start": "2024",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "alma-d-moller",
@@ -501,7 +525,10 @@
     "type": "holds-office",
     "asOf": "2018-2024",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1510",
-    "quotation": "Landlæknir 2018–2024."
+    "quotation": "Landlæknir 2018–2024.",
+    "start": "2018",
+    "end": "2024",
+    "channel": "political"
   },
   {
     "from": "hanna-katrin-fridriksson",
@@ -509,7 +536,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1276",
-    "quotation": "Atvinnuvegaráðherra síðan 21. desember 2024."
+    "quotation": "Atvinnuvegaráðherra síðan 21. desember 2024.",
+    "start": "2024-12-21",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "hanna-katrin-fridriksson",
@@ -517,7 +547,10 @@
     "type": "holds-office",
     "asOf": "2016",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1276",
-    "quotation": "Alþingismaður Reykjavíkurkjördæmis suður síðan 2016 (Viðreisn)."
+    "quotation": "Alþingismaður Reykjavíkurkjördæmis suður síðan 2016 (Viðreisn).",
+    "start": "2016",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "hanna-katrin-fridriksson",
@@ -525,7 +558,10 @@
     "type": "holds-office",
     "asOf": "2016-2024",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1276",
-    "quotation": "Formaður þingflokks Viðreisnar 2016–2024."
+    "quotation": "Formaður þingflokks Viðreisnar 2016–2024.",
+    "start": "2016",
+    "end": "2024",
+    "channel": "political"
   },
   {
     "from": "eyjolfur-armannsson",
@@ -533,7 +569,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.government.is/ministries/ministry-of-infrastructure/minister-of-infrastructure/",
-    "quotation": "Eyjólfur assumed the office of Minister of Transport and Local Government on 21 December 2024, and became Minister of Infrastructure on 15 March 2025 when the title of the office was changed by presidential decree."
+    "quotation": "Eyjólfur assumed the office of Minister of Transport and Local Government on 21 December 2024, and became Minister of Infrastructure on 15 March 2025 when the title of the office was changed by presidential decree.",
+    "start": "2024-12-21",
+    "end": "2025-03-15",
+    "channel": "political"
   },
   {
     "from": "eyjolfur-armannsson",
@@ -541,7 +580,10 @@
     "type": "holds-office",
     "asOf": "2025-03-15",
     "source": "https://www.government.is/ministries/ministry-of-infrastructure/minister-of-infrastructure/",
-    "quotation": "Eyjólfur assumed the office of Minister of Transport and Local Government on 21 December 2024, and became Minister of Infrastructure on 15 March 2025 when the title of the office was changed by presidential decree."
+    "quotation": "Eyjólfur assumed the office of Minister of Transport and Local Government on 21 December 2024, and became Minister of Infrastructure on 15 March 2025 when the title of the office was changed by presidential decree.",
+    "start": "2025-03-15",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "eyjolfur-armannsson",
@@ -549,7 +591,10 @@
     "type": "holds-office",
     "asOf": "2021",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1413",
-    "quotation": "Alþingismaður Norðvesturkjördæmis síðan 2021 (Flokkur fólksins)."
+    "quotation": "Alþingismaður Norðvesturkjördæmis síðan 2021 (Flokkur fólksins).",
+    "start": "2021",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "ragnar-thor-ingolfsson",
@@ -557,7 +602,10 @@
     "type": "holds-office",
     "asOf": "2026-01-11",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1524",
-    "quotation": "Félags- og húsnæðismálaráðherra síðan 11. janúar 2026."
+    "quotation": "Félags- og húsnæðismálaráðherra síðan 11. janúar 2026.",
+    "start": "2026-01-11",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "ragnar-thor-ingolfsson",
@@ -565,7 +613,10 @@
     "type": "holds-office",
     "asOf": "2024",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1524",
-    "quotation": "Alþingismaður Reykjavíkurkjördæmis norður síðan 2024 (Flokkur fólksins)."
+    "quotation": "Alþingismaður Reykjavíkurkjördæmis norður síðan 2024 (Flokkur fólksins).",
+    "start": "2024",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "ragnar-thor-ingolfsson",
@@ -573,7 +624,10 @@
     "type": "holds-office",
     "asOf": "2025-2026",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1524",
-    "quotation": "Formaður þingflokks Flokks fólksins 2025–2026."
+    "quotation": "Formaður þingflokks Flokks fólksins 2025–2026.",
+    "start": "2025",
+    "end": "2026",
+    "channel": "political"
   },
   {
     "from": "inga-saeland",
@@ -581,7 +635,10 @@
     "type": "holds-office",
     "asOf": "2026-01-11",
     "source": "https://www.government.is/ministries/ministry-of-education-and-children/minister-of-education-and-children/",
-    "quotation": "Inga assumed the office of Minister of Education and Children on 11 January 2026. She served as Minister of Social Affairs and Housing from 21 December 2024 to 11 January 2026."
+    "quotation": "Inga assumed the office of Minister of Education and Children on 11 January 2026. She served as Minister of Social Affairs and Housing from 21 December 2024 to 11 January 2026.",
+    "start": "2026-01-11",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "inga-saeland",
@@ -589,7 +646,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.government.is/ministries/ministry-of-education-and-children/minister-of-education-and-children/",
-    "quotation": "Inga assumed the office of Minister of Education and Children on 11 January 2026. She served as Minister of Social Affairs and Housing from 21 December 2024 to 11 January 2026."
+    "quotation": "Inga assumed the office of Minister of Education and Children on 11 January 2026. She served as Minister of Social Affairs and Housing from 21 December 2024 to 11 January 2026.",
+    "start": "2024-12-21",
+    "end": "2026-01-11",
+    "channel": "political"
   },
   {
     "from": "inga-saeland",
@@ -597,7 +657,10 @@
     "type": "holds-office",
     "asOf": "2016",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1332",
-    "quotation": "Stofnandi Flokks fólksins 2016 og formaður frá stofnun."
+    "quotation": "Stofnandi Flokks fólksins 2016 og formaður frá stofnun.",
+    "start": "2016",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "inga-saeland",
@@ -605,7 +668,10 @@
     "type": "holds-office",
     "asOf": "2017",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1332",
-    "quotation": "Alþingismaður Reykjavíkurkjördæmis suður síðan 2017 (Flokkur fólksins)."
+    "quotation": "Alþingismaður Reykjavíkurkjördæmis suður síðan 2017 (Flokkur fólksins).",
+    "start": "2017",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "thorgerdur-katrin-gunnarsdottir",
@@ -613,7 +679,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=632",
-    "quotation": "Utanríkisráðherra síðan 21. desember 2024."
+    "quotation": "Utanríkisráðherra síðan 21. desember 2024.",
+    "start": "2024-12-21",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "thorgerdur-katrin-gunnarsdottir",
@@ -621,7 +690,10 @@
     "type": "holds-office",
     "asOf": "2017",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=632",
-    "quotation": "Formaður Viðreisnar síðan 2017."
+    "quotation": "Formaður Viðreisnar síðan 2017.",
+    "start": "2017",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "thorgerdur-katrin-gunnarsdottir",
@@ -629,7 +701,32 @@
     "type": "holds-office",
     "asOf": "1999",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=632",
-    "quotation": "Alþingismaður Reyknesinga 1999–2003, alþingismaður Suðvesturkjördæmis 2003–2013 (Sjálfstæðisflokkur), alþingismaður Suðvesturkjördæmis síðan 2016 (Viðreisn)."
+    "quotation": "Alþingismaður Reyknesinga 1999–2003, alþingismaður Suðvesturkjördæmis 2003–2013 (Sjálfstæðisflokkur), alþingismaður Suðvesturkjördæmis síðan 2016 (Viðreisn).",
+    "start": "1999",
+    "end": "2003",
+    "channel": "political"
+  },
+  {
+    "from": "thorgerdur-katrin-gunnarsdottir",
+    "to": "mp-thorgerdur",
+    "type": "holds-office",
+    "asOf": "1999",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=632",
+    "quotation": "Alþingismaður Reyknesinga 1999–2003, alþingismaður Suðvesturkjördæmis 2003–2013 (Sjálfstæðisflokkur), alþingismaður Suðvesturkjördæmis síðan 2016 (Viðreisn).",
+    "start": "2003",
+    "end": "2013",
+    "channel": "political"
+  },
+  {
+    "from": "thorgerdur-katrin-gunnarsdottir",
+    "to": "mp-thorgerdur",
+    "type": "holds-office",
+    "asOf": "1999",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=632",
+    "quotation": "Alþingismaður Reyknesinga 1999–2003, alþingismaður Suðvesturkjördæmis 2003–2013 (Sjálfstæðisflokkur), alþingismaður Suðvesturkjördæmis síðan 2016 (Viðreisn).",
+    "start": "2016",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "logi-einarsson",
@@ -637,7 +734,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1128",
-    "quotation": "Menningar-, nýsköpunar- og háskólaráðherra síðan 21. desember 2024."
+    "quotation": "Menningar-, nýsköpunar- og háskólaráðherra síðan 21. desember 2024.",
+    "start": "2024-12-21",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "logi-einarsson",
@@ -645,7 +745,10 @@
     "type": "holds-office",
     "asOf": "2024-12-23",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1128",
-    "quotation": "Samstarfsráðherra Norðurlanda síðan 23. desember 2024."
+    "quotation": "Samstarfsráðherra Norðurlanda síðan 23. desember 2024.",
+    "start": "2024-12-23",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "logi-einarsson",
@@ -653,7 +756,10 @@
     "type": "holds-office",
     "asOf": "2016",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1128",
-    "quotation": "Alþingismaður Norðausturkjördæmis síðan 2016 (Samfylkingin)."
+    "quotation": "Alþingismaður Norðausturkjördæmis síðan 2016 (Samfylkingin).",
+    "start": "2016",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "logi-einarsson",
@@ -661,7 +767,10 @@
     "type": "holds-office",
     "asOf": "2016",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1128",
-    "quotation": "Varaformaður Samfylkingarinnar 2016, formaður 2016–2022."
+    "quotation": "Varaformaður Samfylkingarinnar 2016, formaður 2016–2022.",
+    "start": "2016",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "logi-einarsson",
@@ -669,7 +778,10 @@
     "type": "holds-office",
     "asOf": "2016-2022",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1128",
-    "quotation": "Varaformaður Samfylkingarinnar 2016, formaður 2016–2022."
+    "quotation": "Varaformaður Samfylkingarinnar 2016, formaður 2016–2022.",
+    "start": "2016",
+    "end": "2022",
+    "channel": "political"
   },
   {
     "from": "logi-einarsson",
@@ -677,7 +789,10 @@
     "type": "holds-office",
     "asOf": "2022-2025",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1128",
-    "quotation": "Formaður þingflokks Samfylkingarinnar 2022–2025."
+    "quotation": "Formaður þingflokks Samfylkingarinnar 2022–2025.",
+    "start": "2022",
+    "end": "2025",
+    "channel": "political"
   },
   {
     "from": "thorbjorg-sigurdur-gunnlaugsdottir",
@@ -685,7 +800,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1387",
-    "quotation": "Dómsmálaráðherra síðan 21. desember 2024."
+    "quotation": "Dómsmálaráðherra síðan 21. desember 2024.",
+    "start": "2024-12-21",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "thorbjorg-sigurdur-gunnlaugsdottir",
@@ -693,7 +811,21 @@
     "type": "holds-office",
     "asOf": "2020",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1387",
-    "quotation": "Alþingismaður Reykjavíkurkjördæmis norður 2020–2024 og Reykjavíkurkjördæmis suður síðan 2024 (Viðreisn)."
+    "quotation": "Alþingismaður Reykjavíkurkjördæmis norður 2020–2024 og Reykjavíkurkjördæmis suður síðan 2024 (Viðreisn).",
+    "start": "2020",
+    "end": "2024",
+    "channel": "political"
+  },
+  {
+    "from": "thorbjorg-sigurdur-gunnlaugsdottir",
+    "to": "mp-thorbjorg",
+    "type": "holds-office",
+    "asOf": "2020",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1387",
+    "quotation": "Alþingismaður Reykjavíkurkjördæmis norður 2020–2024 og Reykjavíkurkjördæmis suður síðan 2024 (Viðreisn).",
+    "start": "2024",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "johann-pall-johannsson",
@@ -701,7 +833,10 @@
     "type": "holds-office",
     "asOf": "2024-12-21",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1416",
-    "quotation": "Umhverfis-, orku- og loftslagsráðherra síðan 21. desember 2024."
+    "quotation": "Umhverfis-, orku- og loftslagsráðherra síðan 21. desember 2024.",
+    "start": "2024-12-21",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "johann-pall-johannsson",
@@ -709,7 +844,10 @@
     "type": "holds-office",
     "asOf": "2021",
     "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1416",
-    "quotation": "Alþingismaður Reykjavíkurkjördæmis norður síðan 2021 (Samfylkingin)."
+    "quotation": "Alþingismaður Reykjavíkurkjördæmis norður síðan 2021 (Samfylkingin).",
+    "start": "2021",
+    "end": "not printed",
+    "channel": "political"
   },
   {
     "from": "hordur-arnarson",
@@ -717,7 +855,10 @@
     "type": "holds-office",
     "asOf": "undated on the board page",
     "source": "https://www.landsvirkjun.com/governance/board",
-    "quotation": "The CEO of Landsvirkjun is Hörður Arnarson, who in collaboration with the Board is responsible for the day to day administration of the company."
+    "quotation": "The CEO of Landsvirkjun is Hörður Arnarson, who in collaboration with the Board is responsible for the day to day administration of the company.",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
   },
   {
     "from": "lilja-bjork-einarsdottir",
@@ -725,7 +866,10 @@
     "type": "holds-office",
     "asOf": "2025-12-31",
     "source": "https://www.landsbankinn.is/uploads/documents/arsskyrsluroguppgjor/fact-book-2025-en.pdf",
-    "quotation": "CEO of Landsbankinn hf. is Lilja Björk Einarsdóttir."
+    "quotation": "CEO of Landsbankinn hf. is Lilja Björk Einarsdóttir.",
+    "start": "2025-12-31",
+    "end": "not printed",
+    "channel": "business"
   },
   {
     "from": "jon-gudni-omarsson",
@@ -733,7 +877,10 @@
     "type": "holds-office",
     "asOf": "2025",
     "source": "https://cdn.islandsbanki.is/image/upload/v1/documents/ISB_2025_FINAL.pdf",
-    "quotation": "Jón Guðni Ómarsson Chief Executive Officer"
+    "quotation": "Jón Guðni Ómarsson Chief Executive Officer",
+    "start": "2025",
+    "end": "not printed",
+    "channel": "business"
   },
   {
     "from": "dadi-mar-kristofersson",
@@ -741,7 +888,10 @@
     "type": "invests-in",
     "asOf": "2025-03-18",
     "source": "https://www.althingi.is/altext/cv/is/hagsmunaskra/?nfaerslunr=1448",
-    "quotation": "Staðarhóll ráðgjöf slf. (kt 590814-0160). Eignarhlutur 33%"
+    "quotation": "Staðarhóll ráðgjöf slf. (kt 590814-0160). Eignarhlutur 33%",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
   },
   {
     "from": "eyjolfur-armannsson",
@@ -749,7 +899,10 @@
     "type": "invests-in",
     "asOf": "2021",
     "source": "https://www.althingi.is/altext/cv/is/hagsmunaskra/?nfaerslunr=1413",
-    "quotation": "Íslandsbanki hf. - keypt fyrir eina milljón króna vorið 2021."
+    "quotation": "Íslandsbanki hf. - keypt fyrir eina milljón króna vorið 2021.",
+    "start": "2021",
+    "end": "not printed",
+    "channel": "business"
   },
   {
     "from": "inga-saeland",
@@ -757,7 +910,10 @@
     "type": "invests-in",
     "asOf": "2021-05-20",
     "source": "https://www.althingi.is/altext/cv/is/hagsmunaskra/?nfaerslunr=1332",
-    "quotation": "Hlutur í Icelandair. Miðað við 20. maí 2021 er virði hlutarins 1.238.462 kr. Nafnverð hlutar á þessum tíma er 769.231 kr. Keypt á vordögum 2020"
+    "quotation": "Hlutur í Icelandair. Miðað við 20. maí 2021 er virði hlutarins 1.238.462 kr. Nafnverð hlutar á þessum tíma er 769.231 kr. Keypt á vordögum 2020",
+    "start": "2020",
+    "end": "not printed",
+    "channel": "business"
   },
   {
     "from": "prime-ministers-office",
@@ -830,5 +986,236 @@
     "asOf": "2026-08-11",
     "source": "https://opnirreikningar.is/",
     "quotation": "Utanríkisráðuneyti, aðalskrifstofa; 2026-08-11; Landsbankinn hf.; 19579; 6443580"
+  },
+  {
+    "from": "hanna-katrin-fridriksson",
+    "to": "sjalfstaedir-evropumenn",
+    "type": "sits-on-board",
+    "asOf": "2010",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1276",
+    "quotation": "Í stjórn Sjálfstæðra Evrópumanna frá 2010.",
+    "start": "2010",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "hanna-katrin-fridriksson",
+    "to": "mp-banki",
+    "type": "sits-on-board",
+    "asOf": "2011-2014",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1276",
+    "quotation": "Í stjórn MP banka 2011–2014.",
+    "start": "2011",
+    "end": "2014",
+    "channel": "business"
+  },
+  {
+    "from": "hanna-katrin-fridriksson",
+    "to": "hlidarendi-ses",
+    "type": "sits-on-board",
+    "asOf": "2013",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1276",
+    "quotation": "Í stjórn Hlíðarenda ses. frá 2013.",
+    "start": "2013",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "eyjolfur-armannsson",
+    "to": "handknattleiksdeild-vikings",
+    "type": "sits-on-board",
+    "asOf": "2014-2015",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1413",
+    "quotation": "Stjórnarmaður í handknattleiksdeild Víkings 2014–2015.",
+    "start": "2014",
+    "end": "2015",
+    "channel": "business"
+  },
+  {
+    "from": "eyjolfur-armannsson",
+    "to": "chair-of-orkan-okkar",
+    "type": "holds-office",
+    "asOf": "2020",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1413",
+    "quotation": "Formaður Orkunnar okkar 2020–.",
+    "start": "2020",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "ragnar-thor-ingolfsson",
+    "to": "vr",
+    "type": "sits-on-board",
+    "asOf": "2009-2024",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1524",
+    "quotation": "Í stjórn VR 2009–2024, formaður stjórnar 2017–2024.",
+    "start": "2009",
+    "end": "2024",
+    "channel": "business"
+  },
+  {
+    "from": "ragnar-thor-ingolfsson",
+    "to": "landssamband-verslunarmanna",
+    "type": "sits-on-board",
+    "asOf": "2017-2024",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1524",
+    "quotation": "Í stjórn Landssambands verslunarmanna 2017–2024, formaður 2019–2024.",
+    "start": "2017",
+    "end": "2024",
+    "channel": "business"
+  },
+  {
+    "from": "ragnar-thor-ingolfsson",
+    "to": "asi",
+    "type": "sits-on-board",
+    "asOf": "2017-2024",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1524",
+    "quotation": "Í miðstjórn og varaforseti ASÍ 2017–2024.",
+    "start": "2017",
+    "end": "2024",
+    "channel": "business"
+  },
+  {
+    "from": "ragnar-thor-ingolfsson",
+    "to": "virk-starfsendurhaefing",
+    "type": "sits-on-board",
+    "asOf": "2017-2023",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1524",
+    "quotation": "Í stjórn Virk starfsendurhæfingar 2017–2023.",
+    "start": "2017",
+    "end": "2023",
+    "channel": "business"
+  },
+  {
+    "from": "ragnar-thor-ingolfsson",
+    "to": "bjarg-ibudafelag",
+    "type": "sits-on-board",
+    "asOf": "2017",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1524",
+    "quotation": "Í stjórn Bjargs íbúðafélags síðan 2017, varaformaður 2020–2024, formaður síðan 2024.",
+    "start": "2017",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "thorgerdur-katrin-gunnarsdottir",
+    "to": "vinnumalastofnun",
+    "type": "sits-on-board",
+    "asOf": "1997-2001",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=632",
+    "quotation": "Í stjórn Vinnumálastofnunar 1997–2001.",
+    "start": "1997",
+    "end": "2001",
+    "channel": "business"
+  },
+  {
+    "from": "thorgerdur-katrin-gunnarsdottir",
+    "to": "lanasjodur-islenskra-namsmanna",
+    "type": "sits-on-board",
+    "asOf": "1997-2001",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=632",
+    "quotation": "Í stjórn Lánasjóðs íslenskra námsmanna 1997–2001.",
+    "start": "1997",
+    "end": "2001",
+    "channel": "business"
+  },
+  {
+    "from": "thorgerdur-katrin-gunnarsdottir",
+    "to": "leikfelag-reykjavikur",
+    "type": "sits-on-board",
+    "asOf": "2013",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=632",
+    "quotation": "Formaður stjórnar Leikfélags Reykjavíkur frá 2013.",
+    "start": "2013",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "thorgerdur-katrin-gunnarsdottir",
+    "to": "throskahjalp",
+    "type": "sits-on-board",
+    "asOf": "2011",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=632",
+    "quotation": "Í stjórn Þroskahjálpar frá 2011.",
+    "start": "2011",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "thorgerdur-katrin-gunnarsdottir",
+    "to": "golfsamband-islands",
+    "type": "sits-on-board",
+    "asOf": "2020-02-03",
+    "source": "https://www.althingi.is/altext/cv/is/hagsmunaskra/?nfaerslunr=632",
+    "quotation": "Í stjórn Golfsambands Íslands.",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "dadi-mar-kristofersson",
+    "to": "ferdifelagid-utivist",
+    "type": "sits-on-board",
+    "asOf": "2025-03-18",
+    "source": "https://www.althingi.is/altext/cv/is/hagsmunaskra/?nfaerslunr=1448",
+    "quotation": "Skálanefnd Fimmvörðuhálsskála fyrir Ferðafélagið Útivist",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "logi-einarsson",
+    "to": "arkitektafelag-islands",
+    "type": "sits-on-board",
+    "asOf": "2010-2013",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1128",
+    "quotation": "Í stjórn Arkitektafélags Íslands 2010–2013, formaður 2010–2012.",
+    "start": "2010",
+    "end": "2013",
+    "channel": "business"
+  },
+  {
+    "from": "thorbjorg-sigurdur-gunnlaugsdottir",
+    "to": "kvennaathvarfid",
+    "type": "sits-on-board",
+    "asOf": "2007-2008",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1387",
+    "quotation": "Ritari stjórnar Kvennaathvarfsins 2007–2008.",
+    "start": "2007",
+    "end": "2008",
+    "channel": "business"
+  },
+  {
+    "from": "thorbjorg-sigurdur-gunnlaugsdottir",
+    "to": "unifem-island",
+    "type": "sits-on-board",
+    "asOf": "2007-2008",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1387",
+    "quotation": "Í stjórn landsnefndar Unifem á Íslandi 2007–2008.",
+    "start": "2007",
+    "end": "2008",
+    "channel": "business"
+  },
+  {
+    "from": "thorbjorg-sigurdur-gunnlaugsdottir",
+    "to": "bjarkarhlid",
+    "type": "sits-on-board",
+    "asOf": "2017",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1387",
+    "quotation": "Í stjórn Bjarkahlíðar, miðstöðvar fyrir þolendur ofbeldis 2017.",
+    "start": "2017",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "alma-d-moller",
+    "to": "ssai",
+    "type": "sits-on-board",
+    "asOf": "undated on the CV",
+    "source": "https://www.althingi.is/altext/cv/is/?nfaerslunr=1510",
+    "quotation": "seta í stjórn norrænna samtaka svæfinga- og gjörgæslulækna (SSAI) til fjölda ára.",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
   }
 ]

@@ -46,6 +46,7 @@ export default function MapPage() {
       fact: factFor(entry.slug, entry.summary),
       layer: item.layer,
       place: item.place,
+      person: entry.kind === "player" && entry.playerType === "person",
       flows,
     };
   });
@@ -58,6 +59,9 @@ export default function MapPage() {
     relationship: edge.relationship,
     asOf: edge.asOf,
     quotation: edge.quotation,
+    start: edge.start,
+    end: edge.end,
+    channel: edge.channel,
     view: viewOf(edge.relationship),
     fromPlace: (placeBySlug.get(edge.from) ?? null) as PlaceId | null,
     toPlace: (placeBySlug.get(edge.to) ?? null) as PlaceId | null,

@@ -5,7 +5,7 @@ playerType: "person"
 role: "Minister of Finance and Economic Affairs"
 asOf: "2024-12-21"
 website: "https://www.government.is/ministries/ministry-of-finance-and-economic-affairs/"
-related: ["ministry-of-finance", "althingi", "kristrun-frostadottir", "landsbankinn", "landsvirkjun", "vidreisn", "stadarholl-radgjof"]
+related: ["ministry-of-finance", "althingi", "kristrun-frostadottir", "landsbankinn", "landsvirkjun", "vidreisn", "stadarholl-radgjof", "ferdifelagid-utivist"]
 ---
 
 # Daði Már Kristófersson
@@ -17,7 +17,7 @@ The ministry page says he is vice-chair of Viðreisn, elected to that party offi
 
 Landsvirkjun says the Minister of Finance appoints its board. The ownership page of Landsbankinn says this ministry controls the State’s holding in the bank. Those are office relationships, recorded on [[landsvirkjun]] and [[landsbankinn]].
 
-The Alþingi CV says “Fjármála- og efnahagsráðherra síðan 21. desember 2024.” and lists the alternate-MP months from December 2021 through September–October 2024. The interests page, last changed 18 March 2025, says “Staðarhóll ráðgjöf slf. (kt 590814-0160). Eignarhlutur 33%” → [[stadarholl-radgjof]] → [[vidreisn]].
+The Alþingi CV says “Fjármála- og efnahagsráðherra síðan 21. desember 2024.” and lists the alternate-MP months from December 2021 through September–October 2024. The interests page, last changed 18 March 2025, says “Staðarhóll ráðgjöf slf. (kt 590814-0160). Eignarhlutur 33%” and names a trust role, “Skálanefnd Fimmvörðuhálsskála fyrir Ferðafélagið Útivist”, with no term date → [[stadarholl-radgjof]] → [[ferdifelagid-utivist]] → [[vidreisn]].
 
 ## Sources
 - [Government of Iceland: Ministry of Finance and Economic Affairs](https://www.government.is/ministries/ministry-of-finance-and-economic-affairs/)
