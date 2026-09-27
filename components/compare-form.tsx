@@ -4,8 +4,16 @@ import { useRouter } from "next/navigation";
 
 import { Select } from "@/components/ui/select";
 import { kindLabel } from "@/lib/format";
-import { kindOrder } from "@/lib/compare";
 import type { Kind } from "@/lib/types";
+
+const KIND_ORDER: Kind[] = [
+  "treaty",
+  "institution",
+  "event",
+  "sector",
+  "flow",
+  "player",
+];
 
 export type CompareOption = {
   slug: string;
@@ -29,7 +37,9 @@ export function CompareForm({
     list.push(option);
     groups.set(option.kind, list);
   }
-  const kinds = [...groups.keys()].sort((a, b) => kindOrder(a) - kindOrder(b));
+  const kinds = [...groups.keys()].sort(
+    (a, b) => KIND_ORDER.indexOf(a) - KIND_ORDER.indexOf(b),
+  );
 
   function go(nextLeft: string, nextRight: string) {
     const params = new URLSearchParams({ left: nextLeft, right: nextRight });

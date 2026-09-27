@@ -1,6 +1,6 @@
 import { resolveSlug } from "@/lib/content";
 import { formatDate, kindLabel, labelize } from "@/lib/format";
-import type { Edge, Entry, Kind, Relationship } from "@/lib/types";
+import type { Edge, Entry, Relationship } from "@/lib/types";
 
 export const DEFAULT_LEFT = "arion-banki";
 export const DEFAULT_RIGHT = "islandsbanki";
@@ -16,20 +16,6 @@ export type Touch = {
   note: string;
   asOf: string;
 };
-
-const KIND_ORDER: Kind[] = [
-  "treaty",
-  "institution",
-  "event",
-  "sector",
-  "flow",
-  "player",
-];
-
-export function kindOrder(kind: Kind): number {
-  const index = KIND_ORDER.indexOf(kind);
-  return index === -1 ? KIND_ORDER.length : index;
-}
 
 export function factsFor(entry: Entry): Fact[] {
   const section: Fact = { label: "Section", value: kindLabel(entry.kind) };

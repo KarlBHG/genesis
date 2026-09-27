@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CompareForm } from "@/components/compare-form";
+import { MarkdownBody } from "@/components/markdown-body";
 import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
@@ -60,8 +61,7 @@ function Column({ entry }: { entry: Entry }) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <h2 className="mb-2 text-sm font-medium">Summary</h2>
-        <p>{entry.summary}</p>
+        <MarkdownBody source={entry.body} />
       </CardContent>
     </Card>
   );
@@ -122,7 +122,15 @@ export default async function ComparePage({
   const shared = sharedTouches(leftTouches, rightTouches);
   const leftOnly = onlyTouches(leftTouches, rightTouches);
   const rightOnly = onlyTouches(rightTouches, leftTouches);
-  const rows = factRows(factsFor(left), factsFor(right));
+  const rows = [
+    ...factRows(factsFor(left), factsFor(right)),
+    {
+      label: "Summary",
+      left: left.summary,
+      right: right.summary,
+      same: left.summary === right.summary,
+    },
+  ];
   const sharedRelated = left.related.filter((slug) => right.related.includes(slug));
   const leftRelatedOnly = left.related.filter((slug) => !right.related.includes(slug));
   const rightRelatedOnly = right.related.filter((slug) => !left.related.includes(slug));
