@@ -5,7 +5,7 @@ playerType: "person"
 role: "Prime Minister"
 asOf: "2024-12-21"
 website: "https://www.government.is/ministries/prime-ministers-office/prime-minister/"
-related: ["althingi", "ministry-of-finance", "dadi-mar-kristofersson"]
+related: ["althingi", "ministry-of-finance", "dadi-mar-kristofersson", "prime-ministers-office"]
 ---
 
 # Kristrún Frostadóttir

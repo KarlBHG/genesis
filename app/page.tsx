@@ -40,7 +40,7 @@ export default function HomePage() {
       label: "Institutions",
       count: institutions,
       href: "/institutions",
-      text: "Alþingi, Seðlabanki Íslands, the finance ministry.",
+      text: "Alþingi, the ministries, the courts, and the regulators.",
     },
     {
       label: "Events",

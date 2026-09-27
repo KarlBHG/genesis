@@ -1,0 +1,32 @@
+---
+title: "Innviðaráðuneytið (Ministry of Infrastructure)"
+slug: "ministry-of-infrastructure"
+type: "institution"
+founded: ""
+role: "Ministry"
+parent: ""
+related: ["althingi", "fjarskiptastofa", "treasury-budget-2026"]
+website: "https://www.government.is/ministries/ministry-of-infrastructure/about-the-ministry/"
+connections:
+  - to: fjarskiptastofa
+    relationship: appoints
+    source: "https://www.althingi.is/lagasafn/pdf/157c/2021075.pdf"
+    note: "The consolidated Act No. 75/2021, in the statute collection dated 1 September 2026, says a bare reference to the minister means the Minister of Infrastructure, and that the minister appoints the director of Fjarskiptastofa for five years at a time."
+    asOf: "2026-09-01"
+---
+
+# Innviðaráðuneytið
+
+## Summary
+The English about page is the Ministry of Infrastructure. The Icelandic page is headed Innviðaráðuneytið. Eyjólfur Ármannsson took office as Minister of Transport and Local Government on 21 December 2024, and became Minister of Infrastructure on 15 March 2025, when a presidential decree changed the title of the office. The Icelandic page says the same.
+
+The English page says the responsibilities cover transport, local government, regional policy, telecommunications, and postal matters. It names the Electronic Communications Office of Iceland among the institutes in the ministry’s scope. The Icelandic page names transport, local government and regional affairs, and telecommunications and digital infrastructure → [[fjarskiptastofa]].
+
+Article 4 of the 2026 budget law prints a total authorisation of 115.580,6 m.kr. for Innviðaráðuneyti → [[treasury-budget-2026]].
+
+## Sources
+- [Government of Iceland: About the Ministry of Infrastructure](https://www.government.is/ministries/ministry-of-infrastructure/about-the-ministry/)
+- [Government of Iceland: Minister of Infrastructure](https://www.government.is/ministries/ministry-of-infrastructure/minister-of-infrastructure/)
+- [Stjórnarráðið: Innviðaráðuneytið](https://www.stjornarradid.is/raduneyti/innvidaraduneytid/)
+- [Lög um Fjarskiptastofu, nr. 75/2021, lagasafn 1 September 2026](https://www.althingi.is/lagasafn/pdf/157c/2021075.pdf)
+- [Stjórnarráðið: Fjárlög fyrir árið 2026, lagagreinar](https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/)

@@ -14,6 +14,51 @@ connections:
     source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
     note: "Article 5 authorises the Minister of Finance and Economic Affairs, for the Treasury, to borrow up to 290 billion ISK, up to 78.7 billion ISK for the Central Bank’s equity, and up to a further 140 billion ISK. Those are 2026 authorisations, not the outstanding debt stock."
     asOf: "2026"
+  - to: prime-ministers-office
+    relationship: funds
+    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
+    note: "Article 4 prints a 2026 total authorisation of 5.448,3 m.kr. for Forsætisráðuneyti."
+    asOf: "2026"
+  - to: ministry-for-foreign-affairs
+    relationship: funds
+    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
+    note: "Article 4 prints a 2026 total authorisation of 39.526,8 m.kr. for Utanríkisráðuneyti."
+    asOf: "2026"
+  - to: ministry-of-education-and-children
+    relationship: funds
+    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
+    note: "Article 4 prints a 2026 total authorisation of 73.572,4 m.kr. for Mennta- og barnamálaráðuneyti."
+    asOf: "2026"
+  - to: ministry-of-culture-innovation-and-higher-education
+    relationship: funds
+    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
+    note: "Article 4 prints a 2026 total authorisation of 137.418,4 m.kr. for Menningar-, nýsköpunar- og háskólaráðuneyti."
+    asOf: "2026"
+  - to: ministry-of-justice
+    relationship: funds
+    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
+    note: "Article 4 prints a 2026 total authorisation of 77.252,0 m.kr. for Dómsmálaráðuneyti."
+    asOf: "2026"
+  - to: ministry-of-infrastructure
+    relationship: funds
+    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
+    note: "Article 4 prints a 2026 total authorisation of 115.580,6 m.kr. for Innviðaráðuneyti."
+    asOf: "2026"
+  - to: ministry-of-the-environment-energy-and-climate
+    relationship: funds
+    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
+    note: "Article 4 prints a 2026 total authorisation of 52.044,4 m.kr. for Umhverfis-, orku- og loftslagsráðuneyti."
+    asOf: "2026"
+  - to: ministry-of-social-affairs-and-housing
+    relationship: funds
+    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
+    note: "Article 4 prints a 2026 total authorisation of 393.868,7 m.kr. for Félags- og húsnæðismálaráðuneyti."
+    asOf: "2026"
+  - to: ministry-of-industries
+    relationship: funds
+    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/"
+    note: "Article 4 prints a 2026 total authorisation of 38.960,5 m.kr. for Atvinnuvegaráðuneyti."
+    asOf: "2026"
 ---
 
 # Treasury budget for 2026

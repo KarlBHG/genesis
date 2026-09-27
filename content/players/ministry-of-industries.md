@@ -5,7 +5,7 @@ playerType: "organization"
 role: "Ministry"
 asOf: "2024-12-21"
 website: "https://www.government.is/topics/business-and-industry/fisheries-in-iceland/"
-related: ["fisheries-and-quotas", "fisheries-iceland", "tourism", "agriculture", "brim"]
+related: ["fisheries-and-quotas", "fisheries-iceland", "tourism", "agriculture", "brim", "competition-authority", "treasury-budget-2026"]
 connections:
   - to: fisheries-and-quotas
     relationship: regulates
@@ -35,9 +35,17 @@ The same about page puts agriculture and food with this ministry. The organisati
 
 The tourism topic page is also headed Ministry of Industries, while its body still names the Ministry of Culture and Business Affairs → [[tourism]]. This entry does not treat those two ministry names as the same office.
 
+The Icelandic ministry page is headed Atvinnuvegaráðuneytið. It says the ministry took up its present form on 15 March 2025, on the base of the matters that had belonged to Matvælaráðuneytið: fisheries, agriculture, aquaculture, food, and food safety. It also says business, consumer affairs, and tourism moved to it from the former culture and business ministry, and industry from the former higher-education, industry, and innovation ministry. There is no separate food ministry on the current English ministries list. Hanna Katrín took office as atvinnuvegaráðherra on 21 December 2024, which is before the 15 March 2025 date the Icelandic page gives for the ministry’s present form.
+
+The government’s institutions list places Samkeppniseftirlitið under Atvinnuvegaráðuneytið → [[competition-authority]]. Article 4 of the 2026 budget law prints a total authorisation of 38.960,5 m.kr. for Atvinnuvegaráðuneyti → [[treasury-budget-2026]].
+
 ## Sources
 - [Government of Iceland: Current government](https://www.government.is/government/current-government/)
 - [Government of Iceland: Fisheries in Iceland](https://www.government.is/topics/business-and-industry/fisheries-in-iceland/)
 - [Fisheries Iceland: Fisheries management](https://www.sfs.is/en/efni/fisheries-management)
 - [Ministry of Industries: About the Ministry](https://www.government.is/ministries/ministry-of-industries/about-the-ministry/)
 - [Ministry of Industries: Organizational chart](https://www.government.is/ministries/ministry-of-industries/organizational-chart/)
+- [Stjórnarráðið: Atvinnuvegaráðuneytið](https://www.stjornarradid.is/raduneyti/atvinnuvegaraduneytid/)
+- [Government of Iceland: Ministries](https://www.government.is/ministries/)
+- [Stjórnarráðið: Stofnanir](https://www.stjornarradid.is/raduneyti/stofnanir)
+- [Stjórnarráðið: Fjárlög fyrir árið 2026, lagagreinar](https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/)
