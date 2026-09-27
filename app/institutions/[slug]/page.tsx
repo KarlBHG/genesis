@@ -6,6 +6,8 @@ import { getInstitutions } from "@/lib/content";
 
 type Params = { slug: string };
 
+export const dynamicParams = false;
+
 export function generateStaticParams(): Params[] {
   return getInstitutions().map((institution) => ({ slug: institution.slug }));
 }

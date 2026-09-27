@@ -167,4 +167,11 @@
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+  .entry-prose a,
+  .entry-prose code {
+    overflow-wrap: anywhere;
+  }
+  .entry-prose code {
+    white-space: pre-wrap;
+  }
 }

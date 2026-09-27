@@ -41,6 +41,7 @@ export function SiteHeader() {
             <Button
               key={item.href}
               aria-current={isCurrent(pathname, item.href) ? "page" : undefined}
+              nativeButton={false}
               render={<Link href={item.href} />}
               size="sm"
               variant={isCurrent(pathname, item.href) ? "secondary" : "ghost"}

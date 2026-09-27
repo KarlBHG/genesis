@@ -69,7 +69,11 @@ export default function HomePage() {
               <p className="text-muted-foreground">{item.text}</p>
             </CardContent>
             <CardFooter>
-              <Button render={<Link href={item.href} />} variant="outline">
+              <Button
+                nativeButton={false}
+                render={<Link href={item.href} />}
+                variant="outline"
+              >
                 Open {item.label.toLowerCase()}
               </Button>
             </CardFooter>

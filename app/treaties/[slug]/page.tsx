@@ -6,6 +6,8 @@ import { getTreaties } from "@/lib/content";
 
 type Params = { slug: string };
 
+export const dynamicParams = false;
+
 export function generateStaticParams(): Params[] {
   return getTreaties().map((treaty) => ({ slug: treaty.slug }));
 }

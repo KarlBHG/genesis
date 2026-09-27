@@ -34,7 +34,7 @@ export function SearchPanel({ docs }: { docs: SearchDoc[] }) {
           <Input
             id="map-search"
             autoComplete="off"
-            onChange={(event) => setQuery(event.target.value)}
+            onValueChange={(next) => setQuery(next)}
             placeholder="Try EEA, króna, Alþingi, Schengen"
             type="search"
             value={query}

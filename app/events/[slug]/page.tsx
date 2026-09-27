@@ -6,6 +6,8 @@ import { getEvents } from "@/lib/content";
 
 type Params = { slug: string };
 
+export const dynamicParams = false;
+
 export function generateStaticParams(): Params[] {
   return getEvents().map((event) => ({ slug: event.slug }));
 }
