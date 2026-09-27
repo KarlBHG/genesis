@@ -52,7 +52,7 @@ export default function HomePage() {
       label: "Business",
       count: sectors,
       href: "/business",
-      text: "Fisheries, agriculture, power, tourism, banking after 2008, and healthcare.",
+      text: "Fisheries, agriculture, power and the aluminium smelters, tourism, banking after 2008, and healthcare.",
     },
     {
       label: "Money",
@@ -64,7 +64,7 @@ export default function HomePage() {
       label: "Players",
       count: players,
       href: "/players",
-      text: "Organizations and people in a public office, including pension funds.",
+      text: "Organizations and people in a public office, including pension funds and the aluminium smelters.",
     },
     {
       label: "Connections",
