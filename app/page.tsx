@@ -52,7 +52,7 @@ export default function HomePage() {
       label: "Business",
       count: sectors,
       href: "/business",
-      text: "Fisheries, agriculture, power and the aluminium smelters, tourism, banking after 2008, and healthcare.",
+      text: "Fisheries, agriculture, power and the aluminium smelters, tourism, banking after 2008, healthcare, telecoms, retail, and construction and housing.",
     },
     {
       label: "Money",
@@ -64,7 +64,7 @@ export default function HomePage() {
       label: "Players",
       count: players,
       href: "/players",
-      text: "Organizations and people in a public office, including pension funds, the aluminium smelters, Reykjavík, and the state companies Isavia, Landsnet, Orkuveita Reykjavíkur, and RÚV.",
+      text: "Organizations and people in a public office, including pension funds, the aluminium smelters, Reykjavík, the state companies Isavia, Landsnet, Orkuveita Reykjavíkur, and RÚV, and Síminn, Sýn, Nova, Hagar, Icelandair, and ÍL-sjóður.",
     },
     {
       label: "Connections",

@@ -5,7 +5,7 @@ type: "institution"
 founded: ""
 role: "supervision"
 parent: "ministry-of-infrastructure"
-related: ["ministry-of-infrastructure"]
+related: ["ministry-of-infrastructure", "telecoms", "siminn", "syn", "nova"]
 website: "https://www.fjarskiptastofa.is/english/about-ecoi/"
 ---
 

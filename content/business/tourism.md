@@ -2,7 +2,7 @@
 title: "Tourism"
 slug: "tourism"
 area: "tourism"
-related: ["services-trade-2024", "ministry-of-industries"]
+related: ["services-trade-2024", "ministry-of-industries", "icelandair"]
 ---
 
 # Tourism

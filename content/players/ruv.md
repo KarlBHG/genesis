@@ -5,7 +5,7 @@ playerType: "organization"
 role: "National broadcaster"
 asOf: "2025"
 website: "https://www.ruv.is"
-related: ["althingi"]
+related: ["althingi", "telecoms"]
 ---
 
 # Ríkisútvarpið
