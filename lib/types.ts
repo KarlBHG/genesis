@@ -12,7 +12,10 @@ export type Relationship =
   | "appoints"
   | "sells-power-to"
   | "represents"
-  | "funds";
+  | "funds"
+  | "export-of"
+  | "import-line-of"
+  | "tariff-terms";
 
 export type Connection = {
   to: string;

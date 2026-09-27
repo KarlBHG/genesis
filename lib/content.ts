@@ -28,6 +28,9 @@ const RELATIONSHIPS = new Set<Relationship>([
   "sells-power-to",
   "represents",
   "funds",
+  "export-of",
+  "import-line-of",
+  "tariff-terms",
 ]);
 
 const FOLDERS: { folder: string; kind: Kind }[] = [

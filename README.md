@@ -2,7 +2,7 @@
 
 A searchable reference for how Iceland is wired: treaties, institutions, events, business sectors, published money flows, and public office-holders. The interface is English. Icelandic proper names keep their spelling (Alþingi, Seðlabanki Íslands, króna).
 
-Connections are typed edges in entry frontmatter (`owns`, `regulates`, `appoints`, `sells-power-to`, `represents`, `funds`). The connections page lists those edges and draws only them.
+Connections are typed edges in entry frontmatter (`owns`, `regulates`, `appoints`, `sells-power-to`, `represents`, `funds`, `export-of`, `import-line-of`, `tariff-terms`). The connections page lists those edges and draws only them.
 
 ## Run locally
 

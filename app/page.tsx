@@ -52,13 +52,13 @@ export default function HomePage() {
       label: "Business",
       count: sectors,
       href: "/business",
-      text: "Fisheries, power, tourism, and banking after 2008.",
+      text: "Fisheries, agriculture, power, tourism, and banking after 2008.",
     },
     {
       label: "Money",
       count: flows,
       href: "/money",
-      text: "Published aggregates, each labeled with its year.",
+      text: "Goods exports and imports, and other published aggregates, each labeled with its year.",
     },
     {
       label: "Players",

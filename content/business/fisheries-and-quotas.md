@@ -2,7 +2,7 @@
 title: "Fisheries and quotas"
 slug: "fisheries-and-quotas"
 area: "fisheries"
-related: ["fisheries-iceland", "ministry-of-industries", "goods-exports-2024"]
+related: ["fisheries-iceland", "ministry-of-industries", "goods-exports-2024", "marine-products-exports-2024", "eea-agreement", "agriculture"]
 ---
 
 # Fisheries and quotas
@@ -14,7 +14,13 @@ The Ministry of Industries page on fisheries says that from settlement until the
 
 Fisheries Iceland says the Marine and Freshwater Research Institute advises on the TAC, the ministry decides the TAC from that advice, and the Directorate of Fisheries allots annual catch quotas to vessels according to the quota shares attached to each vessel. Quota shares and annual catch allotments can be transferred between vessels. The page uses the older ministry name “Ministry of Industries and Innovations”. The current cabinet page calls the ministry the Ministry of Industries → [[ministry-of-industries]].
 
-In the 2024 goods-trade release, marine products were 36% of the value of goods exports → [[goods-exports-2024]].
+In the 2024 goods table, marine products were 346.5 billion ISK fob, 36.1% of goods exports. The release text rounds that share to 36%. Farmed fish is a different row, 53.8 billion ISK fob, 5.6% of goods exports → [[marine-products-exports-2024]] → [[goods-exports-2024]]. No page opened for this entry states what share of the catch, by weight, is exported.
+
+The Ministry of Industries processing page describes where seafood is sold: Europe, with the UK long the largest European market and Norway, Spain, Germany, and France also named; frozen fillets to America after the Second World War; capelin products to Japan; Greenland halibut to Asia; dried and salted cod to African markets. Shares of fish exports going to America are given on that page without a year, so they are not repeated here.
+
+The same ministry’s international-policy page says Iceland’s policy rests on the UN Convention on the Law of the Sea and on sustainable use, and names the regional bodies Iceland works through: NAFO, NEAFC, the International Whaling Commission, ICCAT, and NAMMCO. The Straddling Fish Stocks Agreement entered into force in 2001 and the UN Compliance Agreement in 2003.
+
+Fish products are not in the EEA’s industrial-goods tariff rule. The foreign ministry says Protocol 9 liberalises tariffs on fish products, and that Protocol 6 of the 1972 agreement still applies where it is better → [[eea-agreement]].
 
 ## Sources
 - [Government of Iceland: History of fisheries](https://www.government.is/topics/business-and-industry/fisheries-in-iceland/history-of-fisheries/)
@@ -22,3 +28,6 @@ In the 2024 goods-trade release, marine products were 36% of the value of goods 
 - [Government of Iceland: Management strategy and harvest control rules](https://www.government.is/topics/business-and-industry/fisheries-in-iceland/management-strategy-and-harvest-control-rules/)
 - [Fisheries Iceland: Fisheries management](https://www.sfs.is/en/efni/fisheries-management)
 - [Statistics Iceland: Trade in goods 2024, final data](https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/)
+- [Government of Iceland: Processing and products](https://www.government.is/topics/business-and-industry/fisheries-in-iceland/processing-and-products/)
+- [Government of Iceland: International policy](https://www.government.is/topics/business-and-industry/fisheries-in-iceland/international-policy/)
+- [Ministry for Foreign Affairs: Free trade agreements](https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/)

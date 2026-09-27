@@ -2,7 +2,7 @@
 title: "Power and aluminium"
 slug: "power-and-aluminium"
 area: "energy"
-related: ["landsvirkjun", "landsvirkjun-power-sales", "goods-exports-2024", "ministry-of-finance"]
+related: ["landsvirkjun", "landsvirkjun-power-sales", "goods-exports-2024", "aluminium-exports-2024", "ministry-of-finance"]
 ---
 
 # Power and aluminium
@@ -14,7 +14,7 @@ The consolidated Act on Landsvirkjun, as read on Alþingi’s statute page, is m
 
 The Minister of Finance appoints the board → [[ministry-of-finance]]. Customer categories and one dated power contract are on [[landsvirkjun-power-sales]].
 
-In the 2024 goods-trade release, aluminium and aluminium products were 33% of the total export value → [[goods-exports-2024]].
+In the 2024 goods-trade release, aluminium and aluminium products were 33% of the total export value. The category table does not publish a billion-ISK figure for that line → [[aluminium-exports-2024]] → [[goods-exports-2024]].
 
 ## Sources
 - [Landsvirkjun: Annual Report 2025](https://www.landsvirkjun.com/annualreports/2025)
