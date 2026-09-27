@@ -16,7 +16,7 @@ The agency’s English about page calls it the Electronic Communications Office 
 
 The consolidated Act No. 75/2021, in the statute collection dated 1 September 2026, says Fjarskiptastofa is an independent institution under the minister, and that a bare reference to the minister in that act means the Minister of Infrastructure or Innviðaráðuneytið. Article 2 says it administers and supervises electronic communications and network security, including the telecommunications act, the security of network and information systems of important infrastructure, the Icelandic country-code domain, high-speed network deployment, and electronic identification and trust services. Article 4 says the minister appoints the director for five years at a time.
 
-The English about page still says the office is under the ultimate direction of the Ministry of higher education, science and innovation, and that the Minister of the Interior appoints the director. That page and the 2026 statute collection do not name the same minister. The institutions list and the statute collection are the later statements of which ministry the agency sits under.
+The English about page still says the office is under the ultimate direction of the Ministry of higher education, science and innovation, and that the Minister of the Interior appoints the director. That page and the 2026 statute collection do not name the same minister. The institutions list and the statute collection are the later statements of which ministry the agency sits under. The same about page names Hrafnkell V. Gíslason as managing director.
 
 ## Sources
 - [Fjarskiptastofa: About ECOI](https://www.fjarskiptastofa.is/english/about-ecoi/)

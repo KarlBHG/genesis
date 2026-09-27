@@ -15,7 +15,7 @@ The Central Bank’s Monetary Policy Committee page says the current members are
 
 The English translation of Act No. 92/2019 says the Governor chairs the Monetary Policy Committee and the Deputy Governor for Monetary Policy is vice-chair. Read with that article, the chair named on the committee page is the Governor → [[sedlabanki]].
 
-Article 4 of the same translation says the Minister appoints the Governor for five years. The bank’s own account says the institution comes under the Prime Minister. This entry does not record an appointment edge to the current Prime Minister. The committee page does not say when the current chair was appointed.
+Article 4 of the same translation says the Minister appoints the Governor for five years. The bank’s about page says the institution comes under the Prime Minister, and that the Ministry of Finance and Economic Affairs also handles financial stability and financial markets. The act does not name the portfolio. This entry does not record an appointment edge to the current Prime Minister. The committee page does not say when the current chair was appointed.
 
 The committee page is the source for who sits on it. The act is the source for the rule that the Governor chairs it.
 

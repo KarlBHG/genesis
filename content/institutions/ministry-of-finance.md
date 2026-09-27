@@ -35,7 +35,7 @@ connections:
 ## Summary
 The ministry says its principal functions are the state's financial and economic affairs: policy, plans, and budgets, plus central-government operations and the state's assets and human resources. The page used here does not give a founding year, and it does not print a budget total for the ministry itself.
 
-The central-bank act says the bank operates under the auspices of the Minister. It does not name this ministry in that sentence → [[sedlabanki]]. The minister of this office, as of the ministry page, is [[dadi-mar-kristofersson]].
+The central-bank act says the bank operates under the auspices of the Minister. It does not name this ministry in that sentence. The bank’s about page says the bank comes under the Prime Minister, and that this ministry handles financial stability and financial markets → [[sedlabanki]]. The minister of this office, as of the ministry page, is [[dadi-mar-kristofersson]].
 
 The 2026 budget law is the Treasury’s Part A1 plan for that year. Its totals are recorded on the budget page, including where a ministry release prints a different balance → [[treasury-budget-2026]]. The debt strategy of 30 December 2024 says this ministry is responsible for central-government debt management → [[treasury-debt]]. The same minister carries the state’s votes in Isavia, and the Treasury is the majority owner of Landsnet → [[isavia]] → [[landsnet]].
 

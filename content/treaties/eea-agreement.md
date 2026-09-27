@@ -8,7 +8,7 @@ parties: ["Iceland", "EU", "Norway", "Liechtenstein"]
 status: "active"
 topics: ["trade", "regulation", "single-market"]
 related: ["schengen", "efta", "fisheries-and-quotas", "agriculture", "2009-eu-application", "2015-eu-candidate-letter", "2013-icesave-judgment"]
-source: "https://www.efta.int/about-efta/legal-documents/eea-legal-texts"
+source: "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/"
 connections:
   - to: fisheries-and-quotas
     relationship: tariff-terms
@@ -41,7 +41,7 @@ The foreign ministry’s trade page says that, on trade, the agreement eliminate
 The EEA depends on the EFTA setting described at → [[efta]]. Schengen is a separate association agreement → [[schengen]].
 
 ## Sources
-- [EFTA: EEA legal texts](https://www.efta.int/about-efta/legal-documents/eea-legal-texts). The draft address `https://www.efta.int/eea/eea-agreement` now redirects here.
+- [EFTA: EEA legal texts](https://www.efta.int/about-efta/legal-documents/eea-legal-texts). The draft address `https://www.efta.int/eea/eea-agreement` now redirects here. On this pass both addresses returned a bot check and no article text. The figures in this entry are from the government pages below.
 - [Government of Iceland: European Economic Area](https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/). The draft address `https://www.government.is/topics/foreign-affairs/iceland-in-europe/the-eea-agreement/` returns 404.
 - [Government of Iceland: The EEA Agreement](https://www.government.is/topics/business-and-industry/the-eea-agreement/)
 - [Ministry for Foreign Affairs: Free trade agreements](https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/)

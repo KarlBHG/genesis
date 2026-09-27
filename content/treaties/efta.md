@@ -8,16 +8,14 @@ parties: ["Iceland", "Liechtenstein", "Norway", "Switzerland"]
 status: "active"
 topics: ["trade"]
 related: ["eea-agreement", "2013-icesave-judgment"]
-source: "https://www.efta.int/trade-relations/free-trade-network/republic-iceland"
+source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
 ---
 
 # EFTA
 
 ## Summary
-The European Free Trade Association is the trade grouping the EEA Agreement depends on. EFTA's Iceland page states that Iceland joined EFTA in 1970. It does not give the day.
-
-The Government of Iceland describes the EFTA Convention as an agreement among Iceland, Liechtenstein, Norway, and Switzerland. It says the convention was originally signed in 1960, that Iceland became a member in 1970, and that the revised EFTA Convention entered into force on 1 June 2002. Switzerland remains outside the EEA → [[eea-agreement]].
+The Government of Iceland describes the EFTA Convention as an agreement among Iceland, Liechtenstein, Norway, and Switzerland. It says the convention was originally signed in 1960, that Iceland became a member in 1970, and that the revised EFTA Convention entered into force on 1 June 2002. It does not give the day in 1970. Switzerland remains outside the EEA → [[eea-agreement]]. EFTA’s own Iceland page did not return article text on this pass, so this entry does not quote it.
 
 ## Sources
-- [EFTA: Republic of Iceland](https://www.efta.int/trade-relations/free-trade-network/republic-iceland)
+- [EFTA: Republic of Iceland](https://www.efta.int/trade-relations/free-trade-network/republic-iceland). On this pass the address returned a bot check and no article text.
 - [Government of Iceland: Free trade agreements](https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/)

@@ -14,13 +14,8 @@ On 1 January 1994 the EEA Agreement entered into force. Iceland participated wit
 - Free movement of goods, services, capital, and people with the EU
 - EEA-relevant EU legislation is incorporated into the agreement by the EEA Joint Committee
 
-**Long-term impact:**
-- Iceland's economy becomes deeply integrated with the EU
-- Regulatory alignment becomes a permanent feature of governance
-- Sets the stage for later Schengen accession → [[schengen]]
-
-The EEA relationship depends on EFTA membership → [[efta]].
+The foreign-affairs page says the agreement extends the EU single market to three of the four EFTA countries: Iceland, Norway, and Liechtenstein → [[efta]].
 
 **Sources:**
 - [Government of Iceland: European Economic Area](https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/)
-- [EFTA: EEA legal texts](https://www.efta.int/about-efta/legal-documents/eea-legal-texts)
+- [EFTA: EEA legal texts](https://www.efta.int/about-efta/legal-documents/eea-legal-texts). On this pass the address returned a bot check and no article text. The dates above are from the government page.
