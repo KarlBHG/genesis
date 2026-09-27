@@ -124,6 +124,17 @@ export default function SystemPage() {
       </section>
 
       <section className="flex min-w-0 flex-col gap-3">
+        <h2 className="text-xl font-medium">Budget programs</h2>
+        <p className="break-words">
+          The 2026 ministry reports cover 35 policy areas and 105 subcategories. What each report says the area does, the spending change it prints, and the Article 4 authorisation rows are on{" "}
+          <Link className="underline underline-offset-4" href="/programs">
+            Programs
+          </Link>
+          . The rows are listed and not added together.
+        </p>
+      </section>
+
+      <section className="flex min-w-0 flex-col gap-3">
         <h2 className="text-xl font-medium">Change log</h2>
         <p className="text-muted-foreground">
           A record is appended when an edge field that was stored before differs from a later reading. This pass did not rewrite an invoice date or a career date. The Landsbankinn shareholder count is the disagreement already kept as a contradiction. The owns line was not rewritten.

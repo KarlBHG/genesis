@@ -23,6 +23,8 @@ Article 2 is a separate cash statement for the same year. It prints collections 
 ## Expenditure lines the law breaks out
 Article 4 sets authorisations by policy area and ministry. Its table heading is also m.kr. The column used below is the total authorisation, heildarfjárheimild. Article 3’s policy-area table is not used: its hospital-services row prints 1.692.125,0, which cannot sit in the same million-króna unit as Article 1’s total expenditure of 1.606.582,9.
 
+The 35 policy areas, the work their ministry reports describe, and every Article 4 row are on [Programs](/programs). Rows that share a name sit under different ministries. They are not added together.
+
 Health sits under Heilbrigðisráðuneytið. That ministry row prints a total authorisation of 437.690,0 m.kr. Inside it, hospital services (Sjúkrahúsþjónusta) are 192.293,9 m.kr., health services outside hospitals are 102.779,1 m.kr., nursing and rehabilitation are 86.038,7 m.kr., and medicines and medical devices are 45.269,9 m.kr. The healthcare page records a different figure: the 20 December 2023 release, after the 2024 budget was approved, says contributions to health affairs are about 379.4 billion ISK and calls that the largest expenditure item in that budget. That 2024 line is not restated in the 2026 articles opened here → [[healthcare]].
 
 Social protection is not one row. Under Félags- og húsnæðismálaráðuneytið, disability and disabled people’s affairs print 132.621,8 m.kr. and affairs of older people print 127.566,1 m.kr. That ministry’s own total authorisation is 393.868,7 m.kr. and includes other areas, so it is not a social-protection total. Nursing also appears again under that ministry, at 7.175,2 m.kr., separate from the health ministry’s nursing row.

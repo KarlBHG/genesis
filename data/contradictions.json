@@ -1,7 +1,9 @@
 [
   {
     "id": "eea-country-count",
-    "entries": ["eea-agreement"],
+    "entries": [
+      "eea-agreement"
+    ],
     "summary": "One government page says 30 EEA countries. Another says 31 EEA States. Both sentences stay.",
     "sides": [
       {
@@ -16,7 +18,9 @@
   },
   {
     "id": "landsvirkjun-form-and-holding",
-    "entries": ["landsvirkjun"],
+    "entries": [
+      "landsvirkjun"
+    ],
     "summary": "The company registry prints one legal form. The act prints an ownership split. Neither sentence replaces the other.",
     "sides": [
       {
@@ -31,7 +35,9 @@
   },
   {
     "id": "services-import-growth",
-    "entries": ["services-trade-2024"],
+    "entries": [
+      "services-trade-2024"
+    ],
     "summary": "The same release prints a 12% heading and an 8% sentence for the growth in service imports. Both stay.",
     "sides": [
       {
@@ -46,7 +52,10 @@
   },
   {
     "id": "landsbankinn-shareholder-count",
-    "entries": ["landsbankinn", "landsbankinn-state-holding"],
+    "entries": [
+      "landsbankinn",
+      "landsbankinn-state-holding"
+    ],
     "summary": "The ownership page says shareholders are around 800 and does not date that sentence. The fact sheet dated 31 December 2025 says the number amounts to approximately 819. Both print a 98.2% state holding.",
     "sides": [
       {
@@ -56,6 +65,24 @@
       {
         "source": "https://www.landsbankinn.is/uploads/documents/arsskyrsluroguppgjor/fact-book-2025-en.pdf",
         "quotation": "The Icelandic State holds 98.2% of the shares and the total number of shareholders amount to approximately 819."
+      }
+    ]
+  },
+  {
+    "id": "on-power-ledger-name",
+    "entries": [
+      "on-power",
+      "orka-natturunnar"
+    ],
+    "summary": "The vendor lookup prints Orka náttúrunnar ohf. for kennitala 5212130190. The company registry heading for that kennitala is ON Power ohf. Kennitala 4711190830 is a second registry record and is headed Orka náttúrunnar ohf.",
+    "sides": [
+      {
+        "source": "https://opnirreikningar.is/rest/vendor?term=Orka%20n%C3%A1tt%C3%BArunnar%20ohf.",
+        "quotation": "\"id\":\"5212130190\",\"text\":\"Orka náttúrunnar ohf.\""
+      },
+      {
+        "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/5212130190",
+        "quotation": "ON Power ohf. (5212130190)"
       }
     ]
   }

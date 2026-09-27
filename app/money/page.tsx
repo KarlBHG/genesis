@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { EntryIndex } from "@/components/entry-index";
 import { getFlows, hrefFor } from "@/lib/content";
@@ -24,7 +25,11 @@ export default function MoneyPage() {
       <header className="flex max-w-3xl flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">Money</h1>
         <p className="text-muted-foreground">
-          Published aggregates only. Each entry names the year on the source. A figure that was not on a page opened for this map is not here.
+          Published aggregates only. Each entry names the year on the source. A figure that was not on a page opened for this map is not here. The 2026 policy areas are collected on{" "}
+          <Link className="underline underline-offset-4" href="/programs">
+            Programs
+          </Link>
+          .
         </p>
       </header>
       <EntryIndex items={items} />

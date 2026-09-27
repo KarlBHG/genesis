@@ -24,6 +24,7 @@ const NAV = [
   { href: "/events", label: "Events" },
   { href: "/business", label: "Business" },
   { href: "/money", label: "Money" },
+  { href: "/programs", label: "Programs" },
   { href: "/players", label: "Players" },
   { href: "/connections", label: "Connections" },
   { href: "/anomalies", label: "Anomalies" },
