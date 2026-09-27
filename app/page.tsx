@@ -1,147 +1,42 @@
 import Link from "next/link";
 
+import { ConnectionStrips } from "@/components/connection-graph";
 import { SearchPanel } from "@/components/search-panel";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { getCatalog, getEdges, hrefFor, toSearchDocs } from "@/lib/content";
-
-const FEATURED = ["eea-agreement", "sedlabanki", "1994-eea-entry"];
+import { getCatalog, getEdges, toSearchDocs } from "@/lib/content";
 
 export default function HomePage() {
   const entries = getCatalog();
-  const treaties = entries.filter((entry) => entry.kind === "treaty").length;
-  const institutions = entries.filter(
-    (entry) => entry.kind === "institution",
-  ).length;
-  const events = entries.filter((entry) => entry.kind === "event").length;
-  const sectors = entries.filter((entry) => entry.kind === "sector").length;
-  const flows = entries.filter((entry) => entry.kind === "flow").length;
-  const players = entries.filter((entry) => entry.kind === "player").length;
-  const connections = getEdges().length;
-  const featured = FEATURED.map((slug) =>
-    entries.find((entry) => entry.slug === slug),
-  ).filter((entry) => entry != null);
-
+  const edges = getEdges();
   const counts = [
-    {
-      label: "Treaties",
-      count: treaties,
-      href: "/treaties",
-      text: "EEA, EFTA, NATO, Schengen.",
-    },
-    {
-      label: "Institutions",
-      count: institutions,
-      href: "/institutions",
-      text: "Alþingi, the ministries, the courts, the regulators, and the Association of Local Authorities.",
-    },
-    {
-      label: "Events",
-      count: events,
-      href: "/events",
-      text: "A dated list, from the founding of Alþingi and the 1944 republic through the EU application, Icesave, and capital controls.",
-    },
-    {
-      label: "Business",
-      count: sectors,
-      href: "/business",
-      text: "Fisheries, agriculture, power and the aluminium smelters, tourism, banking after 2008, healthcare, telecoms, retail, and construction and housing.",
-    },
-    {
-      label: "Money",
-      count: flows,
-      href: "/money",
-      text: "The 2026 Treasury budget, Treasury debt, 2025 pension savings, goods trade, and other published aggregates, each labeled with its year.",
-    },
-    {
-      label: "Players",
-      count: players,
-      href: "/players",
-      text: "Organizations and people in a public office, including pension funds, the aluminium smelters, Reykjavík, the state companies Isavia, Landsnet, Orkuveita Reykjavíkur, and RÚV, and Síminn, Sýn, Nova, Hagar, Icelandair, and ÍL-sjóður.",
-    },
-    {
-      label: "Connections",
-      count: connections,
-      href: "/connections",
-      text: "Typed links taken from entry frontmatter.",
-    },
+    { label: "Treaties", count: entries.filter((entry) => entry.kind === "treaty").length, href: "/treaties" },
+    { label: "Institutions", count: entries.filter((entry) => entry.kind === "institution").length, href: "/institutions" },
+    { label: "Events", count: entries.filter((entry) => entry.kind === "event").length, href: "/events" },
+    { label: "Business", count: entries.filter((entry) => entry.kind === "sector").length, href: "/business" },
+    { label: "Money", count: entries.filter((entry) => entry.kind === "flow").length, href: "/money" },
+    { label: "Players", count: entries.filter((entry) => entry.kind === "player").length, href: "/players" },
+    { label: "Connections", count: edges.length, href: "/connections" },
   ];
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-10 sm:px-6">
-      <section className="flex max-w-3xl flex-col gap-4">
+    <main className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-8 px-4 py-8 sm:px-6">
+      <section className="flex max-w-3xl flex-col gap-3">
         <p className="text-sm text-muted-foreground">Iceland system map</p>
         <h1 className="text-4xl font-medium tracking-tight sm:text-5xl">
           Map how Iceland is wired.
         </h1>
         <p className="text-lg text-muted-foreground">
-          Treaties, institutions, events, and a public-record layer for sectors, money flows, and office-holders. Icelandic names stay in Icelandic: Alþingi, Seðlabanki Íslands, the króna.
+          Alþingi passes a budget that funds the ministries. The Minister of Finance appoints Landsvirkjun’s board, and Landsvirkjun sells power to the smelters. Pension funds hold shares in Arion banki, Íslandsbanki, Hagar, and Sýn.
         </p>
-        <div className="flex flex-wrap gap-2">
-          <Button
-            nativeButton={false}
-            render={<a download="alltikerfi-catalog.json" href="/api/catalog" />}
-            variant="outline"
-          >
-            Download catalog JSON
-          </Button>
-          <Button
-            nativeButton={false}
-            render={<a download="alltikerfi-connections.csv" href="/api/connections" />}
-            variant="outline"
-          >
-            Download connections CSV
-          </Button>
-          <Button nativeButton={false} render={<Link href="/compare" />} variant="outline">
-            Compare entries
-          </Button>
-        </div>
       </section>
+      <ConnectionStrips edges={edges} only="budget" />
       <SearchPanel docs={toSearchDocs(entries)} />
-      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <nav aria-label="Sections" className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
         {counts.map((item) => (
-          <Card key={item.href}>
-            <CardHeader>
-              <CardDescription>{item.label}</CardDescription>
-              <CardTitle className="text-3xl">{item.count}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">{item.text}</p>
-            </CardContent>
-            <CardFooter>
-              <Button
-                nativeButton={false}
-                render={<Link href={item.href} />}
-                variant="outline"
-              >
-                Open {item.label.toLowerCase()}
-              </Button>
-            </CardFooter>
-          </Card>
+          <Link className="underline underline-offset-4" href={item.href} key={item.href}>
+            {item.label} {item.count}
+          </Link>
         ))}
-      </section>
-      <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-medium">Start here</h2>
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-          {featured.map((entry) => (
-            <Card key={entry.slug}>
-              <CardHeader>
-                <CardTitle>
-                  <Link className="underline underline-offset-4" href={hrefFor(entry)}>{entry.title}</Link>
-                </CardTitle>
-                <CardDescription>{entry.summary}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
-      </section>
+      </nav>
     </main>
   );
 }

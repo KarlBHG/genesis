@@ -27,7 +27,7 @@ connections:
 ## Summary
 The Ministry for Foreign Affairs says the EEA Agreement extends the EU single market to three of the four EFTA countries: Iceland, Norway, and Liechtenstein. Within the EEA there is free movement of goods, services, capital, and persons. Switzerland is in EFTA and is not a party. The same page says Switzerland voted against membership in December 1992.
 
-The agreement was signed on 2 May 1992 in Porto and entered into force on 1 January 1994. Liechtenstein became a full participant on 1 May 1995. Two government pages disagree on how many countries that market covers. The foreign-affairs page says citizens of all 30 countries can move freely in the EEA. The Ministry of Industries page says the four freedoms apply throughout the 31 EEA States. This entry does not pick one count.
+The agreement was signed on 2 May 1992 in Porto and entered into force on 1 January 1994. Liechtenstein became a full participant on 1 May 1995. Two government pages disagree on how many countries that market covers. The foreign-affairs page says citizens of all 30 countries can move freely in the EEA. The Ministry of Industries page says the four freedoms apply throughout the 31 EEA States.
 
 The foreign ministry’s trade page says that, on trade, the agreement eliminates tariffs on industrial products originating in a party. Protocol 3 liberalises tariffs on processed agricultural products. Protocol 9 liberalises tariffs on fish products. Unprocessed agricultural products are under a 2018 bilateral agreement that replaced a 2007 agreement. Those tariff terms are recorded at → [[fisheries-and-quotas]] → [[agriculture]]. The pages opened here do not say Iceland retains control of fisheries, agriculture, or monetary policy, and they do not describe those sectors as outside the agreement.
 
@@ -43,5 +43,5 @@ The EEA depends on the EFTA setting described at → [[efta]]. Schengen is a sep
 ## Sources
 - [EFTA: EEA legal texts](https://www.efta.int/about-efta/legal-documents/eea-legal-texts). The draft address `https://www.efta.int/eea/eea-agreement` now redirects here. On this pass both addresses returned a bot check and no article text. The figures in this entry are from the government pages below.
 - [Government of Iceland: European Economic Area](https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/). The draft address `https://www.government.is/topics/foreign-affairs/iceland-in-europe/the-eea-agreement/` returns 404.
-- [Government of Iceland: The EEA Agreement](https://www.government.is/topics/business-and-industry/the-eea-agreement/)
+- [Government of Iceland: The EEA Agreement](https://www.government.is/topics/business-and-industry/the-eea-agreement/). This entry does not pick one count between the 30-country sentence and the 31-state sentence.
 - [Ministry for Foreign Affairs: Free trade agreements](https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/)

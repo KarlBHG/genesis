@@ -238,8 +238,8 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           {entry.title}
         </h1>
       </header>
-      <Record entry={entry} />
       <MarkdownBody source={entry.body} />
+      <Record entry={entry} />
       {out.length > 0 || inn.length > 0 ? (
         <>
           <Separator />

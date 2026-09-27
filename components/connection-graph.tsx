@@ -1,114 +1,183 @@
 import { resolveSlug } from "@/lib/content";
-import { labelize } from "@/lib/format";
+import { labelize, yearOf } from "@/lib/format";
 import type { Edge } from "@/lib/types";
 
-const COLUMN_X = [16, 280, 544];
-const NODE_W = 200;
-const NODE_H = 44;
-const ROW = 76;
+export type StripId = "budget" | "power" | "ownership";
 
-export function ConnectionGraph({ edges }: { edges: Edge[] }) {
-  const ids = [...new Set(edges.flatMap((edge) => [edge.from, edge.to]))];
-  const outCount = new Map<string, number>();
-  const inCount = new Map<string, number>();
-  for (const id of ids) {
-    outCount.set(id, 0);
-    inCount.set(id, 0);
-  }
-  for (const edge of edges) {
-    outCount.set(edge.from, (outCount.get(edge.from) ?? 0) + 1);
-    inCount.set(edge.to, (inCount.get(edge.to) ?? 0) + 1);
-  }
+export function edgeKey(edge: Edge): string {
+  return [edge.from, edge.relationship, edge.to, edge.asOf, edge.source].join("|");
+}
 
-  const columns: string[][] = [[], [], []];
-  for (const id of ids) {
-    const outgoing = outCount.get(id) ?? 0;
-    const incoming = inCount.get(id) ?? 0;
-    const column = outgoing && incoming ? 1 : outgoing ? 0 : 2;
-    columns[column].push(id);
-  }
+function figureOnLine(note: string): string | null {
+  const hits = [...note.matchAll(/(\d[\d.,]*)\s*(m\.kr\.|billion ISK)/gi)];
+  if (hits.length !== 1) return null;
+  const hit = hits[0];
+  if (!hit) return null;
+  return `${hit[1]} ${hit[2]}`;
+}
 
-  const pos = new Map<string, { x: number; y: number }>();
-  columns.forEach((column, index) => {
-    column.forEach((id, row) => {
-      pos.set(id, { x: COLUMN_X[index], y: 16 + row * ROW });
-    });
+function lineLabel(edge: Edge): string {
+  const year = yearOf(edge.asOf);
+  const parts = [labelize(edge.relationship)];
+  if (year !== "Undated") parts.push(year);
+  const figure = figureOnLine(edge.note);
+  if (figure) parts.push(figure);
+  return parts.join(" · ");
+}
+
+export function stripOf(edge: Edge): StripId | "other" {
+  if (edge.relationship === "funds") return "budget";
+  if (edge.relationship === "sells-power-to") return "power";
+  if (
+    edge.from === "ministry-of-finance" &&
+    edge.to === "landsvirkjun" &&
+    edge.relationship === "appoints"
+  ) {
+    return "power";
+  }
+  if (edge.from === "landsvirkjun" && edge.to === "hordur-arnarson") return "power";
+  if (edge.from === "aluminium-exports-2024" && edge.to === "power-and-aluminium") {
+    return "power";
+  }
+  if (edge.relationship === "invests-in" || edge.relationship === "owns") return "ownership";
+  if (edge.from === "financial-supervisory-authority" && edge.relationship === "regulates") {
+    return "ownership";
+  }
+  if (edge.from === "sedlabanki" && edge.to === "arion-banki") return "ownership";
+  return "other";
+}
+
+const OWNERSHIP_RANK = [
+  "financial-supervisory-authority",
+  "bru",
+  "birta",
+  "lsr",
+  "stapi",
+  "arion-banki",
+  "islandsbanki",
+  "sedlabanki",
+  "ministry-of-finance",
+  "reykjavikurborg",
+];
+
+function sortEdges(edges: Edge[], strip: StripId | "other"): Edge[] {
+  return edges.slice().sort((a, b) => {
+    if (strip === "budget") {
+      const aHealth = a.asOf.startsWith("2024") ? 0 : 1;
+      const bHealth = b.asOf.startsWith("2024") ? 0 : 1;
+      if (aHealth !== bHealth) return aHealth - bHealth;
+    }
+    if (strip === "ownership") {
+      const aRank = OWNERSHIP_RANK.indexOf(a.from);
+      const bRank = OWNERSHIP_RANK.indexOf(b.from);
+      const aOrder = aRank === -1 ? OWNERSHIP_RANK.length : aRank;
+      const bOrder = bRank === -1 ? OWNERSHIP_RANK.length : bRank;
+      if (aOrder !== bOrder) return aOrder - bOrder;
+    }
+    const from = a.fromTitle.localeCompare(b.fromTitle, "en");
+    if (from !== 0) return from;
+    const to = a.toTitle.localeCompare(b.toTitle, "en");
+    if (to !== 0) return to;
+    return a.asOf.localeCompare(b.asOf);
   });
+}
 
-  const height = 32 + Math.max(...columns.map((column) => column.length), 1) * ROW;
-  const width = 760;
+function EdgeRow({ edge }: { edge: Edge }) {
+  const from = resolveSlug(edge.from);
+  const to = resolveSlug(edge.to);
+  return (
+    <li
+      className="grid grid-cols-1 gap-1 px-3 py-3 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-baseline sm:gap-3"
+      key={edgeKey(edge)}
+    >
+      {from ? (
+        <a className="font-medium break-words underline underline-offset-4" href={from.href}>
+          {from.title}
+        </a>
+      ) : (
+        <span className="font-medium break-words">{edge.fromTitle}</span>
+      )}
+      <span className="text-sm text-muted-foreground">{lineLabel(edge)}</span>
+      {to ? (
+        <a
+          className="font-medium break-words underline underline-offset-4 sm:text-right"
+          href={to.href}
+        >
+          {to.title}
+        </a>
+      ) : (
+        <span className="font-medium break-words sm:text-right">{edge.toTitle}</span>
+      )}
+    </li>
+  );
+}
+
+const STRIP_COPY: Record<StripId, { title: string; text: string }> = {
+  budget: {
+    title: "Budget",
+    text: "Alþingi funds the 2026 budget, and that budget funds the ministries. Lines dated 2024 are the earlier health release, not the 2026 law.",
+  },
+  power: {
+    title: "Power",
+    text: "The Minister of Finance appoints Landsvirkjun’s board. Landsvirkjun sells power onward. The two Norðurál lines are the 2024 supply sentence and the 2026 contract. Aluminium exports are a separate arrow into the sector page.",
+  },
+  ownership: {
+    title: "Ownership",
+    text: "Fjármálaeftirlitið supervises the pension funds. Those funds, and two banks, hold the shares listed here. The finance ministry’s holding in Landsbankinn is its own line.",
+  },
+};
+
+export function ConnectionStrips({
+  edges,
+  only,
+}: {
+  edges: Edge[];
+  only?: StripId;
+}) {
+  const groups: Record<StripId | "other", Edge[]> = {
+    budget: [],
+    power: [],
+    ownership: [],
+    other: [],
+  };
+  for (const edge of edges) {
+    groups[stripOf(edge)].push(edge);
+  }
+
+  const shown: StripId[] = only ? [only] : ["budget", "power", "ownership"];
 
   return (
-    <div className="overflow-x-auto rounded-lg border">
-      <svg
-        aria-label="Graph of the seeded connections"
-        className="min-w-[760px]"
-        height={height}
-        role="img"
-        viewBox={`0 0 ${width} ${height}`}
-        width="100%"
-      >
-        {edges.map((edge) => {
-          const a = pos.get(edge.from);
-          const b = pos.get(edge.to);
-          if (!a || !b) return null;
-          const x1 = a.x + NODE_W;
-          const y1 = a.y + NODE_H / 2;
-          const x2 = b.x;
-          const y2 = b.y + NODE_H / 2;
-          const mid = (x1 + x2) / 2;
-          return (
-            <g key={`${edge.from}-${edge.relationship}-${edge.to}`}>
-              <path
-                d={`M ${x1} ${y1} C ${mid} ${y1}, ${mid} ${y2}, ${x2} ${y2}`}
-                fill="none"
-                stroke="currentColor"
-                strokeOpacity="0.45"
-              />
-              <text
-                fill="currentColor"
-                fontSize="11"
-                textAnchor="middle"
-                x={mid}
-                y={(y1 + y2) / 2 - 6}
-              >
-                {labelize(edge.relationship)}
-              </text>
-            </g>
-          );
-        })}
-        {ids.map((id) => {
-          const point = pos.get(id);
-          const target = resolveSlug(id);
-          if (!point || !target) return null;
-          const label = target.title.length > 28 ? `${target.title.slice(0, 26)}…` : target.title;
-          return (
-            <a key={id} href={target.href}>
-              <g>
-                <title>{target.title}</title>
-                <rect
-                  fill="var(--card)"
-                  height={NODE_H}
-                  rx="8"
-                  stroke="currentColor"
-                  strokeOpacity="0.35"
-                  width={NODE_W}
-                  x={point.x}
-                  y={point.y}
-                />
-                <text
-                  fill="currentColor"
-                  fontSize="12"
-                  x={point.x + 10}
-                  y={point.y + 27}
-                >
-                  {label}
-                </text>
-              </g>
-            </a>
-          );
-        })}
-      </svg>
+    <div className="flex min-w-0 flex-col gap-8">
+      {shown.map((id) => {
+        const copy = STRIP_COPY[id];
+        const edgesForStrip = sortEdges(groups[id], id);
+        return (
+          <section className="flex min-w-0 flex-col gap-3" id={`${id}-strip`} key={id}>
+            <div className="flex flex-col gap-1">
+              <h2 className="text-xl font-medium">{copy.title}</h2>
+              <p className="text-sm text-muted-foreground">{copy.text}</p>
+            </div>
+            <ol className="divide-y overflow-hidden rounded-lg border">
+              {edgesForStrip.map((edge) => (
+                <EdgeRow edge={edge} key={edgeKey(edge)} />
+              ))}
+            </ol>
+            {id === "ownership" && !only && groups.other.length > 0 ? (
+              <div className="flex flex-col gap-2" id="other-edges">
+                <h3 className="text-base font-medium">Other typed edges</h3>
+                <p className="text-sm text-muted-foreground">
+                  These links are on the map and are not the pension, bank, or Landsbankinn lines above.
+                </p>
+                <ol className="divide-y overflow-hidden rounded-lg border">
+                  {sortEdges(groups.other, "other").map((edge) => (
+                    <EdgeRow edge={edge} key={edgeKey(edge)} />
+                  ))}
+                </ol>
+              </div>
+            ) : null}
+          </section>
+        );
+      })}
     </div>
   );
 }
