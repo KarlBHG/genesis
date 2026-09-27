@@ -38,6 +38,12 @@ export const MAP_VIEWS = [
     label: "Money flows",
     relationships: ["funds", "sells-power-to", "export-of", "import-line-of"],
   },
+  {
+    id: "careers",
+    label: "Careers",
+    relationships: ["holds-office", "sits-on-board"],
+  },
+  { id: "spending", label: "Spending", relationships: ["pays"] },
 ] as const;
 
 export type ViewId = (typeof MAP_VIEWS)[number]["id"];
@@ -79,5 +85,20 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "borealis-data-center", layer: "companies", place: "blonduos" },
   { slug: "isal", layer: "multinationals", place: "straumsvik" },
   { slug: "alcoa-fjardaal", layer: "multinationals", place: "reydarfjordur" },
+  { slug: "kristrun-frostadottir", layer: "state", place: "reykjavik" },
+  { slug: "dadi-mar-kristofersson", layer: "state", place: "reykjavik" },
+  { slug: "alma-d-moller", layer: "state", place: "reykjavik" },
+  { slug: "hanna-katrin-fridriksson", layer: "state", place: "reykjavik" },
+  { slug: "eyjolfur-armannsson", layer: "state", place: "reykjavik" },
+  { slug: "ragnar-thor-ingolfsson", layer: "state", place: "reykjavik" },
+  { slug: "inga-saeland", layer: "state", place: "reykjavik" },
+  { slug: "thorgerdur-katrin-gunnarsdottir", layer: "state", place: "reykjavik" },
+  { slug: "logi-einarsson", layer: "state", place: "reykjavik" },
+  { slug: "thorbjorg-sigurdur-gunnlaugsdottir", layer: "state", place: "reykjavik" },
+  { slug: "johann-pall-johannsson", layer: "state", place: "reykjavik" },
+  { slug: "asgeir-jonsson", layer: "state", place: "reykjavik" },
+  { slug: "hordur-arnarson", layer: "companies", place: "reykjavik" },
+  { slug: "lilja-bjork-einarsdottir", layer: "companies", place: "reykjavik" },
+  { slug: "jon-gudni-omarsson", layer: "companies", place: "reykjavik" },
 ];
 

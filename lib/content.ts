@@ -33,6 +33,9 @@ const RELATIONSHIPS = new Set<Relationship>([
   "import-line-of",
   "tariff-terms",
   "invests-in",
+  "holds-office",
+  "sits-on-board",
+  "pays",
 ]);
 
 const FOLDERS: { folder: string; kind: Kind }[] = [
@@ -281,10 +284,32 @@ function requireEdgeString(row: Record<string, unknown>, key: string, index: num
   return value.trim();
 }
 
+function officeTitles(): Map<string, string> {
+  const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "offices.json"), "utf8"));
+  if (!Array.isArray(parsed)) throw new Error("data/offices.json must be a list");
+  const titles = new Map<string, string>();
+  for (const item of parsed) {
+    if (item == null || typeof item !== "object" || Array.isArray(item)) continue;
+    const row = item as Record<string, unknown>;
+    if (typeof row.id === "string" && typeof row.title === "string") {
+      titles.set(row.id, row.title);
+    }
+  }
+  return titles;
+}
+
 function buildEdges(entries: Entry[]): Edge[] {
   const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "edges.json"), "utf8"));
   if (!Array.isArray(parsed)) throw new Error("data/edges.json must be a list");
   const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const offices = officeTitles();
+  const titleOf = (slug: string, index: number, side: "from" | "to"): string => {
+    const entry = bySlug.get(slug);
+    if (entry) return entry.title;
+    const office = offices.get(slug);
+    if (office) return office;
+    throw new Error(`data/edges.json edge ${index + 1} ${side} "${slug}" does not exist`);
+  };
   return parsed.map((item, index) => {
     if (item == null || typeof item !== "object" || Array.isArray(item)) {
       throw new Error(`data/edges.json edge ${index + 1} must be an object`);
@@ -302,16 +327,12 @@ function buildEdges(entries: Entry[]): Edge[] {
     if (!RELATIONSHIPS.has(type as Relationship)) {
       throw new Error(`data/edges.json edge ${index + 1} has unknown type "${type}"`);
     }
-    const fromEntry = bySlug.get(from);
-    const toEntry = bySlug.get(to);
-    if (!fromEntry) throw new Error(`data/edges.json edge ${index + 1} from "${from}" does not exist`);
-    if (!toEntry) throw new Error(`data/edges.json edge ${index + 1} to "${to}" does not exist`);
     if (from === to) throw new Error(`data/edges.json edge ${index + 1} points at itself`);
     return {
       from,
-      fromTitle: fromEntry.title,
+      fromTitle: titleOf(from, index, "from"),
       to,
-      toTitle: toEntry.title,
+      toTitle: titleOf(to, index, "to"),
       relationship: type as Relationship,
       source,
       quotation,

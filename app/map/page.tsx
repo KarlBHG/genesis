@@ -57,6 +57,7 @@ export default function MapPage() {
     toTitle: edge.toTitle,
     relationship: edge.relationship,
     asOf: edge.asOf,
+    quotation: edge.quotation,
     view: viewOf(edge.relationship),
     fromPlace: (placeBySlug.get(edge.from) ?? null) as PlaceId | null,
     toPlace: (placeBySlug.get(edge.to) ?? null) as PlaceId | null,

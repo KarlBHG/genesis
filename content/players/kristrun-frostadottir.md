@@ -5,7 +5,7 @@ playerType: "person"
 role: "Prime Minister"
 asOf: "2024-12-21"
 website: "https://www.government.is/ministries/prime-ministers-office/prime-minister/"
-related: ["althingi", "ministry-of-finance", "dadi-mar-kristofersson", "prime-ministers-office"]
+related: ["althingi", "ministry-of-finance", "dadi-mar-kristofersson", "prime-ministers-office", "samfylkingin"]
 ---
 
 # Kristrún Frostadóttir
@@ -17,6 +17,10 @@ The Prime Minister’s page says she has been chairman of the Social Democratic 
 
 The Prime Minister page’s HTML includes a render date of 27 September 2026 and still describes her as the current Prime Minister. Education and employment before parliament are on that page and are not repeated here.
 
+The Alþingi CV says “Forsætisráðherra síðan 21. desember 2024.”, “Formaður Samfylkingarinnar síðan 2022.”, and “Alþingismaður Reykjavíkurkjördæmis suður síðan 2021 (Samfylkingin).” The header of that same CV says the constituency is Reykjavíkurkjördæmi norður. Both lines are printed. The interests page, last changed 4 June 2024, names AGR Dynamics ehf., Aurum ehf., and Munnbitinn ehf. without a share, so those lines are not edges → [[samfylkingin]].
+
 ## Sources
 - [Government of Iceland: Current government](https://www.government.is/government/current-government/)
 - [Government of Iceland: Prime Minister](https://www.government.is/ministries/prime-ministers-office/prime-minister/)
+- [Alþingi: Kristrún Frostadóttir](https://www.althingi.is/altext/cv/is/?nfaerslunr=1417)
+- [Alþingi: Hagsmunaskrá](https://www.althingi.is/altext/cv/is/hagsmunaskra/?nfaerslunr=1417)

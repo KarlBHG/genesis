@@ -47,5 +47,215 @@
     "holder": "jon-gudni-omarsson",
     "organization": "islandsbanki",
     "asOf": "2025"
+  },
+  {
+    "id": "minister-of-industries",
+    "title": "Minister of Industries",
+    "holder": "hanna-katrin-fridriksson",
+    "organization": "ministry-of-industries",
+    "asOf": "2024-12-21"
+  },
+  {
+    "id": "minister-of-infrastructure",
+    "title": "Minister of Infrastructure",
+    "holder": "eyjolfur-armannsson",
+    "organization": "ministry-of-infrastructure",
+    "asOf": "2025-03-15"
+  },
+  {
+    "id": "minister-of-transport-and-local-government",
+    "title": "Minister of Transport and Local Government",
+    "holder": "eyjolfur-armannsson",
+    "organization": "ministry-of-infrastructure",
+    "asOf": "2024-12-21"
+  },
+  {
+    "id": "minister-of-social-affairs-and-housing",
+    "title": "Minister of Social Affairs and Housing",
+    "holder": "ragnar-thor-ingolfsson",
+    "organization": "ministry-of-social-affairs-and-housing",
+    "asOf": "2026-01-11"
+  },
+  {
+    "id": "minister-of-education-and-children",
+    "title": "Minister of Education and Children",
+    "holder": "inga-saeland",
+    "organization": "ministry-of-education-and-children",
+    "asOf": "2026-01-11"
+  },
+  {
+    "id": "minister-for-foreign-affairs",
+    "title": "Minister for Foreign Affairs",
+    "holder": "thorgerdur-katrin-gunnarsdottir",
+    "organization": "ministry-for-foreign-affairs",
+    "asOf": "2024-12-21"
+  },
+  {
+    "id": "minister-of-culture-innovation-and-higher-education",
+    "title": "Minister of Culture, Innovation and Higher Education",
+    "holder": "logi-einarsson",
+    "organization": "ministry-of-culture-innovation-and-higher-education",
+    "asOf": "2024-12-21"
+  },
+  {
+    "id": "minister-for-nordic-cooperation",
+    "title": "Minister for Nordic Co-operation",
+    "holder": "logi-einarsson",
+    "organization": "ministry-of-culture-innovation-and-higher-education",
+    "asOf": "2024-12-23"
+  },
+  {
+    "id": "minister-of-justice",
+    "title": "Minister of Justice",
+    "holder": "thorbjorg-sigurdur-gunnlaugsdottir",
+    "organization": "ministry-of-justice",
+    "asOf": "2024-12-21"
+  },
+  {
+    "id": "minister-of-the-environment-energy-and-climate",
+    "title": "Minister of the Environment, Energy and Climate",
+    "holder": "johann-pall-johannsson",
+    "organization": "ministry-of-the-environment-energy-and-climate",
+    "asOf": "2024-12-21"
+  },
+  {
+    "id": "director-of-health",
+    "title": "Director of Health",
+    "holder": "alma-d-moller",
+    "organization": "embaetti-landlaeknis",
+    "asOf": "2018-2024"
+  },
+  {
+    "id": "chair-of-samfylkingin",
+    "title": "Chair of Samfylkingin",
+    "holder": "kristrun-frostadottir",
+    "organization": "samfylkingin",
+    "asOf": "2022"
+  },
+  {
+    "id": "vice-chair-of-samfylkingin",
+    "title": "Vice-chair of Samfylkingin",
+    "holder": "logi-einarsson",
+    "organization": "samfylkingin",
+    "asOf": "2016"
+  },
+  {
+    "id": "chair-of-vidreisn",
+    "title": "Chair of Viðreisn",
+    "holder": "thorgerdur-katrin-gunnarsdottir",
+    "organization": "vidreisn",
+    "asOf": "2017"
+  },
+  {
+    "id": "vice-chair-of-vidreisn",
+    "title": "Vice-chair of Viðreisn",
+    "holder": "dadi-mar-kristofersson",
+    "organization": "vidreisn",
+    "asOf": "2020"
+  },
+  {
+    "id": "chair-of-flokkur-folksins",
+    "title": "Chair of Flokkur fólksins",
+    "holder": "inga-saeland",
+    "organization": "flokkur-folksins",
+    "asOf": "2016"
+  },
+  {
+    "id": "mp-kristrun",
+    "title": "Member of Alþingi for Reykjavík South",
+    "holder": "kristrun-frostadottir",
+    "organization": "althingi",
+    "asOf": "2021"
+  },
+  {
+    "id": "alternate-mp-dadi",
+    "title": "Alternate member of Alþingi for Reykjavík South",
+    "holder": "dadi-mar-kristofersson",
+    "organization": "althingi",
+    "asOf": "2021-2024"
+  },
+  {
+    "id": "mp-alma",
+    "title": "Member of Alþingi for the Southwest",
+    "holder": "alma-d-moller",
+    "organization": "althingi",
+    "asOf": "2024"
+  },
+  {
+    "id": "mp-hanna",
+    "title": "Member of Alþingi for Reykjavík South",
+    "holder": "hanna-katrin-fridriksson",
+    "organization": "althingi",
+    "asOf": "2016"
+  },
+  {
+    "id": "mp-eyjolfur",
+    "title": "Member of Alþingi for the Northwest",
+    "holder": "eyjolfur-armannsson",
+    "organization": "althingi",
+    "asOf": "2021"
+  },
+  {
+    "id": "mp-ragnar",
+    "title": "Member of Alþingi for Reykjavík North",
+    "holder": "ragnar-thor-ingolfsson",
+    "organization": "althingi",
+    "asOf": "2024"
+  },
+  {
+    "id": "mp-inga",
+    "title": "Member of Alþingi for Reykjavík South",
+    "holder": "inga-saeland",
+    "organization": "althingi",
+    "asOf": "2017"
+  },
+  {
+    "id": "mp-thorgerdur",
+    "title": "Member of Alþingi",
+    "holder": "thorgerdur-katrin-gunnarsdottir",
+    "organization": "althingi",
+    "asOf": "1999"
+  },
+  {
+    "id": "mp-logi",
+    "title": "Member of Alþingi for the Northeast",
+    "holder": "logi-einarsson",
+    "organization": "althingi",
+    "asOf": "2016"
+  },
+  {
+    "id": "mp-thorbjorg",
+    "title": "Member of Alþingi",
+    "holder": "thorbjorg-sigurdur-gunnlaugsdottir",
+    "organization": "althingi",
+    "asOf": "2020"
+  },
+  {
+    "id": "mp-johann",
+    "title": "Member of Alþingi for Reykjavík North",
+    "holder": "johann-pall-johannsson",
+    "organization": "althingi",
+    "asOf": "2021"
+  },
+  {
+    "id": "chair-vidreisn-parliamentary-group",
+    "title": "Chair of the Viðreisn parliamentary group",
+    "holder": "hanna-katrin-fridriksson",
+    "organization": "althingi",
+    "asOf": "2016-2024"
+  },
+  {
+    "id": "chair-peoples-party-parliamentary-group",
+    "title": "Chair of the People's Party parliamentary group",
+    "holder": "ragnar-thor-ingolfsson",
+    "organization": "althingi",
+    "asOf": "2025-2026"
+  },
+  {
+    "id": "chair-samfylkingin-parliamentary-group",
+    "title": "Chair of the Samfylkingin parliamentary group",
+    "holder": "logi-einarsson",
+    "organization": "althingi",
+    "asOf": "2022-2025"
   }
 ]
