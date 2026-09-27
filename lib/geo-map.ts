@@ -44,6 +44,16 @@ export const MAP_VIEWS = [
     relationships: ["holds-office", "sits-on-board"],
   },
   { id: "spending", label: "Spending", relationships: ["pays"] },
+  {
+    id: "authority",
+    label: "Authority",
+    relationships: ["appoints", "elects", "regulates", "incorporates"],
+  },
+  {
+    id: "trade",
+    label: "Trade partners",
+    relationships: ["imported-from", "exported-to"],
+  },
 ] as const;
 
 export type ViewId = (typeof MAP_VIEWS)[number]["id"];
@@ -63,6 +73,9 @@ export type MapEntryRef = {
 
 export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "althingi", layer: "state", place: "reykjavik" },
+  { slug: "republic-of-iceland", layer: "state", place: "reykjavik" },
+  { slug: "rikissjodur", layer: "state", place: "reykjavik" },
+  { slug: "sedlabanki", layer: "state", place: "reykjavik" },
   { slug: "prime-ministers-office", layer: "state", place: "reykjavik" },
   { slug: "ministry-of-finance", layer: "state", place: "reykjavik" },
   { slug: "ministry-for-foreign-affairs", layer: "state", place: "reykjavik" },

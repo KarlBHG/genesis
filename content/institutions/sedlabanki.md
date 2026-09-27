@@ -5,16 +5,16 @@ type: "institution"
 founded: ""
 role: "monetary-policy"
 parent: "independent"
-related: ["ministry-of-finance", "financial-supervisory-authority", "althingi", "arion-banki", "treasury-debt", "2008-capital-controls", "2017-capital-controls"]
+related: ["ministry-of-finance", "financial-supervisory-authority", "althingi", "arion-banki", "treasury-debt", "2008-capital-controls", "2017-capital-controls", "republic-of-iceland", "rikissjodur", "prime-ministers-office"]
 website: "https://www.sedlabanki.is"
 ---
 
 # Seðlabanki Íslands
 
 ## Role
-The Central Bank of Iceland is an independent institution owned by the State and operating under the auspices of the Minister. The English translation of Act No. 92/2019 does not name that minister’s portfolio, and it does not give a founding year.
+The consolidated text of Act 92/2019, lagasafn 157c, 1 September 2026, says “Seðlabanki Íslands er sjálfstæð stofnun í eigu ríkisins sem heyrir undir ráðherra.” The same article says “Ríkissjóður ber ábyrgð á öllum skuldbindingum Seðlabankans.” Ownership is the state’s. Liability is the Treasury’s → [[republic-of-iceland]] → [[rikissjodur]].
 
-The bank’s about page, which is in Icelandic at the address on the English site, says Seðlabanki Íslands is an independent institution owned by the state. The same paragraph says the bank comes under the Prime Minister, and that the Ministry of Finance and Economic Affairs also handles financial stability and financial markets → [[ministry-of-finance]].
+The act says that where it names a minister or a ministry without naming a portfolio, it means the Prime Minister or the Prime Minister’s Office, except Articles 12, 15, and 31, the fourth paragraph of Article 37, Article 40, and provisional provision V, which belong to the Minister of Finance and Economic Affairs. Article 4, which is not on that exception list, says “Ráðherra skipar seðlabankastjóra til fimm ára í senn.” The same article says the deputy governors for financial stability and financial supervision are appointed on the nomination of the minister for economic affairs and financial markets → [[prime-ministers-office]] → [[ministry-of-finance]].
 
 Article 2 says the bank shall promote price stability, financial stability, and sound and secure financial activities, maintain international reserves, and promote a safe and effective financial system, including payment intermediation. The same article says the bank undertakes the tasks entrusted to the Financial Supervisory Authority, and that the authority is part of the bank → [[financial-supervisory-authority]].
 
@@ -30,7 +30,7 @@ The Ministry of Finance and Economic Affairs debt strategy, issued 30 December 2
 Under Act No. 92/2019, as read in the English translation:
 
 - The Minister appoints the Governor for a five-year term, and three Deputy Governors for five-year terms.
-- A Supervisory Board of seven members is elected by Alþingi → [[althingi]]
+- Article 6 says the supervisory board is seven members elected by proportional vote of Alþingi, with an equal number of alternates → [[althingi]]
 - The Governor chairs the Monetary Policy Committee
 
 Article 47 repeals Act No. 36/2001 and entered into force on 1 January 2020, when the tasks of the Financial Supervisory Authority transferred to the central bank.

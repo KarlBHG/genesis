@@ -18,6 +18,7 @@ import {
 const NAV = [
   { href: "/", label: "Overview" },
   { href: "/map", label: "Map" },
+  { href: "/system", label: "System" },
   { href: "/treaties", label: "Treaties" },
   { href: "/institutions", label: "Institutions" },
   { href: "/events", label: "Events" },

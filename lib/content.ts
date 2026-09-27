@@ -38,6 +38,10 @@ const RELATIONSHIPS = new Set<Relationship>([
   "holds-office",
   "sits-on-board",
   "pays",
+  "elects",
+  "imported-from",
+  "exported-to",
+  "incorporates",
 ]);
 
 const FOLDERS: { folder: string; kind: Kind }[] = [

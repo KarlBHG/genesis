@@ -1217,5 +1217,93 @@
     "start": "not printed",
     "end": "not printed",
     "channel": "business"
+  },
+  {
+    "from": "goods-imports-2024",
+    "to": "norway",
+    "type": "imported-from",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "The largest trading countries in imports of goods in 2024 were Norway, Germany, the United States and China."
+  },
+  {
+    "from": "goods-imports-2024",
+    "to": "germany",
+    "type": "imported-from",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "The largest trading countries in imports of goods in 2024 were Norway, Germany, the United States and China."
+  },
+  {
+    "from": "goods-imports-2024",
+    "to": "united-states",
+    "type": "imported-from",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "The largest trading countries in imports of goods in 2024 were Norway, Germany, the United States and China."
+  },
+  {
+    "from": "goods-imports-2024",
+    "to": "china",
+    "type": "imported-from",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "The largest trading countries in imports of goods in 2024 were Norway, Germany, the United States and China."
+  },
+  {
+    "from": "goods-exports-2024",
+    "to": "netherlands",
+    "type": "exported-to",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "Largest trading countries in export of goods were the Netherlands, the United States and the United Kingdom while 77% of all exports went to EEA countries."
+  },
+  {
+    "from": "goods-exports-2024",
+    "to": "united-states",
+    "type": "exported-to",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "Largest trading countries in export of goods were the Netherlands, the United States and the United Kingdom while 77% of all exports went to EEA countries."
+  },
+  {
+    "from": "goods-exports-2024",
+    "to": "united-kingdom",
+    "type": "exported-to",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "Largest trading countries in export of goods were the Netherlands, the United States and the United Kingdom while 77% of all exports went to EEA countries."
+  },
+  {
+    "from": "republic-of-iceland",
+    "to": "sedlabanki",
+    "type": "owns",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2019092.html",
+    "quotation": "Seðlabanki Íslands er sjálfstæð stofnun í eigu ríkisins sem heyrir undir ráðherra."
+  },
+  {
+    "from": "prime-ministers-office",
+    "to": "sedlabanki",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2019092.html",
+    "quotation": "Ef í lögum þessum er getið um ráðherra eða ráðuneyti án þess að málefnasvið sé tilgreint sérstaklega eða til þess vísað, er átt við forsætisráðherra eða forsætisráðuneyti sem fer með lög þessi að undanskildum málefnum skv. 12. gr., 15. gr., 31. gr., 4. mgr. 37. gr., 40. gr. og ákvæði til bráðabirgða V sem heyra undir fjármála- og efnahagsráðherra. Ráðherra skipar seðlabankastjóra til fimm ára í senn."
+  },
+  {
+    "from": "althingi",
+    "to": "sedlabanki",
+    "type": "elects",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2019092.html",
+    "quotation": "Bankaráð skipa sjö fulltrúar kjörnir hlutbundinni kosningu af Alþingi ásamt jafnmörgum til vara."
+  },
+  {
+    "from": "eea-joint-committee",
+    "to": "eea-agreement",
+    "type": "incorporates",
+    "asOf": "undated on the cited page",
+    "source": "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/",
+    "quotation": "Every few weeks EEA-relevant pieces of legislation are incorporated into the EEA Agreement by decision of the EEA Joint Committee."
   }
 ]

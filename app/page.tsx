@@ -25,7 +25,7 @@ export default function HomePage() {
           Map how Iceland is wired.
         </h1>
         <p className="text-lg text-muted-foreground">
-          Alþingi passes a budget that funds the ministries. The Minister of Finance appoints Landsvirkjun’s board, and Landsvirkjun sells power to the smelters. Pension funds hold shares in Arion banki, Íslandsbanki, Hagar, and Sýn.
+          Alþingi passes a budget that funds the ministries. The constitution calls Iceland a republic. The central-bank act puts the bank in the state’s ownership, under a minister the act defines as the Prime Minister except where it names the finance minister. Statistics Iceland names the largest goods-import countries and does not name the selling companies.
         </p>
       </section>
       <ConnectionStrips edges={edges} only="budget" />

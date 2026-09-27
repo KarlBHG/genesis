@@ -2,7 +2,7 @@
 title: "Goods exports, 2024"
 slug: "goods-exports-2024"
 year: "2024"
-related: ["eea-agreement", "marine-products-exports-2024", "aluminium-exports-2024", "agricultural-products-exports-2024", "food-and-beverages-imports-2024", "fuels-and-lubricants-imports-2024", "industrial-supplies-imports-2024", "fisheries-and-quotas", "power-and-aluminium", "agriculture"]
+related: ["eea-agreement", "marine-products-exports-2024", "aluminium-exports-2024", "agricultural-products-exports-2024", "food-and-beverages-imports-2024", "fuels-and-lubricants-imports-2024", "industrial-supplies-imports-2024", "fisheries-and-quotas", "power-and-aluminium", "agriculture", "goods-imports-2024", "netherlands", "united-states", "united-kingdom"]
 ---
 
 # Goods exports, 2024

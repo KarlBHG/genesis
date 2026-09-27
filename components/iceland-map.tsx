@@ -173,6 +173,8 @@ export function IcelandMap({
     money: true,
     careers: true,
     spending: true,
+    authority: true,
+    trade: true,
   });
   const [selectedLayer, setSelectedLayer] = useState<LayerId | null>("state");
   const [selectedPlace, setSelectedPlace] = useState<PlaceId | null>(null);
@@ -274,7 +276,7 @@ export function IcelandMap({
           Iceland, only where a page names the place.
         </h1>
         <p className="text-sm leading-6 text-[#c9c1b2]">
-          Pins are real places. Reykjavík is one cluster, not a door for each office. Ownership, investments, money flows, careers, and spending are the typed edges already on file. Family is a separate channel, and it is empty.
+          Pins are real places. Reykjavík is one cluster, not a door for each office. Ownership, investments, money flows, careers, spending, authority, and trade partners are the typed edges already on file. Family is a separate channel, and it is empty. Trade-partner countries are listed, not pinned.
         </p>
       </header>
 
@@ -489,7 +491,7 @@ export function IcelandMap({
                 <ul className="flex flex-col gap-2">
                   {panelLines.map((edge) => (
                     <li key={edgeKey(edge)} className="text-sm leading-5 break-words text-[#d5cdbf]">
-                      {labelize(edge.relationship)} {edge.from === focus.slug ? edge.toTitle : edge.fromTitle}
+                      {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
                       {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
                       {edge.view === "careers" || edge.view === "spending" ? (
                         <span className="mt-0.5 block text-[#9a917f]">{edge.quotation}</span>

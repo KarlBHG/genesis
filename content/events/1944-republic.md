@@ -3,7 +3,7 @@ title: "Independence and the 1944 constitution"
 slug: "1944-republic"
 date: "1944-06-17"
 type: "founding"
-related: ["althingi", "1874-constitution", "nato"]
+related: ["althingi", "1874-constitution", "nato", "republic-of-iceland"]
 ---
 
 ## Summary

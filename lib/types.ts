@@ -19,7 +19,11 @@ export type Relationship =
   | "invests-in"
   | "holds-office"
   | "sits-on-board"
-  | "pays";
+  | "pays"
+  | "elects"
+  | "imported-from"
+  | "exported-to"
+  | "incorporates";
 
 export type Connection = {
   to: string;
