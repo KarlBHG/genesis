@@ -5,7 +5,7 @@ playerType: "organization"
 role: "National power company"
 asOf: "2025"
 website: "https://www.landsvirkjun.com"
-related: ["power-and-aluminium", "ministry-of-finance", "hordur-arnarson", "landsvirkjun-power-sales", "borealis-data-center"]
+related: ["power-and-aluminium", "ministry-of-finance", "hordur-arnarson", "landsvirkjun-power-sales", "borealis-data-center", "nordural"]
 connections:
   - to: hordur-arnarson
     relationship: appoints
@@ -17,6 +17,11 @@ connections:
     source: "https://www.landsvirkjun.com/news/borealis-and-landsvirkjun-sign-a-12-mw-power-purchasing-agreement"
     note: "On 23 June 2026 the company said it had signed an additional 12 MW firm-power agreement with Borealis Data Center, on top of existing contracts."
     asOf: "2026-06-23"
+  - to: nordural
+    relationship: sells-power-to
+    source: "https://nordural.is/wp-content/uploads/2025/06/Nordural-Grundartangi-Annual-report-2024.pdf"
+    note: "Norðurál Grundartangi’s 2024 annual report says power is supplied under purchase agreements with HS, Landsvirkjun, and OR."
+    asOf: "2024"
 ---
 
 # Landsvirkjun

@@ -25,30 +25,20 @@ connections:
 # EEA Agreement
 
 ## Summary
-The European Economic Area (EEA) Agreement grants Iceland access to the EU single market without full EU membership. Iceland must adopt most EU regulations (acquis) in areas like trade, competition, and consumer protection, but retains control over fisheries, agriculture, and monetary policy.
+The Ministry for Foreign Affairs says the EEA Agreement extends the EU single market to three of the four EFTA countries: Iceland, Norway, and Liechtenstein. Within the EEA there is free movement of goods, services, capital, and persons. Switzerland is in EFTA and is not a party. The same page says Switzerland voted against membership in December 1992.
 
-The Government of Iceland records that the agreement was signed on 2 May 1992 in Porto and entered into force on 1 January 1994. Liechtenstein became a full participant on 1 May 1995, not on the 1994 entry-into-force date. Switzerland is in EFTA and is not a party to the EEA.
+The agreement was signed on 2 May 1992 in Porto and entered into force on 1 January 1994. Liechtenstein became a full participant on 1 May 1995. Two government pages disagree on how many countries that market covers. The foreign-affairs page says citizens of all 30 countries can move freely in the EEA. The Ministry of Industries page says the four freedoms apply throughout the 31 EEA States. This entry does not pick one count.
 
-The Ministry for Foreign Affairs says that, on trade, the agreement eliminates tariffs on industrial products originating in a party. Protocol 3 liberalises tariffs on processed agricultural products. Protocol 9 liberalises tariffs on fish products. Unprocessed agricultural products are under a 2018 bilateral agreement. Those tariff terms are the carve-out recorded here → [[fisheries-and-quotas]] → [[agriculture]].
+The foreign ministry’s trade page says that, on trade, the agreement eliminates tariffs on industrial products originating in a party. Protocol 3 liberalises tariffs on processed agricultural products. Protocol 9 liberalises tariffs on fish products. Unprocessed agricultural products are under a 2018 bilateral agreement that replaced a 2007 agreement. Those tariff terms are recorded at → [[fisheries-and-quotas]] → [[agriculture]]. The pages opened here do not say Iceland retains control of fisheries, agriculture, or monetary policy, and they do not describe those sectors as outside the agreement.
 
-## Key provisions
-- Free movement of goods, services, capital, and people
-- Regulatory alignment with EU directives (excluding CAP and CFP)
-- Contributions to EU cohesion funds
-- No vote in EU decision-making
+## What the pages state
+- Free movement of goods, services, capital, and persons
+- The foreign-affairs page says the agreement has 129 articles, 22 annexes, and 49 protocols
+- New EEA-relevant EU legislation is incorporated by decision of the EEA Joint Committee
+- EFTA experts are consulted when the Commission prepares draft legislation, and the EFTA-EEA states can negotiate adaptations when both sides agree
+- The industries page adds cooperation on research and development, education, social policy, the environment, consumer protection, tourism, and culture
 
-## Dependencies
-- Requires EFTA membership → [[efta]]
-- Enables Schengen participation → [[schengen]]
-
-## Impact on Iceland
-- Access to EU market (~450M people)
-- Regulatory burden: must implement ~70% of EU law
-- No control over rules it must follow ("fax democracy")
-
-## Review & renewal
-- No expiration date
-- Can be terminated with 12 months' notice
+The EEA depends on the EFTA setting described at → [[efta]]. Schengen is a separate association agreement → [[schengen]].
 
 ## Sources
 - [EFTA: EEA legal texts](https://www.efta.int/about-efta/legal-documents/eea-legal-texts). The draft address `https://www.efta.int/eea/eea-agreement` now redirects here.

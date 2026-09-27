@@ -35,6 +35,7 @@ const LABELS: Record<string, string> = {
   tourism: "Tourism",
   banking: "Banking",
   agriculture: "Agriculture",
+  healthcare: "Healthcare",
   crisis: "Crisis",
   program: "Program",
 };

@@ -2,7 +2,7 @@
 title: "Fisheries and quotas"
 slug: "fisheries-and-quotas"
 area: "fisheries"
-related: ["fisheries-iceland", "ministry-of-industries", "goods-exports-2024", "marine-products-exports-2024", "eea-agreement", "agriculture"]
+related: ["fisheries-iceland", "ministry-of-industries", "goods-exports-2024", "marine-products-exports-2024", "eea-agreement", "agriculture", "brim"]
 ---
 
 # Fisheries and quotas
@@ -13,6 +13,8 @@ Icelandic fisheries management is built around a total allowable catch and indiv
 The Ministry of Industries page on fisheries says that from settlement until the 20th century the economy rested on farming and fisheries, and that the management strategy is to keep the exploitation rate consistent with the precautionary approach. The same ministry’s history page says the TAC for each stock is issued annually from scientific research and formal advice, and that catch quotas are distributed through each vessel’s fixed share of the TAC.
 
 Fisheries Iceland says the Marine and Freshwater Research Institute advises on the TAC, the ministry decides the TAC from that advice, and the Directorate of Fisheries allots annual catch quotas to vessels according to the quota shares attached to each vessel. Quota shares and annual catch allotments can be transferred between vessels. The page uses the older ministry name “Ministry of Industries and Innovations”. The current cabinet page calls the ministry the Ministry of Industries → [[ministry-of-industries]].
+
+Brim’s 2024 results say the company’s operating revenue was 389.4 million euros, and that authorities limited its fishing that year → [[brim]].
 
 In the 2024 goods table, marine products were 346.5 billion ISK fob, 36.1% of goods exports. The release text rounds that share to 36%. Farmed fish is a different row, 53.8 billion ISK fob, 5.6% of goods exports → [[marine-products-exports-2024]] → [[goods-exports-2024]]. No page opened for this entry states what share of the catch, by weight, is exported.
 
@@ -28,6 +30,7 @@ Fish products are not in the EEA’s industrial-goods tariff rule. The foreign m
 - [Government of Iceland: Management strategy and harvest control rules](https://www.government.is/topics/business-and-industry/fisheries-in-iceland/management-strategy-and-harvest-control-rules/)
 - [Fisheries Iceland: Fisheries management](https://www.sfs.is/en/efni/fisheries-management)
 - [Statistics Iceland: Trade in goods 2024, final data](https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/)
+- [Brim: Ársuppgjör 2024, 27 February 2025](https://www.brim.is/frettir/fjarfestar/2025/02/27/3034037/%C3%81rsuppgj%C3%B6r-Brims-hf-2024)
 - [Government of Iceland: Processing and products](https://www.government.is/topics/business-and-industry/fisheries-in-iceland/processing-and-products/)
 - [Government of Iceland: International policy](https://www.government.is/topics/business-and-industry/fisheries-in-iceland/international-policy/)
 - [Ministry for Foreign Affairs: Free trade agreements](https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/)

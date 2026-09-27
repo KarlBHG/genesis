@@ -8,7 +8,7 @@ related: ["2008-financial-crisis", "sedlabanki", "ministry-of-finance"]
 
 # IMF Stand-By Arrangement
 
-On 19 November 2008 the IMF Executive Board approved a two-year Stand-By Arrangement for Iceland. The staff report states the amount as SDR 1.4 billion, equal to 1,190 percent of quota, with SDR 560 million available on approval. The IMF's release of the authorities' letter of intent headlines the same decision as US$2.1 billion.
+On 19 November 2008 the IMF Executive Board approved a two-year Stand-By Arrangement for Iceland. The staff report states the amount as SDR 1.4 billion. Its prose prints 1190 percent of quota, and a table in the same report prints 1,190. SDR 560 million was available on approval. The IMF's release of the authorities' letter of intent headlines the same decision as US$2.1 billion.
 
 The letter of intent, dated 15 November 2008, requests the arrangement for November 2008 to November 2010. It is the program the central-bank entry points to after the banking crisis → [[2008-financial-crisis]] → [[sedlabanki]].
 

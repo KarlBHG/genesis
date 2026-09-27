@@ -2,7 +2,7 @@
 title: "Power and aluminium"
 slug: "power-and-aluminium"
 area: "energy"
-related: ["landsvirkjun", "landsvirkjun-power-sales", "goods-exports-2024", "aluminium-exports-2024", "ministry-of-finance"]
+related: ["landsvirkjun", "landsvirkjun-power-sales", "goods-exports-2024", "aluminium-exports-2024", "ministry-of-finance", "nordural"]
 ---
 
 # Power and aluminium
@@ -14,6 +14,8 @@ The consolidated Act on Landsvirkjun, as read on Alþingi’s statute page, is m
 
 The Minister of Finance appoints the board → [[ministry-of-finance]]. Customer categories and one dated power contract are on [[landsvirkjun-power-sales]].
 
+Norðurál Grundartangi’s 2024 annual report says operating revenue was USD 793 million, and that Landsvirkjun is one of three power suppliers to the smelter → [[nordural]] → [[landsvirkjun]].
+
 In the 2024 goods-trade release, aluminium and aluminium products were 33% of the total export value. The category table does not publish a billion-ISK figure for that line → [[aluminium-exports-2024]] → [[goods-exports-2024]].
 
 ## Sources
@@ -21,3 +23,4 @@ In the 2024 goods-trade release, aluminium and aluminium products were 33% of th
 - [Lög um Landsvirkjun, nr. 42/1983](https://www.althingi.is/lagas/nuna/1983042.html)
 - [Landsvirkjun: Board of Directors](https://www.landsvirkjun.com/governance/board)
 - [Statistics Iceland: Trade in goods 2024, final data](https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/)
+- [Norðurál Grundartangi: Annual report 2024](https://nordural.is/wp-content/uploads/2025/06/Nordural-Grundartangi-Annual-report-2024.pdf)

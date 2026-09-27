@@ -52,7 +52,7 @@ export default function HomePage() {
       label: "Business",
       count: sectors,
       href: "/business",
-      text: "Fisheries, agriculture, power, tourism, and banking after 2008.",
+      text: "Fisheries, agriculture, power, tourism, banking after 2008, and healthcare.",
     },
     {
       label: "Money",
