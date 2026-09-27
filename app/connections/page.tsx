@@ -90,7 +90,7 @@ export default function ConnectionsPage() {
                     edge.toTitle
                   )}
                 </p>
-                <p>{edge.note}</p>
+                <p>{edge.quotation}</p>
                 <p className="text-sm text-muted-foreground">
                   {edge.asOf ? `As of ${formatDate(edge.asOf)}. ` : "The source page does not date this sentence. "}
                   <a className="break-all underline underline-offset-4" href={edge.source} rel="noreferrer" target="_blank">

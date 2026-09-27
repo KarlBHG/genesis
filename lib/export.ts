@@ -30,9 +30,9 @@ function csvCell(value: string): string {
 }
 
 export function connectionsCsv(): string {
-  const header = ["from", "relationship", "to", "date", "source"];
+  const header = ["from", "to", "type", "asOf", "source", "quotation"];
   const rows = getEdges().map((edge) =>
-    [edge.from, edge.relationship, edge.to, edge.asOf, edge.source]
+    [edge.from, edge.to, edge.relationship, edge.asOf, edge.source, edge.quotation]
       .map(csvCell)
       .join(","),
   );

@@ -6,12 +6,6 @@ role: "Pension fund"
 asOf: "2025"
 website: "https://www.stapi.is/"
 related: ["pension-savings-2025", "financial-supervisory-authority", "hagar", "nova"]
-connections:
-  - to: hagar
-    relationship: invests-in
-    source: "https://www.hagar.is/en/investors/shareholders-information/shareholders-list/"
-    note: "Hagar’s shareholder list, last updated 24 September 2026, prints Stapi lífeyrissjóður with 27.410.917 shares, 2.48%."
-    asOf: "2026-09-24"
 ---
 
 # Stapi lífeyrissjóður

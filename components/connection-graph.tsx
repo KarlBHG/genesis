@@ -20,7 +20,7 @@ function lineLabel(edge: Edge): string {
   const year = yearOf(edge.asOf);
   const parts = [labelize(edge.relationship)];
   if (year !== "Undated") parts.push(year);
-  const figure = figureOnLine(edge.note);
+  const figure = figureOnLine(edge.quotation);
   if (figure) parts.push(figure);
   return parts.join(" · ");
 }
@@ -211,7 +211,7 @@ function boxHeight(title: string, width: number, slots = 1): number {
 function labelLines(edge: Edge): string[] {
   const year = yearOf(edge.asOf);
   const head = year === "Undated" ? labelize(edge.relationship) : `${labelize(edge.relationship)} · ${year}`;
-  const figure = figureOnLine(edge.note);
+  const figure = figureOnLine(edge.quotation);
   return figure ? [head, figure] : [head];
 }
 

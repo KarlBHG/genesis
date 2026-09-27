@@ -7,22 +7,6 @@ role: "legislature"
 parent: ""
 related: ["sedlabanki", "ministry-of-health", "landspitali", "healthcare", "treasury-budget-2026", "treasury-debt", "930-althingi", "1874-constitution", "1944-republic", "2009-eu-application", "2024-parliamentary-election"]
 website: "https://www.althingi.is/"
-connections:
-  - to: ministry-of-health
-    relationship: funds
-    source: "https://www.stjornarradid.is/efst-a-baugi/frettir/stok-frett/2023-12-20-Fjarlog-2024-samthykkt-Aukid-adhald-og-skorp-forgangsrodun/"
-    note: "The 20 December 2023 release says Alþingi approved the 2024 budget, and that contributions to health affairs are about 379.4 billion ISK."
-    asOf: "2024"
-  - to: landspitali
-    relationship: funds
-    source: "https://www.stjornarradid.is/efst-a-baugi/frettir/stok-frett/2023-12-20-Fjarlog-2024-samthykkt-Aukid-adhald-og-skorp-forgangsrodun/"
-    note: "The same release says appropriations for construction of the new Landspítali in that budget are 19.3 billion ISK."
-    asOf: "2024"
-  - to: treasury-budget-2026
-    relationship: funds
-    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/"
-    note: "The finance ministry’s 2026 budget page says Alþingi passed the budget bill as law on 18 November 2025. A ministry release dated 19 December 2025 also says Alþingi approved the 2026 budget."
-    asOf: "2025-11-18"
 ---
 
 # Alþingi

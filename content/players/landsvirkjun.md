@@ -6,37 +6,6 @@ role: "National power company"
 asOf: "2025"
 website: "https://www.landsvirkjun.com"
 related: ["power-and-aluminium", "ministry-of-finance", "hordur-arnarson", "landsvirkjun-power-sales", "borealis-data-center", "nordural", "isal", "alcoa-fjardaal", "landsnet"]
-connections:
-  - to: hordur-arnarson
-    relationship: appoints
-    source: "https://www.landsvirkjun.com/governance/executive-board"
-    note: "The executive-board page says the Board of Directors appoints the CEO. The board page names Hörður Arnarson as CEO."
-    asOf: "2026-04-21"
-  - to: borealis-data-center
-    relationship: sells-power-to
-    source: "https://www.landsvirkjun.com/news/borealis-and-landsvirkjun-sign-a-12-mw-power-purchasing-agreement"
-    note: "On 23 June 2026 the company said it had signed an additional 12 MW firm-power agreement with Borealis Data Center, on top of existing contracts."
-    asOf: "2026-06-23"
-  - to: nordural
-    relationship: sells-power-to
-    source: "https://nordural.is/wp-content/uploads/2025/06/Nordural-Grundartangi-Annual-report-2024.pdf"
-    note: "Norðurál Grundartangi’s 2024 annual report says power is supplied under purchase agreements with HS, Landsvirkjun, and OR."
-    asOf: "2024"
-  - to: nordural
-    relationship: sells-power-to
-    source: "https://www.landsvirkjun.com/news/landsvirkjun-and-nordural-sign-power-purchase-agreement"
-    note: "On 24 March 2026 Landsvirkjun said it and Norðurál signed a supply agreement for Grundartangi from the beginning of 2027 through the end of 2033, for up to 250 MW a year."
-    asOf: "2026-03-24"
-  - to: isal
-    relationship: sells-power-to
-    source: "https://www.landsvirkjun.com/news/amended-agreement-delivers-stronger-competitiveness-for-straumsvik-smelter"
-    note: "The 15 February 2021 notice says the amended 2010 contract with Rio Tinto Iceland specifies 390 MW, or the energy figure the notice prints as 3.416 GWh per year, and expires in 2036."
-    asOf: "2021-02-15"
-  - to: alcoa-fjardaal
-    relationship: sells-power-to
-    source: "https://s25.q4cdn.com/195584580/files/doc_financials/2025/ar/2025_Alcoa_Corp_Annual_Report_Bookmarked.pdf"
-    note: "Alcoa Corporation’s 2025 annual report says Landsvirkjun supplies the Fjarðaál smelter under a 40-year power contract that expires in 2048, with a price renegotiation effective from 2028."
-    asOf: "2025"
 ---
 
 # Landsvirkjun

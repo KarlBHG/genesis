@@ -7,12 +7,6 @@ role: "Ministry"
 parent: ""
 related: ["althingi", "fjarskiptastofa", "treasury-budget-2026", "samband-islenskra-sveitarfelaga", "isavia", "reykjavikurborg"]
 website: "https://www.government.is/ministries/ministry-of-infrastructure/about-the-ministry/"
-connections:
-  - to: fjarskiptastofa
-    relationship: appoints
-    source: "https://www.althingi.is/lagasafn/pdf/157c/2021075.pdf"
-    note: "The consolidated Act No. 75/2021, in the statute collection dated 1 September 2026, says a bare reference to the minister means the Minister of Infrastructure, and that the minister appoints the director of Fjarskiptastofa for five years at a time."
-    asOf: "2026-09-01"
 ---
 
 # Innviðaráðuneytið

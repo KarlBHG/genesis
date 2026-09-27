@@ -1,0 +1,51 @@
+[
+  {
+    "id": "prime-minister",
+    "title": "Prime Minister",
+    "holder": "kristrun-frostadottir",
+    "organization": "prime-ministers-office",
+    "asOf": "2024-12-21"
+  },
+  {
+    "id": "minister-of-finance",
+    "title": "Minister of Finance and Economic Affairs",
+    "holder": "dadi-mar-kristofersson",
+    "organization": "ministry-of-finance",
+    "asOf": "2024-12-21"
+  },
+  {
+    "id": "minister-of-health",
+    "title": "Minister of Health",
+    "holder": "alma-d-moller",
+    "organization": "ministry-of-health",
+    "asOf": "2024-12-21"
+  },
+  {
+    "id": "governor-of-sedlabanki",
+    "title": "Governor of Seðlabanki Íslands",
+    "holder": "asgeir-jonsson",
+    "organization": "sedlabanki",
+    "asOf": "undated on the committee page"
+  },
+  {
+    "id": "ceo-of-landsvirkjun",
+    "title": "CEO of Landsvirkjun",
+    "holder": "hordur-arnarson",
+    "organization": "landsvirkjun",
+    "asOf": "2026-04-21"
+  },
+  {
+    "id": "ceo-of-landsbankinn",
+    "title": "CEO of Landsbankinn",
+    "holder": "lilja-bjork-einarsdottir",
+    "organization": "landsbankinn",
+    "asOf": "2025-12-31"
+  },
+  {
+    "id": "ceo-of-islandsbanki",
+    "title": "CEO of Íslandsbanki",
+    "holder": "jon-gudni-omarsson",
+    "organization": "islandsbanki",
+    "asOf": "2025"
+  }
+]

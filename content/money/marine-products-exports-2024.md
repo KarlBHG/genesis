@@ -3,12 +3,6 @@ title: "Marine products exports, 2024"
 slug: "marine-products-exports-2024"
 year: "2024"
 related: ["goods-exports-2024", "fisheries-and-quotas", "eea-agreement"]
-connections:
-  - to: fisheries-and-quotas
-    relationship: export-of
-    source: "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/"
-    note: "Statistics Iceland’s 2024 goods table lists marine products as their own export row: 346.5 billion ISK fob, 36.1% of goods exports. Farmed fish is a separate row."
-    asOf: "2024"
 ---
 
 # Marine products exports, 2024

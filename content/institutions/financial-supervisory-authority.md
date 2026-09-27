@@ -6,27 +6,6 @@ founded: ""
 role: "supervision"
 parent: "sedlabanki"
 related: ["sedlabanki", "pension-savings-2025", "lsr", "bru", "birta", "stapi"]
-connections:
-  - to: lsr
-    relationship: regulates
-    source: "https://www.althingi.is/lagas/nuna/1997129.html"
-    note: "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
-    asOf: "consolidated statute"
-  - to: bru
-    relationship: regulates
-    source: "https://www.althingi.is/lagas/nuna/1997129.html"
-    note: "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
-    asOf: "consolidated statute"
-  - to: birta
-    relationship: regulates
-    source: "https://www.althingi.is/lagas/nuna/1997129.html"
-    note: "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
-    asOf: "consolidated statute"
-  - to: stapi
-    relationship: regulates
-    source: "https://www.althingi.is/lagas/nuna/1997129.html"
-    note: "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
-    asOf: "consolidated statute"
 website: "https://english.sedlabanki.is/um-sedlabankann/"
 ---
 

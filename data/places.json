@@ -1,0 +1,8 @@
+[
+  { "id": "reykjavik", "name": "Reykjavík", "lat": 64.145981, "lon": -21.9422367 },
+  { "id": "straumsvik", "name": "Straumsvík", "lat": 64.0434623, "lon": -22.0442726 },
+  { "id": "grundartangi", "name": "Grundartangi", "lat": 64.3601585, "lon": -21.7841266 },
+  { "id": "reydarfjordur", "name": "Reyðarfjörður", "lat": 65.0340671, "lon": -14.2084678 },
+  { "id": "keflavik", "name": "Keflavík", "lat": 63.9850119, "lon": -22.6266959 },
+  { "id": "blonduos", "name": "Blönduós", "lat": 65.6601344, "lon": -20.280998 }
+]

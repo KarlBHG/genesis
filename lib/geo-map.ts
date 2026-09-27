@@ -1,9 +1,12 @@
+import placesJson from "@/data/places.json";
+
 export const LAYERS = [
   { id: "state", label: "State", swatch: "#d7c4a3" },
   { id: "companies", label: "Companies", swatch: "#8fb59a" },
   { id: "multinationals", label: "Multinationals", swatch: "#d08b62" },
   { id: "ngos", label: "NGOs", swatch: "#8eabcc" },
   { id: "societies", label: "Societies", swatch: "#c6b06a" },
+  { id: "family", label: "Family", swatch: "#b7a3b0" },
 ] as const;
 
 export type LayerId = (typeof LAYERS)[number]["id"];
@@ -25,14 +28,26 @@ export type Place = {
 
 // Coordinates are Nominatim results for the named places, September 2026.
 // Reykjavík is one cluster. Door addresses in the city are not separate dots.
-export const PLACES: Place[] = [
-  { id: "reykjavik", name: "Reykjavík", lat: 64.145981, lon: -21.9422367 },
-  { id: "straumsvik", name: "Straumsvík", lat: 64.0434623, lon: -22.0442726 },
-  { id: "grundartangi", name: "Grundartangi", lat: 64.3601585, lon: -21.7841266 },
-  { id: "reydarfjordur", name: "Reyðarfjörður", lat: 65.0340671, lon: -14.2084678 },
-  { id: "keflavik", name: "Keflavík", lat: 63.9850119, lon: -22.6266959 },
-  { id: "blonduos", name: "Blönduós", lat: 65.6601344, lon: -20.280998 },
-];
+export const PLACES: Place[] = placesJson as Place[];
+
+export const MAP_VIEWS = [
+  { id: "ownership", label: "Ownership", relationships: ["owns"] },
+  { id: "investments", label: "Investments", relationships: ["invests-in"] },
+  {
+    id: "money",
+    label: "Money flows",
+    relationships: ["funds", "sells-power-to", "export-of", "import-line-of"],
+  },
+] as const;
+
+export type ViewId = (typeof MAP_VIEWS)[number]["id"];
+
+export function viewOf(relationship: string): ViewId | null {
+  const view = MAP_VIEWS.find((item) =>
+    (item.relationships as readonly string[]).includes(relationship),
+  );
+  return view?.id ?? null;
+}
 
 export type MapEntryRef = {
   slug: string;
@@ -66,19 +81,3 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "alcoa-fjardaal", layer: "multinationals", place: "reydarfjordur" },
 ];
 
-export type PowerString = {
-  fromSlug: string;
-  toSlug: string;
-  fromPlace: PlaceId;
-  toPlace: PlaceId;
-  year: string;
-  bend: number;
-};
-
-export const POWER_STRINGS: PowerString[] = [
-  { fromSlug: "landsvirkjun", toSlug: "isal", fromPlace: "reykjavik", toPlace: "straumsvik", year: "2021", bend: 0 },
-  { fromSlug: "landsvirkjun", toSlug: "nordural", fromPlace: "reykjavik", toPlace: "grundartangi", year: "2024", bend: -14 },
-  { fromSlug: "landsvirkjun", toSlug: "nordural", fromPlace: "reykjavik", toPlace: "grundartangi", year: "2026", bend: 14 },
-  { fromSlug: "landsvirkjun", toSlug: "alcoa-fjardaal", fromPlace: "reykjavik", toPlace: "reydarfjordur", year: "2025", bend: 0 },
-  { fromSlug: "landsvirkjun", toSlug: "borealis-data-center", fromPlace: "reykjavik", toPlace: "blonduos", year: "2026", bend: 0 },
-];

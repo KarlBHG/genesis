@@ -9,17 +9,6 @@ status: "active"
 topics: ["trade", "regulation", "single-market"]
 related: ["schengen", "efta", "fisheries-and-quotas", "agriculture", "2009-eu-application", "2015-eu-candidate-letter", "2013-icesave-judgment"]
 source: "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/"
-connections:
-  - to: fisheries-and-quotas
-    relationship: tariff-terms
-    source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
-    note: "The foreign ministry says Protocol 9 to the EEA Agreement provides for tariff liberalisation for fish products. Protocol 6 to the 1972 Iceland–EEC agreement still applies where it gives better access."
-    asOf: ""
-  - to: agriculture
-    relationship: tariff-terms
-    source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
-    note: "Protocol 3 liberalises tariffs on processed agricultural products. Unprocessed agricultural products are under a 2018 bilateral agreement with the EU. Industrial products, by contrast, have tariff elimination under the EEA Agreement itself."
-    asOf: ""
 ---
 
 # EEA Agreement

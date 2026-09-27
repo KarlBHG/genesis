@@ -3,12 +3,6 @@ title: "Aluminium exports, 2024"
 slug: "aluminium-exports-2024"
 year: "2024"
 related: ["goods-exports-2024", "power-and-aluminium", "marine-products-exports-2024", "nordural", "isal", "alcoa-fjardaal"]
-connections:
-  - to: power-and-aluminium
-    relationship: export-of
-    source: "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/"
-    note: "The 14 May 2025 release says aluminium and aluminium products were 33% of the total goods-export value in 2024. The category table does not publish a separate billion-ISK line for aluminium."
-    asOf: "2024"
 ---
 
 # Aluminium exports, 2024

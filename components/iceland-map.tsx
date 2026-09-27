@@ -3,13 +3,20 @@
 import { useMemo, useState } from "react";
 
 import coast from "@/data/iceland-coast.json";
+import { labelize, yearOf } from "@/lib/format";
 import {
   LAYERS,
+  MAP_VIEWS,
   PLACES,
-  POWER_STRINGS,
   type LayerId,
   type PlaceId,
+  type ViewId,
 } from "@/lib/geo-map";
+
+export type MapFlowLink = {
+  title: string;
+  href: string;
+};
 
 export type MapEntryView = {
   slug: string;
@@ -18,12 +25,34 @@ export type MapEntryView = {
   fact: string;
   layer: LayerId;
   place: PlaceId;
+  flows: MapFlowLink[];
+};
+
+export type MapEdgeView = {
+  from: string;
+  to: string;
+  fromTitle: string;
+  toTitle: string;
+  relationship: string;
+  asOf: string;
+  view: ViewId | null;
+  fromPlace: PlaceId | null;
+  toPlace: PlaceId | null;
 };
 
 const LAYER_LABEL = Object.fromEntries(LAYERS.map((layer) => [layer.id, layer.label])) as Record<
   LayerId,
   string
 >;
+
+const STROKE: Record<string, string> = {
+  owns: "#8fb59a",
+  "invests-in": "#c6b06a",
+  funds: "#d7c4a3",
+  "sells-power-to": "#e6d3a4",
+  "export-of": "#d08b62",
+  "import-line-of": "#d08b62",
+};
 
 function projectCoast() {
   const ring = coast.ring;
@@ -82,8 +111,10 @@ function RoleFigure({ layer }: { layer: LayerId }) {
       <circle cx="24" cy="40" r="6" />
     ) : layer === "ngos" ? (
       <path d="M18 40h12M24 34v12" />
-    ) : (
+    ) : layer === "societies" ? (
       <path d="M18 40h4M26 40h4" />
+    ) : (
+      <path d="M16 40h16" strokeDasharray="3 3" />
     );
   return (
     <svg aria-hidden viewBox="0 0 48 64" className="h-12 w-9">
@@ -96,7 +127,17 @@ function RoleFigure({ layer }: { layer: LayerId }) {
   );
 }
 
-export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
+function edgeKey(edge: MapEdgeView): string {
+  return [edge.from, edge.relationship, edge.to, edge.asOf].join("|");
+}
+
+export function IcelandMap({
+  entries,
+  edges,
+}: {
+  entries: MapEntryView[];
+  edges: MapEdgeView[];
+}) {
   const scene = useMemo(() => projectCoast(), []);
   const [enabled, setEnabled] = useState<Record<LayerId, boolean>>({
     state: true,
@@ -104,6 +145,12 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
     multinationals: true,
     ngos: true,
     societies: true,
+    family: true,
+  });
+  const [viewsOn, setViewsOn] = useState<Record<ViewId, boolean>>({
+    ownership: true,
+    investments: true,
+    money: true,
   });
   const [selectedLayer, setSelectedLayer] = useState<LayerId | null>("state");
   const [selectedPlace, setSelectedPlace] = useState<PlaceId | null>(null);
@@ -114,11 +161,34 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
     PLACES.map((place) => [place.id, scene.project(place.lon, place.lat)]),
   ) as Record<PlaceId, { x: number; y: number }>;
 
-  const strings = POWER_STRINGS.filter(
-    (line) =>
-      visible.some((entry) => entry.slug === line.fromSlug) &&
-      visible.some((entry) => entry.slug === line.toSlug),
-  );
+  const shown = edges.filter((edge) => edge.view != null && viewsOn[edge.view]);
+  const lit = selectedSlug
+    ? shown.filter((edge) => edge.from === selectedSlug || edge.to === selectedSlug)
+    : shown;
+  const litKeys = new Set(lit.map(edgeKey));
+
+  const strings = useMemo(() => {
+    const geographic = shown.filter(
+      (edge) =>
+        edge.fromPlace &&
+        edge.toPlace &&
+        edge.fromPlace !== edge.toPlace &&
+        visible.some((entry) => entry.slug === edge.from) &&
+        visible.some((entry) => entry.slug === edge.to),
+    );
+    const counts = new Map<string, number>();
+    return geographic.map((edge) => {
+      const pair = `${edge.fromPlace}|${edge.toPlace}`;
+      const index = counts.get(pair) ?? 0;
+      counts.set(pair, index + 1);
+      const totalSoon = geographic.filter(
+        (item) => item.fromPlace === edge.fromPlace && item.toPlace === edge.toPlace,
+      ).length;
+      const bend = totalSoon === 1 ? 0 : index === 0 ? -14 : 14;
+      const year = yearOf(edge.asOf);
+      return { edge, bend, year: year === "Undated" ? "" : year };
+    });
+  }, [shown, visible]);
 
   const layerEntries = selectedLayer
     ? entries.filter((entry) => entry.layer === selectedLayer)
@@ -128,6 +198,10 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
     : [];
   const focus = entries.find((entry) => entry.slug === selectedSlug) ?? null;
   const placeName = PLACES.find((place) => place.id === selectedPlace)?.name;
+  const grouped = LAYERS.map((layer) => ({
+    layer,
+    entries: placeEntries.filter((entry) => entry.layer === layer.id),
+  })).filter((group) => group.entries.length > 0);
 
   function toggle(layer: LayerId) {
     setEnabled((current) => ({ ...current, [layer]: !current[layer] }));
@@ -147,6 +221,14 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
     setSelectedSlug(atPlace.length === 1 ? atPlace[0].slug : null);
   }
 
+  function lineStyle(edge: MapEdgeView): React.CSSProperties {
+    const active = !selectedSlug || litKeys.has(edgeKey(edge));
+    return {
+      opacity: active ? 1 : 0.28,
+      transition: "opacity 200ms ease",
+    };
+  }
+
   return (
     <div className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-5 px-4 py-6 text-[#e6e0d4] sm:px-6">
       <header className="flex max-w-3xl flex-col gap-2">
@@ -155,7 +237,7 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
           Iceland, only where a page names the place.
         </h1>
         <p className="text-sm leading-6 text-[#c9c1b2]">
-          Pins are real places. Reykjavík is one cluster, not a door for each office. Lines are Landsvirkjun’s power sales that are already typed. A figure selects a layer. NGOs have nothing sourced yet.
+          Pins are real places. Reykjavík is one cluster, not a door for each office. Ownership, investments, and money flows are the typed edges already on file. Family is a separate channel, and it is empty.
         </p>
       </header>
 
@@ -178,6 +260,24 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
               style={{ background: layer.swatch }}
             />
             {layer.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Views">
+        {MAP_VIEWS.map((view) => (
+          <button
+            key={view.id}
+            type="button"
+            aria-pressed={viewsOn[view.id]}
+            className="rounded-full border border-[#3a4036] px-3 py-1.5 text-sm"
+            style={{
+              color: viewsOn[view.id] ? "#f3ecdf" : "#9a917f",
+              background: viewsOn[view.id] ? "#23281f" : "transparent",
+            }}
+            onClick={() => setViewsOn((current) => ({ ...current, [view.id]: !current[view.id] }))}
+          >
+            {view.label}
           </button>
         ))}
       </div>
@@ -215,24 +315,32 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
             >
               <rect width={scene.width} height={scene.height} fill="#12160f" rx="12" />
               <path d={scene.d} fill="#2a3124" stroke="#d9d0bf" strokeWidth="1.4" />
-              {strings.map((line) => {
-                const drawn = curve(points[line.fromPlace], points[line.toPlace], line.bend);
+              {strings.map(({ edge, bend, year }) => {
+                const drawn = curve(points[edge.fromPlace!], points[edge.toPlace!], bend);
+                const active = !selectedSlug || litKeys.has(edgeKey(edge));
                 return (
-                  <g key={`${line.toSlug}-${line.year}`}>
-                    <path d={drawn.d} fill="none" stroke="#e6d3a4" strokeOpacity="0.8" strokeWidth="1.3" />
-                    <text
-                      x={drawn.labelX}
-                      y={drawn.labelY}
-                      textAnchor="middle"
-                      fill="#f0e2c4"
-                      fontSize="12"
-                      stroke="#1a1f16"
-                      strokeWidth="3"
-                      paintOrder="stroke"
-                      className="max-sm:hidden"
-                    >
-                      {line.year}
-                    </text>
+                  <g key={edgeKey(edge)} style={{ opacity: active ? 1 : 0.22, transition: "opacity 200ms ease" }}>
+                    <path
+                      d={drawn.d}
+                      fill="none"
+                      stroke={STROKE[edge.relationship] ?? "#e6d3a4"}
+                      strokeWidth="1.4"
+                    />
+                    {year ? (
+                      <text
+                        x={drawn.labelX}
+                        y={drawn.labelY}
+                        textAnchor="middle"
+                        fill="#f0e2c4"
+                        fontSize="12"
+                        stroke="#1a1f16"
+                        strokeWidth="3"
+                        paintOrder="stroke"
+                        className="max-sm:hidden"
+                      >
+                        {year}
+                      </text>
+                    ) : null}
                   </g>
                 );
               })}
@@ -242,8 +350,16 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
                 const point = points[place.id];
                 const swatch = LAYERS.find((layer) => layer.id === atPlace[0]?.layer)?.swatch ?? "#d7c4a3";
                 const selected = selectedPlace === place.id;
+                const involved =
+                  !selectedSlug ||
+                  atPlace.some((entry) => entry.slug === selectedSlug) ||
+                  lit.some(
+                    (edge) =>
+                      (edge.fromPlace === place.id || edge.toPlace === place.id) &&
+                      (edge.from === selectedSlug || edge.to === selectedSlug),
+                  );
                 return (
-                  <g key={place.id}>
+                  <g key={place.id} style={{ opacity: involved ? 1 : 0.35, transition: "opacity 200ms ease" }}>
                     <circle
                       cx={point.x}
                       cy={point.y}
@@ -311,6 +427,29 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
               <a className="text-sm text-[#e6d3a4] underline underline-offset-4" href={focus.href}>
                 Open the entry
               </a>
+              {lit.length > 0 ? (
+                <ul className="flex flex-col gap-2">
+                  {lit.map((edge) => (
+                    <li key={edgeKey(edge)} className="text-sm leading-5 text-[#d5cdbf]">
+                      {labelize(edge.relationship)} {edge.from === focus.slug ? edge.toTitle : edge.fromTitle}
+                      {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm leading-6 text-[#9a917f]">No lines in the views that are on.</p>
+              )}
+              {focus.flows.length > 0 ? (
+                <ul className="flex flex-col gap-2">
+                  {focus.flows.map((flow) => (
+                    <li key={flow.href}>
+                      <a className="text-sm text-[#e6d3a4] underline underline-offset-4" href={flow.href}>
+                        {flow.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
               {placeEntries.length > 1 ? (
                 <button
                   type="button"
@@ -327,23 +466,27 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
               <h2 className="text-xl font-medium text-[#f3ecdf]">{placeName}</h2>
               {selectedPlace === "reykjavik" ? (
                 <p className="text-sm leading-6 text-[#d5cdbf]">
-                  One pin for the capital. Offices are not given separate coordinates.
+                  One pin for the capital. The list is grouped by layer. Offices are not given separate coordinates.
                 </p>
               ) : null}
-              <ul className="flex flex-col gap-2">
-                {placeEntries.map((entry) => (
-                  <li key={entry.slug}>
-                    <button
-                      type="button"
-                      className="text-left text-sm text-[#f3ecdf] underline underline-offset-4"
-                      onClick={() => setSelectedSlug(entry.slug)}
-                    >
-                      {entry.title}
-                    </button>
-                    <span className="ml-2 text-xs text-[#9a917f]">{LAYER_LABEL[entry.layer]}</span>
-                  </li>
-                ))}
-              </ul>
+              {grouped.map((group) => (
+                <div key={group.layer.id} className="flex flex-col gap-2">
+                  <p className="text-xs tracking-wide text-[#9a917f] uppercase">{group.layer.label}</p>
+                  <ul className="flex flex-col gap-2">
+                    {group.entries.map((entry) => (
+                      <li key={entry.slug}>
+                        <button
+                          type="button"
+                          className="text-left text-sm text-[#f3ecdf] underline underline-offset-4"
+                          onClick={() => setSelectedSlug(entry.slug)}
+                        >
+                          {entry.title}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           ) : selectedLayer ? (
             <div className="flex flex-col gap-3">
@@ -375,6 +518,33 @@ export function IcelandMap({ entries }: { entries: MapEntryView[] }) {
           )}
         </aside>
       </div>
+
+      <div className="flex min-w-0 flex-col gap-4">
+        {MAP_VIEWS.map((view) => {
+          if (!viewsOn[view.id]) return null;
+          const lines = shown.filter((edge) => edge.view === view.id);
+          return (
+            <section key={view.id} className="min-w-0">
+              <h2 className="text-sm font-medium text-[#f3ecdf]">
+                {view.label} · {lines.length}
+              </h2>
+              {lines.length === 0 ? (
+                <p className="mt-1 text-sm text-[#9a917f]">No lines in this view.</p>
+              ) : (
+                <ul className="mt-2 flex flex-col gap-1">
+                  {lines.map((edge) => (
+                    <li key={edgeKey(edge)} className="min-w-0 text-sm leading-5 break-words text-[#d5cdbf]" style={lineStyle(edge)}>
+                      {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
+                      {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          );
+        })}
+      </div>
+
       <p className="text-xs leading-5 text-[#8f8778]">
         Coastline: Natural Earth 1:50m, public domain. Place points: Nominatim names for Reykjavík, Straumsvík, Grundartangi, Reyðarfjörður, Keflavík airport, and Blönduós.
       </p>

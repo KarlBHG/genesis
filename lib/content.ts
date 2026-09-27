@@ -20,6 +20,7 @@ import type {
 } from "@/lib/types";
 
 const ROOT = path.join(process.cwd(), "content");
+const DATA = path.join(process.cwd(), "data");
 
 const RELATIONSHIPS = new Set<Relationship>([
   "owns",
@@ -263,8 +264,106 @@ export const getCatalog = cache((): Entry[] => {
       }
     }
   }
+  loadedEdges = buildEdges(entries);
+  assertRecords(entries);
   return entries;
 });
+
+let loadedEdges: Edge[] = [];
+
+const EDGE_FIELDS = ["from", "to", "type", "asOf", "source", "quotation"] as const;
+
+function requireEdgeString(row: Record<string, unknown>, key: string, index: number): string {
+  const value = row[key];
+  if (typeof value !== "string" || !value.trim()) {
+    throw new Error(`data/edges.json edge ${index + 1} is missing ${key}`);
+  }
+  return value.trim();
+}
+
+function buildEdges(entries: Entry[]): Edge[] {
+  const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "edges.json"), "utf8"));
+  if (!Array.isArray(parsed)) throw new Error("data/edges.json must be a list");
+  const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  return parsed.map((item, index) => {
+    if (item == null || typeof item !== "object" || Array.isArray(item)) {
+      throw new Error(`data/edges.json edge ${index + 1} must be an object`);
+    }
+    const row = item as Record<string, unknown>;
+    for (const key of EDGE_FIELDS) {
+      if (!(key in row)) throw new Error(`data/edges.json edge ${index + 1} is missing ${key}`);
+    }
+    const from = requireEdgeString(row, "from", index);
+    const to = requireEdgeString(row, "to", index);
+    const type = requireEdgeString(row, "type", index);
+    const asOf = requireEdgeString(row, "asOf", index);
+    const source = requireEdgeString(row, "source", index);
+    const quotation = requireEdgeString(row, "quotation", index);
+    if (!RELATIONSHIPS.has(type as Relationship)) {
+      throw new Error(`data/edges.json edge ${index + 1} has unknown type "${type}"`);
+    }
+    const fromEntry = bySlug.get(from);
+    const toEntry = bySlug.get(to);
+    if (!fromEntry) throw new Error(`data/edges.json edge ${index + 1} from "${from}" does not exist`);
+    if (!toEntry) throw new Error(`data/edges.json edge ${index + 1} to "${to}" does not exist`);
+    if (from === to) throw new Error(`data/edges.json edge ${index + 1} points at itself`);
+    return {
+      from,
+      fromTitle: fromEntry.title,
+      to,
+      toTitle: toEntry.title,
+      relationship: type as Relationship,
+      source,
+      quotation,
+      asOf,
+    };
+  });
+}
+
+function assertRecords(entries: Entry[]): void {
+  const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const places: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "places.json"), "utf8"));
+  if (!Array.isArray(places)) throw new Error("data/places.json must be a list");
+  const placeIds = new Set<string>();
+  for (const [index, item] of places.entries()) {
+    if (item == null || typeof item !== "object" || Array.isArray(item)) {
+      throw new Error(`data/places.json place ${index + 1} must be an object`);
+    }
+    const row = item as Record<string, unknown>;
+    for (const key of ["id", "name"] as const) {
+      if (typeof row[key] !== "string" || !row[key].trim()) {
+        throw new Error(`data/places.json place ${index + 1} is missing ${key}`);
+      }
+    }
+    if (typeof row.lat !== "number" || typeof row.lon !== "number") {
+      throw new Error(`data/places.json place ${index + 1} is missing lat or lon`);
+    }
+    placeIds.add(row.id as string);
+  }
+  for (const id of ["reykjavik", "straumsvik", "grundartangi", "reydarfjordur", "keflavik", "blonduos"]) {
+    if (!placeIds.has(id)) throw new Error(`data/places.json is missing ${id}`);
+  }
+  const offices: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "offices.json"), "utf8"));
+  if (!Array.isArray(offices)) throw new Error("data/offices.json must be a list");
+  for (const [index, item] of offices.entries()) {
+    if (item == null || typeof item !== "object" || Array.isArray(item)) {
+      throw new Error(`data/offices.json office ${index + 1} must be an object`);
+    }
+    const row = item as Record<string, unknown>;
+    for (const key of ["id", "title", "holder", "organization", "asOf"] as const) {
+      if (typeof row[key] !== "string" || !row[key].trim()) {
+        throw new Error(`data/offices.json office ${index + 1} is missing ${key}`);
+      }
+    }
+    const holder = bySlug.get(row.holder as string);
+    if (!holder || holder.kind !== "player" || holder.playerType !== "person") {
+      throw new Error(`data/offices.json office ${index + 1} holder does not exist`);
+    }
+    if (!bySlug.has(row.organization as string)) {
+      throw new Error(`data/offices.json office ${index + 1} organization does not exist`);
+    }
+  }
+}
 
 export function getBySlug(slug: string): Entry | undefined {
   return getCatalog().find((entry) => entry.slug === slug);
@@ -307,26 +406,8 @@ export function resolveSlug(slug: string): { title: string; href: string } | nul
 }
 
 export function getEdges(): Edge[] {
-  const entries = getCatalog();
-  const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
-  const edges: Edge[] = [];
-  for (const entry of entries) {
-    for (const connection of entry.connections) {
-      const target = bySlug.get(connection.to);
-      if (!target) continue;
-      edges.push({
-        from: entry.slug,
-        fromTitle: entry.title,
-        to: connection.to,
-        toTitle: target.title,
-        relationship: connection.relationship,
-        source: connection.source,
-        note: connection.note,
-        asOf: connection.asOf,
-      });
-    }
-  }
-  return edges;
+  getCatalog();
+  return loadedEdges;
 }
 
 export function edgesFor(slug: string): { out: Edge[]; inn: Edge[] } {
@@ -358,10 +439,11 @@ export function toSearchDocs(entries: Entry[] = getCatalog()): SearchDoc[] {
                 ? [entry.role, entry.playerType]
                 : [entry.type],
     body: plainBody(
-      `${entry.body}\n${entry.sources}\n${entry.connections
+      `${entry.body}\n${entry.sources}\n${getEdges()
+        .filter((edge) => edge.from === entry.slug || edge.to === entry.slug)
         .map(
-          (connection) =>
-            `${labelize(connection.relationship)} ${connection.relationship} ${connection.note}`,
+          (edge) =>
+            `${labelize(edge.relationship)} ${edge.relationship} ${edge.quotation}`,
         )
         .join("\n")}`,
     ),
@@ -372,13 +454,13 @@ export function toSearchDocs(entries: Entry[] = getCatalog()): SearchDoc[] {
     const label = labelize(edge.relationship);
     return {
       title: `${edge.fromTitle} ${label.toLowerCase()} ${edge.toTitle}`,
-      slug: `edge:${edge.from}:${edge.relationship}:${edge.to}`,
+      slug: `edge:${edge.from}:${edge.relationship}:${edge.to}:${edge.asOf}`,
       kind: "edge",
       href: from ? hrefFor(from) : "/connections",
-      summary: `${label}. ${edge.note}`,
+      summary: `${label}. ${edge.quotation}`,
       topics: [label, edge.relationship],
       body: plainBody(
-        `${label} ${edge.relationship} ${edge.note} ${edge.fromTitle} ${edge.toTitle}`,
+        `${label} ${edge.relationship} ${edge.quotation} ${edge.fromTitle} ${edge.toTitle}`,
       ),
     };
   });

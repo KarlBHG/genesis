@@ -3,12 +3,6 @@ title: "Food and beverages imports, 2024"
 slug: "food-and-beverages-imports-2024"
 year: "2024"
 related: ["goods-exports-2024", "agriculture", "agricultural-products-exports-2024"]
-connections:
-  - to: agriculture
-    relationship: import-line-of
-    source: "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/"
-    note: "The 2024 goods table lists food and beverages imports at 121.7 billion ISK cif, 9.0% of goods imports."
-    asOf: "2024"
 ---
 
 # Food and beverages imports, 2024

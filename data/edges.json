@@ -1,0 +1,434 @@
+[
+  {
+    "from": "althingi",
+    "to": "ministry-of-health",
+    "type": "funds",
+    "asOf": "2024",
+    "source": "https://www.stjornarradid.is/efst-a-baugi/frettir/stok-frett/2023-12-20-Fjarlog-2024-samthykkt-Aukid-adhald-og-skorp-forgangsrodun/",
+    "quotation": "í fjárlögum fyrir árið 2024 sem hafa verið samþykkt á Alþingi. Framlög til heilbrigðismála eru eftir sem áður stærsti útgjaldaliður fjárlaga og nema um 379,4 ma.kr. á næsta ári."
+  },
+  {
+    "from": "althingi",
+    "to": "landspitali",
+    "type": "funds",
+    "asOf": "2024",
+    "source": "https://www.stjornarradid.is/efst-a-baugi/frettir/stok-frett/2023-12-20-Fjarlog-2024-samthykkt-Aukid-adhald-og-skorp-forgangsrodun/",
+    "quotation": "í fjárlögum fyrir árið 2024 sem hafa verið samþykkt á Alþingi. Fjárveitingar til byggingar nýs Landspítala á næsta ári nema 19,3 ma.kr."
+  },
+  {
+    "from": "althingi",
+    "to": "treasury-budget-2026",
+    "type": "funds",
+    "asOf": "2025-11-18",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/",
+    "quotation": "Fjárlagafrumvarpið fyrir árið 2026 var afgreitt sem lög frá Alþingi 18. nóvember 2025."
+  },
+  {
+    "from": "financial-supervisory-authority",
+    "to": "lsr",
+    "type": "regulates",
+    "asOf": "consolidated statute",
+    "source": "https://www.althingi.is/lagas/nuna/1997129.html",
+    "quotation": "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
+  },
+  {
+    "from": "financial-supervisory-authority",
+    "to": "bru",
+    "type": "regulates",
+    "asOf": "consolidated statute",
+    "source": "https://www.althingi.is/lagas/nuna/1997129.html",
+    "quotation": "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
+  },
+  {
+    "from": "financial-supervisory-authority",
+    "to": "birta",
+    "type": "regulates",
+    "asOf": "consolidated statute",
+    "source": "https://www.althingi.is/lagas/nuna/1997129.html",
+    "quotation": "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
+  },
+  {
+    "from": "financial-supervisory-authority",
+    "to": "stapi",
+    "type": "regulates",
+    "asOf": "consolidated statute",
+    "source": "https://www.althingi.is/lagas/nuna/1997129.html",
+    "quotation": "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds, and custodians of pension savings, operate in line with the act."
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "landsvirkjun",
+    "type": "appoints",
+    "asOf": "2026-04-21",
+    "source": "https://www.landsvirkjun.com/governance/board",
+    "quotation": "Landsvirkjun’s Board is appointed by the Minister of Finance, at the company’s Annual General Meeting, held before the end of April each year. The current Board of Directors were appointed at the company’s Annual General Meeting April 21st 2026."
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "landsbankinn",
+    "type": "owns",
+    "asOf": "undated on the ownership page",
+    "source": "https://www.landsbankinn.is/en/the-bank/about-us/strategy-and-organisation/ownership",
+    "quotation": "Landsbankinn's shareholders are around 800 with the National Treasury as the largest owner of a 98.2% share. Ministry of Finance and Economic Affairs controls the State’s holding in the Bank."
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "isavia",
+    "type": "owns",
+    "asOf": "2025",
+    "source": "https://eu-assets.contentstack.com/v3/assets/bltde8e98ee10782d85/blt0adda88abbe83d4c/6a044373f2b294f4a7927b05/Isavia_Consolidated_FinancialStatements_2025.pdf",
+    "quotation": "The Icelandic State is the sole owner of Isavia ohf. at the end of 2025, as at the end of 2024. The Minister of Finance and Economic Affairs carries the voting rights on behalf of the Icelandic Treasury."
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "landsnet",
+    "type": "owns",
+    "asOf": "2025",
+    "source": "https://ml-eu.globenewswire.com/Resource/Download/441b1630-ff23-447f-bed1-0b19f6969906",
+    "quotation": "The Company is majority-owned by the Icelandic Treasury and is classified as a company in Group C of the Central Government."
+  },
+  {
+    "from": "ministry-of-infrastructure",
+    "to": "fjarskiptastofa",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagasafn/pdf/157c/2021075.pdf",
+    "quotation": "Ef í lögum þessum er getið um ráðherra eða ráðuneyti án þess að málefnasvið sé tilgreint sérstaklega eða til þess vísað, er átt við innviðaráðherra eða innviðaráðuneyti sem fer með lög þessi. Ráðherra skipar forstjóra Fjarskiptastofu til fimm ára í senn."
+  },
+  {
+    "from": "sedlabanki",
+    "to": "arion-banki",
+    "type": "regulates",
+    "asOf": "2025",
+    "source": "https://wwwv2.arionbanki.is/lisalib/getfile.aspx?itemid=0cd6cf52-0c1b-11f1-8108-8b217d8ec868",
+    "quotation": "the capital ratio and CET1 ratio are well above the requirements made by the Financial Supervisory Authority of the Central Bank of Iceland and Icelandic law."
+  },
+  {
+    "from": "agricultural-products-exports-2024",
+    "to": "agriculture",
+    "type": "export-of",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "The 2024 goods table lists agricultural products as an export row: 8.8 billion ISK fob, 0.9% of goods exports."
+  },
+  {
+    "from": "aluminium-exports-2024",
+    "to": "power-and-aluminium",
+    "type": "export-of",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "The export of aluminium and aluminium products contributed the most to the exports of Industrial products in 2024 or 33% of the total export value."
+  },
+  {
+    "from": "food-and-beverages-imports-2024",
+    "to": "agriculture",
+    "type": "import-line-of",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "The 2024 goods table lists food and beverages imports at 121.7 billion ISK cif, 9.0% of goods imports."
+  },
+  {
+    "from": "marine-products-exports-2024",
+    "to": "fisheries-and-quotas",
+    "type": "export-of",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "Statistics Iceland’s 2024 goods table lists marine products as their own export row: 346.5 billion ISK fob, 36.1% of goods exports. Farmed fish is a separate row."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "healthcare",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 of the 2026 budget law prints a total authorisation of 192.293,9 m.kr. for hospital services under the Ministry of Health, inside that ministry’s row of 437.690,0 m.kr. The healthcare page’s figure of about 379.4 billion ISK is a different line, from the 2024 budget."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "treasury-debt",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 5 authorises the Minister of Finance and Economic Affairs, for the Treasury, to borrow up to 290 billion ISK, up to 78.7 billion ISK for the Central Bank’s equity, and up to a further 140 billion ISK. Those are 2026 authorisations, not the outstanding debt stock."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "prime-ministers-office",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 prints a 2026 total authorisation of 5.448,3 m.kr. for Forsætisráðuneyti."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "ministry-for-foreign-affairs",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 prints a 2026 total authorisation of 39.526,8 m.kr. for Utanríkisráðuneyti."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "ministry-of-education-and-children",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 prints a 2026 total authorisation of 73.572,4 m.kr. for Mennta- og barnamálaráðuneyti."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "ministry-of-culture-innovation-and-higher-education",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 prints a 2026 total authorisation of 137.418,4 m.kr. for Menningar-, nýsköpunar- og háskólaráðuneyti."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "ministry-of-justice",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 prints a 2026 total authorisation of 77.252,0 m.kr. for Dómsmálaráðuneyti."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "ministry-of-infrastructure",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 prints a 2026 total authorisation of 115.580,6 m.kr. for Innviðaráðuneyti."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "ministry-of-the-environment-energy-and-climate",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 prints a 2026 total authorisation of 52.044,4 m.kr. for Umhverfis-, orku- og loftslagsráðuneyti."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "ministry-of-social-affairs-and-housing",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 prints a 2026 total authorisation of 393.868,7 m.kr. for Félags- og húsnæðismálaráðuneyti."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "ministry-of-industries",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 4 prints a 2026 total authorisation of 38.960,5 m.kr. for Atvinnuvegaráðuneyti."
+  },
+  {
+    "from": "arion-banki",
+    "to": "syn",
+    "type": "invests-in",
+    "asOf": "2024-12-31",
+    "source": "https://assets.ctfassets.net/u0ns9p1dn2b1/7pdAS1gq8Lq91evjn4mfCj/7aa38a5209ae873b6f711c1b87a87afd/Sy%C3%8C_n_samst%C3%83_%C3%83_ua%C3%8C_rsreikningur_2024.pdf",
+    "quotation": "Sýn hf.’s 2024 consolidated statements list Arion banki hf. among the ten largest shareholders at 31 December 2024, with 15.605 thousand shares and 6,3%. The table heading prints share counts in thousands."
+  },
+  {
+    "from": "birta",
+    "to": "arion-banki",
+    "type": "invests-in",
+    "asOf": "2025",
+    "source": "https://birta.is/documents/466/%C3%81rsreikningur_Birtu_2025.pdf",
+    "quotation": "Note 8 of the 2025 accounts lists Arion banki hf. among listed domestic shares, with an ownership stake of 2.8%. The 2025 column prints 8,014,844 and the 2024 column prints 7,556,043. The accounts say amounts are in thousands of krónur."
+  },
+  {
+    "from": "birta",
+    "to": "islandsbanki",
+    "type": "invests-in",
+    "asOf": "2025",
+    "source": "https://birta.is/documents/466/%C3%81rsreikningur_Birtu_2025.pdf",
+    "quotation": "Note 8 of the 2025 accounts lists Íslandsbanki hf. among listed domestic shares, with an ownership stake of 1.6%. The 2025 column prints 4,412,163 and the 2024 column prints 3,771,758. The accounts say amounts are in thousands of krónur."
+  },
+  {
+    "from": "birta",
+    "to": "hagar",
+    "type": "invests-in",
+    "asOf": "2026-09-24",
+    "source": "https://www.hagar.is/en/investors/shareholders-information/shareholders-list/",
+    "quotation": "Hagar’s shareholder list, last updated 24 September 2026, prints Birta lífeyrissjóður with 72.700.843 shares, 6.57%."
+  },
+  {
+    "from": "birta",
+    "to": "syn",
+    "type": "invests-in",
+    "asOf": "2024-12-31",
+    "source": "https://assets.ctfassets.net/u0ns9p1dn2b1/7pdAS1gq8Lq91evjn4mfCj/7aa38a5209ae873b6f711c1b87a87afd/Sy%C3%8C_n_samst%C3%83_%C3%83_ua%C3%8C_rsreikningur_2024.pdf",
+    "quotation": "Sýn hf.’s 2024 consolidated statements list Birta lífeyrissjóður among the ten largest shareholders at 31 December 2024, with 9.408 thousand shares and 3,8%. The table heading prints share counts in thousands."
+  },
+  {
+    "from": "bru",
+    "to": "arion-banki",
+    "type": "invests-in",
+    "asOf": "2025",
+    "source": "https://www.lifbru.is/static/files/BRU_ONNUR_SKJOL/2026/Arsreikningur2025/arsreikningur-bru-31.12.25.pdf",
+    "quotation": "Note 32 of the 2025 accounts lists Arion banki hf. among listed shares. The ownership column prints 5.33% at 31 December 2025 and 5.31% at 31 December 2024. The book-value column prints 15,295,400 for 2025. Amounts in that note are in thousands of krónur."
+  },
+  {
+    "from": "bru",
+    "to": "islandsbanki",
+    "type": "invests-in",
+    "asOf": "2025",
+    "source": "https://www.lifbru.is/static/files/BRU_ONNUR_SKJOL/2026/Arsreikningur2025/arsreikningur-bru-31.12.25.pdf",
+    "quotation": "Note 32 of the 2025 accounts lists Íslandsbanki hf. among listed shares. The ownership column prints 4.30% at 31 December 2025 and 3.71% at 31 December 2024. The book-value column prints 11,914,791 for 2025. Amounts in that note are in thousands of krónur."
+  },
+  {
+    "from": "bru",
+    "to": "hagar",
+    "type": "invests-in",
+    "asOf": "2026-09-24",
+    "source": "https://www.hagar.is/en/investors/shareholders-information/shareholders-list/",
+    "quotation": "Hagar’s shareholder list, last updated 24 September 2026, prints Brú Lífeyrissjóður starfs sveit with 89.617.404 shares, 8.10%. A separate row prints Brú R deild with 15.663.187 shares, 1.42%. The page says total share capital is ISK 1,106,428,863 nominal value."
+  },
+  {
+    "from": "fisheries-iceland",
+    "to": "fisheries-and-quotas",
+    "type": "represents",
+    "asOf": "undated on the about page",
+    "source": "https://www.sfs.is/en/efni/about-sfs",
+    "quotation": "The association's goal is to safeguard the interests of the fisheries sector, including companies in aquaculture."
+  },
+  {
+    "from": "islandsbanki",
+    "to": "syn",
+    "type": "invests-in",
+    "asOf": "2024-12-31",
+    "source": "https://assets.ctfassets.net/u0ns9p1dn2b1/7pdAS1gq8Lq91evjn4mfCj/7aa38a5209ae873b6f711c1b87a87afd/Sy%C3%8C_n_samst%C3%83_%C3%83_ua%C3%8C_rsreikningur_2024.pdf",
+    "quotation": "Sýn hf.’s 2024 consolidated statements list Íslandsbanki hf. among the ten largest shareholders at 31 December 2024, with 12.874 thousand shares and 5,2%. The table heading prints share counts in thousands."
+  },
+  {
+    "from": "landsvirkjun",
+    "to": "hordur-arnarson",
+    "type": "appoints",
+    "asOf": "2026-04-21",
+    "source": "https://www.landsvirkjun.com/governance/executive-board",
+    "quotation": "The Board of Directors appoints the CEO, and the Board and the CEO are responsible for the management of the company. The CEO of Landsvirkjun is Hörður Arnarson, who in collaboration with the Board is responsible for the day to day administration of the company."
+  },
+  {
+    "from": "landsvirkjun",
+    "to": "borealis-data-center",
+    "type": "sells-power-to",
+    "asOf": "2026-06-23",
+    "source": "https://www.landsvirkjun.com/news/borealis-and-landsvirkjun-sign-a-12-mw-power-purchasing-agreement",
+    "quotation": "The long-term agreement provides for an additional 12 MW of firm power, in addition to existing contracts between the parties."
+  },
+  {
+    "from": "landsvirkjun",
+    "to": "nordural",
+    "type": "sells-power-to",
+    "asOf": "2024",
+    "source": "https://nordural.is/wp-content/uploads/2025/06/Nordural-Grundartangi-Annual-report-2024.pdf",
+    "quotation": "Power is currently supplied to Grundartangi from hydroelectric and geothermal sources under long-term power purchase agreements with three separate power suppliers - HS, Landsvirkjun and OR."
+  },
+  {
+    "from": "landsvirkjun",
+    "to": "nordural",
+    "type": "sells-power-to",
+    "asOf": "2026-03-24",
+    "source": "https://www.landsvirkjun.com/news/landsvirkjun-and-nordural-sign-power-purchase-agreement",
+    "quotation": "Norðurál and Landsvirkjun have signed an agreement for the supply of electricity to the aluminium smelter at Grundartangi, covering the period from the beginning of 2027 through the end of 2033. The annual contracted volume amounts to up to 250 MW."
+  },
+  {
+    "from": "landsvirkjun",
+    "to": "isal",
+    "type": "sells-power-to",
+    "asOf": "2021-02-15",
+    "source": "https://www.landsvirkjun.com/news/amended-agreement-delivers-stronger-competitiveness-for-straumsvik-smelter",
+    "quotation": "As before, the contract specifies the sale of 390 MW or 3.416 GWh pr. year and expires in 2036."
+  },
+  {
+    "from": "landsvirkjun",
+    "to": "alcoa-fjardaal",
+    "type": "sells-power-to",
+    "asOf": "2025",
+    "source": "https://s25.q4cdn.com/195584580/files/doc_financials/2025/ar/2025_Alcoa_Corp_Annual_Report_Bookmarked.pdf",
+    "quotation": "Landsvirkjun, the Icelandic national power company, supplies competitively priced electricity from a hydroelectric facility to the smelter under a 40-year power contract, which expires in 2048 with a price renegotiation effective from 2028."
+  },
+  {
+    "from": "lsr",
+    "to": "hagar",
+    "type": "invests-in",
+    "asOf": "2026-09-24",
+    "source": "https://www.hagar.is/en/investors/shareholders-information/shareholders-list/",
+    "quotation": "Hagar’s shareholder list, last updated 24 September 2026, prints Lífeyrissj.starfsm.rík. A-deild with 126.787.598 shares, 11.46%. A separate row prints Lífeyrissj.starfsm.rík. B-deild with 19.279.633 shares, 1.74%."
+  },
+  {
+    "from": "lsr",
+    "to": "syn",
+    "type": "invests-in",
+    "asOf": "2024-12-31",
+    "source": "https://assets.ctfassets.net/u0ns9p1dn2b1/7pdAS1gq8Lq91evjn4mfCj/7aa38a5209ae873b6f711c1b87a87afd/Sy%C3%8C_n_samst%C3%83_%C3%83_ua%C3%8C_rsreikningur_2024.pdf",
+    "quotation": "Sýn hf.’s 2024 consolidated statements list Lífeyrissj.starfsm.rík. A-deild among the ten largest shareholders at 31 December 2024, with 13.678 thousand shares and 5,5%. The table heading prints share counts in thousands."
+  },
+  {
+    "from": "ministry-of-health",
+    "to": "healthcare",
+    "type": "regulates",
+    "asOf": "2024",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2024/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "quotation": "Starfsemi á þessu málefnasviði er á ábyrgð heilbrigðisráðherra."
+  },
+  {
+    "from": "ministry-of-industries",
+    "to": "fisheries-and-quotas",
+    "type": "regulates",
+    "asOf": "undated on the cited page",
+    "source": "https://www.sfs.is/en/efni/fisheries-management",
+    "quotation": "The Ministry of Industries and Innovations is responsible for the political policy making, issuing of regulations and long-term planning in fisheries."
+  },
+  {
+    "from": "ministry-of-industries",
+    "to": "agriculture",
+    "type": "regulates",
+    "asOf": "undated on the about page",
+    "source": "https://www.government.is/ministries/ministry-of-industries/about-the-ministry/",
+    "quotation": "The Ministry of Industries is responsible for agriculture, aquaculture, fisheries, food and food safety."
+  },
+  {
+    "from": "ministry-of-industries",
+    "to": "brim",
+    "type": "regulates",
+    "asOf": "2024",
+    "source": "https://www.brim.is/frettir/fjarfestar/2025/02/27/3034037/%C3%81rsuppgj%C3%B6r-Brims-hf-2024",
+    "quotation": "Afkoma Brims var undir væntingum á árinu og er aðal ástæðan að íslensk stjórnvöld leyfðu engar loðnuveiðar. Úthlutun í djúpkarfa var engin í upphafi ársins og einnig hömluðu stjórnvöld Brimi að veiða stóran hluta síns þorskkvóta í Barentshafi á árinu."
+  },
+  {
+    "from": "reykjavikurborg",
+    "to": "orkuveita-reykjavikur",
+    "type": "owns",
+    "asOf": "2024",
+    "source": "https://forms.kolefnisreiknir.is/documents/1601/Orkuveitan_%C3%81rsreikningur_m%C3%B3%C3%B0urfyrirt%C3%A6kis_31.12.2024_me%C3%B0_prentu%C3%B0um_undirskriftum.pdf",
+    "quotation": "Eigendur Orkuveitunnar í byrjun og lok árs 2024 voru Reykjavíkurborg (93,539%), Akraneskaupstaður (5,528%) og Borgarbyggð (0,933%)."
+  },
+  {
+    "from": "stapi",
+    "to": "hagar",
+    "type": "invests-in",
+    "asOf": "2026-09-24",
+    "source": "https://www.hagar.is/en/investors/shareholders-information/shareholders-list/",
+    "quotation": "Hagar’s shareholder list, last updated 24 September 2026, prints Stapi lífeyrissjóður with 27.410.917 shares, 2.48%."
+  },
+  {
+    "from": "eea-agreement",
+    "to": "fisheries-and-quotas",
+    "type": "tariff-terms",
+    "asOf": "undated on the cited page",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "Protocol 9 provides for tariff liberalisation for fish products."
+  },
+  {
+    "from": "eea-agreement",
+    "to": "agriculture",
+    "type": "tariff-terms",
+    "asOf": "undated on the cited page",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "Protocol 3 to the Agreement provides for tariff liberalisation for processed agricultural products. a bilateral agreement is in force between Iceland and the EU from 2018 on tariff preferences for unprocessed agricultural products."
+  }
+]

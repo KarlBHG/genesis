@@ -6,12 +6,6 @@ role: "Capital municipality"
 asOf: "2024"
 website: "https://reykjavik.is"
 related: ["samband-islenskra-sveitarfelaga", "ministry-of-infrastructure", "orkuveita-reykjavikur"]
-connections:
-  - to: orkuveita-reykjavikur
-    relationship: owns
-    source: "https://forms.kolefnisreiknir.is/documents/1601/Orkuveitan_%C3%81rsreikningur_m%C3%B3%C3%B0urfyrirt%C3%A6kis_31.12.2024_me%C3%B0_prentu%C3%B0um_undirskriftum.pdf"
-    note: "The parent company’s 2024 financial statements say the owners at the beginning and end of 2024 were Reykjavíkurborg (93,539%), Akraneskaupstaður (5,528%), and Borgarbyggð (0,933%)."
-    asOf: "2024"
 ---
 
 # Reykjavíkurborg

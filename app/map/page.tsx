@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-import { IcelandMap, type MapEntryView } from "@/components/iceland-map";
-import { MAP_ENTRIES } from "@/lib/geo-map";
-import { getCatalog, hrefFor } from "@/lib/content";
+import { IcelandMap, type MapEdgeView, type MapEntryView } from "@/components/iceland-map";
+import { getCatalog, getEdges, hrefFor } from "@/lib/content";
+import { MAP_ENTRIES, viewOf, type PlaceId } from "@/lib/geo-map";
 
 export const metadata: Metadata = {
   title: "Map",
@@ -25,12 +25,20 @@ function factFor(slug: string, summary: string): string {
 }
 
 export default function MapPage() {
-  const bySlug = new Map(getCatalog().map((entry) => [entry.slug, entry]));
+  const catalog = getCatalog();
+  const bySlug = new Map(catalog.map((entry) => [entry.slug, entry]));
+  const placeBySlug = new Map(MAP_ENTRIES.map((item) => [item.slug, item.place]));
+
   const entries: MapEntryView[] = MAP_ENTRIES.map((item) => {
     const entry = bySlug.get(item.slug);
     if (!entry) {
       throw new Error(`Map entry ${item.slug} is not in the catalog`);
     }
+    const flows = entry.related.flatMap((slug) => {
+      const related = bySlug.get(slug);
+      if (!related || related.kind !== "flow") return [];
+      return [{ title: related.title, href: hrefFor(related) }];
+    });
     return {
       slug: entry.slug,
       title: entry.title,
@@ -38,12 +46,25 @@ export default function MapPage() {
       fact: factFor(entry.slug, entry.summary),
       layer: item.layer,
       place: item.place,
+      flows,
     };
   });
 
+  const edges: MapEdgeView[] = getEdges().map((edge) => ({
+    from: edge.from,
+    to: edge.to,
+    fromTitle: edge.fromTitle,
+    toTitle: edge.toTitle,
+    relationship: edge.relationship,
+    asOf: edge.asOf,
+    view: viewOf(edge.relationship),
+    fromPlace: (placeBySlug.get(edge.from) ?? null) as PlaceId | null,
+    toPlace: (placeBySlug.get(edge.to) ?? null) as PlaceId | null,
+  }));
+
   return (
     <main className="min-h-full bg-[#0e100c]">
-      <IcelandMap entries={entries} />
+      <IcelandMap entries={entries} edges={edges} />
     </main>
   );
 }

@@ -164,7 +164,7 @@ function EdgeList({ edges, direction }: { edges: Edge[]; direction: "out" | "in"
         const otherTitle = direction === "out" ? edge.toTitle : edge.fromTitle;
         const target = resolveSlug(other);
         return (
-          <li key={`${edge.from}-${edge.relationship}-${edge.to}`} className="flex flex-col gap-1">
+          <li key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}-${edge.source}`} className="flex flex-col gap-1">
             <p>
               <Badge variant="outline">{labelize(edge.relationship)}</Badge>{" "}
               {target ? (
@@ -178,7 +178,7 @@ function EdgeList({ edges, direction }: { edges: Edge[]; direction: "out" | "in"
                 <span className="text-muted-foreground"> · {formatDate(edge.asOf)}</span>
               ) : null}
             </p>
-            <p className="text-sm text-muted-foreground">{edge.note}</p>
+            <p className="text-sm text-muted-foreground">{edge.quotation}</p>
             <a className="text-sm break-all" href={edge.source} rel="noreferrer" target="_blank">
               {edge.source}
             </a>

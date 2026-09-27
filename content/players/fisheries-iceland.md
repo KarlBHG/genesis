@@ -6,12 +6,6 @@ role: "Fisheries industry body"
 asOf: "2014-10-31"
 website: "https://www.sfs.is/en"
 related: ["fisheries-and-quotas", "sa-confederation", "ministry-of-industries"]
-connections:
-  - to: fisheries-and-quotas
-    relationship: represents
-    source: "https://www.sfs.is/en/efni/about-sfs"
-    note: "The about page says the association’s goal is to safeguard the interests of the fisheries sector, including aquaculture companies. The same page dates the association’s establishment at 31 October 2014."
-    asOf: ""
 ---
 
 # Samtök fyrirtækja í sjávarútvegi

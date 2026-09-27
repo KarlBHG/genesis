@@ -97,7 +97,7 @@ export function touchesOf(slug: string, edges: Edge[]): Touch[] {
         direction: "out",
         otherSlug: edge.to,
         otherTitle: edge.toTitle,
-        note: edge.note,
+        note: edge.quotation,
         asOf: edge.asOf,
       });
     } else if (edge.to === slug) {
@@ -107,7 +107,7 @@ export function touchesOf(slug: string, edges: Edge[]): Touch[] {
         direction: "in",
         otherSlug: edge.from,
         otherTitle: edge.fromTitle,
-        note: edge.note,
+        note: edge.quotation,
         asOf: edge.asOf,
       });
     }

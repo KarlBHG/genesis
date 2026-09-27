@@ -3,12 +3,6 @@ title: "Agricultural products exports, 2024"
 slug: "agricultural-products-exports-2024"
 year: "2024"
 related: ["goods-exports-2024", "agriculture", "food-and-beverages-imports-2024"]
-connections:
-  - to: agriculture
-    relationship: export-of
-    source: "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/"
-    note: "The 2024 goods table lists agricultural products as an export row: 8.8 billion ISK fob, 0.9% of goods exports."
-    asOf: "2024"
 ---
 
 # Agricultural products exports, 2024

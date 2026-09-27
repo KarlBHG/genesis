@@ -6,12 +6,6 @@ role: "Ministry"
 asOf: "2024-12-21"
 website: "https://www.government.is/ministries/ministry-of-health/"
 related: ["healthcare", "alma-d-moller", "landspitali", "althingi", "embaetti-landlaeknis"]
-connections:
-  - to: healthcare
-    relationship: regulates
-    source: "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2024/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/"
-    note: "The 2024 budget note says activity in the hospital-services policy area is the responsibility of the Minister of Health."
-    asOf: "2024"
 ---
 
 # Ministry of Health

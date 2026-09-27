@@ -7,12 +7,6 @@ role: "monetary-policy"
 parent: "independent"
 related: ["ministry-of-finance", "financial-supervisory-authority", "althingi", "arion-banki", "treasury-debt", "2008-capital-controls", "2017-capital-controls"]
 website: "https://www.sedlabanki.is"
-connections:
-  - to: arion-banki
-    relationship: regulates
-    source: "https://wwwv2.arionbanki.is/lisalib/getfile.aspx?itemid=0cd6cf52-0c1b-11f1-8108-8b217d8ec868"
-    note: "Arion Bank’s 2025 report says the bank’s capital ratio is above the requirements set by the Financial Supervisory Authority of the Central Bank of Iceland."
-    asOf: "2025"
 ---
 
 # Seðlabanki Íslands

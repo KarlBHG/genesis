@@ -6,22 +6,6 @@ role: "Pension fund"
 asOf: "2025"
 website: "https://www.lifbru.is/"
 related: ["pension-savings-2025", "financial-supervisory-authority", "arion-banki", "islandsbanki", "hagar"]
-connections:
-  - to: arion-banki
-    relationship: invests-in
-    source: "https://www.lifbru.is/static/files/BRU_ONNUR_SKJOL/2026/Arsreikningur2025/arsreikningur-bru-31.12.25.pdf"
-    note: "Note 32 of the 2025 accounts lists Arion banki hf. among listed shares. The ownership column prints 5.33% at 31 December 2025 and 5.31% at 31 December 2024. The book-value column prints 15,295,400 for 2025. Amounts in that note are in thousands of krónur."
-    asOf: "2025"
-  - to: islandsbanki
-    relationship: invests-in
-    source: "https://www.lifbru.is/static/files/BRU_ONNUR_SKJOL/2026/Arsreikningur2025/arsreikningur-bru-31.12.25.pdf"
-    note: "Note 32 of the 2025 accounts lists Íslandsbanki hf. among listed shares. The ownership column prints 4.30% at 31 December 2025 and 3.71% at 31 December 2024. The book-value column prints 11,914,791 for 2025. Amounts in that note are in thousands of krónur."
-    asOf: "2025"
-  - to: hagar
-    relationship: invests-in
-    source: "https://www.hagar.is/en/investors/shareholders-information/shareholders-list/"
-    note: "Hagar’s shareholder list, last updated 24 September 2026, prints Brú Lífeyrissjóður starfs sveit with 89.617.404 shares, 8.10%. A separate row prints Brú R deild with 15.663.187 shares, 1.42%. The page says total share capital is ISK 1,106,428,863 nominal value."
-    asOf: "2026-09-24"
 ---
 
 # Brú lífeyrissjóður

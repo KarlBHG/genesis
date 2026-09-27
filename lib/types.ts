@@ -133,6 +133,6 @@ export type Edge = {
   toTitle: string;
   relationship: Relationship;
   source: string;
-  note: string;
+  quotation: string;
   asOf: string;
 };
