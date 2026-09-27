@@ -2,7 +2,7 @@
 title: "Treasury debt"
 slug: "treasury-debt"
 year: "2024"
-related: ["ministry-of-finance", "sedlabanki", "althingi", "treasury-budget-2026"]
+related: ["ministry-of-finance", "sedlabanki", "althingi", "treasury-budget-2026", "landsnet"]
 ---
 
 # Treasury debt
@@ -13,7 +13,7 @@ The Ministry of Finance and Economic Affairs is responsible for central-governme
 ## Outstanding stock
 The Medium-Term Debt Management Strategy 2025–2029, issued 30 December 2024, says gross Treasury debt totalled ISK 1,924bn at the end of November 2024, equivalent to 42.3% of GDP. Table 1 in that strategy is Treasury Part A1 debt, net of pension obligations and accounts payable, at the same date. The table’s total liabilities line prints 1,924,177 million ISK.
 
-The table splits that stock, in million ISK, into Treasury bills 202,921, index-linked Treasury bonds 462,936, nominal Treasury bonds 612,132, accrued unpaid interest 39,920, other domestic liabilities 269,740, domestic liabilities in total 1,587,649, EMTN issues 298,685, the loan for the acquisition of Landsnet 37,843, and foreign liabilities in total 336,528. A later sentence in the same strategy says Treasury foreign debt amounted to ISK 343.2bn at the end of November 2024. The table and that sentence are both printed. They are not the same foreign total. The prose also describes the Landsnet loan as ISK 37.9bn, against the table’s 37,843 million ISK.
+The table splits that stock, in million ISK, into Treasury bills 202,921, index-linked Treasury bonds 462,936, nominal Treasury bonds 612,132, accrued unpaid interest 39,920, other domestic liabilities 269,740, domestic liabilities in total 1,587,649, EMTN issues 298,685, the loan for the acquisition of Landsnet 37,843 → [[landsnet]], and foreign liabilities in total 336,528. A later sentence in the same strategy says Treasury foreign debt amounted to ISK 343.2bn at the end of November 2024. The table and that sentence are both printed. They are not the same foreign total. The prose also describes the Landsnet loan as ISK 37.9bn, against the table’s 37,843 million ISK.
 
 At the end of November 2024 the strategy classifies the debt as nominal Treasury bonds 32%, indexed Treasury bonds 25%, Treasury bills 11%, foreign debt 18%, and other non-marketable debt 14%. Separately, indexed debt adjusted for inflation swaps was ISK 730bn, about 39% of total debt. Of the outstanding loan balance at that date, adjusted for swap agreements, 89% bore fixed interest and about 11% bore variable interest or was short-term.
 

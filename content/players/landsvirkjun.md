@@ -5,7 +5,7 @@ playerType: "organization"
 role: "National power company"
 asOf: "2025"
 website: "https://www.landsvirkjun.com"
-related: ["power-and-aluminium", "ministry-of-finance", "hordur-arnarson", "landsvirkjun-power-sales", "borealis-data-center", "nordural", "isal", "alcoa-fjardaal"]
+related: ["power-and-aluminium", "ministry-of-finance", "hordur-arnarson", "landsvirkjun-power-sales", "borealis-data-center", "nordural", "isal", "alcoa-fjardaal", "landsnet"]
 connections:
   - to: hordur-arnarson
     relationship: appoints

@@ -2,7 +2,7 @@
 title: "Power and aluminium"
 slug: "power-and-aluminium"
 area: "energy"
-related: ["landsvirkjun", "landsvirkjun-power-sales", "goods-exports-2024", "aluminium-exports-2024", "ministry-of-finance", "nordural", "isal", "alcoa-fjardaal"]
+related: ["landsvirkjun", "landsvirkjun-power-sales", "goods-exports-2024", "aluminium-exports-2024", "ministry-of-finance", "nordural", "isal", "alcoa-fjardaal", "landsnet", "orkuveita-reykjavikur"]
 ---
 
 # Power and aluminium

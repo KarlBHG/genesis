@@ -40,7 +40,7 @@ export default function HomePage() {
       label: "Institutions",
       count: institutions,
       href: "/institutions",
-      text: "Alþingi, the ministries, the courts, and the regulators.",
+      text: "Alþingi, the ministries, the courts, the regulators, and the Association of Local Authorities.",
     },
     {
       label: "Events",
@@ -64,7 +64,7 @@ export default function HomePage() {
       label: "Players",
       count: players,
       href: "/players",
-      text: "Organizations and people in a public office, including pension funds and the aluminium smelters.",
+      text: "Organizations and people in a public office, including pension funds, the aluminium smelters, Reykjavík, and the state companies Isavia, Landsnet, Orkuveita Reykjavíkur, and RÚV.",
     },
     {
       label: "Connections",
