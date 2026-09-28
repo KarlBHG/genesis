@@ -16,6 +16,7 @@ import type {
   Institution,
   Kind,
   MapEvent,
+  OfficeRecord,
   Player,
   Relationship,
   SearchDoc,
@@ -279,6 +280,7 @@ export const getCatalog = cache((): Entry[] => {
   loadedContradictions = buildContradictions(entries);
   loadedChanges = buildChanges();
   loadedAudits = buildAudits(entries);
+  loadedOffices = readOffices();
   assertRecords(entries);
   return entries;
 });
@@ -287,6 +289,7 @@ let loadedEdges: Edge[] = [];
 let loadedContradictions: Contradiction[] = [];
 let loadedChanges: ChangeRecord[] = [];
 let loadedAudits: AuditFinding[] = [];
+let loadedOffices: OfficeRecord[] = [];
 
 const EDGE_FIELDS = ["from", "to", "type", "asOf", "source", "quotation"] as const;
 
@@ -298,29 +301,39 @@ function requireEdgeString(row: Record<string, unknown>, key: string, index: num
   return value.trim();
 }
 
-function officeRecords(): Map<string, { title: string; organization: string }> {
-  const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "offices.json"), "utf8"));
+function readOffices(): OfficeRecord[] {
+  const parsed: unknown = JSON.parse(
+    fs.readFileSync(path.join(DATA, "offices.json"), "utf8"),
+  );
   if (!Array.isArray(parsed)) throw new Error("data/offices.json must be a list");
-  const offices = new Map<string, { title: string; organization: string }>();
-  for (const item of parsed) {
-    if (item == null || typeof item !== "object" || Array.isArray(item)) continue;
-    const row = item as Record<string, unknown>;
-    if (
-      typeof row.id === "string" &&
-      typeof row.title === "string" &&
-      typeof row.organization === "string"
-    ) {
-      offices.set(row.id, { title: row.title, organization: row.organization });
+  return parsed.map((item, index) => {
+    if (item == null || typeof item !== "object" || Array.isArray(item)) {
+      throw new Error(`data/offices.json office ${index + 1} must be an object`);
     }
-  }
-  return offices;
+    const row = item as Record<string, unknown>;
+    const record: OfficeRecord = {
+      id: "",
+      title: "",
+      holder: "",
+      organization: "",
+      asOf: "",
+    };
+    for (const key of ["id", "title", "holder", "organization", "asOf"] as const) {
+      const value = row[key];
+      if (typeof value !== "string" || !value.trim()) {
+        throw new Error(`data/offices.json office ${index + 1} is missing ${key}`);
+      }
+      record[key] = value.trim();
+    }
+    return record;
+  });
 }
 
 function buildEdges(entries: Entry[]): Edge[] {
   const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "edges.json"), "utf8"));
   if (!Array.isArray(parsed)) throw new Error("data/edges.json must be a list");
   const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
-  const offices = officeRecords();
+  const offices = new Map(readOffices().map((office) => [office.id, office]));
   const titleOf = (slug: string, index: number, side: "from" | "to"): string => {
     const entry = bySlug.get(slug);
     if (entry) return entry.title;
@@ -613,8 +626,19 @@ export function hrefFor(entry: Entry): string {
 
 export function resolveSlug(slug: string): { title: string; href: string } | null {
   const entry = getBySlug(slug);
-  if (!entry) return null;
-  return { title: entry.title, href: hrefFor(entry) };
+  if (entry) return { title: entry.title, href: hrefFor(entry) };
+  const office = getOfficeById(slug);
+  if (office) return { title: office.title, href: `/offices/${office.id}` };
+  return null;
+}
+
+export function getOffices(): OfficeRecord[] {
+  getCatalog();
+  return loadedOffices;
+}
+
+export function getOfficeById(id: string): OfficeRecord | undefined {
+  return getOffices().find((office) => office.id === id);
 }
 
 export function getEdges(): Edge[] {

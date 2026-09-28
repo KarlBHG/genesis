@@ -10,6 +10,9 @@ import {
   getContradictions,
   getEdges,
   getFlows,
+  getOfficeById,
+  getOffices,
+  resolveSlug,
   toSearchDocs,
 } from "@/lib/content";
 import { MAP_ENTRIES, MAP_VIEWS, viewOf } from "@/lib/geo-map";
@@ -154,6 +157,26 @@ describe("budget programs", () => {
       expect(funded.has(area.slug), `${area.slug} has no funds edge`).toBe(
         true,
       );
+    }
+  });
+});
+
+describe("offices are routable", () => {
+  it("resolves every office id to an /offices page", () => {
+    expect(getOffices().length).toBeGreaterThan(0);
+    for (const office of getOffices()) {
+      const resolved = resolveSlug(office.id);
+      expect(resolved, `office "${office.id}" does not resolve`).not.toBeNull();
+      expect(resolved?.href).toBe(`/offices/${office.id}`);
+      expect(getOfficeById(office.id)?.title).toBe(office.title);
+    }
+  });
+
+  it("points every office holder and organization at real entries", () => {
+    const slugs = new Set(getCatalog().map((entry) => entry.slug));
+    for (const office of getOffices()) {
+      expect(slugs.has(office.holder)).toBe(true);
+      expect(slugs.has(office.organization)).toBe(true);
     }
   });
 });

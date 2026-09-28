@@ -15,7 +15,7 @@ Open [http://127.0.0.1:38471](http://127.0.0.1:38471). That address opens System
 
 ## Content
 
-Markdown with YAML frontmatter lives in `content/treaties`, `content/institutions`, `content/events`, `content/business`, `content/money`, and `content/players`. `lib/content.ts` reads those files when the app builds or serves a page. Places are `data/places.json`. The seven named offices are `data/offices.json`. Cross-links use `[[slug]]`. A slug with no entry renders as an unresolved reference.
+Markdown with YAML frontmatter lives in `content/treaties`, `content/institutions`, `content/events`, `content/business`, `content/money`, and `content/players`. `lib/content.ts` reads those files when the app builds or serves a page. Places are `data/places.json`. Named offices are `data/offices.json`, each with a page at `/offices/[id]`. Cross-links use `[[slug]]`. A slug with no entry renders as an unresolved reference.
 
 ## Stack
 

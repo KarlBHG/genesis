@@ -174,6 +174,14 @@ export type ContradictionSide = {
   quotation: string;
 };
 
+export type OfficeRecord = {
+  id: string;
+  title: string;
+  holder: string;
+  organization: string;
+  asOf: string;
+};
+
 export type Contradiction = {
   id: string;
   entries: string[];
