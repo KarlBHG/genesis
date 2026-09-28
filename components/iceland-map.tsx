@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import coast from "@/data/iceland-coast.json";
 import { labelize, yearOf } from "@/lib/format";
@@ -65,6 +65,20 @@ const LAYER_LABEL = Object.fromEntries(LAYERS.map((layer) => [layer.id, layer.la
   LayerId,
   string
 >;
+
+const MAP_CONTROL = "map-control focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e6d3a4]";
+
+function usePrefersReducedMotion(): boolean {
+  const [reduce, setReduce] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduce(mq.matches);
+    const onChange = () => setReduce(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return reduce;
+}
 
 const STROKE: Record<string, string> = {
   owns: "#8fb59a",
@@ -209,6 +223,8 @@ export function IcelandMap({
   const selectedPlace = query.place;
   const selectedSlug = query.focus;
   const [copied, setCopied] = useState(false);
+  const reduceMotion = usePrefersReducedMotion();
+  const motionTransition = reduceMotion ? undefined : "opacity 200ms ease";
 
   const visible = entries.filter((entry) => enabled[entry.layer]);
   const points = Object.fromEntries(
@@ -343,8 +359,28 @@ export function IcelandMap({
     const active = !selectedSlug || litKeys.has(edgeKey(edge));
     return {
       opacity: active ? 1 : 0.28,
-      transition: "opacity 200ms ease",
+      transition: motionTransition,
     };
+  }
+
+  function roamPinList(event: React.KeyboardEvent, slugs: string[]) {
+    if (slugs.length === 0 || !selectedPlace) return;
+    const idx = selectedSlug ? slugs.indexOf(selectedSlug) : -1;
+    if (event.key === "ArrowDown" || event.key === "j") {
+      event.preventDefault();
+      const next = slugs[(idx + 1) % slugs.length];
+      selectSlug(next, selectedPlace);
+    } else if (event.key === "ArrowUp" || event.key === "k") {
+      event.preventDefault();
+      const next = slugs[(idx - 1 + slugs.length) % slugs.length];
+      selectSlug(next, selectedPlace);
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      selectSlug(slugs[0], selectedPlace);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      selectSlug(slugs[slugs.length - 1], selectedPlace);
+    }
   }
 
   return (
@@ -365,7 +401,7 @@ export function IcelandMap({
             key={layer.id}
             type="button"
             aria-pressed={enabled[layer.id]}
-            className="rounded-full border px-3 py-1.5 text-sm"
+            className={`rounded-full border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
             style={{
               borderColor: enabled[layer.id] ? layer.swatch : "#3a4036",
               color: enabled[layer.id] ? "#f3ecdf" : "#9a917f",
@@ -388,7 +424,7 @@ export function IcelandMap({
             key={view.id}
             type="button"
             aria-pressed={viewsOn[view.id]}
-            className="rounded-full border border-[#3a4036] px-3 py-1.5 text-sm"
+            className={`rounded-full border border-[#3a4036] px-3 py-1.5 text-sm ${MAP_CONTROL}`}
             style={{
               color: viewsOn[view.id] ? "#f3ecdf" : "#9a917f",
               background: viewsOn[view.id] ? "#23281f" : "transparent",
@@ -408,7 +444,8 @@ export function IcelandMap({
               <button
                 key={layer.id}
                 type="button"
-                className="flex w-[5.25rem] flex-col items-center gap-1 rounded-lg border px-1 py-2 text-center text-[11px] leading-tight"
+                aria-pressed={selected}
+                className={`flex w-[5.25rem] flex-col items-center gap-1 rounded-lg border px-1 py-2 text-center text-[11px] leading-tight ${MAP_CONTROL}`}
                 style={{
                   borderColor: selected ? layer.swatch : "#34392f",
                   color: selected ? layer.swatch : "#b7af9f",
@@ -437,7 +474,7 @@ export function IcelandMap({
                 const drawn = curve(points[edge.fromPlace!], points[edge.toPlace!], bend);
                 const active = !selectedSlug || litKeys.has(edgeKey(edge));
                 return (
-                  <g key={edgeKey(edge)} style={{ opacity: active ? 1 : 0.22, transition: "opacity 200ms ease" }}>
+                  <g key={edgeKey(edge)} style={{ opacity: active ? 1 : 0.22, transition: motionTransition }}>
                     <path
                       d={drawn.d}
                       fill="none"
@@ -478,7 +515,7 @@ export function IcelandMap({
                       (edge.from === selectedSlug || edge.to === selectedSlug),
                   );
                 return (
-                  <g key={place.id} style={{ opacity: involved ? 1 : 0.35, transition: "opacity 200ms ease" }}>
+                  <g key={place.id} style={{ opacity: involved ? 1 : 0.35, transition: motionTransition }}>
                     <circle
                       cx={point.x}
                       cy={point.y}
@@ -523,7 +560,7 @@ export function IcelandMap({
                 <button
                   key={place.id}
                   type="button"
-                  className="absolute h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                  className={`absolute h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full ${MAP_CONTROL}`}
                   style={{ left: `${(point.x / scene.width) * 100}%`, top: `${(point.y / scene.height) * 100}%` }}
                   aria-label={place.name}
                   onClick={() => selectPlace(place.id)}
@@ -544,7 +581,7 @@ export function IcelandMap({
                     <button
                       type="button"
                       aria-pressed={selected}
-                      className="rounded-full border px-3 py-1 text-sm"
+                      className={`rounded-full border px-3 py-1 text-sm ${MAP_CONTROL}`}
                       style={{
                         borderColor: selected ? "#d7c4a3" : "#3d4336",
                         color: selected ? "#f3ecdf" : "#c9c1b2",
@@ -565,9 +602,20 @@ export function IcelandMap({
             </ul>
           </nav>
           {selectedPlace && placeEntries.length > 1 ? (
-            <div className="mt-3 rounded-xl border border-[#3d4336] bg-[#141710] p-3">
+            <div
+              className="mt-3 rounded-xl border border-[#3d4336] bg-[#141710] p-3"
+              tabIndex={0}
+              role="region"
+              aria-label={`${placeName} entries`}
+              onKeyDown={(event) =>
+                roamPinList(
+                  event,
+                  placeEntries.map((entry) => entry.slug),
+                )
+              }
+            >
               <p className="text-xs tracking-wide text-[#9a917f] uppercase">
-                {placeName} · spread list
+                {placeName} · spread list · ↑↓ or j/k
               </p>
               <ul className="mt-2 flex max-h-48 flex-col gap-1 overflow-y-auto">
                 {placeEntries.map((entry) => {
@@ -577,7 +625,7 @@ export function IcelandMap({
                       <button
                         type="button"
                         aria-current={focused ? "true" : undefined}
-                        className="flex w-full items-baseline justify-between gap-2 rounded-lg px-2 py-1.5 text-left text-sm"
+                        className={`flex w-full items-baseline justify-between gap-2 rounded-lg px-2 py-1.5 text-left text-sm ${MAP_CONTROL}`}
                         style={{
                           color: focused ? "#f3ecdf" : "#d5cdbf",
                           background: focused ? "#23281f" : "transparent",
@@ -623,7 +671,7 @@ export function IcelandMap({
               </a>
               <button
                 type="button"
-                className="w-fit text-left text-sm text-[#9a917f] underline underline-offset-4"
+                className={`w-fit text-left text-sm text-[#9a917f] underline underline-offset-4 ${MAP_CONTROL}`}
                 onClick={copyLink}
               >
                 {copied ? "Link copied" : "Copy a link to this view"}

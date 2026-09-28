@@ -323,6 +323,11 @@
   }
 }
 
+.map-control:focus-visible {
+  outline: 2px solid #e6d3a4;
+  outline-offset: 2px;
+}
+
 .glass-panel {
   border: 1px solid oklch(0.86 0.014 90 / 0.9);
   background: oklch(0.995 0.004 90 / 0.86);
