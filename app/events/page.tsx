@@ -7,7 +7,7 @@ import {
   EmptyHeader,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { getEvents, resolveSlug } from "@/lib/content";
+import { edgesFor, getEvents, resolveSlug } from "@/lib/content";
 import { formatDate, labelize, yearOf } from "@/lib/format";
 
 export const metadata: Metadata = {
@@ -16,7 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function EventsPage() {
-  const events = getEvents().map((event) => ({
+  const events = getEvents().map((event) => {
+    const graph = edgesFor(event.slug);
+    const connectionCount = graph.in.length + graph.out.length;
+    return {
     slug: event.slug,
     title: event.title,
     date: event.date,
@@ -26,13 +29,15 @@ export default function EventsPage() {
     type: event.type,
     typeLabel: labelize(event.type),
     summary: event.summary,
+    connectionCount,
     related: event.related.map((slug) => {
       const target = resolveSlug(slug);
       return target
         ? { slug, title: target.title, href: target.href }
         : { slug, title: slug, href: "" };
     }),
-  }));
+  };
+  });
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8 sm:px-6">

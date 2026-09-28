@@ -340,7 +340,7 @@ export function IcelandMap({
   return (
     <div className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-5 px-4 py-6 text-[#e6e0d4] sm:px-6">
       <header className="flex max-w-3xl flex-col gap-2">
-        <p className="text-xs tracking-[0.18em] text-[#9a917f] uppercase">Test map</p>
+        <p className="text-xs tracking-[0.18em] text-[#9a917f] uppercase">Geographic view</p>
         <h1 className="text-3xl font-medium tracking-tight text-[#f3ecdf] sm:text-4xl" style={{ fontFamily: "var(--font-serif), serif" }}>
           Iceland, only where a page names the place.
         </h1>

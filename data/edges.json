@@ -2341,5 +2341,53 @@
     "asOf": "2008-10",
     "source": "https://www.imf.org/external/pubs/ft/scr/2008/cr08362.pdf",
     "quotation": "Landsbanki and Kaupthing. Though it was unclear if the banks were insolvent,"
+  },
+  {
+    "from": "althingi",
+    "to": "2008-capital-controls",
+    "type": "regulates",
+    "asOf": "2008-11-28",
+    "source": "https://www.government.is/news/article/2009-04-01-Amendment-to-Customs-Act-and-Act-on-Foreign-Exchange/",
+    "quotation": "On 28 November last year, the Icelandic parliament Althingi approved amendments to the Foreign Exchange Act intended to prevent major depreciation of the Icelandic króna (ISK)."
+  },
+  {
+    "from": "sedlabanki",
+    "to": "2008-capital-controls",
+    "type": "regulates",
+    "asOf": "2008-11-28",
+    "source": "https://www.government.is/news/article/2009-04-01-Amendment-to-Customs-Act-and-Act-on-Foreign-Exchange/",
+    "quotation": "The Act gave the Central Bank of Iceland temporary authorisation to set rules limiting international capital movements, with the aim of restricting the outflow of foreign currency, for instance, by imposing obligations to repatriate foreign currency."
+  },
+  {
+    "from": "2008-financial-crisis",
+    "to": "2008-capital-controls",
+    "type": "represents",
+    "asOf": "2008-11-28",
+    "source": "https://www.government.is/news/article/2009-04-01-Amendment-to-Customs-Act-and-Act-on-Foreign-Exchange/",
+    "quotation": "In recent weeks, however, the ISK exchange rate has been sliding steadily, and there were strong indications that the objective of building up strong foreign currency reserves through mandatory currency repatriation might be in jeopardy."
+  },
+  {
+    "from": "2008-capital-controls",
+    "to": "2017-capital-controls",
+    "type": "represents",
+    "asOf": "2017-03-12",
+    "source": "https://www.government.is/news/article/2017-03-12-Iceland-Lifts-Capital-Controls/",
+    "quotation": "The removal of the capital controls, which stabilised the currency and economy during the country's unprecedented financial crash, represents the completion of Iceland"
+  },
+  {
+    "from": "sedlabanki",
+    "to": "2017-capital-controls",
+    "type": "regulates",
+    "asOf": "2017-03-12",
+    "source": "https://www.government.is/news/article/2017-03-12-Iceland-Lifts-Capital-Controls/",
+    "quotation": "capital controls on the country's individuals, firms, and pension funds have been lifted with effect on Tuesday."
+  },
+  {
+    "from": "financial-supervisory-authority",
+    "to": "2008-financial-crisis",
+    "type": "regulates",
+    "asOf": "2008-10",
+    "source": "https://www.imf.org/external/pubs/ft/scr/2008/cr08362.pdf",
+    "quotation": "the FME’s rationale for intervening was to prevent the problems from escalating further, given growing  liquidity pressure"
   }
 ]

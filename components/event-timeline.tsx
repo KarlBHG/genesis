@@ -36,6 +36,7 @@ export type TimelineEvent = {
   type: string;
   typeLabel: string;
   summary: string;
+  connectionCount: number;
   related: TimelineRelated[];
 };
 
@@ -164,6 +165,12 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
                             <Badge variant="outline">Year only</Badge>
                           ) : null}
                           <Badge variant="outline">{event.typeLabel}</Badge>
+                          {event.connectionCount > 0 ? (
+                            <Badge variant="outline">
+                              {event.connectionCount} typed{" "}
+                              {event.connectionCount === 1 ? "edge" : "edges"}
+                            </Badge>
+                          ) : null}
                         </div>
                         <CardTitle>
                           <button
@@ -181,6 +188,19 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
                       </CardHeader>
                       {open ? (
                         <CardContent className="flex flex-col gap-3">
+                          {event.connectionCount > 0 ? (
+                            <p className="text-sm text-muted-foreground">
+                              {event.connectionCount} sourced connection
+                              {event.connectionCount === 1 ? "" : "s"} in{" "}
+                              <code className="text-xs">data/edges.json</code>
+                              . Open the entry for the full list with quotations.
+                            </p>
+                          ) : (
+                            <p className="text-sm text-muted-foreground">
+                              No typed edges yet — only Markdown{" "}
+                              <code className="text-xs">related</code> links below.
+                            </p>
+                          )}
                           <h3 className="text-sm font-medium">Related</h3>
                           {event.related.length === 0 ? (
                             <p className="text-sm text-muted-foreground">
