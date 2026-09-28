@@ -3622,5 +3622,29 @@
     "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
     "source": "https://www.althingi.is/lagas/nuna/1997001.html",
     "quotation": "6. gr. Stjórn sjóðsins skal skipuð átta mönnum. [Ráðherra] skipar fjóra stjórnarmenn, stjórn Bandalags starfsmanna ríkis og bæja skipar tvo stjórnarmenn, stjórn Bandalags háskólamanna skipar einn stjórnarmann og stjórn Kennarasambands Íslands skipar einn stjórnarmann."
+  },
+  {
+    "from": "arvakur",
+    "to": "morgunbladid",
+    "type": "owns",
+    "asOf": "2026-03-02",
+    "source": "https://fjolmidlanefnd.is/fjolmidlar/morgunbladid/",
+    "quotation": "Nafn miðils Morgunblaðið. Fjölmiðlaveita Árvakur hf. Fyrirsvarsmaður Haraldur Johannessen. Ábyrgðarmaður Haraldur Johannessen. Heimilisfang Hádegismóum 2, 110 Reykjavík. Kennitala 430169 1069."
+  },
+  {
+    "from": "thorsmork",
+    "to": "arvakur",
+    "type": "owns",
+    "asOf": "2026-01-06",
+    "source": "https://fjolmidlanefnd.is/fjolmidlar/arvakur-hf/",
+    "quotation": "Eignarhald Árvakurs hf.: 99% Þórsmörk ehf. kt. 440194 2149; 1% Legalis sf. kt. 430191 1369. Upplýsingar um eignarhald síðast uppfærðar 6. janúar 2026."
+  },
+  {
+    "from": "syn",
+    "to": "visir",
+    "type": "owns",
+    "asOf": "undated on the register page",
+    "source": "https://fjolmidlanefnd.is/fjolmidlar/visir-is/",
+    "quotation": "Nafn miðils Vísir.is. Fjölmiðlaveita Sýn hf. Fyrirsvarsmaður Herdís Dröfn Fjeldsted. Heimilisfang Suðurlandsbraut 8, 108 Reykjavík. Kennitala 470905 1740. Vefsetur www.visir.is."
   }
 ]
