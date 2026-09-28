@@ -33,6 +33,7 @@ export type MapEntryView = {
   place: PlaceId;
   person: boolean;
   flows: MapFlowLink[];
+  pinOnly: boolean;
 };
 
 export type MapEdgeView = {
@@ -574,7 +575,14 @@ export function IcelandMap({
                         }}
                         onClick={() => selectSlug(entry.slug, selectedPlace)}
                       >
-                        <span className="min-w-0 break-words">{entry.title}</span>
+                        <span className="min-w-0 break-words">
+                          {entry.title}
+                          {entry.pinOnly ? (
+                            <span className="mt-0.5 block text-[10px] font-normal tracking-wide text-[#9a917f] normal-case">
+                              Pin only · no typed edge
+                            </span>
+                          ) : null}
+                        </span>
                         <span className="shrink-0 text-[10px] tracking-wide text-[#9a917f] uppercase">
                           {LAYER_LABEL[entry.layer]}
                         </span>
@@ -591,6 +599,14 @@ export function IcelandMap({
           {focus ? (
             <div className="flex flex-col gap-3">
               <p className="text-xs tracking-wide text-[#9a917f] uppercase">{LAYER_LABEL[focus.layer]}</p>
+              {focus.pinOnly ? (
+                <p
+                  className="w-fit rounded-full border border-[#5c5345] bg-[#1f2319] px-2.5 py-0.5 text-[11px] tracking-wide text-[#c9b896] uppercase"
+                  title="This pin is geographic only until a sourced typed edge exists."
+                >
+                  Pin only · no typed edge
+                </p>
+              ) : null}
               <h2 className="text-xl font-medium text-[#f3ecdf]">{focus.title}</h2>
               <p className="text-sm leading-6 text-[#d5cdbf]">{focus.fact}</p>
               <a className="text-sm text-[#e6d3a4] underline underline-offset-4" href={focus.href}>
@@ -682,6 +698,11 @@ export function IcelandMap({
                           onClick={() => selectSlug(entry.slug, selectedPlace)}
                         >
                           {entry.title}
+                          {entry.pinOnly ? (
+                            <span className="mt-0.5 block text-[10px] font-normal text-[#9a917f] no-underline">
+                              Pin only · no typed edge
+                            </span>
+                          ) : null}
                         </button>
                       </li>
                     ))}

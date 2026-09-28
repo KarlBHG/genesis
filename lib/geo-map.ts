@@ -69,6 +69,8 @@ export type MapEntryRef = {
   slug: string;
   layer: LayerId;
   place: PlaceId;
+  /** Geographic pin with no typed edge yet; map UI must say so explicitly. */
+  pinOnly?: boolean;
 };
 
 export const MAP_ENTRIES: MapEntryRef[] = [
@@ -91,8 +93,8 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "arion-banki", layer: "companies", place: "reykjavik" },
   { slug: "islandsbanki", layer: "companies", place: "reykjavik" },
   { slug: "landsvirkjun", layer: "companies", place: "reykjavik" },
-  { slug: "frimurarareglan", layer: "societies", place: "reykjavik" },
-  { slug: "oddfellowreglan", layer: "societies", place: "reykjavik" },
+  { slug: "frimurarareglan", layer: "societies", place: "reykjavik", pinOnly: true },
+  { slug: "oddfellowreglan", layer: "societies", place: "reykjavik", pinOnly: true },
   { slug: "nordural", layer: "companies", place: "grundartangi" },
   { slug: "isavia", layer: "companies", place: "keflavik" },
   { slug: "borealis-data-center", layer: "companies", place: "blonduos" },

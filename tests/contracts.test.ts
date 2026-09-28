@@ -19,6 +19,7 @@ import {
   toSearchDocs,
 } from "@/lib/content";
 import { MAP_ENTRIES, MAP_VIEWS, viewOf } from "@/lib/geo-map";
+import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
 import { highlightParts, searchEntries } from "@/lib/search";
 import { LANDING_CHAINS, resolveChain } from "@/lib/landing";
 import { OBLIGATION_SECTIONS } from "@/lib/obligations";
@@ -143,6 +144,18 @@ describe("map membership", () => {
       expect(slugs.has(ref.slug), `map pin "${ref.slug}" is missing`).toBe(
         true,
       );
+    }
+  });
+
+  it("gives every map pin a typed edge or an explicit pin-only flag", () => {
+    const edges = getEdges();
+    const offices = getOffices();
+    for (const ref of MAP_ENTRIES) {
+      const linked = mapSlugHasTypedLinkage(ref.slug, edges, offices);
+      expect(
+        linked || ref.pinOnly === true,
+        `map pin "${ref.slug}" has no typed linkage and is not marked pinOnly`,
+      ).toBe(true);
     }
   });
 

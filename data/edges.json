@@ -2583,5 +2583,24 @@
     "start": "not printed",
     "end": "not printed",
     "channel": "business"
+  },
+  {
+    "from": "asgeir-jonsson",
+    "to": "governor-of-sedlabanki",
+    "type": "holds-office",
+    "asOf": "undated on https://www.cb.is/monetary-policy/monetary-policy-committee/",
+    "source": "https://www.cb.is/monetary-policy/monetary-policy-committee/",
+    "quotation": "Ásgeir Jónsson (chair)",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "political"
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "rikissjodur",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "Article 1 prints total revenue of 1.591.246,2 m.kr. and total expenditure of 1.606.582,9 m.kr. The unit heading on that table is m.kr., million krónur."
   }
 ]

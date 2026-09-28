@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { IcelandMap, type MapEdgeView, type MapEntryView } from "@/components/iceland-map";
-import { getCatalog, getContradictions, getEdges, hrefFor } from "@/lib/content";
+import { getCatalog, getContradictions, getEdges, getOffices, hrefFor } from "@/lib/content";
 import { MAP_ENTRIES, viewOf, type PlaceId } from "@/lib/geo-map";
+import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
 import { ownsRowNote, tradeValueNote } from "@/lib/notes";
 
 export const metadata: Metadata = {
@@ -30,6 +31,8 @@ export default function MapPage() {
   const catalog = getCatalog();
   const bySlug = new Map(catalog.map((entry) => [entry.slug, entry]));
   const placeBySlug = new Map(MAP_ENTRIES.map((item) => [item.slug, item.place]));
+  const graphEdges = getEdges();
+  const offices = getOffices();
 
   const entries: MapEntryView[] = MAP_ENTRIES.map((item) => {
     const entry = bySlug.get(item.slug);
@@ -41,6 +44,7 @@ export default function MapPage() {
       if (!related || related.kind !== "flow") return [];
       return [{ title: related.title, href: hrefFor(related) }];
     });
+    const pinOnly = !mapSlugHasTypedLinkage(entry.slug, graphEdges, offices);
     return {
       slug: entry.slug,
       title: entry.title,
@@ -50,11 +54,12 @@ export default function MapPage() {
       place: item.place,
       person: entry.kind === "player" && entry.playerType === "person",
       flows,
+      pinOnly,
     };
   });
 
   const contradictions = getContradictions();
-  const edges: MapEdgeView[] = getEdges().map((edge) => ({
+  const edges: MapEdgeView[] = graphEdges.map((edge) => ({
     from: edge.from,
     to: edge.to,
     fromTitle: edge.fromTitle,
