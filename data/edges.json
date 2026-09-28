@@ -3041,5 +3041,141 @@
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
     "quotation": "Article 1 prints total revenue of 1.591.246,2 m.kr. and total expenditure of 1.606.582,9 m.kr. The unit heading on that table is m.kr., million krónur."
+  },
+  {
+    "from": "2010-icesave-referendum",
+    "to": "landsbankinn",
+    "type": "represents",
+    "asOf": "2010-03-06",
+    "source": "https://www.government.is/news/article/2010-03-06-Work-continues-on-a-mutually-acceptable-solution-to-Icesave/",
+    "quotation": "Act 1/2010 amending Act 96/2009 empowering the Minister of Finance, on behalf of the Treasury, to guarantee loans to the Deposit and Investor Guarantee Fund from the British and Dutch governments to cover payments of minimum deposit guarantees to depositors in Icesave accounts of Landsbanki Íslands hf."
+  },
+  {
+    "from": "2010-icesave-referendum",
+    "to": "ministry-of-finance",
+    "type": "represents",
+    "asOf": "2010-03-06",
+    "source": "https://www.government.is/news/article/2010-03-06-Work-continues-on-a-mutually-acceptable-solution-to-Icesave/",
+    "quotation": "Act 1/2010 amending Act 96/2009 empowering the Minister of Finance, on behalf of the Treasury, to guarantee loans to the Deposit and Investor Guarantee Fund from the British and Dutch governments to cover payments of minimum deposit guarantees to depositors in Icesave accounts of Landsbanki Íslands hf."
+  },
+  {
+    "from": "2010-icesave-referendum",
+    "to": "rikissjodur",
+    "type": "represents",
+    "asOf": "2010-03-06",
+    "source": "https://www.government.is/news/article/2010-03-06-Work-continues-on-a-mutually-acceptable-solution-to-Icesave/",
+    "quotation": "Act 1/2010 amending Act 96/2009 empowering the Minister of Finance, on behalf of the Treasury, to guarantee loans to the Deposit and Investor Guarantee Fund from the British and Dutch governments to cover payments of minimum deposit guarantees to depositors in Icesave accounts of Landsbanki Íslands hf."
+  },
+  {
+    "from": "althingi",
+    "to": "2010-icesave-referendum",
+    "type": "regulates",
+    "asOf": "2010-03-06",
+    "source": "https://www.government.is/news/article/2010-03-06-Work-continues-on-a-mutually-acceptable-solution-to-Icesave/",
+    "quotation": "Subsequently Althingi enacted a law on the conduct of the referendum and its date."
+  },
+  {
+    "from": "2011-icesave-referendum",
+    "to": "landsbankinn",
+    "type": "represents",
+    "asOf": "2011-04-09",
+    "source": "https://www.government.is/news/article/2011-04-10-Statement-from-the-Government-of-Iceland-on-the-outcome-of-the-referendum-on-the-Icesave-Agreements-d481/",
+    "quotation": "Act No. 13/2011, which authorised the Minister of Finance to sign agreements guaranteeing reimbursement to the United Kingdom and the Netherlands of costs from minimum guarantees to depositors in branches of Landsbanki Íslands hf., and payment of the remaining balance and interest."
+  },
+  {
+    "from": "2011-icesave-referendum",
+    "to": "ministry-of-finance",
+    "type": "represents",
+    "asOf": "2011-04-09",
+    "source": "https://www.government.is/news/article/2011-04-10-Statement-from-the-Government-of-Iceland-on-the-outcome-of-the-referendum-on-the-Icesave-Agreements-d481/",
+    "quotation": "Act No. 13/2011, which authorised the Minister of Finance to sign agreements guaranteeing reimbursement to the United Kingdom and the Netherlands of costs from minimum guarantees to depositors in branches of Landsbanki Íslands hf., and payment of the remaining balance and interest."
+  },
+  {
+    "from": "althingi",
+    "to": "2011-icesave-referendum",
+    "type": "regulates",
+    "asOf": "2011-02-16",
+    "source": "https://www.government.is/news/article/2011-04-10-Statement-from-the-Government-of-Iceland-on-the-outcome-of-the-referendum-on-the-Icesave-Agreements-d481/",
+    "quotation": "Alþingi adopted the Act by 44 of 63 members on 16 February 2011, and that the President refused to sign it on 20 February 2011."
+  },
+  {
+    "from": "2013-icesave-judgment",
+    "to": "efta",
+    "type": "represents",
+    "asOf": "2013-01-28",
+    "source": "https://eftacourt.int/cases/e-16-11/",
+    "quotation": "On 28 January 2013 the EFTA Court delivered judgment in Case E-16/11, EFTA Surveillance Authority v Iceland."
+  },
+  {
+    "from": "2013-icesave-judgment",
+    "to": "eea-agreement",
+    "type": "represents",
+    "asOf": "2013-01-28",
+    "source": "https://eftacourt.int/download/16-11-judgment/?wpdmdl=1260",
+    "quotation": "The Authority sought a declaration that Iceland had failed to ensure payment of the minimum compensation to Icesave depositors in the Netherlands and the United Kingdom under Directive 94/19/EC, and had failed to comply with that Directive and/or Article 4 of the EEA Agreement."
+  },
+  {
+    "from": "2013-icesave-judgment",
+    "to": "2011-icesave-referendum",
+    "type": "represents",
+    "asOf": "2013-01-28",
+    "source": "https://eftacourt.int/cases/e-16-11/",
+    "quotation": "The application was submitted on 15 December 2011 and heard on 18 September 2012."
+  },
+  {
+    "from": "althingi",
+    "to": "2009-eu-application",
+    "type": "regulates",
+    "asOf": "2009-07-16",
+    "source": "https://www.althingi.is/thingstorf/thingmalin/atkvaedagreidsla/?nnafnak=41080",
+    "quotation": "On 16 July 2009 Alþingi approved a proposal on an application for membership of the European Union, with 33 votes in favour, 28 against, and 2 members not voting."
+  },
+  {
+    "from": "2009-eu-application",
+    "to": "ministry-for-foreign-affairs",
+    "type": "represents",
+    "asOf": "2009-07-17",
+    "source": "https://www.government.is/news/article/icelands-membership-negotiations-between-2009-2013/",
+    "quotation": "Iceland applied for EU membership on 17 July 2009 with a formal letter from the Prime Minister and the Minister for Foreign Affairs."
+  },
+  {
+    "from": "2015-eu-candidate-letter",
+    "to": "ministry-for-foreign-affairs",
+    "type": "represents",
+    "asOf": "2015-03-12",
+    "source": "https://www.government.is/news/article/2015-03-12-Government-considers-Iceland-no-longer-an-EU-candidate/",
+    "quotation": "At the meeting, the Minister for Foreign Affairs delivered a letter to the Presidency of the Union and the Commission announcing that the Government of Iceland had decided at its cabinet meeting last Tuesday that it did not intend to restart accession negotiations with the EU."
+  },
+  {
+    "from": "2015-eu-candidate-letter",
+    "to": "2009-eu-application",
+    "type": "represents",
+    "asOf": "2015-03-12",
+    "source": "https://www.government.is/news/article/icelands-membership-negotiations-between-2009-2013/",
+    "quotation": "The March 2015 letter spoke of stopping the accession negotiations completely and of the government's position that Iceland should not be considered a candidate country."
+  },
+  {
+    "from": "2015-eu-candidate-letter",
+    "to": "eea-agreement",
+    "type": "represents",
+    "asOf": "2015-03-12",
+    "source": "https://www.government.is/news/article/2015-03-12-Government-considers-Iceland-no-longer-an-EU-candidate/",
+    "quotation": "In his discussion with Mr. Rinkevics, the Minister for Foreign Affairs emphasised the importance of continued strong relations and cooperation between Iceland and the EU, including on the basis the EEA Agreement."
+  },
+  {
+    "from": "2024-parliamentary-election",
+    "to": "althingi",
+    "type": "elects",
+    "asOf": "2024-11-30",
+    "source": "https://island.is/v/althingiskosningar-2024/frett/thingsaetum-hefur-verid-uthlutad",
+    "quotation": "Landskjörstjórn allocated parliamentary seats on 10 December 2024 after the general election to Alþingi held on 30 November 2024."
+  },
+  {
+    "from": "rikissjodur",
+    "to": "sedlabanki",
+    "type": "represents",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2019092.html",
+    "quotation": "Ríkissjóður ber ábyrgð á öllum skuldbindingum Seðlabankans."
   }
 ]
