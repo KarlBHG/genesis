@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ConnectionStrips } from "@/components/connection-graph";
+import { PageHero } from "@/components/page-hero";
 import { SearchPanel } from "@/components/search-panel";
 import { getCatalog, getEdges, toSearchDocs } from "@/lib/content";
 
@@ -24,25 +25,46 @@ export default function OverviewPage() {
   ];
 
   return (
-    <main className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-8 px-4 py-8 sm:px-6">
-      <section className="flex max-w-3xl flex-col gap-3">
-        <p className="text-sm text-muted-foreground">Iceland system map</p>
-        <h1 className="text-4xl font-medium tracking-tight sm:text-5xl">
-          Map how Iceland is wired.
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          Alþingi passes a budget that funds the ministries. The reading of the state, the central bank, and the named trade partners is on <Link className="underline underline-offset-4" href="/system">System</Link>.
-        </p>
-      </section>
-      <ConnectionStrips edges={edges} only="budget" />
-      <SearchPanel docs={toSearchDocs(entries)} />
-      <nav aria-label="Sections" className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-        {counts.map((item) => (
-          <Link className="underline underline-offset-4" href={item.href} key={item.href}>
-            {item.label} {item.count}
-          </Link>
-        ))}
-      </nav>
+    <main className="dashboard-canvas min-w-0">
+      <PageHero
+        description={
+          <>
+            Alþingi passes a budget that funds the ministries. The reading of
+            the state, the central bank, and the named trade partners is on{" "}
+            <Link className="text-foreground underline underline-offset-4" href="/system">
+              System
+            </Link>
+            .
+          </>
+        }
+        eyebrow="Iceland system map"
+        title="Map how Iceland is wired."
+      />
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6">
+        <ConnectionStrips edges={edges} only="budget" />
+        <div className="glass-panel rounded-2xl p-6 sm:p-8">
+          <SearchPanel docs={toSearchDocs(entries)} />
+        </div>
+        <nav
+          aria-label="Sections"
+          className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
+        >
+          {counts.map((item) => (
+            <Link
+              className="glass-panel rounded-xl px-4 py-3 transition-all hover:-translate-y-0.5 hover:shadow-md"
+              href={item.href}
+              key={item.href}
+            >
+              <span className="text-xs text-muted-foreground uppercase tracking-wide">
+                {item.label}
+              </span>
+              <span className="mt-1 block font-serif text-2xl tabular-nums">
+                {item.count}
+              </span>
+            </Link>
+          ))}
+        </nav>
+      </div>
     </main>
   );
 }

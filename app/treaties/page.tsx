@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { PageHero } from "@/components/page-hero";
 import { TreatyBrowser } from "@/components/treaty-browser";
 import { getTreaties } from "@/lib/content";
 import { dateSortKey } from "@/lib/format";
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function TreatiesPage() {
-  const items = getTreaties()
+  const treaties = getTreaties();
+  const items = treaties
     .slice()
     .sort((a, b) => dateSortKey(a.signed).localeCompare(dateSortKey(b.signed)))
     .map((treaty) => ({
@@ -24,19 +26,26 @@ export default function TreatiesPage() {
     }));
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6">
-      <header className="flex max-w-3xl flex-col gap-2">
-        <h1 className="text-3xl font-medium tracking-tight">Treaties</h1>
-        <p className="text-muted-foreground">
-          Agreements Iceland is party to, grouped by status. Topics can be combined.
-          For security, EEA/EFTA, trade, and crisis commitments by theme, see{" "}
-          <Link className="underline underline-offset-4" href="/obligations">
-            Obligations
-          </Link>
-          .
-        </p>
-      </header>
-      <TreatyBrowser items={items} />
+    <main className="dashboard-canvas min-w-0">
+      <PageHero
+        description={
+          <>
+            Agreements Iceland is party to, grouped by status. Topics can be
+            combined. For security, EEA/EFTA, trade, and crisis commitments by
+            theme, see{" "}
+            <Link className="text-foreground underline underline-offset-4" href="/obligations">
+              Obligations
+            </Link>
+            .
+          </>
+        }
+        eyebrow={`${treaties.length} records · sourced`}
+        size="dramatic"
+        title="Treaties"
+      />
+      <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-10 sm:px-6">
+        <TreatyBrowser items={items} />
+      </div>
     </main>
   );
 }

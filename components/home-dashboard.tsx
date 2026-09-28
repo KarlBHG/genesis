@@ -78,7 +78,7 @@ function ChainCard({ chain }: { chain: LandingChain }) {
   const steps = resolveChain(chain);
   return (
     <article
-      className="group relative flex flex-col gap-4 overflow-hidden rounded-2xl border bg-card/80 p-5 shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md"
+      className="glass-panel group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg"
     >
       <div
         aria-hidden
@@ -162,8 +162,9 @@ export function HomeDashboard({
             <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
               AlltÍkerfi · sourced atlas
             </p>
-            <h1 className="text-4xl font-medium tracking-tight text-balance sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
-              How Iceland is wired.
+            <h1 className="text-4xl font-medium tracking-tight text-balance sm:text-5xl lg:text-[3.5rem] lg:leading-[1.06]">
+              <span className="block">How Iceland</span>
+              <span className="block text-foreground/90">is wired.</span>
             </h1>
             <p className="text-lg leading-8 text-muted-foreground">
               Public records, not influence scores. Each connection quotes its
@@ -199,7 +200,7 @@ export function HomeDashboard({
                 { label: "Map pins", value: mapPinCount },
               ].map((stat) => (
                 <div
-                  className="rounded-xl border bg-card/60 px-3 py-2.5 backdrop-blur-sm"
+                  className="glass-panel rounded-xl px-3 py-2.5"
                   key={stat.label}
                 >
                   <dt className="text-[0.65rem] tracking-wide text-muted-foreground uppercase">
@@ -237,7 +238,7 @@ export function HomeDashboard({
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {PORTALS.map((portal) => (
             <Link
-              className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border bg-card p-5 transition-colors hover:border-primary/25"
+              className="glass-panel group relative flex flex-col gap-3 overflow-hidden rounded-2xl p-5 transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-lg"
               href={portal.href}
               key={portal.href}
             >
@@ -262,7 +263,7 @@ export function HomeDashboard({
         </div>
       </section>
 
-      <section className="border-y bg-muted/30">
+      <section className="border-y border-border/60 bg-muted/20 backdrop-blur-sm">
         <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
           <h2 className="mb-2 text-2xl font-medium tracking-tight">Catalog shape</h2>
           <p className="mb-6 max-w-2xl text-sm text-muted-foreground">
@@ -321,7 +322,7 @@ export function HomeDashboard({
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
-        <div className="rounded-2xl border bg-card/80 p-6 shadow-sm backdrop-blur-sm sm:p-8">
+        <div className="glass-panel rounded-2xl p-6 sm:p-8">
           <div className="mb-4 flex items-center gap-2">
             <SearchIcon className="size-5 text-muted-foreground" strokeWidth={1.5} />
             <h2 className="text-xl font-medium tracking-tight">Search the records</h2>

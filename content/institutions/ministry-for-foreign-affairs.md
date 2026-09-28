@@ -5,7 +5,7 @@ type: "institution"
 founded: ""
 role: "Ministry"
 parent: ""
-related: ["althingi", "treasury-budget-2026", "2009-eu-application", "2015-eu-candidate-letter", "1951-defense-agreement"]
+related: ["althingi", "treasury-budget-2026", "international-development-cooperation", "air-services-agreements", "investment-protection-agreements", "2009-eu-application", "2015-eu-candidate-letter", "1951-defense-agreement"]
 website: "https://www.government.is/ministries/ministry-for-foreign-affairs/about-the-ministry/"
 ---
 

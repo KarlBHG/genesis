@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 
+import { Atmosphere } from "@/components/atmosphere";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
 import "./globals.css";
@@ -31,13 +33,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
     >
       <body className="flex min-h-full flex-col">
-        <SiteHeader />
-        <div className="flex-1">{children}</div>
-        <footer className="border-t">
-          <p className="mx-auto w-full max-w-5xl px-4 py-6 text-sm text-muted-foreground sm:px-6">
-            AlltÍkerfi is a reading map of Icelandic treaties, institutions, events, sectors, money flows, and public office-holders. Sources sit on each entry.
-          </p>
-        </footer>
+        <Atmosphere />
+        <div className="relative z-10 flex min-h-full flex-col">
+          <SiteHeader />
+          <div className="flex-1">{children}</div>
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

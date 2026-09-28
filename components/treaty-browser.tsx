@@ -59,8 +59,8 @@ export function TreatyBrowser({ items }: { items: TreatyItem[] }) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-8">
+      <div className="glass-panel flex flex-col gap-5 rounded-2xl p-5 sm:p-6">
         <div className="flex flex-col gap-2">
           <p className="text-sm text-muted-foreground">Status</p>
           <ToggleGroup
@@ -111,10 +111,15 @@ export function TreatyBrowser({ items }: { items: TreatyItem[] }) {
       ) : (
         [...groups.entries()].map(([group, groupItems]) => (
           <section className="flex flex-col gap-3" key={group}>
-            <h2 className="text-lg font-medium">{labelize(group)}</h2>
-            <div className="grid grid-cols-1 gap-3">
+            <h2 className="font-serif text-xl font-medium tracking-tight">
+              {labelize(group)}
+            </h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {groupItems.map((item) => (
-                <Card key={item.href}>
+                <Card
+                  className="glass-panel border-border/60 bg-card/50 transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                  key={item.href}
+                >
                   <CardHeader>
                     <CardTitle>
                       <Link className="underline underline-offset-4" href={item.href}>{item.title}</Link>

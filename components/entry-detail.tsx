@@ -300,7 +300,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
   const { out, inn } = edgesFor(entry.slug);
 
   return (
-    <article className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-8 sm:px-6">
+    <article className="atlas-page mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-8 sm:px-6">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -318,7 +318,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <header className="flex flex-col gap-3">
+      <header className="glass-panel atlas-page-header flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-3">
           <p className="text-sm text-muted-foreground">{labelize(entry.kind)}</p>
           <Button
