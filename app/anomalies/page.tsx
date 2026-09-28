@@ -44,10 +44,10 @@ export default function AnomaliesPage() {
         </p>
       </header>
 
-      <section className="flex min-w-0 flex-col gap-3">
+      <section className="flex min-w-0 flex-col gap-3" id="contradictions">
         <h2 className="text-xl font-medium">Contradictions</h2>
         <p className="text-sm text-muted-foreground">
-          The same records as <Link className="underline underline-offset-4" href="/contradictions">Contradictions</Link>. Both sentences stay.
+          Two sourced sentences about the same entries, kept side by side. Both sentences stay.
         </p>
         <ul className="flex min-w-0 flex-col gap-3">
           {contradictions.map((record) => (
