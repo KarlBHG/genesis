@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 import { IcelandMap, type MapEdgeView, type MapEntryView } from "@/components/iceland-map";
 import { getCatalog, getContradictions, getEdges, hrefFor } from "@/lib/content";
@@ -73,7 +74,9 @@ export default function MapPage() {
 
   return (
     <main className="min-h-full bg-[#0e100c]">
-      <IcelandMap entries={entries} edges={edges} />
+      <Suspense>
+        <IcelandMap entries={entries} edges={edges} />
+      </Suspense>
     </main>
   );
 }

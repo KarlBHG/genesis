@@ -18,6 +18,14 @@ import {
 import { MAP_ENTRIES, MAP_VIEWS, viewOf } from "@/lib/geo-map";
 import { highlightParts, searchEntries } from "@/lib/search";
 import { LANDING_CHAINS, resolveChain } from "@/lib/landing";
+import {
+  DEFAULT_LAYER,
+  DEFAULT_LAYERS,
+  DEFAULT_VIEWS,
+  defaultQuery,
+  parseMapQuery,
+  serializeMapQuery,
+} from "@/lib/map-query";
 
 const ROOT = process.cwd();
 
@@ -218,6 +226,58 @@ describe("search api", () => {
       expect(doc.href.startsWith("/")).toBe(true);
     }
     expect(docs.some((doc) => doc.slug === "althingi")).toBe(true);
+  });
+});
+
+describe("map query", () => {
+  const slugs = new Set(["althingi", "landsvirkjun"]);
+
+  it("starts from the documented defaults", () => {
+    const query = parseMapQuery(
+      () => null,
+      slugs,
+    );
+    expect(query.layers).toEqual([...DEFAULT_LAYERS]);
+    expect(query.views).toEqual([...DEFAULT_VIEWS]);
+    expect(query.layer).toBe(DEFAULT_LAYER);
+    expect(query.place).toBeNull();
+    expect(query.focus).toBeNull();
+    expect(serializeMapQuery(query)).toBe("");
+  });
+
+  it("ignores unknown layers, views, places, and slugs", () => {
+    const params = new URLSearchParams(
+      "layers=state,bogus&views=careers,nope&layer=bogus&place=moon&focus=ghost",
+    );
+    const query = parseMapQuery(params.get.bind(params), slugs);
+    expect(query.layers).toEqual(["state"]);
+    expect(query.views).toEqual(["careers"]);
+    expect(query.layer).toBe(DEFAULT_LAYER);
+    expect(query.place).toBeNull();
+    expect(query.focus).toBeNull();
+  });
+
+  it("round-trips a focused share link", () => {
+    const params = new URLSearchParams(
+      "views=careers,authority&place=reykjavik&focus=althingi",
+    );
+    const query = parseMapQuery(params.get.bind(params), slugs);
+    expect(query.place).toBe("reykjavik");
+    expect(query.focus).toBe("althingi");
+    const again = parseMapQuery(
+      new URLSearchParams(serializeMapQuery(query)).get.bind(
+        new URLSearchParams(serializeMapQuery(query)),
+      ),
+      slugs,
+    );
+    expect(again).toEqual(query);
+  });
+
+  it("drops a focus slug that leaves the catalog", () => {
+    const params = new URLSearchParams("focus=althingi");
+    expect(
+      parseMapQuery(params.get.bind(params), new Set()).focus,
+    ).toBeNull();
   });
 });
 

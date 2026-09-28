@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import coast from "@/data/iceland-coast.json";
@@ -12,6 +13,11 @@ import {
   type PlaceId,
   type ViewId,
 } from "@/lib/geo-map";
+import {
+  parseMapQuery,
+  serializeMapQuery,
+  type MapQuery,
+} from "@/lib/map-query";
 
 export type MapFlowLink = {
   title: string;
@@ -172,26 +178,27 @@ export function IcelandMap({
   edges: MapEdgeView[];
 }) {
   const scene = useMemo(() => projectCoast(), []);
-  const [enabled, setEnabled] = useState<Record<LayerId, boolean>>({
-    state: true,
-    companies: true,
-    multinationals: true,
-    ngos: true,
-    societies: true,
-    family: true,
-  });
-  const [viewsOn, setViewsOn] = useState<Record<ViewId, boolean>>({
-    ownership: true,
-    investments: false,
-    money: false,
-    careers: false,
-    spending: false,
-    authority: true,
-    trade: true,
-  });
-  const [selectedLayer, setSelectedLayer] = useState<LayerId | null>("state");
-  const [selectedPlace, setSelectedPlace] = useState<PlaceId | null>(null);
-  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const slugSet = useMemo(
+    () => new Set(entries.map((entry) => entry.slug)),
+    [entries],
+  );
+  const query = parseMapQuery(
+    (key) => searchParams.get(key),
+    slugSet,
+  );
+  const enabled = Object.fromEntries(
+    LAYERS.map((layer) => [layer.id, query.layers.includes(layer.id)]),
+  ) as Record<LayerId, boolean>;
+  const viewsOn = Object.fromEntries(
+    MAP_VIEWS.map((view) => [view.id, query.views.includes(view.id)]),
+  ) as Record<ViewId, boolean>;
+  const selectedLayer = query.layer;
+  const selectedPlace = query.place;
+  const selectedSlug = query.focus;
+  const [copied, setCopied] = useState(false);
 
   const visible = entries.filter((entry) => enabled[entry.layer]);
   const points = Object.fromEntries(
@@ -259,22 +266,67 @@ export function IcelandMap({
     entries: placeEntries.filter((entry) => entry.layer === layer.id),
   })).filter((group) => group.entries.length > 0);
 
+  function go(next: MapQuery) {
+    const qs = serializeMapQuery(next);
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }
+
   function toggle(layer: LayerId) {
-    setEnabled((current) => ({ ...current, [layer]: !current[layer] }));
+    go({
+      ...query,
+      layers: enabled[layer]
+        ? query.layers.filter((id) => id !== layer)
+        : [...query.layers, layer],
+    });
+  }
+
+  function toggleView(view: ViewId) {
+    go({
+      ...query,
+      views: viewsOn[view]
+        ? query.views.filter((id) => id !== view)
+        : [...query.views, view],
+    });
   }
 
   function selectLayer(layer: LayerId) {
-    setEnabled((current) => ({ ...current, [layer]: true }));
-    setSelectedLayer(layer);
-    setSelectedPlace(null);
-    setSelectedSlug(null);
+    go({
+      ...query,
+      layers: query.layers.includes(layer)
+        ? query.layers
+        : [...query.layers, layer],
+      layer,
+      place: null,
+      focus: null,
+    });
   }
 
   function selectPlace(place: PlaceId) {
-    setSelectedPlace(place);
-    setSelectedLayer(null);
-    const atPlace = visible.filter((entry) => entry.place === place);
-    setSelectedSlug(atPlace.length === 1 ? atPlace[0].slug : null);
+    const atPlace = entries.filter(
+      (entry) => entry.place === place && enabled[entry.layer],
+    );
+    go({
+      ...query,
+      place,
+      layer: null,
+      focus: atPlace.length === 1 ? (atPlace[0]?.slug ?? null) : null,
+    });
+  }
+
+  function selectSlug(slug: string, place: PlaceId | null) {
+    go({ ...query, focus: slug, place });
+  }
+
+  function copyLink() {
+    const url = window.location.href;
+    if (!navigator.clipboard?.writeText) return;
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => setCopied(false));
   }
 
   function lineStyle(edge: MapEdgeView): React.CSSProperties {
@@ -331,7 +383,7 @@ export function IcelandMap({
               color: viewsOn[view.id] ? "#f3ecdf" : "#9a917f",
               background: viewsOn[view.id] ? "#23281f" : "transparent",
             }}
-            onClick={() => setViewsOn((current) => ({ ...current, [view.id]: !current[view.id] }))}
+            onClick={() => toggleView(view.id)}
           >
             {view.label}
           </button>
@@ -483,6 +535,13 @@ export function IcelandMap({
               <a className="text-sm text-[#e6d3a4] underline underline-offset-4" href={focus.href}>
                 Open the entry
               </a>
+              <button
+                type="button"
+                className="w-fit text-left text-sm text-[#9a917f] underline underline-offset-4"
+                onClick={copyLink}
+              >
+                {copied ? "Link copied" : "Copy a link to this view"}
+              </button>
               {focus.person ? (
                 <div className="flex min-w-0 flex-col gap-2">
                   <h3 className="text-sm font-medium text-[#f3ecdf]">Career</h3>
@@ -535,7 +594,7 @@ export function IcelandMap({
                 <button
                   type="button"
                   className="text-left text-sm text-[#9a917f] underline underline-offset-4"
-                  onClick={() => setSelectedSlug(null)}
+                  onClick={() => go({ ...query, focus: null })}
                 >
                   Back to {placeName}
                 </button>
@@ -559,7 +618,7 @@ export function IcelandMap({
                         <button
                           type="button"
                           className="text-left text-sm text-[#f3ecdf] underline underline-offset-4"
-                          onClick={() => setSelectedSlug(entry.slug)}
+                          onClick={() => selectSlug(entry.slug, selectedPlace)}
                         >
                           {entry.title}
                         </button>
@@ -579,14 +638,11 @@ export function IcelandMap({
                 <ul className="flex flex-col gap-2">
                   {layerEntries.map((entry) => (
                     <li key={entry.slug}>
-                      <button
-                        type="button"
-                        className="text-left text-sm text-[#f3ecdf] underline underline-offset-4"
-                        onClick={() => {
-                          setSelectedSlug(entry.slug);
-                          setSelectedPlace(entry.place);
-                        }}
-                      >
+                        <button
+                          type="button"
+                          className="text-left text-sm text-[#f3ecdf] underline underline-offset-4"
+                          onClick={() => selectSlug(entry.slug, entry.place)}
+                        >
                         {entry.title}
                       </button>
                     </li>
