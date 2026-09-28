@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-import { isInvoiceProgramPilotBuyer } from "@/lib/invoice-budget";
 import { kindPath, labelize } from "@/lib/format";
 import type {
   AuditFinding,
@@ -663,13 +662,11 @@ function buildEdges(entries: Entry[], officeRecords: OfficeRecord[]): Edge[] {
           `data/edges.json edge ${index + 1} program null needs programNullReason`,
         );
       }
-      if (isInvoiceProgramPilotBuyer(from)) {
-        if (!year) {
-          throw new Error(`data/edges.json edge ${index + 1} pilot pays row is missing year`);
-        }
-        if (!("program" in row)) {
-          throw new Error(`data/edges.json edge ${index + 1} pilot pays row is missing program`);
-        }
+      if (!year) {
+        throw new Error(`data/edges.json edge ${index + 1} pays row is missing year`);
+      }
+      if (!("program" in row)) {
+        throw new Error(`data/edges.json edge ${index + 1} pays row is missing program`);
       }
     }
     return {

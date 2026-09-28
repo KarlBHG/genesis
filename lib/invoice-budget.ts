@@ -1,16 +1,6 @@
 import { compareAsOf } from "@/lib/as-of";
 import type { Edge } from "@/lib/types";
 
-/** Opnir reikningar buyers tagged in the invoice→budget pilot. */
-export const INVOICE_PROGRAM_PILOT_BUYERS = new Set([
-  "landspitali",
-  "ministry-of-health",
-]);
-
-export function isInvoiceProgramPilotBuyer(slug: string): boolean {
-  return INVOICE_PROGRAM_PILOT_BUYERS.has(slug);
-}
-
 export function paysEdgesForProgram(programSlug: string, edges: Edge[]): Edge[] {
   return edges
     .filter(

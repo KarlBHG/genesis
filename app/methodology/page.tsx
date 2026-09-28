@@ -416,10 +416,12 @@ export default function MethodologyPage() {
             figure that way.
           </p>
           <p className="text-sm leading-6 text-muted-foreground">
-            An invoice is joined to a policy area only when the buyer’s ledger
-            prints a budget heading that maps to it. Where it does not, the row
-            stores the reason the join failed and the interface says so, instead of
-            guessing from the vendor’s line of business. The joined rows are on the{" "}
+            An invoice is joined to a policy area only when a cited page supports
+            that program — an exclusive appropriations or operator sentence in the
+            ministry report, or a budget heading on the buyer’s ledger. Where
+            neither prints, the row stores the reason the join failed and the
+            interface says so, instead of guessing from the vendor’s line of
+            business. The joined rows are on the{" "}
             <Link className="underline underline-offset-4" href="/money#government-programs">
               policy-area pages
             </Link>

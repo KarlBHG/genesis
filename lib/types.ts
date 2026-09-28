@@ -164,12 +164,12 @@ export type Edge = {
   channel: CareerChannel | null;
   organization: string | null;
   organizationTitle: string | null;
-  /** Fiscal year for Opnir reikningar `pays` rows when tagged. */
+  /** Fiscal year for every Opnir reikningar `pays` row. */
   year: string | null;
-  /** Policy-area flow slug when the buyer ledger prints a program heading. */
+  /** Policy-area flow slug when a cited page supports that program. */
   program: string | null;
   programTitle: string | null;
-  /** When `program` is null on a tagged invoice, why the ledger did not join. */
+  /** When `program` is null on a `pays` row, why the join was not made. */
   programNullReason: string | null;
   programSource: string | null;
   programQuotation: string | null;

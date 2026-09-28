@@ -45,10 +45,7 @@ import {
   assertKennitalaRecord,
 } from "@/lib/identifiers";
 import { kennitalaChecksumOk } from "@/lib/kennitala";
-import {
-  INVOICE_PROGRAM_PILOT_BUYERS,
-  paysEdgesForProgram,
-} from "@/lib/invoice-budget";
+import { paysEdgesForProgram } from "@/lib/invoice-budget";
 import {
   GOVDIRECTORY_ICELAND,
   getGovdirectoryLedger,
@@ -326,13 +323,10 @@ describe("public-entity inventory (phase 1)", () => {
 });
 
 describe("invoice program bridge", () => {
-  it("tags every pilot pays row with year and program or null reason", () => {
+  it("tags every pays row with year and program or null reason", () => {
     const edges = getEdges().filter((edge) => edge.relationship === "pays");
-    const pilot = edges.filter((edge) =>
-      INVOICE_PROGRAM_PILOT_BUYERS.has(edge.from),
-    );
-    expect(pilot.length).toBeGreaterThanOrEqual(10);
-    for (const edge of pilot) {
+    expect(edges).toHaveLength(100);
+    for (const edge of edges) {
       expect(edge.year, `${edge.from} → ${edge.to}`).toBe("2026");
       if (edge.program) {
         expect(edge.program.startsWith("policy-area-")).toBe(true);
@@ -345,13 +339,46 @@ describe("invoice program bridge", () => {
     }
   });
 
-  it("joins Landspítali invoices to hospital services policy area 23", () => {
-    const joined = paysEdgesForProgram(
+  it("joins exclusive-operator invoices from ministry reports", () => {
+    const edges = getEdges();
+    const hospital = paysEdgesForProgram(
       "policy-area-23-sjukrahusthjonusta",
-      getEdges(),
+      edges,
     );
-    expect(joined.length).toBeGreaterThanOrEqual(8);
-    expect(joined.every((edge) => edge.from === "landspitali")).toBe(true);
+    expect(hospital.length).toBeGreaterThanOrEqual(8);
+    expect(hospital.every((edge) => edge.from === "landspitali")).toBe(true);
+
+    const environment = paysEdgesForProgram(
+      "policy-area-17-umhverfismal",
+      edges,
+    );
+    expect(environment.length).toBeGreaterThanOrEqual(8);
+    expect(
+      environment.every((edge) => edge.from === "natturuverndarstofnun"),
+    ).toBe(true);
+
+    const rights = paysEdgesForProgram(
+      "policy-area-10-rettindi-einstaklinga-trumal-og-stjornsysla-domsmala",
+      edges,
+    );
+    expect(rights.length).toBeGreaterThanOrEqual(5);
+    expect(rights.every((edge) => edge.from === "personuvernd")).toBe(true);
+
+    const telecoms = paysEdgesForProgram(
+      "policy-area-11-samgongu-og-fjarskiptamal",
+      edges,
+    );
+    expect(telecoms.length).toBeGreaterThanOrEqual(8);
+    expect(telecoms.every((edge) => edge.from === "fjarskiptastofa")).toBe(
+      true,
+    );
+
+    const supreme = paysEdgesForProgram("policy-area-02-domstolar", edges);
+    expect(supreme.length).toBeGreaterThanOrEqual(3);
+    expect(supreme.every((edge) => edge.from === "courts")).toBe(true);
+    expect(
+      supreme.every((edge) => edge.quotation.startsWith("Hæstiréttur;")),
+    ).toBe(true);
   });
 
   it("rejects unknown program slugs at load time", () => {
@@ -425,7 +452,7 @@ describe("edge amounts are source-bound", () => {
     expect(quotationPrintsValue(437690, "no figure on this line")).toBe(false);
   });
 
-  it("covers the pilot: Article 4 rows and every tagged invoice", () => {
+  it("covers Article 4 rows and every tagged invoice", () => {
     const rows = rawEdges();
     const article4 = rows.filter(
       (row) => row.type === "funds" && /Article 4/.test(row.quotation as string),
@@ -439,13 +466,13 @@ describe("edge amounts are source-bound", () => {
     const tagged = rows.filter(
       (row) => row.type === "pays" && ("year" in row || "program" in row),
     );
-    expect(tagged).toHaveLength(17);
+    expect(tagged).toHaveLength(100);
     for (const row of tagged) {
       expect(row.amount, `${row.from} -> ${row.to}`).toBeDefined();
       expect((row.amount as { unit: string }).unit).toBe("ISK");
       expect((row.amount as { basis: string }).basis).toBe("invoice");
     }
-    expect(getEdges().filter((edge) => edge.amount)).toHaveLength(86);
+    expect(getEdges().filter((edge) => edge.amount)).toHaveLength(169);
   });
 
   it("leaves amount off every row whose quotation prints no figure", () => {

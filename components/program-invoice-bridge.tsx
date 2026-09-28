@@ -22,8 +22,8 @@ export function ProgramInvoiceBridge({ programSlug }: { programSlug: string }) {
         <p className="text-muted-foreground">
           Each line is one invoice from the state ledger. Amounts are not added
           together, and the line is not called waste. Rows appear here only when
-          the buyer ledger prints a budget heading that maps to this policy area —
-          the difference between an authorisation and a payment is set out on{" "}
+          a cited page supports this policy area — the difference between an
+          authorisation and a payment is set out on{" "}
           <Link className="underline underline-offset-4" href="/methodology#money">
             Methodology
           </Link>
@@ -31,7 +31,7 @@ export function ProgramInvoiceBridge({ programSlug }: { programSlug: string }) {
         </p>
         {invoices.length === 0 ? (
           <p className="text-muted-foreground">
-            No joined invoices are on file for this program in the pilot subset.
+            No joined invoices are on file for this program.
           </p>
         ) : (
           <ul className="flex flex-col gap-3">
