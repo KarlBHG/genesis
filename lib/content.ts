@@ -1,6 +1,6 @@
+import { createHash } from "crypto";
 import fs from "fs";
 import path from "path";
-import { cache } from "react";
 import matter from "gray-matter";
 
 import { isInvoiceProgramPilotBuyer } from "@/lib/invoice-budget";
@@ -132,6 +132,11 @@ function summaryFrom(body: string): string {
     .trim();
 }
 
+/** Keeps edge document slugs unique without carrying the quotation in them. */
+function shortHash(value: string): string {
+  return createHash("sha256").update(value).digest("hex").slice(0, 10);
+}
+
 function plainBody(markdown: string): string {
   return markdown
     .replace(/\[\[([^\]]+)\]\]/g, "$1")
@@ -237,7 +242,44 @@ function readEntry(filePath: string, kind: Kind): Entry {
   return player;
 }
 
-export const getCatalog = cache((): Entry[] => {
+export type CatalogSnapshot = {
+  entries: Entry[];
+  edges: Edge[];
+  contradictions: Contradiction[];
+  changes: ChangeRecord[];
+  audits: AuditFinding[];
+  offices: OfficeRecord[];
+};
+
+const DATA_FILES = [
+  "edges.json",
+  "offices.json",
+  "places.json",
+  "changes.json",
+  "audits.json",
+  "contradictions.json",
+] as const;
+
+/** Every file the catalog is built from, in a stable order. */
+function sourceFiles(): string[] {
+  const files: string[] = [];
+  for (const { folder } of FOLDERS) {
+    const dir = path.join(ROOT, folder);
+    if (!fs.existsSync(dir)) continue;
+    for (const name of fs.readdirSync(dir).sort()) {
+      if (name.endsWith(".md")) files.push(path.join(dir, name));
+    }
+  }
+  for (const name of DATA_FILES) files.push(path.join(DATA, name));
+  return files;
+}
+
+/**
+ * Reads and validates every Markdown file and JSON blob. Throws on the first
+ * bad record, which is what keeps a broken edge or a missing slug from ever
+ * reaching a page. The build-time index is a cache of this function's output.
+ */
+export function readCatalogFromSource(): CatalogSnapshot {
   const entries: Entry[] = [];
   for (const { folder, kind } of FOLDERS) {
     const dir = path.join(ROOT, folder);
@@ -247,21 +289,107 @@ export const getCatalog = cache((): Entry[] => {
       entries.push(readEntry(path.join(dir, name), kind));
     }
   }
-  loadedEdges = buildEdges(entries);
-  loadedContradictions = buildContradictions(entries);
-  loadedChanges = buildChanges();
-  loadedAudits = buildAudits(entries);
-  loadedOffices = readOffices();
+  const offices = readOffices();
+  const edges = buildEdges(entries, offices);
+  const contradictions = buildContradictions(entries);
+  const changes = buildChanges();
+  const audits = buildAudits(entries);
   resolveSummarySlugs(entries);
-  assertRecords(entries);
-  return entries;
-});
+  assertRecords(entries, offices);
+  return { entries, edges, contradictions, changes, audits, offices };
+}
 
-let loadedEdges: Edge[] = [];
-let loadedContradictions: Contradiction[] = [];
-let loadedChanges: ChangeRecord[] = [];
-let loadedAudits: AuditFinding[] = [];
-let loadedOffices: OfficeRecord[] = [];
+const INDEX_VERSION = 3;
+const INDEX_FILE = path.join(DATA, "generated", "content-index.json");
+
+type StoredIndex = { version: number; digest: string; snapshot: CatalogSnapshot };
+
+/** Hashes the bytes of every source file. Cheap next to parsing them. */
+export function sourceDigest(): string {
+  const hash = createHash("sha256").update(`v${INDEX_VERSION}`);
+  for (const file of sourceFiles()) {
+    hash.update(path.relative(process.cwd(), file));
+    hash.update(fs.readFileSync(file));
+  }
+  return hash.digest("hex");
+}
+
+/** Cheap stamp used in development to notice edits without rehashing bytes. */
+function sourceStamp(): string {
+  const parts: string[] = [];
+  for (const file of sourceFiles()) {
+    const stat = fs.statSync(file);
+    parts.push(`${file}:${stat.size}:${stat.mtimeMs}`);
+  }
+  return parts.join("\n");
+}
+
+export function buildContentIndex(): { digest: string; snapshot: CatalogSnapshot } {
+  const snapshot = readCatalogFromSource();
+  const stored: StoredIndex = {
+    version: INDEX_VERSION,
+    digest: sourceDigest(),
+    snapshot,
+  };
+  fs.mkdirSync(path.dirname(INDEX_FILE), { recursive: true });
+  fs.writeFileSync(INDEX_FILE, JSON.stringify(stored));
+  return { digest: stored.digest, snapshot };
+}
+
+/**
+ * Returns the prebuilt index when it matches the current sources, otherwise
+ * null so the caller falls back to a validating read. A digest mismatch means
+ * the index is stale, never that stale data gets served.
+ */
+function readIndexFile(): CatalogSnapshot | null {
+  let raw: string;
+  try {
+    raw = fs.readFileSync(INDEX_FILE, "utf8");
+  } catch {
+    return null;
+  }
+  let stored: StoredIndex;
+  try {
+    stored = JSON.parse(raw) as StoredIndex;
+  } catch {
+    return null;
+  }
+  if (stored?.version !== INDEX_VERSION || typeof stored.digest !== "string") {
+    return null;
+  }
+  if (stored.digest !== sourceDigest()) return null;
+  const snapshot = stored.snapshot;
+  if (
+    !snapshot ||
+    !Array.isArray(snapshot.entries) ||
+    !Array.isArray(snapshot.edges) ||
+    !Array.isArray(snapshot.offices)
+  ) {
+    return null;
+  }
+  return snapshot;
+}
+
+let loaded: CatalogSnapshot | null = null;
+let loadedStamp = "";
+
+/**
+ * One load per process instead of one per call. Outside production the stamp is
+ * rechecked so a content edit shows up on the next request.
+ */
+function snapshot(): CatalogSnapshot {
+  if (loaded) {
+    if (process.env.NODE_ENV === "production") return loaded;
+    if (sourceStamp() === loadedStamp) return loaded;
+  }
+  loaded = readIndexFile() ?? readCatalogFromSource();
+  loadedStamp = sourceStamp();
+  return loaded;
+}
+
+export function getCatalog(): Entry[] {
+  return snapshot().entries;
+}
 
 const EDGE_FIELDS = ["from", "to", "type", "asOf", "source", "quotation"] as const;
 
@@ -377,11 +505,11 @@ function readOffices(): OfficeRecord[] {
   });
 }
 
-function buildEdges(entries: Entry[]): Edge[] {
+function buildEdges(entries: Entry[], officeRecords: OfficeRecord[]): Edge[] {
   const parsed: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "edges.json"), "utf8"));
   if (!Array.isArray(parsed)) throw new Error("data/edges.json must be a list");
   const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
-  const offices = new Map(readOffices().map((office) => [office.id, office]));
+  const offices = new Map(officeRecords.map((office) => [office.id, office]));
   const titleOf = (slug: string, index: number, side: "from" | "to"): string => {
     const entry = bySlug.get(slug);
     if (entry) return entry.title;
@@ -705,7 +833,7 @@ function buildContradictions(entries: Entry[]): Contradiction[] {
   });
 }
 
-function assertRecords(entries: Entry[]): void {
+function assertRecords(entries: Entry[], offices: OfficeRecord[]): void {
   const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
   const places: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "places.json"), "utf8"));
   if (!Array.isArray(places)) throw new Error("data/places.json must be a list");
@@ -728,23 +856,12 @@ function assertRecords(entries: Entry[]): void {
   for (const id of ["reykjavik", "straumsvik", "grundartangi", "reydarfjordur", "keflavik", "blonduos"]) {
     if (!placeIds.has(id)) throw new Error(`data/places.json is missing ${id}`);
   }
-  const offices: unknown = JSON.parse(fs.readFileSync(path.join(DATA, "offices.json"), "utf8"));
-  if (!Array.isArray(offices)) throw new Error("data/offices.json must be a list");
-  for (const [index, item] of offices.entries()) {
-    if (item == null || typeof item !== "object" || Array.isArray(item)) {
-      throw new Error(`data/offices.json office ${index + 1} must be an object`);
-    }
-    const row = item as Record<string, unknown>;
-    for (const key of ["id", "title", "holder", "organization", "asOf"] as const) {
-      if (typeof row[key] !== "string" || !row[key].trim()) {
-        throw new Error(`data/offices.json office ${index + 1} is missing ${key}`);
-      }
-    }
-    const holder = bySlug.get(row.holder as string);
+  for (const [index, office] of offices.entries()) {
+    const holder = bySlug.get(office.holder);
     if (!holder || holder.kind !== "player" || holder.playerType !== "person") {
       throw new Error(`data/offices.json office ${index + 1} holder does not exist`);
     }
-    if (!bySlug.has(row.organization as string)) {
+    if (!bySlug.has(office.organization)) {
       throw new Error(`data/offices.json office ${index + 1} organization does not exist`);
     }
   }
@@ -808,8 +925,7 @@ export function resolveSlug(slug: string): { title: string; href: string } | nul
 }
 
 export function getOffices(): OfficeRecord[] {
-  getCatalog();
-  return loadedOffices;
+  return snapshot().offices;
 }
 
 export function getOfficeById(id: string): OfficeRecord | undefined {
@@ -817,23 +933,19 @@ export function getOfficeById(id: string): OfficeRecord | undefined {
 }
 
 export function getEdges(): Edge[] {
-  getCatalog();
-  return loadedEdges;
+  return snapshot().edges;
 }
 
 export function getContradictions(): Contradiction[] {
-  getCatalog();
-  return loadedContradictions;
+  return snapshot().contradictions;
 }
 
 export function getChanges(): ChangeRecord[] {
-  getCatalog();
-  return loadedChanges;
+  return snapshot().changes;
 }
 
 export function getAudits(): AuditFinding[] {
-  getCatalog();
-  return loadedAudits;
+  return snapshot().audits;
 }
 
 export function edgesFor(slug: string): { out: Edge[]; inn: Edge[] } {
@@ -844,8 +956,29 @@ export function edgesFor(slug: string): { out: Edge[]; inn: Edge[] } {
   };
 }
 
+/**
+ * Relationship wording per entry, deduplicated. Quotations stay on the edge
+ * documents so an entry body is not a transcript of every edge that touches it.
+ */
+function relationshipLines(edges: Edge[]): Map<string, Set<string>> {
+  const lines = new Map<string, Set<string>>();
+  const add = (slug: string, line: string) => {
+    const existing = lines.get(slug);
+    if (existing) existing.add(line);
+    else lines.set(slug, new Set([line]));
+  };
+  for (const edge of edges) {
+    const label = labelize(edge.relationship);
+    add(edge.from, `${label} ${edge.relationship} ${edge.toTitle}`);
+    add(edge.to, `${label} ${edge.relationship} ${edge.fromTitle}`);
+  }
+  return lines;
+}
+
 export function toSearchDocs(entries: Entry[] = getCatalog()): SearchDoc[] {
   const bySlug = new Map(entries.map((entry) => [entry.slug, entry]));
+  const edges = getEdges();
+  const lines = relationshipLines(edges);
   const entryDocs: SearchDoc[] = entries.map((entry) => ({
     title: entry.title,
     slug: entry.slug,
@@ -865,22 +998,16 @@ export function toSearchDocs(entries: Entry[] = getCatalog()): SearchDoc[] {
                 ? [entry.role, entry.playerType]
                 : [entry.type],
     body: plainBody(
-      `${entry.body}\n${entry.sources}\n${getEdges()
-        .filter((edge) => edge.from === entry.slug || edge.to === entry.slug)
-        .map(
-          (edge) =>
-            `${labelize(edge.relationship)} ${edge.relationship} ${edge.quotation}`,
-        )
-        .join("\n")}`,
+      `${entry.body}\n${entry.sources}\n${[...(lines.get(entry.slug) ?? [])].join("\n")}`,
     ),
   }));
 
-  const edgeDocs: SearchDoc[] = getEdges().map((edge) => {
+  const edgeDocs: SearchDoc[] = edges.map((edge) => {
     const from = bySlug.get(edge.from);
     const label = labelize(edge.relationship);
     return {
       title: `${edge.fromTitle} ${label.toLowerCase()} ${edge.toTitle}`,
-      slug: `edge:${edge.from}:${edge.relationship}:${edge.to}:${edge.asOf}:${edge.start ?? ""}:${edge.quotation}`,
+      slug: `edge:${edge.from}:${edge.relationship}:${edge.to}:${edge.asOf}:${edge.start ?? ""}:${shortHash(edge.quotation)}`,
       kind: "edge",
       href: from ? hrefFor(from) : "/connections",
       summary: `${label}. ${edge.quotation}`,
