@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { EntryIndex } from "@/components/entry-index";
-import { getFlows, hrefFor } from "@/lib/content";
+import { getPolicyAreas, hrefFor } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Programs",
@@ -18,10 +18,7 @@ const INTRO = [
 const ARTICLE_FOUR = "Árið 2026 er gert ráð fyrir að framlög úr ríkissjóði (A1-hluta) og fjárheimildir fyrir heildargjöldum, án rekstrartekna, sundurliðaðar eftir málefnasviðum, málaflokkum og ráðuneytum verði eins og tilgreint er í þessari grein.";
 
 export default function ProgramsPage() {
-  const items = getFlows()
-    .filter((flow) => flow.slug.startsWith("policy-area-"))
-    .sort((a, b) => a.slug.localeCompare(b.slug))
-    .map((flow) => ({
+  const items = getPolicyAreas().map((flow) => ({
       title: flow.title,
       href: hrefFor(flow),
       summary: flow.summary,
@@ -65,6 +62,14 @@ export default function ProgramsPage() {
       ) : (
         <EntryIndex items={items} />
       )}
+      <p className="max-w-3xl text-sm text-muted-foreground">
+        Trade, pensions, power sales, and Treasury totals are not policy
+        areas. They live under{" "}
+        <Link className="underline underline-offset-4" href="/money">
+          Money
+        </Link>
+        .
+      </p>
     </main>
   );
 }

@@ -585,6 +585,21 @@ export function getFlows(): Flow[] {
   return getCatalog().filter((entry): entry is Flow => entry.kind === "flow");
 }
 
+export function getPolicyAreas(): Flow[] {
+  return getFlows()
+    .filter((flow) => flow.slug.startsWith("policy-area-"))
+    .sort((a, b) => a.slug.localeCompare(b.slug));
+}
+
+export function getOtherFlows(): Flow[] {
+  return getFlows()
+    .filter((flow) => !flow.slug.startsWith("policy-area-"))
+    .sort(
+      (a, b) =>
+        b.year.localeCompare(a.year) || a.title.localeCompare(b.title, "en"),
+    );
+}
+
 export function getPlayers(): Player[] {
   return getCatalog().filter((entry): entry is Player => entry.kind === "player");
 }

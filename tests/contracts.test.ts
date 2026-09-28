@@ -12,6 +12,8 @@ import {
   getFlows,
   getOfficeById,
   getOffices,
+  getOtherFlows,
+  getPolicyAreas,
   resolveSlug,
   toSearchDocs,
 } from "@/lib/content";
@@ -360,6 +362,18 @@ describe("summaries", () => {
     }
     const bank = getCatalog().find((entry) => entry.slug === "landsbankinn");
     expect(bank?.summary).toContain("→ Lilja Björk Einarsdóttir");
+  });
+});
+
+describe("money partition", () => {
+  it("covers every flow exactly once across programs and money", () => {
+    const areas = getPolicyAreas();
+    const others = getOtherFlows();
+    expect(areas).toHaveLength(35);
+    const slugs = [...areas, ...others].map((flow) => flow.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    expect(slugs.length).toBe(getFlows().length);
+    expect(others.length).toBeGreaterThan(0);
   });
 });
 
