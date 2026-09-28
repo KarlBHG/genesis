@@ -41,6 +41,8 @@ export type Treaty = {
   sources: string;
   summary: string;
   lede: string;
+  /** Sourced page with no allowlisted relationship a cited sentence can carry. */
+  proseOnly: boolean;
 };
 
 export type Institution = {
@@ -57,6 +59,8 @@ export type Institution = {
   sources: string;
   summary: string;
   lede: string;
+  /** Sourced page with no allowlisted relationship a cited sentence can carry. */
+  proseOnly: boolean;
 };
 
 export type MapEvent = {
@@ -70,6 +74,8 @@ export type MapEvent = {
   sources: string;
   summary: string;
   lede: string;
+  /** Sourced page with no allowlisted relationship a cited sentence can carry. */
+  proseOnly: boolean;
 };
 
 export type Sector = {
@@ -82,6 +88,8 @@ export type Sector = {
   sources: string;
   summary: string;
   lede: string;
+  /** Sourced page with no allowlisted relationship a cited sentence can carry. */
+  proseOnly: boolean;
 };
 
 export type Flow = {
@@ -94,6 +102,8 @@ export type Flow = {
   sources: string;
   summary: string;
   lede: string;
+  /** Sourced page with no allowlisted relationship a cited sentence can carry. */
+  proseOnly: boolean;
 };
 
 export type Player = {
@@ -109,6 +119,8 @@ export type Player = {
   sources: string;
   summary: string;
   lede: string;
+  /** Sourced page with no allowlisted relationship a cited sentence can carry. */
+  proseOnly: boolean;
 };
 
 export type Entry = Treaty | Institution | MapEvent | Sector | Flow | Player;

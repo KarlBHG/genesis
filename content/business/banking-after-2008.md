@@ -4,6 +4,7 @@ slug: "banking-after-2008"
 area: "banking"
 related: ["2008-financial-crisis", "imf-program-2008", "sedlabanki", "financial-supervisory-authority", "landsbankinn", "islandsbanki", "arion-banki", "landsbankinn-state-holding", "ministry-of-finance"]
 lede: "The three banks rebuilt after 2008 now sit in different hands: the State holds 98.2% of Landsbankinn, sold the last of Íslandsbanki in May 2025, and supervises Arion through Seðlabanki."
+proseOnly: true
 ---
 
 # Banking after 2008

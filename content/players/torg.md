@@ -7,6 +7,7 @@ asOf: "2023-04-04"
 website: ""
 related: ["visir", "morgunbladid"]
 lede: "Torg ehf. published newspapers until the company registry recorded it as bankrupt on 4 April 2023."
+proseOnly: true
 ---
 
 # Torg ehf.
@@ -18,7 +19,7 @@ The VAT table on that entry prints registration number 129883 from 1 December 20
 
 The media commission’s library keeps Torg’s own rules on editorial independence, which say the news media of Torg ehf. shall uphold democratic fundamentals and free expression under the media act No. 38/2011, and that the board and managing director of Torg bear responsibility for the operation of the media service provider and the content it distributes.
 
-Vísir.is is sometimes named alongside Torg. The media register puts Vísir under Sýn hf., not Torg → [[visir]]. The other private newspaper record here is [[morgunbladid]]. No typed edge is stored from this company, because no current source names an outlet it still operates.
+Vísir.is is sometimes named alongside Torg. The media register puts Vísir under Sýn hf., not Torg → [[visir]]. The other private newspaper record here is [[morgunbladid]]. This record is marked prose-only: no current source names an outlet it still operates, so no typed edge is stored.
 
 ## Sources
 - [Skatturinn: Torg ehf.](https://www.skatturinn.is/fyrirtaekjaskra/leit?nafn=Torg%20ehf.)

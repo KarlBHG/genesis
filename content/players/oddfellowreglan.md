@@ -6,6 +6,7 @@ role: "Society"
 asOf: ""
 website: "https://www.oddfellow.is/is/um-regluna"
 related: []
+proseOnly: true
 ---
 
 # Oddfellowreglan á Íslandi

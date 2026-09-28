@@ -5,6 +5,7 @@ date: "1874"
 type: "founding"
 related: ["althingi", "1944-republic"]
 lede: "King Christian IX presented Iceland with a constitution during the 1874 millennium celebrations, a step the government describes as a substantial improvement in the country’s legal status."
+proseOnly: true
 ---
 
 ## Summary

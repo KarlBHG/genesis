@@ -519,6 +519,14 @@ export default function MethodologyPage() {
                 panel: the geography is sourced, the relationships are not there
                 yet, and a reader should not infer them from proximity on a map.
               </p>
+              <p>
+                The same honesty applies off the map. A catalog record with no
+                typed edge is marked{" "}
+                <span className="font-medium">Prose only · no typed edge</span>{" "}
+                when a cited page supports the record but no allowlisted
+                relationship can be drawn from it. Related links in the Markdown
+                stay untyped reading suggestions.
+              </p>
             </>
           }
           title="Pin only · no typed edge"

@@ -82,8 +82,9 @@ export function factStrip(entry: Entry): EntryFact[] {
     primaryDate(entry),
     {
       term: "Connections",
-      value:
-        connections === 0
+      value: entry.proseOnly
+        ? "Prose only · no typed edge"
+        : connections === 0
           ? "None typed yet"
           : `${connections} typed ${connections === 1 ? "edge" : "edges"}`,
     },

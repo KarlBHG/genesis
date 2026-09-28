@@ -6,6 +6,7 @@ role: "Society"
 asOf: ""
 website: "https://www.frimurarareglan.is/um-regluna/"
 related: []
+proseOnly: true
 ---
 
 # Frímúrarareglan á Íslandi

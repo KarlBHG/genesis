@@ -4,6 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 
 import { kindPath, labelize } from "@/lib/format";
+import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
 import type {
   AuditFinding,
   CareerChannel,
@@ -88,6 +89,19 @@ function optionalString(data: Record<string, unknown>, key: string): string {
   return value.trim();
 }
 
+function optionalBoolean(
+  data: Record<string, unknown>,
+  key: string,
+  file: string,
+): boolean {
+  const value = data[key];
+  if (value == null) return false;
+  if (typeof value !== "boolean") {
+    throw new Error(`${file} frontmatter "${key}" must be a boolean`);
+  }
+  return value;
+}
+
 function stringArray(
   data: Record<string, unknown>,
   key: string,
@@ -168,6 +182,7 @@ function readEntry(filePath: string, kind: Kind): Entry {
     sources: split.sources,
     summary,
     lede: optionalString(data, "lede"),
+    proseOnly: optionalBoolean(data, "proseOnly", file),
   };
 
   if (kind === "treaty") {
@@ -295,10 +310,11 @@ export function readCatalogFromSource(): CatalogSnapshot {
   const audits = buildAudits(entries);
   resolveSummarySlugs(entries);
   assertRecords(entries, offices);
+  assertProseOnly(entries, edges, offices);
   return { entries, edges, contradictions, changes, audits, offices };
 }
 
-const INDEX_VERSION = 3;
+const INDEX_VERSION = 4;
 const INDEX_FILE = path.join(DATA, "generated", "content-index.json");
 
 type StoredIndex = { version: number; digest: string; snapshot: CatalogSnapshot };
@@ -886,6 +902,26 @@ function assertRecords(entries: Entry[], offices: OfficeRecord[]): void {
     }
     if (!bySlug.has(office.organization)) {
       throw new Error(`data/offices.json office ${index + 1} organization does not exist`);
+    }
+  }
+}
+
+function assertProseOnly(
+  entries: Entry[],
+  edges: Edge[],
+  offices: OfficeRecord[],
+): void {
+  for (const entry of entries) {
+    const linked = mapSlugHasTypedLinkage(entry.slug, edges, offices);
+    if (entry.proseOnly && linked) {
+      throw new Error(
+        `${entry.slug} is marked prose-only but has a typed or office-linked edge`,
+      );
+    }
+    if (!entry.proseOnly && !linked) {
+      throw new Error(
+        `${entry.slug} has no typed or office-linked edge and is not marked prose-only`,
+      );
     }
   }
 }

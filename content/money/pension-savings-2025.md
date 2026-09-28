@@ -4,6 +4,7 @@ slug: "pension-savings-2025"
 year: "2025"
 related: ["financial-supervisory-authority", "sedlabanki", "lsr", "bru", "birta", "stapi", "lsr-net-assets-2024"]
 lede: "Pension savings of the population stood at 9,463 billion ISK at year-end 2025, up 8% on the year, across 19 pension funds and other custodians."
+proseOnly: true
 ---
 
 # Pension savings, year-end 2025

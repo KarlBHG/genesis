@@ -212,6 +212,8 @@ export default async function ConnectionsPage({
             <h2 className="text-xl font-medium">Not on this drawing</h2>
             <p className="text-muted-foreground">
               These entries have no typed edge. Related links on their pages are not drawn here.
+              Where a cited page still does not support an allowlisted relationship, the record
+              is labelled prose-only instead of left unexplained.
             </p>
             <ul className="flex flex-col gap-2">
               {missing.map((entry) => (
@@ -220,6 +222,11 @@ export default async function ConnectionsPage({
                     {entry.title}
                   </Link>
                   <span className="text-sm text-muted-foreground">{kindLabel(entry.kind)}</span>
+                  {entry.proseOnly ? (
+                    <span className="text-sm text-muted-foreground">
+                      · Prose only · no typed edge
+                    </span>
+                  ) : null}
                 </li>
               ))}
             </ul>

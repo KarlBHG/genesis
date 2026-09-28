@@ -136,6 +136,54 @@
     "quotation": "Table “The value of exports and imports in 2023 and 2024” (billion ISK) lists marine products exports in 2024 at 346.5 billion ISK fob, 36.1% of goods exports. Farmed fish is a separate row in the same table."
   },
   {
+    "from": "fuels-and-lubricants-imports-2024",
+    "to": "goods-imports-2024",
+    "type": "import-line-of",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "Table “The value of exports and imports in 2023 and 2024” (billion ISK) lists fuels and lubricants imports in 2024 at 156.1 billion ISK cif, 11.5% of goods imports."
+  },
+  {
+    "from": "industrial-supplies-imports-2024",
+    "to": "goods-imports-2024",
+    "type": "import-line-of",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
+    "quotation": "Table “The value of exports and imports in 2023 and 2024” (billion ISK) lists industrial supplies n.e.s. imports in 2024 at 371.9 billion ISK cif, 27.4% of goods imports."
+  },
+  {
+    "from": "services-trade-2024",
+    "to": "tourism",
+    "type": "export-of",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-services-by-classification-and-countries-2024/",
+    "quotation": "Travel services were the strongest-growing export category in that release, valued at an estimated 447.8 billion ISK, an increase of 4% from 2023."
+  },
+  {
+    "from": "services-trade-2024",
+    "to": "united-states",
+    "type": "exported-to",
+    "asOf": "2024",
+    "source": "https://statice.is/publications/news-archive/external-trade/trade-in-services-by-classification-and-countries-2024/",
+    "quotation": "Service exports to the United States were 315.3 billion ISK."
+  },
+  {
+    "from": "fjarskiptastofa",
+    "to": "telecoms",
+    "type": "regulates",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagasafn/pdf/157c/2021075.pdf",
+    "quotation": "Article 2 of the consolidated Act No. 75/2021 says Fjarskiptastofa administers and supervises electronic communications and network security."
+  },
+  {
+    "from": "ministry-of-social-affairs-and-housing",
+    "to": "construction-and-housing",
+    "type": "regulates",
+    "asOf": "undated on the about page",
+    "source": "https://www.government.is/ministries/ministry-of-social-affairs-and-housing/about-the-ministry/",
+    "quotation": "The English about page says the ministry administers social affairs, social security, and housing, and lists disability affairs, employment, family affairs, immigrants, housing, and planning."
+  },
+  {
     "from": "treasury-budget-2026",
     "to": "healthcare",
     "type": "funds",

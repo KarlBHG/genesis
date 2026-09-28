@@ -4,6 +4,7 @@ slug: "landsvirkjun-power-sales"
 year: "2026"
 related: ["landsvirkjun", "power-and-aluminium", "borealis-data-center", "nordural", "isal", "alcoa-fjardaal"]
 lede: "Landsvirkjun sells to power-intensive industry across five customer categories; the split between them is undated on the company’s page, so no percentage is printed here."
+proseOnly: true
 ---
 
 # Landsvirkjun power sales

@@ -5,6 +5,7 @@ date: "930"
 type: "founding"
 related: ["althingi"]
 lede: "A constitutional law code accepted in the year 930 established the Alþingi, with judicial power split between four local courts and an annual assembly at Þingvellir."
+proseOnly: true
 ---
 
 ## Summary

@@ -218,6 +218,40 @@ describe("map membership", () => {
     );
     expect(unmapped.length).toBeLessThanOrEqual(70);
   });
+
+  it("marks every untyped catalog island as prose-only", () => {
+    const edges = getEdges();
+    const offices = getOffices();
+    const islands = getCatalog().filter(
+      (entry) => !mapSlugHasTypedLinkage(entry.slug, edges, offices),
+    );
+    expect(islands.map((entry) => entry.slug).sort()).toEqual(
+      [
+        "1874-constitution",
+        "1944-republic",
+        "930-althingi",
+        "banking-after-2008",
+        "frimurarareglan",
+        "landsbankinn-state-holding",
+        "landsvirkjun-power-sales",
+        "lsr-net-assets-2024",
+        "oddfellowreglan",
+        "pension-savings-2025",
+        "retail",
+        "torg",
+      ].sort(),
+    );
+    for (const entry of islands) {
+      expect(entry.proseOnly, entry.slug).toBe(true);
+    }
+    for (const entry of getCatalog()) {
+      if (!entry.proseOnly) continue;
+      expect(
+        mapSlugHasTypedLinkage(entry.slug, edges, offices),
+        `${entry.slug} is prose-only but linked`,
+      ).toBe(false);
+    }
+  });
 });
 
 describe("public-entity inventory (phase 1)", () => {

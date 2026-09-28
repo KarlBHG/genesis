@@ -457,6 +457,18 @@ export function EntryDetail({ entry }: { entry: Entry }) {
             </div>
           </section>
         </>
+      ) : entry.proseOnly ? (
+        <>
+          <Separator />
+          <section className="flex flex-col gap-2">
+            <h2 className="text-xl font-medium">Connections</h2>
+            <p className="text-sm text-muted-foreground">
+              Prose only · no typed edge. A cited page supports this record, but
+              no allowlisted relationship can be drawn from it without inventing a
+              join.
+            </p>
+          </section>
+        </>
       ) : null}
       <Separator />
       <section className="flex flex-col gap-3">
