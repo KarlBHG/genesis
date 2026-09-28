@@ -25,14 +25,6 @@ export type Relationship =
   | "exported-to"
   | "incorporates";
 
-export type Connection = {
-  to: string;
-  relationship: Relationship;
-  source: string;
-  note: string;
-  asOf: string;
-};
-
 export type Treaty = {
   kind: "treaty";
   title: string;
@@ -44,7 +36,6 @@ export type Treaty = {
   status: string;
   topics: string[];
   related: string[];
-  connections: Connection[];
   source: string;
   body: string;
   sources: string;
@@ -60,7 +51,6 @@ export type Institution = {
   role: string;
   parent: string;
   related: string[];
-  connections: Connection[];
   website: string;
   body: string;
   sources: string;
@@ -74,7 +64,6 @@ export type MapEvent = {
   date: string;
   type: string;
   related: string[];
-  connections: Connection[];
   body: string;
   sources: string;
   summary: string;
@@ -86,7 +75,6 @@ export type Sector = {
   slug: string;
   area: string;
   related: string[];
-  connections: Connection[];
   body: string;
   sources: string;
   summary: string;
@@ -98,7 +86,6 @@ export type Flow = {
   slug: string;
   year: string;
   related: string[];
-  connections: Connection[];
   body: string;
   sources: string;
   summary: string;
@@ -113,7 +100,6 @@ export type Player = {
   asOf: string;
   website: string;
   related: string[];
-  connections: Connection[];
   body: string;
   sources: string;
   summary: string;

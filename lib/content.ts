@@ -8,7 +8,6 @@ import type {
   AuditFinding,
   CareerChannel,
   ChangeRecord,
-  Connection,
   Contradiction,
   Edge,
   Entry,
@@ -90,33 +89,6 @@ function stringArray(
   return value.map((item) => item.trim()).filter(Boolean);
 }
 
-function connectionsOf(data: Record<string, unknown>, file: string): Connection[] {
-  const value = data.connections;
-  if (value == null) return [];
-  if (!Array.isArray(value)) {
-    throw new Error(`${file} frontmatter "connections" must be a list`);
-  }
-  return value.map((item, index) => {
-    if (item == null || typeof item !== "object" || Array.isArray(item)) {
-      throw new Error(`${file} connection ${index + 1} must be a mapping`);
-    }
-    const row = item as Record<string, unknown>;
-    const relationship = requireString(row, "relationship", file);
-    if (!RELATIONSHIPS.has(relationship as Relationship)) {
-      throw new Error(
-        `${file} connection ${index + 1} has unknown relationship "${relationship}"`,
-      );
-    }
-    return {
-      to: requireString(row, "to", file),
-      relationship: relationship as Relationship,
-      source: requireString(row, "source", file),
-      note: requireString(row, "note", file),
-      asOf: optionalString(row, "asOf"),
-    };
-  });
-}
-
 function stripTitle(markdown: string): string {
   return markdown.replace(/^#\s+.+\n+/, "").trim();
 }
@@ -171,12 +143,10 @@ function readEntry(filePath: string, kind: Kind): Entry {
   const summary = summaryFrom(split.body);
   const title = requireString(data, "title", file);
   const related = stringArray(data, "related", file);
-  const connections = connectionsOf(data, file);
   const shared = {
     title,
     slug,
     related,
-    connections,
     body: split.body,
     sources: split.sources,
     summary,
@@ -261,19 +231,6 @@ export const getCatalog = cache((): Entry[] => {
     for (const name of fs.readdirSync(dir)) {
       if (!name.endsWith(".md")) continue;
       entries.push(readEntry(path.join(dir, name), kind));
-    }
-  }
-  const slugs = new Set(entries.map((entry) => entry.slug));
-  for (const entry of entries) {
-    for (const connection of entry.connections) {
-      if (!slugs.has(connection.to)) {
-        throw new Error(
-          `${entry.slug} connection points at missing slug "${connection.to}"`,
-        );
-      }
-      if (connection.to === entry.slug) {
-        throw new Error(`${entry.slug} connection points at itself`);
-      }
     }
   }
   loadedEdges = buildEdges(entries);
