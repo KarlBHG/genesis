@@ -346,6 +346,23 @@ describe("connection groups", () => {
   });
 });
 
+describe("summaries", () => {
+  it("resolves arrow slugs to entry titles", () => {
+    const titles = new Map(getCatalog().map((entry) => [entry.slug, entry.title]));
+    for (const entry of getCatalog()) {
+      const dangling = [...entry.summary.matchAll(/→\s*([a-z0-9][a-z0-9-]*)/g)]
+        .map((match) => match[1])
+        .filter((slug) => titles.has(slug as string));
+      expect(
+        dangling,
+        `${entry.slug} summary points at a bare slug`,
+      ).toEqual([]);
+    }
+    const bank = getCatalog().find((entry) => entry.slug === "landsbankinn");
+    expect(bank?.summary).toContain("→ Lilja Björk Einarsdóttir");
+  });
+});
+
 describe("search", () => {
   it("folds Icelandic characters when highlighting", () => {
     const parts = highlightParts("Alþingi", "althingi");

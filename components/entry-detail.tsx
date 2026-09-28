@@ -18,7 +18,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { edgesFor, resolveSlug } from "@/lib/content";
+import {
+  edgesFor,
+  getAudits,
+  getContradictions,
+  resolveSlug,
+} from "@/lib/content";
+import { groupEdges } from "@/lib/connection-groups";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
 import type { Edge, Entry } from "@/lib/types";
 
@@ -155,40 +161,137 @@ function Related({ slugs }: { slugs: string[] }) {
   );
 }
 
-function EdgeList({ edges, direction }: { edges: Edge[]; direction: "out" | "in" }) {
-  if (edges.length === 0) return null;
+function EdgeRow({ edge, slug }: { edge: Edge; slug: string }) {
+  const outward = edge.from === slug;
+  const other = outward ? edge.to : edge.from;
+  const otherTitle = outward ? edge.toTitle : edge.fromTitle;
+  const target = resolveSlug(other);
   return (
-    <ul className="flex flex-col gap-3">
-      {edges.map((edge) => {
-        const other = direction === "out" ? edge.to : edge.from;
-        const otherTitle = direction === "out" ? edge.toTitle : edge.fromTitle;
-        const target = resolveSlug(other);
-        return (
-          <li key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}-${edge.source}`} className="flex flex-col gap-1">
-            <p>
-              <Badge variant="outline">{labelize(edge.relationship)}</Badge>{" "}
-              {target ? (
-                <Link className="underline underline-offset-4" href={target.href}>
-                  {otherTitle}
-                </Link>
-              ) : (
-                otherTitle
-              )}
-              {edge.relationship === "holds-office" && edge.organizationTitle ? (
-                <span> · {edge.organizationTitle}</span>
-              ) : null}
-              {edge.asOf ? (
-                <span className="text-muted-foreground"> · {formatDate(edge.asOf)}</span>
-              ) : null}
-            </p>
-            <p className="text-sm text-muted-foreground">{edge.quotation}</p>
-            <a className="text-sm break-all" href={edge.source} rel="noreferrer" target="_blank">
-              {edge.source}
+    <li
+      key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}-${edge.source}`}
+      className="flex flex-col gap-1"
+    >
+      <p>
+        <Badge variant="outline">{labelize(edge.relationship)}</Badge>{" "}
+        {target ? (
+          <Link className="underline underline-offset-4" href={target.href}>
+            {otherTitle}
+          </Link>
+        ) : (
+          otherTitle
+        )}
+        {edge.relationship === "holds-office" && edge.organizationTitle ? (
+          <span> · {edge.organizationTitle}</span>
+        ) : null}
+        {edge.asOf ? (
+          <span className="text-muted-foreground"> · {formatDate(edge.asOf)}</span>
+        ) : null}
+      </p>
+      <p className="text-sm text-muted-foreground">{edge.quotation}</p>
+      <a className="text-sm break-all" href={edge.source} rel="noreferrer" target="_blank">
+        {edge.source}
+      </a>
+    </li>
+  );
+}
+
+function EdgeSection({
+  title,
+  edges,
+  slug,
+}: {
+  title: string;
+  edges: Edge[];
+  slug: string;
+}) {
+  if (edges.length === 0) return null;
+  const groups = groupEdges(edges, "relationship");
+  return (
+    <div className="flex flex-col gap-2">
+      <h3 className="text-base font-medium">
+        {title} · {edges.length}
+      </h3>
+      {groups.length === 1 ? (
+        <ul className="flex flex-col gap-3">
+          {edges.map((edge) => (
+            <EdgeRow
+              edge={edge}
+              key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
+              slug={slug}
+            />
+          ))}
+        </ul>
+      ) : (
+        groups.map((group) => (
+          <details
+            className="rounded-lg border px-4"
+            key={group.key}
+            open
+          >
+            <summary className="cursor-pointer list-none py-2.5 [&::-webkit-details-marker]:hidden">
+              <span className="flex flex-wrap items-baseline gap-x-2 text-sm">
+                <span className="font-medium">
+                  {labelize(group.key)}
+                </span>
+                <Badge variant="outline">{group.edges.length}</Badge>
+              </span>
+            </summary>
+            <ul className="flex flex-col gap-3 pb-3">
+              {group.edges.map((edge) => (
+                <EdgeRow
+                  edge={edge}
+                  key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
+                  slug={slug}
+                />
+              ))}
+            </ul>
+          </details>
+        ))
+      )}
+    </div>
+  );
+}
+
+function EvidenceNotice({ slug }: { slug: string }) {
+  const contradictions = getContradictions().filter((record) =>
+    record.entries.includes(slug),
+  );
+  const audits = getAudits().filter((record) =>
+    record.entries.includes(slug),
+  );
+  if (contradictions.length === 0 && audits.length === 0) return null;
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">Disputed or audited</CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2 text-sm">
+        {contradictions.length > 0 ? (
+          <p>
+            {contradictions.length}{" "}
+            {contradictions.length === 1 ? "contradiction" : "contradictions"}{" "}
+            on file: two sourced sentences that disagree.{" "}
+            <Link className="underline underline-offset-4" href="/anomalies#contradictions">
+              Read both sides
+            </Link>
+            .
+          </p>
+        ) : null}
+        {audits.map((audit) => (
+          <p className="text-muted-foreground" key={audit.id}>
+            Ríkisendurskoðun, {formatDate(audit.published)}: “{audit.quotation}”{" "}
+            <a
+              className="break-all underline underline-offset-4"
+              href={audit.source}
+              rel="noreferrer"
+              target="_blank"
+            >
+              Source
             </a>
-          </li>
-        );
-      })}
-    </ul>
+          </p>
+        ))}
+      </CardContent>
+    </Card>
   );
 }
 
@@ -240,7 +343,13 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         <h1 className="text-3xl font-medium tracking-tight sm:text-4xl">
           {entry.title}
         </h1>
+        {entry.summary ? (
+          <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
+            {entry.summary}
+          </p>
+        ) : null}
       </header>
+      <EvidenceNotice slug={entry.slug} />
       <MarkdownBody source={entry.body} />
       <Record entry={entry} />
       {out.length > 0 || inn.length > 0 ? (
@@ -249,8 +358,8 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           <section className="flex flex-col gap-3">
             <h2 className="text-xl font-medium">Connections</h2>
             <div className="flex flex-col gap-4">
-              <EdgeList direction="out" edges={out} />
-              <EdgeList direction="in" edges={inn} />
+              <EdgeSection edges={out} slug={entry.slug} title="Outgoing" />
+              <EdgeSection edges={inn} slug={entry.slug} title="Incoming" />
             </div>
           </section>
         </>

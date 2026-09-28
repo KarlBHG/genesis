@@ -238,6 +238,7 @@ export const getCatalog = cache((): Entry[] => {
   loadedChanges = buildChanges();
   loadedAudits = buildAudits(entries);
   loadedOffices = readOffices();
+  resolveSummarySlugs(entries);
   assertRecords(entries);
   return entries;
 });
@@ -249,6 +250,17 @@ let loadedAudits: AuditFinding[] = [];
 let loadedOffices: OfficeRecord[] = [];
 
 const EDGE_FIELDS = ["from", "to", "type", "asOf", "source", "quotation"] as const;
+
+function resolveSummarySlugs(entries: Entry[]): void {
+  const titles = new Map(entries.map((entry) => [entry.slug, entry.title]));
+  for (const entry of entries) {
+    entry.summary = entry.summary.replace(
+      /→\s*([a-z0-9][a-z0-9-]*)/g,
+      (match, slug: string) =>
+        titles.has(slug) ? `→ ${titles.get(slug)}` : match,
+    );
+  }
+}
 
 function requireEdgeString(row: Record<string, unknown>, key: string, index: number): string {
   const value = row[key];
