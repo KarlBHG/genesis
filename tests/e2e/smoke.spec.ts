@@ -31,11 +31,24 @@ for (const route of ROUTES) {
 }
 
 test.describe("visual baselines", () => {
-  test("home and money at 390 and 1440", async ({ page }, testInfo) => {
+  test("home and money — desktop 1440", async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop", "Desktop baselines only");
     for (const route of ["/", "/money"]) {
       await page.goto(route);
       const slug = route === "/" ? "home" : "money";
-      await expect(page).toHaveScreenshot(`${slug}-${testInfo.project.name}.png`, {
+      await expect(page).toHaveScreenshot(`${slug}-1440.png`, {
+        fullPage: true,
+        maxDiffPixelRatio: 0.03,
+      });
+    }
+  });
+
+  test("home and money — mobile 390", async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Mobile baselines only");
+    for (const route of ["/", "/money"]) {
+      await page.goto(route);
+      const slug = route === "/" ? "home" : "money";
+      await expect(page).toHaveScreenshot(`${slug}-390.png`, {
         fullPage: true,
         maxDiffPixelRatio: 0.03,
       });
