@@ -15,11 +15,13 @@ import {
   getOtherFlows,
   getPolicyAreas,
   resolveSlug,
+  getTreaties,
   toSearchDocs,
 } from "@/lib/content";
 import { MAP_ENTRIES, MAP_VIEWS, viewOf } from "@/lib/geo-map";
 import { highlightParts, searchEntries } from "@/lib/search";
 import { LANDING_CHAINS, resolveChain } from "@/lib/landing";
+import { OBLIGATION_SECTIONS } from "@/lib/obligations";
 import {
   DEFAULT_LAYER,
   DEFAULT_LAYERS,
@@ -53,6 +55,12 @@ describe("catalog loads", () => {
   it("parses every entry and edge without throwing", () => {
     expect(getCatalog().length).toBeGreaterThan(0);
     expect(getEdges().length).toBeGreaterThan(0);
+  });
+
+  it("keeps dashboard treaty and obligation indexes populated", () => {
+    expect(getTreaties().length).toBeGreaterThanOrEqual(14);
+    expect(OBLIGATION_SECTIONS.length).toBeGreaterThanOrEqual(9);
+    expect(LANDING_CHAINS.length).toBe(6);
   });
 
   it("keeps contradictions, changes, and audits loadable", () => {

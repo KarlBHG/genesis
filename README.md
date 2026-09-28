@@ -11,7 +11,7 @@ npm install
 npm run dev -- --hostname 0.0.0.0 --port 38471
 ```
 
-Open [http://127.0.0.1:38471](http://127.0.0.1:38471). That address opens System. Overview keeps the budget drawing. Connections groups edges into the seven map views. The map opens with Authority, Ownership, and Trade on. Anomalies lists contradictions, repeated invoices, and audit sentences. Programs lists the 35 policy areas in the 2026 budget: what the ministry report says each one does, the spending change it prints, and the Article 4 authorisation rows. Those rows are not added together. `data/changes.json` records a field that differs from an earlier reading.
+Open [http://127.0.0.1:38471](http://127.0.0.1:38471) for the **dashboard** (home). Use **System** for how to read the map; **Overview** for the budget drawing and search. Connections groups edges into the seven map views. The map opens with Authority, Ownership, and Trade on. Anomalies lists contradictions, repeated invoices, and audit sentences. Programs lists the 35 policy areas in the 2026 budget: what the ministry report says each one does, the spending change it prints, and the Article 4 authorisation rows. Those rows are not added together. `data/changes.json` records a field that differs from an earlier reading.
 
 ## Content
 

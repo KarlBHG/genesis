@@ -48,10 +48,13 @@ export function HomeConstellation() {
           </linearGradient>
         </defs>
         <circle cx={CX} cy={CY} fill="url(#core-glow)" r={R + 42} />
-        <g className="constellation-orbit motion-reduce:animate-none">
+        <g
+          className="constellation-orbit motion-reduce:animate-none"
+          transform={`translate(${CX} ${CY})`}
+        >
           <circle
-            cx={CX}
-            cy={CY}
+            cx={0}
+            cy={0}
             fill="none"
             r={R}
             stroke="url(#orbit-stroke)"
