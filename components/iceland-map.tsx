@@ -458,6 +458,7 @@ export function IcelandMap({
                 const point = points[place.id];
                 const swatch = LAYERS.find((layer) => layer.id === atPlace[0]?.layer)?.swatch ?? "#d7c4a3";
                 const selected = selectedPlace === place.id;
+                const cluster = atPlace.length > 1;
                 const involved =
                   !selectedSlug ||
                   atPlace.some((entry) => entry.slug === selectedSlug) ||
@@ -471,11 +472,25 @@ export function IcelandMap({
                     <circle
                       cx={point.x}
                       cy={point.y}
-                      r={selected ? 9 : 6}
+                      r={selected ? 9 : cluster ? 8 : 6}
                       fill={swatch}
                       stroke="#f3ecdf"
                       strokeWidth={selected ? 2 : 1}
                     />
+                    {cluster ? (
+                      <text
+                        x={point.x}
+                        y={point.y}
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        fill="#0e100c"
+                        fontSize="9"
+                        fontWeight="600"
+                        pointerEvents="none"
+                      >
+                        {atPlace.length}
+                      </text>
+                    ) : null}
                     <text
                       x={point.x + 10}
                       y={point.y - 10}
@@ -484,7 +499,7 @@ export function IcelandMap({
                       className="max-sm:hidden"
                     >
                       {place.name}
-                      {atPlace.length > 1 ? ` (${atPlace.length})` : ""}
+                      {cluster ? ` · ${atPlace.length} entries` : ""}
                     </text>
                   </g>
                 );
@@ -506,24 +521,70 @@ export function IcelandMap({
               );
             })}
           </div>
-          <ul className="mt-3 flex flex-wrap gap-2 sm:hidden">
-            {PLACES.map((place) => {
-              const atPlace = visible.filter((entry) => entry.place === place.id);
-              if (atPlace.length === 0) return null;
-              return (
-                <li key={place.id}>
-                  <button
-                    type="button"
-                    className="rounded-full border border-[#3d4336] px-3 py-1 text-sm text-[#f3ecdf]"
-                    onClick={() => selectPlace(place.id)}
-                  >
-                    {place.name}
-                    {atPlace.length > 1 ? ` (${atPlace.length})` : ""}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          <nav className="mt-3" aria-label="Places on the map">
+            <p className="mb-2 text-xs tracking-wide text-[#9a917f] uppercase">Pins</p>
+            <ul className="flex flex-wrap gap-2">
+              {PLACES.map((place) => {
+                const atPlace = visible.filter((entry) => entry.place === place.id);
+                if (atPlace.length === 0) return null;
+                const selected = selectedPlace === place.id;
+                const cluster = atPlace.length > 1;
+                return (
+                  <li key={place.id}>
+                    <button
+                      type="button"
+                      aria-pressed={selected}
+                      className="rounded-full border px-3 py-1 text-sm"
+                      style={{
+                        borderColor: selected ? "#d7c4a3" : "#3d4336",
+                        color: selected ? "#f3ecdf" : "#c9c1b2",
+                        background: selected ? "#23281f" : "transparent",
+                      }}
+                      onClick={() => selectPlace(place.id)}
+                    >
+                      {place.name}
+                      {cluster ? (
+                        <span className="ml-1.5 inline-flex min-w-[1.25rem] justify-center rounded-full bg-[#d7c4a3] px-1 text-[11px] font-medium text-[#0e100c]">
+                          {atPlace.length}
+                        </span>
+                      ) : null}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          {selectedPlace && placeEntries.length > 1 ? (
+            <div className="mt-3 rounded-xl border border-[#3d4336] bg-[#141710] p-3">
+              <p className="text-xs tracking-wide text-[#9a917f] uppercase">
+                {placeName} · spread list
+              </p>
+              <ul className="mt-2 flex max-h-48 flex-col gap-1 overflow-y-auto">
+                {placeEntries.map((entry) => {
+                  const focused = selectedSlug === entry.slug;
+                  return (
+                    <li key={entry.slug}>
+                      <button
+                        type="button"
+                        aria-current={focused ? "true" : undefined}
+                        className="flex w-full items-baseline justify-between gap-2 rounded-lg px-2 py-1.5 text-left text-sm"
+                        style={{
+                          color: focused ? "#f3ecdf" : "#d5cdbf",
+                          background: focused ? "#23281f" : "transparent",
+                        }}
+                        onClick={() => selectSlug(entry.slug, selectedPlace)}
+                      >
+                        <span className="min-w-0 break-words">{entry.title}</span>
+                        <span className="shrink-0 text-[10px] tracking-wide text-[#9a917f] uppercase">
+                          {LAYER_LABEL[entry.layer]}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
         </div>
 
         <aside className="min-w-0 rounded-2xl border border-[#34392f] bg-[#141710] p-4" aria-live="polite">

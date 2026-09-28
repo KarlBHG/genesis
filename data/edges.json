@@ -2261,5 +2261,85 @@
     "start": "not printed",
     "end": "not printed",
     "channel": "business"
+  },
+  {
+    "from": "republic-of-iceland",
+    "to": "1951-defense-agreement",
+    "type": "represents",
+    "asOf": "1951",
+    "source": "https://www.nato.int/en/about-us/nato-history/history-by-theme/my-country-and-nato/iceland-and-nato",
+    "quotation": "Perturbed by the upheaval of the Korean War, Iceland signs a bilateral defence agreement with the United States, allowing the USmilitary to create the Iceland Defense Force at Keflavík Base near Reykjavík."
+  },
+  {
+    "from": "nato",
+    "to": "1951-defense-agreement",
+    "type": "represents",
+    "asOf": "1951",
+    "source": "https://www.nato.int/en/about-us/nato-history/history-by-theme/my-country-and-nato/iceland-and-nato",
+    "quotation": "As a founding member, and engaged in a bilateral defence agreement with the United States, Iceland provided facilities and land for NATO installations as its main military contribution to the Alliance until the 1990s."
+  },
+  {
+    "from": "nato",
+    "to": "2006-keflavik-base",
+    "type": "represents",
+    "asOf": "2006",
+    "source": "https://www.nato.int/en/about-us/nato-history/history-by-theme/my-country-and-nato/iceland-and-nato",
+    "quotation": "However, since 2006 there has not been a permanent foreign military presence in the Keflavík area."
+  },
+  {
+    "from": "2006-keflavik-base",
+    "to": "isavia",
+    "type": "represents",
+    "asOf": "2006",
+    "source": "https://www.nato.int/en/about-us/nato-history/history-by-theme/my-country-and-nato/iceland-and-nato",
+    "quotation": "The main NATO installations in Iceland have been Keflavík airport, where a permanent US defence force was hosted until 2006"
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "1994-eea-entry",
+    "type": "represents",
+    "asOf": "1994-01-01",
+    "source": "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/",
+    "quotation": "On 1 January 1994 the EEA Agreement entered into force. Iceland participated with Norway."
+  },
+  {
+    "from": "1994-eea-entry",
+    "to": "eea-agreement",
+    "type": "incorporates",
+    "asOf": "1994-01-01",
+    "source": "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/",
+    "quotation": "On 1 January 1994 the EEA Agreement entered into force. Iceland participated with Norway."
+  },
+  {
+    "from": "2008-financial-crisis",
+    "to": "imf-program-2008",
+    "type": "represents",
+    "asOf": "2008-11-15",
+    "source": "https://www.imf.org/external/pubs/ft/scr/2008/cr08362.pdf",
+    "quotation": "Request for Stand-By Arrangement: The authorities have requested a two-year Stand-By  Arrangement from the Fund in the amount of SDR 1.4 billion (1190 percent o"
+  },
+  {
+    "from": "imf-program-2008",
+    "to": "ministry-of-finance",
+    "type": "funds",
+    "asOf": "2008-11-19",
+    "source": "https://www.imf.org/external/pubs/ft/scr/2008/cr08362.pdf",
+    "quotation": "Request for Stand-By Arrangement: The authorities have requested a two-year Stand-By  Arrangement from the Fund in the amount of SDR 1.4 billion (1190 percent o"
+  },
+  {
+    "from": "sedlabanki",
+    "to": "2008-financial-crisis",
+    "type": "regulates",
+    "asOf": "2008-11-15",
+    "source": "https://www.imf.org/external/pubs/ft/scr/2008/cr08362.pdf",
+    "quotation": "banking crisis of extraordinary  proportions that is expected to lead to a deep recession, a sharp rise in the fiscal deficit, and a  dramatic surge in public sector debt, reflecti"
+  },
+  {
+    "from": "2008-financial-crisis",
+    "to": "landsbankinn",
+    "type": "regulates",
+    "asOf": "2008-10",
+    "source": "https://www.imf.org/external/pubs/ft/scr/2008/cr08362.pdf",
+    "quotation": "Landsbanki and Kaupthing. Though it was unclear if the banks were insolvent,"
   }
 ]
