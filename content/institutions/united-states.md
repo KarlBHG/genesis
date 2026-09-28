@@ -7,6 +7,7 @@ role: "Country named on the 2024 goods-trade release"
 parent: ""
 related: ["goods-imports-2024", "goods-exports-2024", "1951-defense-agreement", "nato"]
 website: "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/"
+lede: "Statistics Iceland’s 2024 goods-trade release names the United States among Iceland’s largest partners in both directions, and NATO records a bilateral defence agreement with Iceland since 1951."
 ---
 
 # United States

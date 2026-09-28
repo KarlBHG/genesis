@@ -3,6 +3,7 @@ title: "Healthcare"
 slug: "healthcare"
 area: "healthcare"
 related: ["ministry-of-health", "landspitali", "alma-d-moller", "althingi", "treasury-budget-2026"]
+lede: "Specialized hospital services rest with the health ministry, Landspítali, and Sjúkrahúsið á Akureyri; the 2024 budget put about 379.4 billion ISK into health affairs, its largest item."
 ---
 
 # Healthcare

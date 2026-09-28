@@ -4,6 +4,7 @@ slug: "2011-icesave-referendum"
 date: "2011-04-09"
 type: "referendum"
 related: ["althingi", "landsbankinn", "ministry-of-finance", "imf-program-2008", "2010-icesave-referendum", "2013-icesave-judgment"]
+lede: "A second Icesave referendum on 9 April 2011 rejected the repayment agreement again, with close to 60% voting against on high turnout."
 ---
 
 ## Summary

@@ -4,6 +4,7 @@ slug: "2008-capital-controls"
 date: "2008-11-28"
 type: "crisis"
 related: ["althingi", "sedlabanki", "ministry-of-finance", "2008-financial-crisis", "imf-program-2008", "2017-capital-controls"]
+lede: "On 28 November 2008 Alþingi amended the Foreign Exchange Act, giving Seðlabanki temporary authorisation to limit international capital movements and stem the outflow of foreign currency."
 ---
 
 ## Summary

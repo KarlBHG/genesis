@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade", "agriculture"]
 related: ["eea-agreement", "agriculture", "ministry-for-foreign-affairs"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
+lede: "A bilateral Iceland–EU agreement on tariff preferences for unprocessed agricultural products has been in force since 2018, replacing a 2007 agreement."
 ---
 
 # Iceland–EU unprocessed agriculture (2018)

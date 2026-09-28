@@ -4,6 +4,7 @@ slug: "2010-icesave-referendum"
 date: "2010-03-06"
 type: "referendum"
 related: ["althingi", "landsbankinn", "ministry-of-finance", "eea-agreement", "2011-icesave-referendum"]
+lede: "Iceland’s first national referendum since the founding of the Republic, held on 6 March 2010, repealed the Act guaranteeing Icesave repayments to the British and Dutch governments."
 ---
 
 ## Summary

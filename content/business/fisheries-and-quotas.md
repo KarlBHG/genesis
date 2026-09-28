@@ -3,6 +3,7 @@ title: "Fisheries and quotas"
 slug: "fisheries-and-quotas"
 area: "fisheries"
 related: ["fisheries-iceland", "ministry-of-industries", "goods-exports-2024", "marine-products-exports-2024", "eea-agreement", "agriculture", "brim"]
+lede: "Icelandic fisheries run on a total allowable catch set annually from scientific advice and distributed as individually transferable quota shares attached to each vessel, a system adopted in 1990."
 ---
 
 # Fisheries and quotas

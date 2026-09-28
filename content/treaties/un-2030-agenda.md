@@ -9,6 +9,7 @@ status: "active"
 topics: ["development", "multilateral"]
 related: ["international-development-cooperation", "ministry-for-foreign-affairs"]
 source: "https://www.government.is/topics/foreign-affairs/global-goals/"
+lede: "Iceland has adopted the UN 2030 Agenda’s 17 Sustainable Development Goals and reported on them to the United Nations in Voluntary National Reviews in 2019 and June 2023."
 ---
 
 # 2030 Agenda (SDGs)

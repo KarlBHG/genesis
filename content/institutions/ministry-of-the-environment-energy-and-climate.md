@@ -7,6 +7,7 @@ role: "Ministry"
 parent: ""
 related: ["althingi", "umhverfis-og-orkustofnun", "natturuverndarstofnun", "treasury-budget-2026"]
 website: "https://www.government.is/ministries/ministry-of-the-environment-energy-and-climate/about-the-ministry/"
+lede: "Umhverfis-, orku- og loftslagsráðuneytið sets and enforces environmental policy across nature conservation, national parks, climate, and energy, under Jóhann Páll Jóhannsson since 21 December 2024."
 ---
 
 # Umhverfis-, orku- og loftslagsráðuneytið

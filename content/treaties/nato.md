@@ -9,6 +9,7 @@ status: "active"
 topics: ["security"]
 related: ["althingi", "1944-republic", "1951-defense-agreement", "2006-keflavik-base"]
 source: "https://www.nato.int/en/about-us/nato-history/history-by-theme/my-country-and-nato/iceland-and-nato"
+lede: "Iceland is a founding member of NATO, signing the North Atlantic Treaty on 4 April 1949 after an Alþingi vote five days earlier, and remains the only Ally without its own military forces."
 ---
 
 # North Atlantic Treaty

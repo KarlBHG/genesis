@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade"]
 related: ["efta", "eea-agreement", "multilateral-trade-system", "investment-protection-agreements", "ministry-for-foreign-affairs"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
+lede: "Iceland reaches most markets outside the European Union through EFTA’s worldwide network of free trade agreements rather than negotiating alone."
 ---
 
 # EFTA third-country FTAs

@@ -4,6 +4,7 @@ slug: "2013-icesave-judgment"
 date: "2013-01-28"
 type: "judgment"
 related: ["efta", "eea-agreement", "landsbankinn", "2011-icesave-referendum"]
+lede: "On 28 January 2013 the EFTA Court dismissed the Surveillance Authority’s case against Iceland, holding that the state had not breached the deposit-guarantee directive over Icesave."
 ---
 
 ## Summary

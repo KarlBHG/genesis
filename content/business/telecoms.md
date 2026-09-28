@@ -3,6 +3,7 @@ title: "Telecoms and media"
 slug: "telecoms"
 area: "telecoms"
 related: ["fjarskiptastofa", "siminn", "syn", "nova", "ruv"]
+lede: "Fjarskiptastofa supervises electronic communications under Act No. 75/2021, over a market whose three named operators each publish their own revenue."
 ---
 
 # Telecoms and media

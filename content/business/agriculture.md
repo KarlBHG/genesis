@@ -3,6 +3,7 @@ title: "Agriculture"
 slug: "agriculture"
 area: "agriculture"
 related: ["eea-agreement", "food-and-beverages-imports-2024", "agricultural-products-exports-2024", "ministry-of-industries", "fisheries-and-quotas"]
+lede: "Agriculture, aquaculture, food, and food safety sit with the Ministry of Industries, and what Iceland exports as agricultural goods is small next to what it imports as food."
 ---
 
 # Agriculture

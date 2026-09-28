@@ -4,6 +4,7 @@ slug: "1944-republic"
 date: "1944-06-17"
 type: "founding"
 related: ["althingi", "1874-constitution", "nato", "republic-of-iceland"]
+lede: "The Republic of Iceland was proclaimed at Þingvellir on 17 June 1944, ending the 1918 arrangement that had united Iceland with Denmark under the Danish crown."
 ---
 
 ## Summary

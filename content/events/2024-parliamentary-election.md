@@ -4,6 +4,7 @@ slug: "2024-parliamentary-election"
 date: "2024-11-30"
 type: "election"
 related: ["althingi"]
+lede: "Iceland held a general election to Alþingi on Saturday, 30 November 2024; Landskjörstjórn allocated the seats on 10 December."
 ---
 
 ## Summary

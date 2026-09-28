@@ -4,6 +4,7 @@ slug: "2009-eu-application"
 date: "2009-07-16"
 type: "treaty-entry"
 related: ["althingi", "ministry-for-foreign-affairs", "eea-agreement", "2015-eu-candidate-letter"]
+lede: "Alþingi approved an application for EU membership on 16 July 2009 by 33 votes to 28, and the application went to Brussels the next day."
 ---
 
 ## Summary

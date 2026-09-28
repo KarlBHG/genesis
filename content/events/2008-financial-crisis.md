@@ -4,6 +4,7 @@ slug: "2008-financial-crisis"
 date: "2008-10-23"
 type: "crisis"
 related: ["sedlabanki", "imf-program-2008", "ministry-of-finance", "2008-capital-controls"]
+lede: "The IMF’s November 2008 staff report describes a banking crisis of extraordinary proportions, with the near-collapse of the on-shore foreign exchange market as the immediate risk."
 ---
 
 # 2008 financial crisis

@@ -4,6 +4,7 @@ slug: "2006-keflavik-base"
 date: "2006"
 type: "agreement"
 related: ["nato", "1951-defense-agreement"]
+lede: "The permanent US defence force at Keflavík ended in 2006; Iceland still operates the NATO radar installations there and provides host-nation support to Allies."
 ---
 
 ## Summary

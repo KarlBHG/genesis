@@ -7,6 +7,7 @@ role: "supervision"
 parent: "ministry-of-industries"
 related: ["ministry-of-industries"]
 website: "https://www.samkeppni.is/en/"
+lede: "Samkeppniseftirlitið supervises Icelandic markets under the competition act, working against harmful oligopoly and restraints of competition and easing the entry of new competitors."
 ---
 
 # Samkeppniseftirlitið

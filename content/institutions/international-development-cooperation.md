@@ -7,6 +7,7 @@ role: "Policy"
 parent: "ministry-for-foreign-affairs"
 related: ["ministry-for-foreign-affairs", "un-2030-agenda", "treasury-budget-2026"]
 website: "https://www.government.is/topics/foreign-affairs/international-development-cooperation/"
+lede: "Iceland’s development cooperation, one of the main pillars of its foreign policy, is guided by the 2024–2028 policy that raises ODA from 0.35% of GNI in 2024 to 0.46% in 2028."
 ---
 
 # International development cooperation

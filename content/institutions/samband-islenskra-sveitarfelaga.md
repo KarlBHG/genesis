@@ -7,6 +7,7 @@ role: "Local authorities"
 parent: ""
 related: ["ministry-of-infrastructure", "reykjavikurborg", "althingi"]
 website: "https://www.samband.is/icelandic-association-of-local-authorities"
+lede: "The Icelandic Association of Local Authorities has been the joint representative of every municipality in the country since 1973, founded in 1945 by 52 local authorities."
 ---
 
 # Samband íslenskra sveitarfélaga

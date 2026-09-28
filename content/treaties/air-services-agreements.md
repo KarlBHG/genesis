@@ -9,6 +9,7 @@ status: "active"
 topics: ["aviation", "trade"]
 related: ["isavia", "icelandair", "ministry-for-foreign-affairs", "eea-agreement"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/air-services-agreements/"
+lede: "The Ministry for Foreign Affairs says Iceland’s air services agreements grant mutual authorizations for scheduled flights and open a network reaching over 120 countries."
 ---
 
 # Air services agreements

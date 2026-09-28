@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade"]
 related: ["ministry-for-foreign-affairs", "fisheries-and-quotas"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
+lede: "An agreement with Denmark provides certain tariff preferences for trade between Iceland and Greenland; the ministry page carries neither a signature nor an in-force date."
 ---
 
 # Iceland–Greenland trade

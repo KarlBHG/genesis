@@ -3,6 +3,7 @@ title: "Construction and housing"
 slug: "construction-and-housing"
 area: "construction-and-housing"
 related: ["il-sjodur", "ministry-of-social-affairs-and-housing", "ministry-of-finance"]
+lede: "Real estate and construction led revenue growth among Iceland’s main industries in 2024, while ÍL-sjóður still holds the residual book of the dissolved Íbúðalánasjóður."
 ---
 
 # Construction and housing

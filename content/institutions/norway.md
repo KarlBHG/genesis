@@ -7,6 +7,7 @@ role: "Country named on the 2024 goods-trade release"
 parent: ""
 related: ["goods-imports-2024"]
 website: "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/"
+lede: "Statistics Iceland’s 2024 goods-trade release names Norway among Iceland’s largest import partners, without printing a value for the country."
 ---
 
 # Norway

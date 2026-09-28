@@ -4,6 +4,7 @@ slug: "2015-eu-candidate-letter"
 date: "2015-03-12"
 type: "treaty-entry"
 related: ["ministry-for-foreign-affairs", "althingi", "eea-agreement", "2009-eu-application"]
+lede: "On 12 March 2015 Iceland’s foreign minister wrote to the EU that the government would not restart accession negotiations and no longer considered Iceland a candidate country."
 ---
 
 ## Summary

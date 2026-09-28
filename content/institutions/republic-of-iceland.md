@@ -7,6 +7,7 @@ role: "Constitutional republic"
 parent: ""
 related: ["1944-republic", "althingi", "prime-ministers-office", "sedlabanki", "rikissjodur", "courts"]
 website: "https://www.government.is/topics/governance-and-national-symbols/constitution/"
+lede: "Article 1 of the 1944 Constitution states that Iceland is a republic with a parliamentary government, with legislative power shared by Althingi and the President."
 ---
 
 # Republic of Iceland

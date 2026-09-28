@@ -9,6 +9,7 @@ status: "active"
 topics: ["borders", "movement"]
 related: ["eea-agreement"]
 source: "https://www.government.is/topics/foreign-affairs/iceland-in-europe/schengen/"
+lede: "Iceland signed an association agreement on Schengen participation in December 1996 together with Denmark, Finland, Norway, and Sweden, abolishing internal border checks in exchange for compensatory police cooperation."
 ---
 
 # Schengen association

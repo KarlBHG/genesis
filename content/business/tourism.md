@@ -3,6 +3,7 @@ title: "Tourism"
 slug: "tourism"
 area: "tourism"
 related: ["services-trade-2024", "ministry-of-industries", "icelandair"]
+lede: "The government calls tourism one of the main pillars of the Icelandic economy; Statistics Iceland valued travel-service exports at an estimated 447.8 billion ISK in 2024."
 ---
 
 # Tourism

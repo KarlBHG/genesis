@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade", "investment"]
 related: ["eea-agreement", "efta", "efta-third-country-ftas", "iceland-china-fta", "multilateral-trade-system", "ministry-for-foreign-affairs"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/investment-agreements/"
+lede: "The Ministry for Foreign Affairs’ June 2025 list sorts Iceland’s investment agreements by whether investment protection is actually in force, multilaterally or bilaterally, or not yet."
 ---
 
 # Investment protection index

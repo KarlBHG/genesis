@@ -7,6 +7,7 @@ role: "Judiciary"
 parent: "ministry-of-justice"
 related: ["ministry-of-justice", "althingi"]
 website: "https://www.domstolar.is/"
+lede: "Iceland’s court system runs from the eight héraðsdómstólar through Landsréttur to Hæstiréttur, with Endurupptökudómur alongside them, all listed under Dómsmálaráðuneytið."
 ---
 
 # Courts

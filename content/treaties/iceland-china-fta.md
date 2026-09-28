@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade"]
 related: ["china", "eea-agreement", "ministry-for-foreign-affairs", "goods-imports-2024", "goods-exports-2024"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
+lede: "The free trade agreement between Iceland and China entered into force on 1 July 2014 and is listed alongside the EEA and EFTA frameworks on the ministry’s trade page."
 ---
 
 # Iceland–China free trade agreement

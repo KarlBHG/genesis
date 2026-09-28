@@ -7,6 +7,7 @@ role: "Incorporates EEA-relevant EU legislation"
 parent: ""
 related: ["eea-agreement", "efta"]
 website: "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/"
+lede: "The EEA Joint Committee is the body whose decisions incorporate EEA-relevant EU legislation into the EEA Agreement."
 ---
 
 # EEA Joint Committee

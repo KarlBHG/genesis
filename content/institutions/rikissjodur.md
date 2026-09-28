@@ -7,6 +7,7 @@ role: "Treasury"
 parent: ""
 related: ["republic-of-iceland", "ministry-of-finance", "sedlabanki"]
 website: "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/5402696459"
+lede: "Ríkissjóður Íslands is the Treasury, registered on 14 February 1969 as a state institution rather than a company, and liable for all of Seðlabanki’s obligations."
 ---
 
 # Ríkissjóður Íslands

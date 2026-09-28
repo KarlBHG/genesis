@@ -4,6 +4,7 @@ slug: "imf-program-2008"
 date: "2008-11-19"
 type: "program"
 related: ["2008-financial-crisis", "sedlabanki", "ministry-of-finance"]
+lede: "The IMF Executive Board approved a two-year Stand-By Arrangement for Iceland on 19 November 2008, stated in the staff report as SDR 1.4 billion."
 ---
 
 # IMF Stand-By Arrangement

@@ -7,6 +7,7 @@ role: "Ministry"
 parent: ""
 related: ["althingi", "treasury-budget-2026", "construction-and-housing", "il-sjodur"]
 website: "https://www.government.is/ministries/ministry-of-social-affairs-and-housing/about-the-ministry/"
+lede: "Félags- og húsnæðismálaráðuneytið, established on 15 March 2025, administers social affairs, social security, and housing, under Ragnar Þór Ingólfsson since 11 January 2026."
 ---
 
 # Félags- og húsnæðismálaráðuneytið

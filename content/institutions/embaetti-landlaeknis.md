@@ -7,6 +7,7 @@ role: "supervision"
 parent: "ministry-of-health"
 related: ["ministry-of-health", "healthcare"]
 website: "https://island.is/s/landlaeknir"
+lede: "Embætti landlæknis licenses health professionals and supervises the quality of health services, public health, communicable diseases, and health statistics under Heilbrigðisráðuneytið."
 ---
 
 # Embætti landlæknis

@@ -3,6 +3,7 @@ title: "Retail"
 slug: "retail"
 area: "retail"
 related: ["hagar"]
+lede: "Hagar hf., the listed group behind Bónus and Hagkaup, booked sales of ISK 180,342 million in 2024/25, while the wider wholesale and retail trade line contracted by 19.6% in 2024."
 ---
 
 # Retail

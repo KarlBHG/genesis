@@ -4,6 +4,7 @@ slug: "1951-defense-agreement"
 date: "1951"
 type: "agreement"
 related: ["nato", "ministry-for-foreign-affairs", "2006-keflavik-base"]
+lede: "Iceland signed a bilateral defence agreement with the United States in 1951, allowing the US military to create the Iceland Defense Force at Keflavík Base."
 ---
 
 ## Summary

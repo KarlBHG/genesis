@@ -4,6 +4,7 @@ slug: "2017-capital-controls"
 date: "2017-03-12"
 type: "crisis"
 related: ["sedlabanki", "ministry-of-finance", "2008-capital-controls", "imf-program-2008"]
+lede: "On 12 March 2017 the government announced that capital controls on individuals, firms, and pension funds were lifted, leaving restrictions on carry trade and króna derivatives in place."
 ---
 
 ## Summary

@@ -7,6 +7,7 @@ role: "Country named on the 2024 goods-trade release"
 parent: ""
 related: ["goods-exports-2024"]
 website: "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/"
+lede: "Statistics Iceland’s 2024 goods-trade release names the Netherlands among Iceland’s largest export partners, without printing a value for the country."
 ---
 
 # Netherlands

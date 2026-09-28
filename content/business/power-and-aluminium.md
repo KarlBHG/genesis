@@ -3,6 +3,7 @@ title: "Power and aluminium"
 slug: "power-and-aluminium"
 area: "energy"
 related: ["landsvirkjun", "landsvirkjun-power-sales", "goods-exports-2024", "aluminium-exports-2024", "ministry-of-finance", "nordural", "isal", "alcoa-fjardaal", "landsnet", "orkuveita-reykjavikur"]
+lede: "State-owned Landsvirkjun generates more than 70% of Iceland’s electricity, and aluminium and aluminium products were 33% of total export value in 2024."
 ---
 
 # Power and aluminium

@@ -4,6 +4,7 @@ slug: "1994-eea-entry"
 date: "1994-01-01"
 type: "treaty-entry"
 related: ["eea-agreement", "efta"]
+lede: "The EEA Agreement entered into force on 1 January 1994, opening free movement of goods, services, capital, and people between Iceland and the EU."
 ---
 
 # Iceland joins the European Economic Area

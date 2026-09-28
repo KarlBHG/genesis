@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade", "fisheries"]
 related: ["fisheries-and-quotas", "marine-products-exports-2024", "ministry-for-foreign-affairs"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
+lede: "The Hoyvík Agreement has abolished tariffs on all originating goods between Iceland and the Faroe Islands since it entered into force on 1 November 2006."
 ---
 
 # Hoyvík Agreement

@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade", "multilateral"]
 related: ["eea-agreement", "efta", "ministry-for-foreign-affairs", "ministry-of-industries"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
+lede: "The Ministry for Foreign Affairs describes Iceland as a strong proponent of a rules-based multilateral trading system and an active supporter of the WTO’s role."
 ---
 
 # Multilateral trading system

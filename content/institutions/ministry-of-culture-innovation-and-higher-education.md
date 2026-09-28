@@ -7,6 +7,7 @@ role: "Ministry"
 parent: ""
 related: ["althingi", "treasury-budget-2026"]
 website: "https://www.government.is/ministries/ministry-of-culture-innovation-and-higher-education/about-the-ministry/"
+lede: "Menningar-, nýsköpunar- og háskólaráðuneytið oversees culture, media, innovation, science, research, and higher education, under Logi Einarsson since 21 December 2024."
 ---
 
 # Menningar-, nýsköpunar- og háskólaráðuneytið

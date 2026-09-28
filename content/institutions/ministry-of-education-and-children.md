@@ -7,6 +7,7 @@ role: "Ministry"
 parent: ""
 related: ["althingi", "treasury-budget-2026"]
 website: "https://www.government.is/ministries/ministry-of-education-and-children/about-the-ministry/"
+lede: "Mennta- og barnamálaráðuneytið covers education from preschool to upper secondary, children, and sport, under Inga Sæland since 11 January 2026."
 ---
 
 # Mennta- og barnamálaráðuneytið

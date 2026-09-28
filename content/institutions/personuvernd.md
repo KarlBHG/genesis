@@ -7,6 +7,7 @@ role: "supervision"
 parent: "ministry-of-justice"
 related: ["ministry-of-justice"]
 website: "http://personuvernd.is"
+lede: "Persónuvernd is the independent institution that supervises Iceland’s data-protection laws, with policy and framework held by Dómsmálaráðuneytið."
 ---
 
 # Persónuvernd

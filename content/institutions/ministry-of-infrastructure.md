@@ -7,6 +7,7 @@ role: "Ministry"
 parent: ""
 related: ["althingi", "fjarskiptastofa", "treasury-budget-2026", "samband-islenskra-sveitarfelaga", "isavia", "reykjavikurborg"]
 website: "https://www.government.is/ministries/ministry-of-infrastructure/about-the-ministry/"
+lede: "Innviðaráðuneytið covers transport, local government, regional policy, telecommunications, and postal matters, and took its present title by presidential decree on 15 March 2025."
 ---
 
 # Innviðaráðuneytið

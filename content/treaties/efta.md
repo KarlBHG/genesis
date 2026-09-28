@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade"]
 related: ["eea-agreement", "efta-third-country-ftas", "investment-protection-agreements", "2013-icesave-judgment"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
+lede: "Iceland joined the EFTA Convention in 1970 and sits in it with Liechtenstein, Norway, and Switzerland under the revised text in force since 1 June 2002."
 ---
 
 # EFTA

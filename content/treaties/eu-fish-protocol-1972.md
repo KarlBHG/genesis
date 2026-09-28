@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade", "fisheries"]
 related: ["eea-agreement", "fisheries-and-quotas", "marine-products-exports-2024", "ministry-for-foreign-affairs"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
+lede: "Protocol 6 to the 1972 Iceland–EEC free trade agreement gives Icelandic fish products tariff preferences in EU markets, and still applies wherever it grants better access than the EEA’s Protocol 9."
 ---
 
 # Protocol 6 (1972 Iceland–EU fish preferences)
