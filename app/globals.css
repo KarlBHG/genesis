@@ -324,12 +324,20 @@
 }
 
 .glass-panel {
-  border: 1px solid oklch(0.86 0.014 90 / 0.85);
-  background: oklch(0.995 0.004 90 / 0.72);
+  border: 1px solid oklch(0.86 0.014 90 / 0.9);
+  background: oklch(0.995 0.004 90 / 0.86);
   box-shadow:
-    0 1px 0 oklch(1 0 0 / 0.5) inset,
+    0 1px 0 oklch(1 0 0 / 0.6) inset,
     0 12px 40px oklch(0.35 0.04 255 / 0.06);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+}
+
+.constellation-label {
+  color: var(--foreground);
+  text-shadow:
+    0 0 1px oklch(0.995 0.004 90 / 0.9),
+    0 1px 3px oklch(0.995 0.004 90 / 0.85),
+    0 0 10px oklch(0.995 0.004 90 / 0.6);
 }
 
 .page-hero {

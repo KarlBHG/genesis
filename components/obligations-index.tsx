@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { HomeConstellation } from "@/components/home-constellation";
 import { OBLIGATION_SECTIONS } from "@/lib/obligations";
 import { obligationVisual } from "@/lib/obligation-visual";
 
@@ -49,11 +48,11 @@ export function ObligationsIndex() {
                 <article className="glass-panel group relative overflow-hidden rounded-3xl p-6 sm:p-8">
                   <div
                     aria-hidden
-                    className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${visual.accent} opacity-90`}
+                    className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${visual.accent}`}
                   />
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute -top-20 -right-16 h-48 w-48 rounded-full opacity-40 blur-3xl"
+                    className="pointer-events-none absolute -top-24 -right-20 h-44 w-44 rounded-full opacity-[0.14] blur-3xl"
                     style={{ backgroundColor: visual.ring }}
                   />
                   <header className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -81,7 +80,7 @@ export function ObligationsIndex() {
                     {section.items.map((item) => (
                       <li key={item.href}>
                         <Link
-                          className="block rounded-2xl border border-border/50 bg-background/55 p-4 backdrop-blur-sm transition-all hover:border-primary/20 hover:bg-background/80 hover:shadow-md"
+                          className="block rounded-2xl border border-border/60 bg-background/80 p-4 backdrop-blur-sm transition-all hover:border-primary/25 hover:bg-background/95 hover:shadow-md"
                           href={item.href}
                         >
                           <span className="font-medium underline-offset-4 group-hover:underline">
@@ -111,13 +110,36 @@ export function ObligationsIndex() {
 
 export function ObligationsHeroAside() {
   return (
-    <div className="flex flex-col items-center gap-3">
-      <p className="text-center text-xs tracking-wide text-muted-foreground uppercase">
-        Thematic orbit
+    <div className="glass-panel flex flex-col gap-3 rounded-2xl p-5">
+      <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">
+        {OBLIGATION_SECTIONS.length} themes on this page
       </p>
-      <div className="scale-90 sm:scale-100">
-        <HomeConstellation />
-      </div>
+      <ul className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+        {OBLIGATION_SECTIONS.map((section) => {
+          const visual = obligationVisual(section.id);
+          return (
+            <li key={section.id}>
+              <Link
+                className="group flex items-center gap-2 rounded-lg px-1.5 py-1 text-sm text-muted-foreground transition-colors hover:bg-background/60 hover:text-foreground"
+                href={`#${section.id}`}
+              >
+                <span
+                  className="size-1.5 shrink-0 rounded-full"
+                  style={{ backgroundColor: visual.ring }}
+                />
+                <span className="truncate">{section.title}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="text-xs text-muted-foreground">
+        The full orbit view is on the{" "}
+        <Link className="underline underline-offset-4" href="/">
+          homepage
+        </Link>
+        .
+      </p>
     </div>
   );
 }

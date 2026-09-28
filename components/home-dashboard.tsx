@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 import { SearchPanel } from "@/components/search-panel";
-import { HomeConstellation } from "@/components/home-constellation";
+import { ConstellationLegend, HomeConstellation } from "@/components/home-constellation";
 import { Button } from "@/components/ui/button";
 import { catalogSlices } from "@/lib/dashboard-stats";
 import { labelize } from "@/lib/format";
@@ -221,6 +221,9 @@ export function HomeDashboard({
               </Link>
             </p>
             <HomeConstellation />
+            <div className="w-full max-w-xs">
+              <ConstellationLegend />
+            </div>
           </div>
         </div>
       </section>
