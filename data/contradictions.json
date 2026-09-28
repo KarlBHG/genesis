@@ -105,11 +105,13 @@
     "sides": [
       {
         "source": "https://www.bsrb.is/is/bsrb/um-bsrb",
-        "quotation": "Bandalagið var stofnað 14. febrúar 1942 og í dag eru aðildarfélög BSRB 19 talsins og fjöldi félagsmanna um 25.000."
+        "quotation": "Bandalagið var stofnað 14. febrúar 1942 og í dag eru aðildarfélög BSRB 19 talsins og fjöldi félagsmanna um 25.000.",
+        "asOf": "undated on the cited page"
       },
       {
         "source": "https://www.bsrb.is/is/adildarfelog/adildarfelog-bsrb",
-        "quotation": "Í dag eiga 18 stéttarfélög með samtals tæplega 25.000 félagsmenn aðild að bandalaginu. Auk þess á Samband lífeyrisþega ríkis og bæja aðild að BSRB."
+        "quotation": "Í dag eiga 18 stéttarfélög með samtals tæplega 25.000 félagsmenn aðild að bandalaginu. Auk þess á Samband lífeyrisþega ríkis og bæja aðild að BSRB.",
+        "asOf": "undated on the cited page"
       }
     ]
   },
@@ -123,11 +125,13 @@
     "sides": [
       {
         "source": "https://www.landssamband.is/um-liv/",
-        "quotation": "LÍV - Landssamband íslenzkra verzlunarmanna sem er fjölmennasta landssamband launafólks á Íslandi og stærsta landssambandið innan ASÍ, með samtals um 50.000 félagsmenn, var stofnað 2. júní 1957."
+        "quotation": "LÍV - Landssamband íslenzkra verzlunarmanna sem er fjölmennasta landssamband launafólks á Íslandi og stærsta landssambandið innan ASÍ, með samtals um 50.000 félagsmenn, var stofnað 2. júní 1957.",
+        "asOf": "undated on the about page"
       },
       {
         "source": "https://www.landssamband.is/um-liv/",
-        "quotation": "LÍV er aðili að: ASÍ - www.asi.is Alþýðusamband Íslands og er annað stærsta landssambandið innan ASÍ."
+        "quotation": "LÍV er aðili að: ASÍ - www.asi.is Alþýðusamband Íslands og er annað stærsta landssambandið innan ASÍ.",
+        "asOf": "undated on the about page"
       }
     ]
   }

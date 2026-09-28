@@ -814,15 +814,17 @@ function buildContradictions(entries: Entry[]): Contradiction[] {
           );
         }
       }
-      if ("asOf" in sideRow && typeof sideRow.asOf !== "string") {
+      if (typeof sideRow.asOf !== "string" || !sideRow.asOf.trim()) {
         throw new Error(
-          `data/contradictions.json record ${index + 1} side ${sideIndex + 1} asOf must be a string`,
+          `data/contradictions.json record ${index + 1} side ${sideIndex + 1} is missing asOf. ` +
+            "Store what that side's page prints — a date, a year, \"consolidated statute\", " +
+            'or "undated on the …" naming the page that carries no date.',
         );
       }
       return {
         source: (sideRow.source as string).trim(),
         quotation: (sideRow.quotation as string).trim(),
-        asOf: typeof sideRow.asOf === "string" ? sideRow.asOf.trim() : "",
+        asOf: sideRow.asOf.trim(),
       };
     });
     const first = sides[0];
