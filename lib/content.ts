@@ -11,11 +11,14 @@ import type {
   ChangeRecord,
   Contradiction,
   Edge,
+  EdgeAmount,
   Entry,
   Flow,
   Institution,
   Kind,
   MapEvent,
+  MoneyBasis,
+  MoneyUnit,
   OfficeRecord,
   Player,
   Relationship,
@@ -45,6 +48,15 @@ const RELATIONSHIPS = new Set<Relationship>([
   "imported-from",
   "exported-to",
   "incorporates",
+]);
+
+export const MONEY_UNITS = new Set<MoneyUnit>(["ISK", "mkr", "makr", "USD"]);
+
+export const MONEY_BASES = new Set<MoneyBasis>([
+  "authorisation",
+  "invoice",
+  "statement",
+  "trade-release",
 ]);
 
 const FOLDERS: { folder: string; kind: Kind }[] = [
@@ -272,6 +284,71 @@ function requireEdgeString(row: Record<string, unknown>, key: string, index: num
   return value.trim();
 }
 
+/**
+ * Every way a number can be read out of a printed figure. Icelandic pages use
+ * `192.293,9`; ledger exports print `3546720`. We try both separator
+ * conventions rather than reformatting anything.
+ */
+function readingsOf(token: string): number[] {
+  const trimmed = token.replace(/\s/g, "");
+  const readings = new Set<number>();
+  for (const candidate of [
+    trimmed.replace(/\./g, "").replace(",", "."),
+    trimmed.replace(/,/g, ""),
+  ]) {
+    const parsed = Number(candidate);
+    if (Number.isFinite(parsed)) readings.add(parsed);
+  }
+  return [...readings];
+}
+
+/** True when `quotation` literally prints `value`, under either convention. */
+export function quotationPrintsValue(value: number, quotation: string): boolean {
+  const tokens = quotation.match(/-?\d[\d.,\s]*\d|-?\d/g) ?? [];
+  return tokens.some((token) => readingsOf(token).includes(value));
+}
+
+function readEdgeAmount(
+  row: Record<string, unknown>,
+  quotation: string,
+  index: number,
+): EdgeAmount | undefined {
+  if (!("amount" in row) || row.amount == null) return undefined;
+  const where = `data/edges.json edge ${index + 1} amount`;
+  const raw = row.amount;
+  if (typeof raw !== "object" || Array.isArray(raw)) {
+    throw new Error(`${where} must be an object`);
+  }
+  const money = raw as Record<string, unknown>;
+  for (const key of Object.keys(money)) {
+    if (!["value", "unit", "basis", "quotation"].includes(key)) {
+      throw new Error(`${where} has unknown field "${key}"`);
+    }
+  }
+  const { value, unit, basis } = money;
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new Error(`${where} value must be a finite number`);
+  }
+  if (typeof unit !== "string" || !MONEY_UNITS.has(unit as MoneyUnit)) {
+    throw new Error(`${where} has unknown unit "${String(unit)}"`);
+  }
+  if (typeof basis !== "string" || !MONEY_BASES.has(basis as MoneyBasis)) {
+    throw new Error(`${where} has unknown basis "${String(basis)}"`);
+  }
+  const cited = money.quotation;
+  if (typeof cited !== "string" || !cited.trim()) {
+    throw new Error(`${where} is missing quotation`);
+  }
+  const citation = cited.trim();
+  if (!quotation.includes(citation)) {
+    throw new Error(`${where} quotation is not part of the edge quotation`);
+  }
+  if (!quotationPrintsValue(value, citation)) {
+    throw new Error(`${where} value ${value} is not printed in its quotation`);
+  }
+  return { value, unit: unit as MoneyUnit, basis: basis as MoneyBasis, quotation: citation };
+}
+
 function readOffices(): OfficeRecord[] {
   const parsed: unknown = JSON.parse(
     fs.readFileSync(path.join(DATA, "offices.json"), "utf8"),
@@ -355,6 +432,7 @@ function buildEdges(entries: Entry[]): Edge[] {
       }
       channel = channelValue;
     }
+    const amount = readEdgeAmount(row, quotation, index);
     const office = offices.get(to);
     const organizationEntry = office ? bySlug.get(office.organization) : undefined;
     if (office && !organizationEntry) {
@@ -486,6 +564,7 @@ function buildEdges(entries: Entry[]): Edge[] {
       programNullReason,
       programSource,
       programQuotation,
+      ...(amount ? { amount } : {}),
     };
   });
 }

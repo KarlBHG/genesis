@@ -141,7 +141,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 of the 2026 budget law prints a total authorisation of 192.293,9 m.kr. for hospital services under the Ministry of Health, inside that ministry’s row of 437.690,0 m.kr. The healthcare page’s figure of about 379.4 billion ISK is a different line, from the 2024 budget."
+    "quotation": "Article 4 of the 2026 budget law prints a total authorisation of 192.293,9 m.kr. for hospital services under the Ministry of Health, inside that ministry’s row of 437.690,0 m.kr. The healthcare page’s figure of about 379.4 billion ISK is a different line, from the 2024 budget.",
+    "amount": {
+      "value": 192293.9,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "prints a total authorisation of 192.293,9 m.kr. for hospital services under the Ministry of Health"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -157,7 +163,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 prints a 2026 total authorisation of 5.448,3 m.kr. for Forsætisráðuneyti."
+    "quotation": "Article 4 prints a 2026 total authorisation of 5.448,3 m.kr. for Forsætisráðuneyti.",
+    "amount": {
+      "value": 5448.3,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Article 4 prints a 2026 total authorisation of 5.448,3 m.kr. for Forsætisráðuneyti."
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -165,7 +177,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 prints a 2026 total authorisation of 39.526,8 m.kr. for Utanríkisráðuneyti."
+    "quotation": "Article 4 prints a 2026 total authorisation of 39.526,8 m.kr. for Utanríkisráðuneyti.",
+    "amount": {
+      "value": 39526.8,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Article 4 prints a 2026 total authorisation of 39.526,8 m.kr. for Utanríkisráðuneyti."
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -173,7 +191,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 prints a 2026 total authorisation of 73.572,4 m.kr. for Mennta- og barnamálaráðuneyti."
+    "quotation": "Article 4 prints a 2026 total authorisation of 73.572,4 m.kr. for Mennta- og barnamálaráðuneyti.",
+    "amount": {
+      "value": 73572.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Article 4 prints a 2026 total authorisation of 73.572,4 m.kr. for Mennta- og barnamálaráðuneyti."
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -181,7 +205,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 prints a 2026 total authorisation of 137.418,4 m.kr. for Menningar-, nýsköpunar- og háskólaráðuneyti."
+    "quotation": "Article 4 prints a 2026 total authorisation of 137.418,4 m.kr. for Menningar-, nýsköpunar- og háskólaráðuneyti.",
+    "amount": {
+      "value": 137418.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Article 4 prints a 2026 total authorisation of 137.418,4 m.kr. for Menningar-, nýsköpunar- og háskólaráðuneyti."
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -189,7 +219,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 prints a 2026 total authorisation of 77.252,0 m.kr. for Dómsmálaráðuneyti."
+    "quotation": "Article 4 prints a 2026 total authorisation of 77.252,0 m.kr. for Dómsmálaráðuneyti.",
+    "amount": {
+      "value": 77252,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Article 4 prints a 2026 total authorisation of 77.252,0 m.kr. for Dómsmálaráðuneyti."
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -197,7 +233,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 prints a 2026 total authorisation of 115.580,6 m.kr. for Innviðaráðuneyti."
+    "quotation": "Article 4 prints a 2026 total authorisation of 115.580,6 m.kr. for Innviðaráðuneyti.",
+    "amount": {
+      "value": 115580.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Article 4 prints a 2026 total authorisation of 115.580,6 m.kr. for Innviðaráðuneyti."
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -205,7 +247,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 prints a 2026 total authorisation of 52.044,4 m.kr. for Umhverfis-, orku- og loftslagsráðuneyti."
+    "quotation": "Article 4 prints a 2026 total authorisation of 52.044,4 m.kr. for Umhverfis-, orku- og loftslagsráðuneyti.",
+    "amount": {
+      "value": 52044.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Article 4 prints a 2026 total authorisation of 52.044,4 m.kr. for Umhverfis-, orku- og loftslagsráðuneyti."
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -213,7 +261,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 prints a 2026 total authorisation of 393.868,7 m.kr. for Félags- og húsnæðismálaráðuneyti."
+    "quotation": "Article 4 prints a 2026 total authorisation of 393.868,7 m.kr. for Félags- og húsnæðismálaráðuneyti.",
+    "amount": {
+      "value": 393868.7,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Article 4 prints a 2026 total authorisation of 393.868,7 m.kr. for Félags- og húsnæðismálaráðuneyti."
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -221,7 +275,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "Article 4 prints a 2026 total authorisation of 38.960,5 m.kr. for Atvinnuvegaráðuneyti."
+    "quotation": "Article 4 prints a 2026 total authorisation of 38.960,5 m.kr. for Atvinnuvegaráðuneyti.",
+    "amount": {
+      "value": 38960.5,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Article 4 prints a 2026 total authorisation of 38.960,5 m.kr. for Atvinnuvegaráðuneyti."
+    }
   },
   {
     "from": "arion-banki",
@@ -933,7 +993,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 245,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-08-25; Íslandsbanki hf.; 3546720; 245"
+    }
   },
   {
     "from": "landspitali",
@@ -945,7 +1011,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 3592,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-08-28; Sýn hf.; SB0629049; 3592"
+    }
   },
   {
     "from": "landspitali",
@@ -957,7 +1029,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 1249060,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-08-28; Nova hf.; BR2607-6741095; 1249060"
+    }
   },
   {
     "from": "ministry-of-justice",
@@ -1471,7 +1549,13 @@
     "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2123992; 51750",
     "year": "2026",
     "program": null,
-    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints these Rekstrarfélag Stjórnarráðsins invoice rows without a málaflok or policy-area heading on the returned page."
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints these Rekstrarfélag Stjórnarráðsins invoice rows without a málaflok or policy-area heading on the returned page.",
+    "amount": {
+      "value": 51750,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2123992; 51750"
+    }
   },
   {
     "from": "ministry-of-health",
@@ -1482,7 +1566,13 @@
     "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2124032; 283200",
     "year": "2026",
     "program": null,
-    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints these Rekstrarfélag Stjórnarráðsins invoice rows without a málaflok or policy-area heading on the returned page."
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints these Rekstrarfélag Stjórnarráðsins invoice rows without a málaflok or policy-area heading on the returned page.",
+    "amount": {
+      "value": 283200,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2124032; 283200"
+    }
   },
   {
     "from": "vinnumalastofnun",
@@ -1510,7 +1600,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 4955,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-08-31; Trackwell hf.; SR26-11815; 4955"
+    }
   },
   {
     "from": "landspitali",
@@ -1522,7 +1618,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 4886,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-08-31; Trackwell hf.; SR26-11816; 4886"
+    }
   },
   {
     "from": "landspitali",
@@ -1534,7 +1636,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 15214,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-07-31; Verifone á Íslandi ehf.; R633054; 15214"
+    }
   },
   {
     "from": "landspitali",
@@ -1546,7 +1654,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 15214,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-07-31; Verifone á Íslandi ehf.; R633055; 15214"
+    }
   },
   {
     "from": "ministry-for-foreign-affairs",
@@ -2110,7 +2224,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": -227728,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-08-21; Orka náttúrunnar ohf.; 20251402752; -227728"
+    }
   },
   {
     "from": "umhverfis-og-orkustofnun",
@@ -2209,7 +2329,13 @@
     "quotation": "Heilbrigðisráðuneytið; 2026-01-30; Síminn hf.; 0614660568; 8943",
     "year": "2026",
     "program": null,
-    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints this invoice row without a málaflok or policy-area heading on the returned page."
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints this invoice row without a málaflok or policy-area heading on the returned page.",
+    "amount": {
+      "value": 8943,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Heilbrigðisráðuneytið; 2026-01-30; Síminn hf.; 0614660568; 8943"
+    }
   },
   {
     "from": "landspitali",
@@ -2221,7 +2347,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 136424,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-01-30; Síminn hf.; 0614657687; 136424"
+    }
   },
   {
     "from": "fjarskiptastofa",
@@ -2305,7 +2437,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 734562,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-01-30; Sýn hf.; PB14458005; 734562"
+    }
   },
   {
     "from": "fjarskiptastofa",
@@ -2349,7 +2487,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 1249060,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-01-30; Nova hf.; BR2512-6968644; 1249060"
+    }
   },
   {
     "from": "fjarskiptastofa",
@@ -2385,7 +2529,13 @@
     "year": "2026",
     "program": "policy-area-23-sjukrahusthjonusta",
     "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
-    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1.",
+    "amount": {
+      "value": 96424,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Landspítali; 2026-01-26; Íslandsbanki hf.; 1775476; 96424"
+    }
   },
   {
     "from": "prime-ministers-office",
@@ -2420,7 +2570,13 @@
     "quotation": "Heilbrigðisráðuneytið; 2026-01-30; Advania Ísland ehf.; INV793002; 109120",
     "year": "2026",
     "program": null,
-    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints this invoice row without a málaflok or policy-area heading on the returned page."
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints this invoice row without a málaflok or policy-area heading on the returned page.",
+    "amount": {
+      "value": 109120,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Heilbrigðisráðuneytið; 2026-01-30; Advania Ísland ehf.; INV793002; 109120"
+    }
   },
   {
     "from": "fjarskiptastofa",
@@ -2519,7 +2675,13 @@
     "quotation": "Heilbrigðisráðuneytið; 2026-01-02; Hreyfill svf.; 471759 2512; 62002",
     "year": "2026",
     "program": null,
-    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints this invoice row without a málaflok or policy-area heading on the returned page."
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints this invoice row without a málaflok or policy-area heading on the returned page.",
+    "amount": {
+      "value": 62002,
+      "unit": "ISK",
+      "basis": "invoice",
+      "quotation": "Heilbrigðisráðuneytið; 2026-01-02; Hreyfill svf.; 471759 2512; 62002"
+    }
   },
   {
     "from": "vinnumalastofnun",

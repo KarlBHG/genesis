@@ -127,6 +127,29 @@ export type SearchDoc = {
 
 export type CareerChannel = "political" | "business";
 
+/** Currency unit exactly as the cited page abbreviates it. */
+export type MoneyUnit = "ISK" | "mkr" | "makr" | "USD";
+
+/** What kind of document the figure was printed in. */
+export type MoneyBasis =
+  | "authorisation"
+  | "invoice"
+  | "statement"
+  | "trade-release";
+
+/**
+ * A figure lifted verbatim off a cited page. `value` is the number as printed,
+ * never the result of arithmetic: nothing in this repo converts units, nets a
+ * credit note, or adds two amounts together.
+ */
+export type EdgeAmount = {
+  value: number;
+  unit: MoneyUnit;
+  basis: MoneyBasis;
+  /** The sentence or ledger row the number came from. */
+  quotation: string;
+};
+
 export type Edge = {
   from: string;
   fromTitle: string;
@@ -150,6 +173,8 @@ export type Edge = {
   programNullReason: string | null;
   programSource: string | null;
   programQuotation: string | null;
+  /** Present only when the cited page prints the figure. */
+  amount?: EdgeAmount;
 };
 
 export type ChangeRecord = {

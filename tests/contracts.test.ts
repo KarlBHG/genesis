@@ -5,6 +5,8 @@ import { describe, expect, it } from "vitest";
 import { edgeKey } from "@/components/connection-graph";
 import { navLeafCount } from "@/components/site-header";
 import {
+  MONEY_BASES,
+  MONEY_UNITS,
   getAudits,
   getCatalog,
   getChanges,
@@ -15,6 +17,7 @@ import {
   getOffices,
   getOtherFlows,
   getPolicyAreas,
+  quotationPrintsValue,
   resolveSlug,
   getTreaties,
   toSearchDocs,
@@ -224,6 +227,138 @@ describe("invoice program bridge", () => {
         edge.program,
       ).toBe(true);
     }
+  });
+});
+
+describe("edge amounts are source-bound", () => {
+  it("prints exactly the four amount fields with the right types", () => {
+    for (const [index, row] of rawEdges().entries()) {
+      if (row.amount == null) continue;
+      const money = row.amount as Record<string, unknown>;
+      expect(Object.keys(money).sort(), `edge ${index + 1}`).toEqual([
+        "basis",
+        "quotation",
+        "unit",
+        "value",
+      ]);
+      expect(typeof money.value, `edge ${index + 1} value`).toBe("number");
+      expect(Number.isFinite(money.value), `edge ${index + 1} value`).toBe(true);
+      expect(typeof money.quotation).toBe("string");
+      expect((money.quotation as string).trim()).not.toBe("");
+    }
+  });
+
+  it("allows only the four documented units and four bases", () => {
+    expect([...MONEY_UNITS].sort()).toEqual(["ISK", "USD", "makr", "mkr"]);
+    for (const edge of getEdges()) {
+      if (!edge.amount) continue;
+      const where = `${edge.from} ${edge.relationship} ${edge.to}`;
+      expect(MONEY_UNITS.has(edge.amount.unit), `${where} unit`).toBe(true);
+      expect(MONEY_BASES.has(edge.amount.basis), `${where} basis`).toBe(true);
+    }
+  });
+
+  it("cites the amount out of the edge quotation, never beside it", () => {
+    for (const edge of getEdges()) {
+      if (!edge.amount) continue;
+      const where = `${edge.from} ${edge.relationship} ${edge.to}`;
+      expect(edge.quotation.includes(edge.amount.quotation), where).toBe(true);
+      expect(edge.amount.quotation.trim().length, where).toBeGreaterThan(0);
+    }
+  });
+
+  it("finds every value printed verbatim in its own citation", () => {
+    for (const edge of getEdges()) {
+      if (!edge.amount) continue;
+      expect(
+        quotationPrintsValue(edge.amount.value, edge.amount.quotation),
+        `${edge.from} ${edge.relationship} ${edge.to} prints ${edge.amount.value}`,
+      ).toBe(true);
+    }
+  });
+
+  it("reads Icelandic and plain separators without reformatting either", () => {
+    expect(quotationPrintsValue(192293.9, "of 192.293,9 m.kr. for hospital")).toBe(
+      true,
+    );
+    expect(quotationPrintsValue(77252, "of 77.252,0 m.kr. for Dómsmálaráðuneyti")).toBe(
+      true,
+    );
+    expect(quotationPrintsValue(-227728, "20251402752; -227728")).toBe(true);
+    expect(quotationPrintsValue(192293.9, "of 192.294 m.kr.")).toBe(false);
+    expect(quotationPrintsValue(437690, "no figure on this line")).toBe(false);
+  });
+
+  it("covers the pilot: Article 4 rows and every tagged invoice", () => {
+    const rows = rawEdges();
+    const article4 = rows.filter(
+      (row) => row.type === "funds" && /Article 4/.test(row.quotation as string),
+    );
+    expect(article4).toHaveLength(10);
+    for (const row of article4) {
+      expect(row.amount, `${row.from} -> ${row.to}`).toBeDefined();
+      expect((row.amount as { unit: string }).unit).toBe("mkr");
+      expect((row.amount as { basis: string }).basis).toBe("authorisation");
+    }
+    const tagged = rows.filter(
+      (row) => row.type === "pays" && ("year" in row || "program" in row),
+    );
+    expect(tagged).toHaveLength(17);
+    for (const row of tagged) {
+      expect(row.amount, `${row.from} -> ${row.to}`).toBeDefined();
+      expect((row.amount as { unit: string }).unit).toBe("ISK");
+      expect((row.amount as { basis: string }).basis).toBe("invoice");
+    }
+    expect(getEdges().filter((edge) => edge.amount)).toHaveLength(27);
+  });
+
+  it("leaves amount off every row whose quotation prints no figure", () => {
+    for (const edge of getEdges()) {
+      if (!edge.amount) continue;
+      expect(
+        quotationPrintsValue(edge.amount.value, edge.quotation),
+        `${edge.from} ${edge.relationship} ${edge.to}`,
+      ).toBe(true);
+    }
+  });
+
+  it("never adds two amounts together anywhere in the app", () => {
+    const dirs = ["app", "components", "lib", "scripts"];
+    const files: string[] = [];
+    const walk = (dir: string): void => {
+      if (!fs.existsSync(dir)) return;
+      for (const name of fs.readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (fs.statSync(full).isDirectory()) walk(full);
+        else if (/\.(ts|tsx|mts|mjs)$/.test(name)) files.push(full);
+      }
+    };
+    for (const dir of dirs) walk(path.join(ROOT, dir));
+    expect(files.length).toBeGreaterThan(0);
+
+    // Reading a printed figure is fine. Folding several into one is not: a
+    // total that no cited page prints has no source to stand on.
+    const banned: [RegExp, string][] = [
+      [/\bamount\b[^\n]*\.reduce\s*\(/, "reduces over amounts"],
+      [/\.reduce\s*\([^\n]*\bamount\b/, "reduces over amounts"],
+      [/\+=[^\n]*\bamount\b/, "accumulates an amount"],
+      [/\bamount\b[^\n]*\+=/, "accumulates an amount"],
+      [/amount(\?)?\.value[^\n]*\+[^\n]*amount(\?)?\.value/, "adds two amounts"],
+      [/\b(sum|total)(Amounts?|Values?|Isk)\s*[(=]/i, "builds a derived total"],
+    ];
+    const offences: string[] = [];
+    for (const file of files) {
+      const lines = fs.readFileSync(file, "utf8").split("\n");
+      for (const [index, line] of lines.entries()) {
+        if (line.trimStart().startsWith("*")) continue;
+        for (const [pattern, why] of banned) {
+          if (pattern.test(line)) {
+            offences.push(`${path.relative(ROOT, file)}:${index + 1} ${why}`);
+          }
+        }
+      }
+    }
+    expect(offences).toEqual([]);
   });
 });
 
