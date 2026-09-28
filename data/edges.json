@@ -2561,5 +2561,16 @@
     "asOf": "2024-2028 policy",
     "source": "https://www.government.is/topics/foreign-affairs/international-development-cooperation/",
     "quotation": "Iceland’s international development cooperation has a long history and remains one of the main pillars of Iceland’s foreign policy."
+  },
+  {
+    "from": "stefan-jon-hafstein",
+    "to": "ruv",
+    "type": "sits-on-board",
+    "asOf": "2025",
+    "source": "https://arsskyrsla.ruv.is/wp-content/uploads/2026/04/Arsreikningur-samstaeda-2025.pdf",
+    "quotation": "Stefán Jón Hafstein stjórnarformaður",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
   }
 ]

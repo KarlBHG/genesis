@@ -5,7 +5,7 @@ playerType: "organization"
 role: "National broadcaster"
 asOf: "2025"
 website: "https://www.ruv.is"
-related: ["althingi", "telecoms"]
+related: ["althingi", "telecoms", "stefan-jon-hafstein"]
 ---
 
 # Ríkisútvarpið

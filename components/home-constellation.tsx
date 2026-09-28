@@ -7,7 +7,7 @@ const SIZE = 520;
 const CX = SIZE / 2;
 const CY = SIZE / 2;
 const R = 158;
-const LABEL_GAP = 60;
+const LABEL_GAP = 72;
 
 function polar(angleDeg: number, radius: number) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
@@ -151,12 +151,12 @@ export function HomeConstellation() {
 
           return (
             <li
-              className="absolute max-w-[6.25rem] text-[0.66rem] leading-tight sm:max-w-[6.75rem] sm:text-[0.7rem]"
+              className="absolute max-w-[6.75rem] text-[0.68rem] leading-snug sm:max-w-[7.25rem] sm:text-[0.72rem]"
               key={section.id}
               style={{ top: `${topPct}%`, left: `${leftPct}%`, transform, textAlign }}
             >
               <Link
-                className="constellation-label font-medium underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                className="constellation-label font-semibold underline-offset-4 transition-colors hover:text-foreground hover:underline"
                 href={`/obligations#${section.id}`}
               >
                 {section.title}
