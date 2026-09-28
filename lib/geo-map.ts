@@ -161,5 +161,12 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "heidar-gudjonsson", layer: "companies", place: "reykjavik" },
   { slug: "greta-maria-gretarsdottir", layer: "companies", place: "keflavik" },
   { slug: "harpa-thuridur-bodvarsdottir", layer: "companies", place: "reykjavik" },
+  { slug: "stefan-jon-hafstein", layer: "companies", place: "reykjavik" },
+  { slug: "paul-horner", layer: "companies", place: "reykjavik" },
+  { slug: "syn", layer: "companies", place: "reykjavik" },
+  { slug: "siminn", layer: "companies", place: "reykjavik" },
+  { slug: "birta", layer: "companies", place: "reykjavik" },
+  { slug: "hagar", layer: "companies", place: "reykjavik" },
+  { slug: "vinnumalastofnun", layer: "state", place: "reykjavik" },
 ];
 

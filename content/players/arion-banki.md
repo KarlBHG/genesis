@@ -5,7 +5,7 @@ playerType: "organization"
 role: "Commercial bank"
 asOf: "2025"
 website: "https://www.arionbanki.is/"
-related: ["banking-after-2008", "sedlabanki", "financial-supervisory-authority", "syn"]
+related: ["banking-after-2008", "sedlabanki", "financial-supervisory-authority", "syn", "paul-horner"]
 ---
 
 # Arion banki

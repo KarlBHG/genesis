@@ -2572,5 +2572,16 @@
     "start": "not printed",
     "end": "not printed",
     "channel": "business"
+  },
+  {
+    "from": "paul-horner",
+    "to": "arion-banki",
+    "type": "sits-on-board",
+    "asOf": "2025",
+    "source": "https://wwwv2.arionbanki.is/lisalib/getfile.aspx?itemid=0cd6cf52-0c1b-11f1-8108-8b217d8ec868",
+    "quotation": "Paul Horner Chairman of the Board of Directors",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
   }
 ]
