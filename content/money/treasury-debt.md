@@ -3,6 +3,7 @@ title: "Treasury debt"
 slug: "treasury-debt"
 year: "2024"
 related: ["ministry-of-finance", "sedlabanki", "althingi", "treasury-budget-2026", "landsnet"]
+lede: "The Ministry of Finance and Economic Affairs sets central-government debt strategy and decides issuance; Government Debt Management at Seðlabanki executes it under agreement."
 ---
 
 # Treasury debt

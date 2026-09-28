@@ -6,6 +6,7 @@ role: "Registered company"
 asOf: "2013-12-06"
 website: ""
 related: ["orka-natturunnar", "helga-jonsdottir"]
+lede: "ON Power ohf. and Orka náttúrunnar ohf. are one kennitala under two names: the registry heading and the state ledger’s display name."
 ---
 
 # ON Power ohf.

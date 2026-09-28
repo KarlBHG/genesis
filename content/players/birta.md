@@ -6,6 +6,7 @@ role: "Pension fund"
 asOf: "2025"
 website: "https://birta.is/"
 related: ["pension-savings-2025", "financial-supervisory-authority", "arion-banki", "islandsbanki", "hagar", "syn", "nova"]
+lede: "Birta lífeyrissjóður held 736,653 million ISK across its three divisions at year-end 2025, including listed stakes of 2.8% in Arion banki and 1.6% in Íslandsbanki."
 ---
 
 # Birta lífeyrissjóður

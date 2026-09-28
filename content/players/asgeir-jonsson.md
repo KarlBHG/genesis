@@ -6,6 +6,7 @@ role: "Governor of Seðlabanki Íslands"
 asOf: ""
 website: "https://www.cb.is/monetary-policy/monetary-policy-committee/"
 related: ["sedlabanki", "althingi"]
+lede: "Ásgeir Jónsson chairs Seðlabanki’s Monetary Policy Committee, the seat Act No. 92/2019 assigns to the Governor."
 ---
 
 # Ásgeir Jónsson

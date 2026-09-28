@@ -6,6 +6,7 @@ role: "CEO of Íslandsbanki"
 asOf: "2025"
 website: "https://cdn.islandsbanki.is/image/upload/v1/documents/ISB_2025_FINAL.pdf"
 related: ["islandsbanki"]
+lede: "Jón Guðni Ómarsson is chief executive of Íslandsbanki, whose 2025 report records the State completing its divestment of the bank in May that year."
 ---
 
 # Jón Guðni Ómarsson

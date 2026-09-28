@@ -6,6 +6,7 @@ role: "National broadcaster"
 asOf: "2025"
 website: "https://www.ruv.is"
 related: ["althingi", "telecoms", "stefan-jon-hafstein"]
+lede: "Ríkisútvarpið ohf. is the state’s public-service broadcaster, owned by one shareholder since founding, with operating revenue of 9,389 million króna in 2025."
 ---
 
 # Ríkisútvarpið

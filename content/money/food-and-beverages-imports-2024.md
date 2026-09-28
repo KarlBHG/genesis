@@ -3,6 +3,7 @@ title: "Food and beverages imports, 2024"
 slug: "food-and-beverages-imports-2024"
 year: "2024"
 related: ["goods-exports-2024", "agriculture", "agricultural-products-exports-2024"]
+lede: "Food and beverages imports were 121.7 billion ISK cif in 2024, up 3.1% on the year and 9.0% of goods imports — many times the agricultural export row."
 ---
 
 # Food and beverages imports, 2024

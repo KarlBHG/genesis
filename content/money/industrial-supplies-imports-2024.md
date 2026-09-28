@@ -3,6 +3,7 @@ title: "Industrial supplies imports, 2024"
 slug: "industrial-supplies-imports-2024"
 year: "2024"
 related: ["goods-exports-2024", "fuels-and-lubricants-imports-2024", "food-and-beverages-imports-2024"]
+lede: "Industrial supplies n.e.s. were 371.9 billion ISK cif in 2024, up 9.6% on the year and 27.4% of goods imports — the largest import row in the table."
 ---
 
 # Industrial supplies imports, 2024

@@ -6,6 +6,7 @@ role: "Minister of the Environment, Energy and Climate"
 asOf: "2024-12-21"
 website: "https://www.althingi.is/altext/cv/is/?nfaerslunr=1416"
 related: ["ministry-of-the-environment-energy-and-climate", "althingi", "samfylkingin"]
+lede: "Jóhann Páll Jóhannsson has been Minister of the Environment, Energy and Climate since 21 December 2024 and an MP for Reykjavík North since 2021."
 ---
 
 # Jóhann Páll Jóhannsson

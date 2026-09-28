@@ -3,6 +3,7 @@ title: "Marine products exports, 2024"
 slug: "marine-products-exports-2024"
 year: "2024"
 related: ["goods-exports-2024", "fisheries-and-quotas", "eea-agreement"]
+lede: "Marine products were 346.5 billion ISK fob of exports in 2024, 36.1% of goods exports and down 1.8% on the year; farmed fish is counted on a separate row."
 ---
 
 # Marine products exports, 2024

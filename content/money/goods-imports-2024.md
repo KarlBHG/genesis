@@ -3,6 +3,7 @@ title: "Goods imports, 2024"
 slug: "goods-imports-2024"
 year: "2024"
 related: ["goods-exports-2024", "eea-agreement", "norway", "germany", "united-states", "china", "food-and-beverages-imports-2024", "fuels-and-lubricants-imports-2024", "industrial-supplies-imports-2024"]
+lede: "Iceland imported 1,356.7 billion ISK cif of goods in 2024, 60% of it from within the EEA, led by Norway, Germany, the United States, and China."
 ---
 
 # Goods imports, 2024

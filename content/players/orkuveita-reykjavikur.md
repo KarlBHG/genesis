@@ -6,6 +6,7 @@ role: "Utility"
 asOf: "2024"
 website: "https://www.orkuveitan.is"
 related: ["reykjavikurborg", "landsnet", "orka-natturunnar", "on-power", "gylfi-magnusson"]
+lede: "Orkuveita Reykjavíkur is the utility owned by Reykjavíkurborg, Akraneskaupstaður, and Borgarbyggð, with group revenues of 66,782 million ISK in 2024."
 ---
 
 # Orkuveita Reykjavíkur

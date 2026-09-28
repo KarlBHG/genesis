@@ -6,6 +6,7 @@ role: "Aluminium smelter"
 asOf: "2025"
 website: "https://www.riotinto.com/en/operations/europe-me/isal"
 related: ["power-and-aluminium", "landsvirkjun", "landsvirkjun-power-sales", "aluminium-exports-2024"]
+lede: "The Straumsvík smelter has run since 1969, is operated by Rio Tinto, and takes 100% of its electricity from Landsvirkjun."
 ---
 
 # ISAL (Rio Tinto á Íslandi)

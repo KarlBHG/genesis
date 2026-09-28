@@ -6,6 +6,7 @@ role: "Prime Minister"
 asOf: "2024-12-21"
 website: "https://www.government.is/ministries/prime-ministers-office/prime-minister/"
 related: ["althingi", "ministry-of-finance", "dadi-mar-kristofersson", "prime-ministers-office", "samfylkingin"]
+lede: "Kristrún Frostadóttir has been Prime Minister since 21 December 2024, leading a coalition of the Social Democratic Alliance, the Reform Party, and the People’s Party."
 ---
 
 # Kristrún Frostadóttir

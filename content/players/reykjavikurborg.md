@@ -6,6 +6,7 @@ role: "Capital municipality"
 asOf: "2024"
 website: "https://reykjavik.is"
 related: ["samband-islenskra-sveitarfelaga", "ministry-of-infrastructure", "orkuveita-reykjavikur"]
+lede: "Reykjavíkurborg is the capital municipality, with 145,931 inhabitants on 1 December 2024 and operating revenue of 277,439 million kr. across its A and B sections."
 ---
 
 # Reykjavíkurborg

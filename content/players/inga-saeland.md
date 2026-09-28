@@ -6,6 +6,7 @@ role: "Minister of Education and Children"
 asOf: "2026-01-11"
 website: "https://www.government.is/ministries/ministry-of-education-and-children/minister-of-education-and-children/"
 related: ["ministry-of-education-and-children", "ministry-of-social-affairs-and-housing", "althingi", "flokkur-folksins", "icelandair"]
+lede: "Inga Sæland founded Flokkur fólksins in 2016 and has chaired it since; she became Minister of Education and Children on 11 January 2026 after a year in social affairs and housing."
 ---
 
 # Inga Sæland

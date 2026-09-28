@@ -6,6 +6,7 @@ role: "Airline"
 asOf: "2025"
 website: "https://www.icelandair.com"
 related: ["isavia", "tourism"]
+lede: "Icelandair booked record total income of USD 1,740.9 million in 2025, up 11%, carrying 5.1m of the 8.1m passengers who travelled through Keflavík that year."
 ---
 
 # Icelandair

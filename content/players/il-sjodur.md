@@ -5,6 +5,7 @@ playerType: "organization"
 role: "Successor of Íbúðalánasjóður"
 asOf: "2024-06-30"
 related: ["construction-and-housing", "ministry-of-finance", "ministry-of-social-affairs-and-housing"]
+lede: "ÍL-sjóður winds up what was left of Íbúðalánasjóður after its 2019 dissolution; at 30 June 2024 its equity was negative by 261,378 m.kr., under a simple Treasury guarantee."
 ---
 
 # ÍL-sjóður

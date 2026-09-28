@@ -6,6 +6,7 @@ role: "Pension fund"
 asOf: "2025"
 website: "https://www.stapi.is/"
 related: ["pension-savings-2025", "financial-supervisory-authority", "hagar", "nova"]
+lede: "Stapi lífeyrissjóður held net assets for pension payments of 462,081,122 thousand krónur at year-end 2025, across an insurance division and two personal divisions."
 ---
 
 # Stapi lífeyrissjóður

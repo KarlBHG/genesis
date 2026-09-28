@@ -3,6 +3,7 @@ title: "Services trade, 2024"
 slug: "services-trade-2024"
 year: "2024"
 related: ["tourism", "goods-exports-2024"]
+lede: "Iceland exported 982.7 billion ISK of services in 2024 against 712.5 billion ISK of imports, a surplus of 270.2 billion ISK, down from 325.9 billion the year before."
 ---
 
 # Services trade, 2024

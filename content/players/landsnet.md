@@ -6,6 +6,7 @@ role: "Electricity transmission"
 asOf: "2025"
 website: "https://www.landsnet.is"
 related: ["ministry-of-finance", "landsvirkjun", "orkuveita-reykjavikur", "treasury-debt", "althingi", "harpa-thuridur-bodvarsdottir"]
+lede: "Landsnet hf. runs Iceland’s electricity transmission and system operation under Act No. 65/2003, 93.22% owned by the Treasury since a December 2022 acquisition and 6.78% by Reykjavík Energy."
 ---
 
 # Landsnet

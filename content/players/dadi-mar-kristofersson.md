@@ -6,6 +6,7 @@ role: "Minister of Finance and Economic Affairs"
 asOf: "2024-12-21"
 website: "https://www.government.is/ministries/ministry-of-finance-and-economic-affairs/"
 related: ["ministry-of-finance", "althingi", "kristrun-frostadottir", "landsbankinn", "landsvirkjun", "vidreisn", "stadarholl-radgjof", "ferdifelagid-utivist"]
+lede: "Daði Már Kristófersson has been Minister of Finance and Economic Affairs since 21 December 2024, and is vice-chair of Viðreisn."
 ---
 
 # Daði Már Kristófersson

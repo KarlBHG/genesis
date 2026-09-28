@@ -6,6 +6,7 @@ role: "Employers’ confederation"
 asOf: ""
 website: "https://sa.is/en"
 related: ["fisheries-iceland"]
+lede: "Samtök atvinnulífsins, the Confederation of Icelandic Enterprise, serves over 2,000 member companies through six industry associations and negotiates collective agreements on their behalf."
 ---
 
 # Samtök atvinnulífsins

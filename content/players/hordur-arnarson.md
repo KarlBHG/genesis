@@ -6,6 +6,7 @@ role: "CEO of Landsvirkjun"
 asOf: "2026-04-21"
 website: "https://www.landsvirkjun.com/governance/board"
 related: ["landsvirkjun"]
+lede: "Hörður Arnarson is chief executive of Landsvirkjun, an office the company’s board appoints."
 ---
 
 # Hörður Arnarson

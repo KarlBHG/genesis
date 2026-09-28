@@ -6,6 +6,7 @@ role: "Telecommunications"
 asOf: "2024"
 website: "https://www.nova.is"
 related: ["telecoms", "fjarskiptastofa", "birta", "lsr", "stapi", "islandsbanki"]
+lede: "Nova Klúbburinn hf. is the telecommunications parent of Nova hf., with total revenue of 13,314 million króna in 2024 and about 1,700 shareholders at year-end."
 ---
 
 # Nova

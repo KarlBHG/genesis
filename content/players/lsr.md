@@ -6,6 +6,7 @@ role: "Pension fund for state employees"
 asOf: "2024"
 website: "https://www.lsr.is/en/"
 related: ["lsr-net-assets-2024", "pension-savings-2025", "financial-supervisory-authority", "hagar", "syn", "nova"]
+lede: "LSR, the Pension Fund for State Employees, is the country’s oldest pension fund and held net assets for pension payments of 1,566,743.9 million ISK at year-end 2024."
 ---
 
 # Lífeyrissjóður starfsmanna ríkisins

@@ -6,6 +6,7 @@ role: "Power customer"
 asOf: "2026-06-23"
 website: "https://www.landsvirkjun.com/news/borealis-and-landsvirkjun-sign-a-12-mw-power-purchasing-agreement"
 related: ["landsvirkjun", "landsvirkjun-power-sales"]
+lede: "Borealis Data Center has bought power from Landsvirkjun since it began operating in Iceland in 2018, adding 12 MW of firm power for its Blönduós site in June 2026."
 ---
 
 # Borealis Data Center

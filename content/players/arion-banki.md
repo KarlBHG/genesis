@@ -6,6 +6,7 @@ role: "Commercial bank"
 asOf: "2025"
 website: "https://www.arionbanki.is/"
 related: ["banking-after-2008", "sedlabanki", "financial-supervisory-authority", "syn", "paul-horner"]
+lede: "Arion Bank’s assets grew 8% in 2025 to ISK 1,755 billion, and its report says the capital ratio stays above the requirements of Seðlabanki’s Financial Supervisory Authority."
 ---
 
 # Arion banki

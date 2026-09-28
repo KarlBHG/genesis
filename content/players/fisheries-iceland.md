@@ -6,6 +6,7 @@ role: "Fisheries industry body"
 asOf: "2014-10-31"
 website: "https://www.sfs.is/en"
 related: ["fisheries-and-quotas", "sa-confederation", "ministry-of-industries"]
+lede: "Fisheries Iceland was formed on 31 October 2014 from the merger of the fishing-vessel owners’ and fish-processing federations, and speaks for the sector including aquaculture companies."
 ---
 
 # Samtök fyrirtækja í sjávarútvegi

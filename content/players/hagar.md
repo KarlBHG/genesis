@@ -6,6 +6,7 @@ role: "Retail group"
 asOf: "2025-02-28"
 website: "https://www.hagar.is"
 related: ["retail", "bru", "birta", "stapi", "lsr", "eirikur-s-johannsson"]
+lede: "Hagar hf., the listed group behind Bónus and Hagkaup, booked sales of ISK 180,342 million in 2024/25 and is held largely by Icelandic pension funds."
 ---
 
 # Hagar

@@ -6,6 +6,7 @@ role: "Fisheries company"
 asOf: "2024"
 website: "https://www.brim.is/"
 related: ["fisheries-and-quotas", "ministry-of-industries", "marine-products-exports-2024"]
+lede: "Brim reported operating revenue of 389.4 million euros in 2024, down from 437.2 million, in a year Icelandic authorities allowed no capelin season."
 ---
 
 # Brim

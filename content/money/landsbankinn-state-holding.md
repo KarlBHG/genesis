@@ -3,6 +3,7 @@ title: "State holding in Landsbankinn"
 slug: "landsbankinn-state-holding"
 year: "2025"
 related: ["landsbankinn", "ministry-of-finance", "banking-after-2008"]
+lede: "The Icelandic State held 98.2% of Landsbankinn on the bank’s 31 December 2025 fact sheet, a holding the Ministry of Finance and Economic Affairs controls."
 ---
 
 # State holding in Landsbankinn

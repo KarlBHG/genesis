@@ -6,6 +6,7 @@ role: "Pension fund"
 asOf: "2025"
 website: "https://www.lifbru.is/"
 related: ["pension-savings-2025", "financial-supervisory-authority", "arion-banki", "islandsbanki", "hagar"]
+lede: "Brú lífeyrissjóður held net assets for pension payments of 624,405 m.kr. at year-end 2025, split across five divisions."
 ---
 
 # Brú lífeyrissjóður

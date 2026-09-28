@@ -3,6 +3,7 @@ title: "Fuels and lubricants imports, 2024"
 slug: "fuels-and-lubricants-imports-2024"
 year: "2024"
 related: ["goods-exports-2024", "industrial-supplies-imports-2024"]
+lede: "Fuels and lubricants imports were 156.1 billion ISK cif in 2024, down 9.8% on the year and 11.5% of goods imports."
 ---
 
 # Fuels and lubricants imports, 2024

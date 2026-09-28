@@ -6,6 +6,7 @@ role: "Airports and air navigation"
 asOf: "2025"
 website: "https://www.isavia.is"
 related: ["ministry-of-finance", "ministry-of-infrastructure", "icelandair", "greta-maria-gretarsdottir"]
+lede: "Isavia ohf. is the state-owned company that operates Iceland’s airports, with the Minister of Finance and Economic Affairs carrying the Treasury’s voting rights."
 ---
 
 # Isavia

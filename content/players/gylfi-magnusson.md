@@ -6,6 +6,7 @@ role: "Chair of the board"
 asOf: "2024"
 website: "https://orkuveitan.overcastcdn.com/documents/Reykjav%C3%ADk_Energy_Consolidated_Annual_Financial_Statement_2024.pdf"
 related: ["orkuveita-reykjavikur"]
+lede: "Gylfi Magnússon has chaired the board of Reykjavík Energy since 2022."
 ---
 
 # Gylfi Magnússon

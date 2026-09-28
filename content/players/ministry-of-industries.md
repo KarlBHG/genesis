@@ -6,6 +6,7 @@ role: "Ministry"
 asOf: "2024-12-21"
 website: "https://www.government.is/topics/business-and-industry/fisheries-in-iceland/"
 related: ["fisheries-and-quotas", "fisheries-iceland", "tourism", "agriculture", "brim", "competition-authority", "treasury-budget-2026"]
+lede: "Hanna Katrín Friðriksson has been Minister of Industries since Kristrún Frostadóttir’s government took office on 21 December 2024; the ministry sets the total allowable catch for fisheries."
 ---
 
 # Ministry of Industries

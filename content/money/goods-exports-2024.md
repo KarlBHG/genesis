@@ -3,6 +3,7 @@ title: "Goods exports, 2024"
 slug: "goods-exports-2024"
 year: "2024"
 related: ["eea-agreement", "marine-products-exports-2024", "aluminium-exports-2024", "agricultural-products-exports-2024", "food-and-beverages-imports-2024", "fuels-and-lubricants-imports-2024", "industrial-supplies-imports-2024", "fisheries-and-quotas", "power-and-aluminium", "agriculture", "goods-imports-2024", "netherlands", "united-states", "united-kingdom"]
+lede: "Iceland’s goods exports were 959.0 billion ISK fob in 2024 against 1,356.7 billion ISK cif of imports, a fob/cif deficit of 397.7 billion ISK."
 ---
 
 # Goods exports, 2024

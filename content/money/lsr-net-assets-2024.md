@@ -3,6 +3,7 @@ title: "LSR net assets, 2024"
 slug: "lsr-net-assets-2024"
 year: "2024"
 related: ["lsr"]
+lede: "LSR held net assets for pension payments of 1,566,743.9 million ISK at year-end 2024, across Divisions A, B, and S."
 ---
 
 # LSR net assets, 2024

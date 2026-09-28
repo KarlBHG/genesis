@@ -6,6 +6,7 @@ role: "Minister of Health"
 asOf: "2024-12-21"
 website: "https://www.government.is/ministries/ministry-of-health/"
 related: ["ministry-of-health", "healthcare", "althingi", "embaetti-landlaeknis", "samfylkingin", "ssai"]
+lede: "Alma D. Möller has served as Minister of Health since 21 December 2024 and has sat in Alþingi for the Southwest constituency since 2024."
 ---
 
 # Alma D. Möller

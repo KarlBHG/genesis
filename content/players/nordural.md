@@ -6,6 +6,7 @@ role: "Aluminium company"
 asOf: "2024"
 website: "https://nordural.is/en/"
 related: ["power-and-aluminium", "landsvirkjun", "landsvirkjun-power-sales", "aluminium-exports-2024"]
+lede: "Norðurál Grundartangi reported operating revenue of USD 793 million in 2024 and buys its power under long-term agreements with three suppliers."
 ---
 
 # Norðurál Grundartangi

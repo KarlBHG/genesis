@@ -6,6 +6,7 @@ role: "Aluminium smelter"
 asOf: "2025"
 website: "https://www.samfelagsskyrsla.is/fjardaal"
 related: ["power-and-aluminium", "landsvirkjun", "landsvirkjun-power-sales", "aluminium-exports-2024"]
+lede: "Alcoa Fjarðaál’s Reyðarfjörður smelter has produced aluminium since April 2007 under a permit authorising up to 360 thousand tonnes a year, and employed 574 people in 2025."
 ---
 
 # Alcoa Fjarðaál
