@@ -7,7 +7,7 @@ effective: "1994-01-01"
 parties: ["Iceland", "EU", "Norway", "Liechtenstein"]
 status: "active"
 topics: ["trade", "regulation", "single-market"]
-related: ["schengen", "efta", "fisheries-and-quotas", "agriculture", "2009-eu-application", "2015-eu-candidate-letter", "2013-icesave-judgment"]
+related: ["schengen", "efta", "eu-fish-protocol-1972", "iceland-eu-agriculture-2018", "fisheries-and-quotas", "agriculture", "2009-eu-application", "2015-eu-candidate-letter", "2013-icesave-judgment", "multilateral-trade-system"]
 source: "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/"
 ---
 

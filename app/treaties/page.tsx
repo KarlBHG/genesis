@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { TreatyBrowser } from "@/components/treaty-browser";
 import { getTreaties } from "@/lib/content";
@@ -28,6 +29,11 @@ export default function TreatiesPage() {
         <h1 className="text-3xl font-medium tracking-tight">Treaties</h1>
         <p className="text-muted-foreground">
           Agreements Iceland is party to, grouped by status. Topics can be combined.
+          For security, EEA/EFTA, trade, and crisis commitments by theme, see{" "}
+          <Link className="underline underline-offset-4" href="/obligations">
+            Obligations
+          </Link>
+          .
         </p>
       </header>
       <TreatyBrowser items={items} />

@@ -2465,5 +2465,61 @@
     "start": "not printed",
     "end": "not printed",
     "channel": "business"
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "eea-agreement",
+    "type": "represents",
+    "asOf": "1994-01-01",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "The EEA Agreement is Iceland‘s most significant and far reaching agreement to date. The Agreement entered into force on 1 January 1994"
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "iceland-china-fta",
+    "type": "represents",
+    "asOf": "2014-07-01",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "The free trade agreement between Iceland and China entered into force on 1 July 2014."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "hoyvik-agreement",
+    "type": "represents",
+    "asOf": "2006-11-01",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "The Hoyvík Agreement entered into force on 1 November 2006."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "iceland-greenland-trade",
+    "type": "represents",
+    "asOf": "undated on the trade page",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "An agreement with Denmark on trade between Iceland and Greenland provides for certain tariff preferences between the countries."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "eu-fish-protocol-1972",
+    "type": "represents",
+    "asOf": "1972",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "Protocol 6 to the free trade agreement between Iceland and the EU (then EEC) from 1972 provides for tariff preferences for imports of Icelandic fish products into EU markets."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "iceland-eu-agriculture-2018",
+    "type": "represents",
+    "asOf": "2018",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "a bilateral agreement is in force between Iceland and the EU from 2018 on tariff preferences for unprocessed agricultural products."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "multilateral-trade-system",
+    "type": "represents",
+    "asOf": "undated on the trade page",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "Iceland is a strong proponent of a strong, rules-based multilateral trading system and actively supports efforts to advance the role of the WTO."
   }
 ]

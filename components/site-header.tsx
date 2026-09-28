@@ -29,6 +29,7 @@ const NAV: NavEntry[] = [
     label: "Records",
     items: [
       { href: "/overview", label: "Overview" },
+      { href: "/obligations", label: "Obligations" },
       { href: "/treaties", label: "Treaties" },
       { href: "/institutions", label: "Institutions" },
       { href: "/events", label: "Events" },
