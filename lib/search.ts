@@ -11,6 +11,20 @@ function normalize(value: string): string {
     .replace(/\p{M}/gu, "");
 }
 
+/**
+ * Icelandic diacritic folding, shared with the index filters so that
+ * "Sedlabanki" finds "Seðlabanki" everywhere, not only in search.
+ */
+export function foldText(value: string): string {
+  return normalize(value);
+}
+
+export function foldedIncludes(haystackText: string, needle: string): boolean {
+  const folded = normalize(needle.trim());
+  if (!folded) return true;
+  return normalize(haystackText).includes(folded);
+}
+
 function haystack(doc: SearchDoc): string {
   return normalize(
     `${doc.title} ${doc.topics.join(" ")} ${doc.summary} ${doc.body}`,

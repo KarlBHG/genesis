@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 
 import { EventTimeline } from "@/components/event-timeline";
@@ -8,12 +9,15 @@ import {
   EmptyHeader,
   EmptyTitle,
 } from "@/components/ui/empty";
+import { Skeleton } from "@/components/ui/skeleton";
 import { edgesFor, getEvents, resolveSlug } from "@/lib/content";
+import { ledeOrSummary } from "@/lib/entry-facts";
 import { formatDate, labelize, yearOf } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Events",
-  description: "A chronological list of events in the Iceland system map.",
+  description:
+    "A chronological list of dated events in the Iceland system map, each carrying the date its source stated.",
 };
 
 export default function EventsPage() {
@@ -29,7 +33,7 @@ export default function EventsPage() {
     year: yearOf(event.date),
     type: event.type,
     typeLabel: labelize(event.type),
-    summary: event.summary,
+    summary: ledeOrSummary(event),
     connectionCount,
     related: event.related.map((slug) => {
       const target = resolveSlug(slug);
@@ -43,7 +47,7 @@ export default function EventsPage() {
   return (
     <main className="dashboard-canvas min-w-0">
       <PageHero
-        description="Oldest first. Filter by type, or reverse the order. Open a title to see what it links to. A full date is shown when the source gave one; otherwise the year."
+        description="Oldest first. Search, filter by type, or reverse the order — every control is written to the address bar, so a view is a shareable link. Open a title to see what it links to. A full date is shown when the source gave one; otherwise the year."
         eyebrow={`${events.length} dated entries`}
         title="Events"
       />
@@ -58,7 +62,9 @@ export default function EventsPage() {
           </EmptyHeader>
         </Empty>
       ) : (
-        <EventTimeline events={events} />
+        <Suspense fallback={<Skeleton className="h-64 w-full rounded-2xl" />}>
+          <EventTimeline events={events} />
+        </Suspense>
       )}
       </div>
     </main>

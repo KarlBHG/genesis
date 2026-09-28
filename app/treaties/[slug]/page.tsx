@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { EntryDetail } from "@/components/entry-detail";
 import { getTreaties } from "@/lib/content";
+import { entryMetadata, notFoundMetadata } from "@/lib/entry-metadata";
 
 type Params = { slug: string };
 
@@ -19,8 +20,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const treaty = getTreaties().find((entry) => entry.slug === slug);
-  if (!treaty) return { title: "Not found" };
-  return { title: treaty.title, description: treaty.summary };
+  if (!treaty) return notFoundMetadata;
+  return entryMetadata(treaty);
 }
 
 export default async function TreatyPage({

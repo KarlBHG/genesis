@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { EntryDetail } from "@/components/entry-detail";
 import { getEvents } from "@/lib/content";
+import { entryMetadata, notFoundMetadata } from "@/lib/entry-metadata";
 
 type Params = { slug: string };
 
@@ -19,8 +20,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const event = getEvents().find((entry) => entry.slug === slug);
-  if (!event) return { title: "Not found" };
-  return { title: event.title, description: event.summary };
+  if (!event) return notFoundMetadata;
+  return entryMetadata(event);
 }
 
 export default async function EventPage({

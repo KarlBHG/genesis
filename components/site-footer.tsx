@@ -10,7 +10,7 @@ const LINKS = [
 
 export function SiteFooter() {
   return (
-    <footer className="relative mt-auto border-t border-border/70 site-footer-glow">
+    <footer className="relative mt-auto border-t border-border/70 site-footer-glow print:hidden">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6 md:flex-row md:items-start md:justify-between">
         <div className="flex max-w-md flex-col gap-3">
           <p className="font-serif text-lg font-medium tracking-tight">AlltÍkerfi</p>

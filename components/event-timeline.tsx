@@ -1,10 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -19,6 +21,7 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import { dateSortKey } from "@/lib/format";
+import { foldedIncludes } from "@/lib/search";
 
 export type TimelineRelated = {
   slug: string;
@@ -52,9 +55,27 @@ const TYPE_ORDER = [
 ];
 
 export function EventTimeline({ events }: { events: TimelineEvent[] }) {
-  const [type, setType] = useState("all");
-  const [newestFirst, setNewestFirst] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
   const [openSlug, setOpenSlug] = useState<string | null>(null);
+
+  const type = params.get("type") ?? "all";
+  const query = params.get("q") ?? "";
+  const newestFirst = params.get("sort") === "newest";
+
+  const setParam = useCallback(
+    (key: string, value: string) => {
+      const next = new URLSearchParams(params.toString());
+      if (value) next.set(key, value);
+      else next.delete(key);
+      const search = next.toString();
+      router.replace(search ? `${pathname}?${search}` : pathname, {
+        scroll: false,
+      });
+    },
+    [params, pathname, router],
+  );
 
   const types = useMemo(() => {
     const present = new Set(events.map((event) => event.type));
@@ -70,13 +91,18 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
   }, [events]);
 
   const visible = useMemo(() => {
-    const filtered =
-      type === "all" ? events : events.filter((event) => event.type === type);
-    return filtered.slice().sort((a, b) => {
+    const filtered = events.filter((event) => {
+      if (type !== "all" && event.type !== type) return false;
+      return foldedIncludes(
+        `${event.title} ${event.summary} ${event.typeLabel} ${event.dateLabel}`,
+        query,
+      );
+    });
+    return filtered.sort((a, b) => {
       const order = dateSortKey(a.date).localeCompare(dateSortKey(b.date));
       return newestFirst ? -order : order;
     });
-  }, [events, newestFirst, type]);
+  }, [events, newestFirst, query, type]);
 
   const groups = useMemo(() => {
     const grouped = new Map<string, TimelineEvent[]>();
@@ -90,7 +116,16 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 print:hidden">
+        <label className="flex w-full flex-col gap-1.5 sm:max-w-sm">
+          <span className="text-sm text-muted-foreground">Find an event</span>
+          <Input
+            onChange={(event) => setParam("q", event.target.value)}
+            placeholder="Type a name or a word from the record"
+            type="search"
+            value={query}
+          />
+        </label>
         <div
           aria-label="Filter events by type"
           className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
@@ -99,7 +134,7 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
           <Button
             aria-pressed={type === "all"}
             className="shrink-0"
-            onClick={() => setType("all")}
+            onClick={() => setParam("type", "")}
             size="sm"
             variant={type === "all" ? "secondary" : "outline"}
           >
@@ -111,7 +146,7 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
               aria-pressed={type === item.id}
               className="shrink-0"
               key={item.id}
-              onClick={() => setType(item.id)}
+              onClick={() => setParam("type", item.id)}
               size="sm"
               variant={type === item.id ? "secondary" : "outline"}
             >
@@ -120,31 +155,48 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
             </Button>
           ))}
         </div>
-        <div aria-label="Sort events" className="flex gap-2" role="group">
-          <Button
-            aria-pressed={!newestFirst}
-            onClick={() => setNewestFirst(false)}
-            size="sm"
-            variant={newestFirst ? "outline" : "secondary"}
-          >
-            Oldest first
-          </Button>
-          <Button
-            aria-pressed={newestFirst}
-            onClick={() => setNewestFirst(true)}
-            size="sm"
-            variant={newestFirst ? "secondary" : "outline"}
-          >
-            Newest first
-          </Button>
+        <div className="flex flex-wrap items-center gap-3">
+          <div aria-label="Sort events" className="flex gap-2" role="group">
+            <Button
+              aria-pressed={!newestFirst}
+              onClick={() => setParam("sort", "")}
+              size="sm"
+              variant={newestFirst ? "outline" : "secondary"}
+            >
+              Oldest first
+            </Button>
+            <Button
+              aria-pressed={newestFirst}
+              onClick={() => setParam("sort", "newest")}
+              size="sm"
+              variant={newestFirst ? "secondary" : "outline"}
+            >
+              Newest first
+            </Button>
+          </div>
+          <span className="text-sm text-muted-foreground">
+            {visible.length} of {events.length} events
+          </span>
+          {type !== "all" || query || newestFirst ? (
+            <Button
+              nativeButton={false}
+              render={<Link href={pathname} scroll={false} />}
+              size="sm"
+              variant="outline"
+            >
+              Clear filters
+            </Button>
+          ) : null}
         </div>
       </div>
       {visible.length === 0 ? (
         <Empty className="border">
           <EmptyHeader>
-            <EmptyTitle>No events of this type</EmptyTitle>
+            <EmptyTitle>No events match</EmptyTitle>
             <EmptyDescription>
-              Choose another type, or show all events.
+              {query
+                ? `No dated entry contains “${query}”. Search folds Icelandic accents, so “Althingi” and “Alþingi” are the same query.`
+                : "Choose another type, or show all events."}
             </EmptyDescription>
           </EmptyHeader>
         </Empty>
@@ -176,6 +228,7 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
                           <button
                             aria-expanded={open}
                             className="text-left underline underline-offset-4"
+                            data-print-keep
                             onClick={() =>
                               setOpenSlug(open ? null : event.slug)
                             }

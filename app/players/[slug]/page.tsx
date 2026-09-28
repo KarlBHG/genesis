@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { EntryDetail } from "@/components/entry-detail";
 import { getPlayers } from "@/lib/content";
+import { entryMetadata, notFoundMetadata } from "@/lib/entry-metadata";
 
 type Params = { slug: string };
 
@@ -19,8 +20,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const player = getPlayers().find((entry) => entry.slug === slug);
-  if (!player) return { title: "Not found" };
-  return { title: player.title, description: player.summary };
+  if (!player) return notFoundMetadata;
+  return entryMetadata(player);
 }
 
 export default async function PlayerPage({

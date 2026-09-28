@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { EntryDetail } from "@/components/entry-detail";
 import { getInstitutions } from "@/lib/content";
+import { entryMetadata, notFoundMetadata } from "@/lib/entry-metadata";
 
 type Params = { slug: string };
 
@@ -19,8 +20,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const institution = getInstitutions().find((entry) => entry.slug === slug);
-  if (!institution) return { title: "Not found" };
-  return { title: institution.title, description: institution.summary };
+  if (!institution) return notFoundMetadata;
+  return entryMetadata(institution);
 }
 
 export default async function InstitutionPage({

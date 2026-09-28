@@ -28,6 +28,7 @@ import { groupEdges } from "@/lib/connection-groups";
 import { uniqueProgramNullReasons } from "@/lib/invoice-budget";
 import { compareAsOf } from "@/lib/as-of";
 import { AsOfChip } from "@/components/as-of-chip";
+import { factStrip } from "@/lib/entry-facts";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
 import type { Edge, Entry } from "@/lib/types";
 
@@ -209,13 +210,38 @@ function EdgeRow({ edge, slug }: { edge: Edge; slug: string }) {
           </span>
         ) : null}
       </p>
-      <p className="text-sm text-muted-foreground">{edge.quotation}</p>
-      <a className="text-sm break-all" href={edge.source} rel="noreferrer" target="_blank">
+      <p className="entry-quotation text-sm text-muted-foreground">
+        {edge.quotation}
+      </p>
+      <a
+        className="print-literal-url text-sm break-all"
+        href={edge.source}
+        rel="noreferrer"
+        target="_blank"
+      >
         {edge.source}
       </a>
     </li>
   );
 }
+
+/** The counterparties in a group, so a closed row still says who is inside. */
+function groupPreview(edges: Edge[], slug: string): string {
+  const names: string[] = [];
+  for (const edge of edges) {
+    const name = edge.from === slug ? edge.toTitle : edge.fromTitle;
+    if (!names.includes(name)) names.push(name);
+  }
+  const shown = names.slice(0, 3).join(" · ");
+  const rest = names.length - 3;
+  return rest > 0 ? `${shown} · +${rest} more` : shown;
+}
+
+/**
+ * Groups stay closed once a section is long enough to become a scroll cliff
+ * on a phone. Short sections open on load so nothing needs a tap to read.
+ */
+const OPEN_BY_DEFAULT_UP_TO = 5;
 
 function EdgeSection({
   title,
@@ -229,48 +255,40 @@ function EdgeSection({
   if (edges.length === 0) return null;
   const sorted = edges.slice().sort((a, b) => compareAsOf(a.asOf, b.asOf));
   const groups = groupEdges(sorted, "relationship");
+  const openByDefault = edges.length <= OPEN_BY_DEFAULT_UP_TO;
   return (
     <div className="flex flex-col gap-2">
       <h3 className="text-base font-medium">
         {title} · {edges.length}
       </h3>
-      {groups.length === 1 ? (
-        <ul className="flex flex-col gap-3">
-          {sorted.map((edge) => (
-            <EdgeRow
-              edge={edge}
-              key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
-              slug={slug}
-            />
-          ))}
-        </ul>
-      ) : (
-        groups.map((group) => (
-          <details
-            className="rounded-lg border px-4"
-            key={group.key}
-            open
-          >
-            <summary className="cursor-pointer list-none py-2.5 [&::-webkit-details-marker]:hidden">
-              <span className="flex flex-wrap items-baseline gap-x-2 text-sm">
-                <span className="font-medium">
-                  {labelize(group.key)}
-                </span>
+      {groups.map((group) => (
+        <details
+          className="entry-edge-group rounded-lg border px-4"
+          key={group.key}
+          open={openByDefault}
+        >
+          <summary className="cursor-pointer list-none py-2.5 [&::-webkit-details-marker]:hidden">
+            <span className="flex flex-col gap-0.5 text-sm">
+              <span className="flex flex-wrap items-baseline gap-x-2">
+                <span className="font-medium">{labelize(group.key)}</span>
                 <Badge variant="outline">{group.edges.length}</Badge>
               </span>
-            </summary>
-            <ul className="flex flex-col gap-3 pb-3">
-              {group.edges.map((edge) => (
-                <EdgeRow
-                  edge={edge}
-                  key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
-                  slug={slug}
-                />
-              ))}
-            </ul>
-          </details>
-        ))
-      )}
+              <span className="entry-edge-preview line-clamp-1 text-muted-foreground">
+                {groupPreview(group.edges, slug)}
+              </span>
+            </span>
+          </summary>
+          <ul className="flex flex-col gap-3 pb-3">
+            {group.edges.map((edge) => (
+              <EdgeRow
+                edge={edge}
+                key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
+                slug={slug}
+              />
+            ))}
+          </ul>
+        </details>
+      ))}
     </div>
   );
 }
@@ -336,13 +354,29 @@ function PaysProgramNullNotice({ slug }: { slug: string }) {
   );
 }
 
+function FactStrip({ entry }: { entry: Entry }) {
+  return (
+    <dl className="entry-fact-strip flex flex-wrap gap-x-6 gap-y-2 text-sm">
+      {factStrip(entry).map((fact) => (
+        <div className="flex items-baseline gap-1.5" key={fact.term}>
+          <dt className="text-muted-foreground">{fact.term}</dt>
+          <dd className="font-medium">{fact.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 export function EntryDetail({ entry }: { entry: Entry }) {
   const section = kindLabel(entry.kind);
   const { out, inn } = edgesFor(entry.slug);
 
   return (
     <article className="atlas-page mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-8 sm:px-6">
-      <Breadcrumb>
+      <p className="print-only">
+        AlltÍkerfi · {kindPath(entry.kind)}/{entry.slug}
+      </p>
+      <Breadcrumb className="print:hidden">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink render={<Link href="/overview" />}>Overview</BreadcrumbLink>
@@ -360,7 +394,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         </BreadcrumbList>
       </Breadcrumb>
       <header className="glass-panel atlas-page-header flex flex-col gap-3">
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 print:hidden">
           <p className="text-sm text-muted-foreground">{labelize(entry.kind)}</p>
           <Button
             nativeButton={false}
@@ -384,15 +418,21 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         <h1 className="text-3xl font-medium tracking-tight sm:text-4xl">
           {entry.title}
         </h1>
-        {entry.summary ? (
-          <p className="max-w-2xl text-lg leading-8 text-muted-foreground">
-            {entry.summary}
-          </p>
+        {entry.lede ? (
+          <p className="max-w-2xl font-serif text-xl leading-8">{entry.lede}</p>
+        ) : entry.summary ? (
+          <div className="flex max-w-2xl flex-col gap-1">
+            <p className="text-lg leading-8 text-muted-foreground">
+              {entry.summary}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Opening paragraph of the record, extracted automatically. No
+              authored lede yet.
+            </p>
+          </div>
         ) : null}
+        <FactStrip entry={entry} />
       </header>
-      {entry.lede ? (
-        <p className="max-w-2xl text-lg leading-8">{entry.lede}</p>
-      ) : null}
       <EvidenceNotice slug={entry.slug} />
       <PaysProgramNullNotice slug={entry.slug} />
       <MarkdownBody source={entry.body} />
@@ -404,7 +444,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="text-xl font-medium">Connections</h2>
               <Link
-                className="text-sm text-muted-foreground underline underline-offset-4"
+                className="text-sm text-muted-foreground underline underline-offset-4 print:hidden"
                 href={`/connections?entry=${entry.slug}`}
               >
                 Open in connections index
@@ -439,7 +479,12 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         )}
         {entry.kind === "treaty" && !entry.sources.includes(entry.source) ? (
           <p>
-            <a href={entry.source} rel="noreferrer" target="_blank">
+            <a
+              className="print-literal-url"
+              href={entry.source}
+              rel="noreferrer"
+              target="_blank"
+            >
               {entry.source}
             </a>
           </p>

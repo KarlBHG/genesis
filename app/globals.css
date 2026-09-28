@@ -391,3 +391,137 @@
     oklch(0.97 0.012 95 / 0.4)
   );
 }
+
+/* --- Print: entry and program pages as a readable, citable document --- */
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 18mm 15mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+  }
+
+  /* Decoration: ambient orbs, grain, gradients, glass, shadows. */
+  .atmosphere,
+  .page-hero-glow,
+  .site-footer-glow,
+  .home-constellation,
+  .skeleton {
+    display: none !important;
+  }
+
+  .glass-panel,
+  .dashboard-canvas,
+  .page-hero,
+  .atlas-page-header,
+  [class*="backdrop-blur"] {
+    background: none !important;
+    border-color: #999 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Navigation and controls: nothing a reader can click on paper. */
+  nav,
+  button:not([data-print-keep]),
+  [role="dialog"],
+  [role="group"],
+  [data-slot="toggle-group"],
+  [data-print-hide] {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block;
+    font-size: 8pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #444;
+  }
+
+  /* Muted greys wash out on paper; sources and quotations must stay legible. */
+  .text-muted-foreground,
+  .entry-quotation {
+    color: #333 !important;
+  }
+
+  .entry-quotation {
+    font-style: italic;
+  }
+
+  /* Every collapsed group opens: a printed record hides nothing. */
+  details > summary {
+    list-style: none;
+    font-weight: 600;
+  }
+
+  details::details-content {
+    content-visibility: visible !important;
+    display: block !important;
+    block-size: auto !important;
+  }
+
+  details > summary ~ * {
+    display: revert !important;
+  }
+
+  .entry-edge-preview {
+    display: none !important;
+  }
+
+  /* Expand link targets so a citation survives the page. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8.5pt;
+    color: #444;
+    word-break: break-all;
+  }
+
+  a[href^="/"]::after {
+    content: " [" attr(href) "]";
+    font-size: 8.5pt;
+    color: #444;
+  }
+
+  /* Links that already print their own URL must not print it twice. */
+  a.print-literal-url::after,
+  a[href^="#"]::after,
+  a[href^="mailto:"]::after {
+    content: "" !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid-page;
+  }
+
+  li,
+  tr,
+  blockquote,
+  [data-slot="card"] {
+    break-inside: avoid;
+  }
+
+  .atlas-page,
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+}

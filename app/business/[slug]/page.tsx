@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { EntryDetail } from "@/components/entry-detail";
 import { getSectors } from "@/lib/content";
+import { entryMetadata, notFoundMetadata } from "@/lib/entry-metadata";
 
 type Params = { slug: string };
 
@@ -19,8 +20,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const sector = getSectors().find((entry) => entry.slug === slug);
-  if (!sector) return { title: "Not found" };
-  return { title: sector.title, description: sector.summary };
+  if (!sector) return notFoundMetadata;
+  return entryMetadata(sector);
 }
 
 export default async function SectorPage({

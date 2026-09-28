@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { EntryDetail } from "@/components/entry-detail";
 import { ProgramInvoiceBridge } from "@/components/program-invoice-bridge";
 import { getFlows } from "@/lib/content";
+import { entryMetadata, notFoundMetadata } from "@/lib/entry-metadata";
 
 type Params = { slug: string };
 
@@ -20,8 +21,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const flow = getFlows().find((entry) => entry.slug === slug);
-  if (!flow) return { title: "Not found" };
-  return { title: flow.title, description: flow.summary };
+  if (!flow) return notFoundMetadata;
+  return entryMetadata(flow);
 }
 
 export default async function FlowPage({

@@ -1,34 +1,64 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 
-import { InstitutionBrowser } from "@/components/institution-browser";
+import { EntryIndexBrowser } from "@/components/entry-index-browser";
+import { PageHero } from "@/components/page-hero";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getInstitutions } from "@/lib/content";
+import { buildFacet, labelMap, toIndexItem } from "@/lib/index-items";
 
 export const metadata: Metadata = {
   title: "Institutions",
-  description: "Institutions in the Iceland system map.",
+  description:
+    "Public bodies in the Iceland system map, grouped by the role their own founding text gives them.",
 };
 
 export default function InstitutionsPage() {
-  const items = getInstitutions()
-    .slice()
-    .sort((a, b) => a.title.localeCompare(b.title, "en"))
-    .map((institution) => ({
-      title: institution.title,
-      href: `/institutions/${institution.slug}`,
-      summary: institution.summary,
-      role: institution.role,
-      founded: institution.founded,
-    }));
+  const institutions = getInstitutions();
+  const items = institutions.map((institution) =>
+    toIndexItem(institution, {
+      role: [institution.role],
+      type: [institution.type],
+    }),
+  );
+  const facets = [
+    buildFacet(
+      "role",
+      "Role",
+      "any",
+      institutions.map((institution) => institution.role),
+    ),
+    buildFacet(
+      "type",
+      "Record type",
+      "any",
+      institutions.map((institution) => institution.type),
+    ),
+  ].filter((facet) => facet !== null);
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6">
-      <header className="flex max-w-3xl flex-col gap-2">
-        <h1 className="text-3xl font-medium tracking-tight">Institutions</h1>
-        <p className="text-muted-foreground">
-          Public bodies, grouped by role. Seðlabanki Íslands keeps its name.
-        </p>
-      </header>
-      <InstitutionBrowser items={items} />
+    <main className="dashboard-canvas min-w-0">
+      <PageHero
+        description="Public bodies, grouped by role. Seðlabanki Íslands keeps its name. Filters and sort order are written to the address bar, so a filtered view is a shareable link."
+        eyebrow={`${institutions.length} records · sourced`}
+        title="Institutions"
+      />
+      <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-10 sm:px-6">
+        <Suspense fallback={<Skeleton className="h-64 w-full rounded-2xl" />}>
+          <EntryIndexBrowser
+            defaultSort="title"
+            facets={facets}
+            groupBy="role"
+            groupLabels={labelMap(
+              institutions.map((institution) => institution.role),
+            )}
+            items={items}
+            noun="institutions"
+            searchLabel="Find an institution"
+            sorts={["title", "date", "date-desc", "connections"]}
+          />
+        </Suspense>
+      </div>
     </main>
   );
 }

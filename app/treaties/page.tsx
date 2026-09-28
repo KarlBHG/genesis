@@ -1,39 +1,46 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { EntryIndexBrowser } from "@/components/entry-index-browser";
 import { PageHero } from "@/components/page-hero";
-import { TreatyBrowser } from "@/components/treaty-browser";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getTreaties } from "@/lib/content";
-import { dateSortKey } from "@/lib/format";
+import { buildFacet, labelMap, toIndexItem } from "@/lib/index-items";
 
 export const metadata: Metadata = {
   title: "Treaties",
-  description: "Treaties in the Iceland system map.",
+  description:
+    "Agreements Iceland is party to, with the signing date, status, and topics each text states.",
 };
 
 export default function TreatiesPage() {
   const treaties = getTreaties();
-  const items = treaties
-    .slice()
-    .sort((a, b) => dateSortKey(a.signed).localeCompare(dateSortKey(b.signed)))
-    .map((treaty) => ({
-      title: treaty.title,
-      href: `/treaties/${treaty.slug}`,
-      summary: treaty.summary,
-      status: treaty.status,
-      topics: treaty.topics,
-      signed: treaty.signed,
-    }));
+  const items = treaties.map((treaty) =>
+    toIndexItem(treaty, {
+      status: [treaty.status],
+      topic: treaty.topics,
+      type: [treaty.type],
+    }),
+  );
+  const facets = [
+    buildFacet("topic", "Topics", "all", treaties.flatMap((t) => t.topics)),
+    buildFacet("type", "Instrument", "any", treaties.map((t) => t.type)),
+    buildFacet("status", "Status", "any", treaties.map((t) => t.status)),
+  ].filter((facet) => facet !== null);
 
   return (
     <main className="dashboard-canvas min-w-0">
       <PageHero
         description={
           <>
-            Agreements Iceland is party to, grouped by status. Topics can be
-            combined. For security, EEA/EFTA, trade, and crisis commitments by
-            theme, see{" "}
-            <Link className="text-foreground underline underline-offset-4" href="/obligations">
+            Agreements Iceland is party to. Topics are matched together, so two
+            that never share a treaty return nothing. For security, EEA/EFTA,
+            trade, and crisis commitments by theme, see{" "}
+            <Link
+              className="text-foreground underline underline-offset-4"
+              href="/obligations"
+            >
               Obligations
             </Link>
             .
@@ -44,7 +51,18 @@ export default function TreatiesPage() {
         title="Treaties"
       />
       <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-10 sm:px-6">
-        <TreatyBrowser items={items} />
+        <Suspense fallback={<Skeleton className="h-64 w-full rounded-2xl" />}>
+          <EntryIndexBrowser
+            defaultSort="date"
+            facets={facets}
+            groupBy="status"
+            groupLabels={labelMap(treaties.map((treaty) => treaty.status))}
+            items={items}
+            noun="treaties"
+            searchLabel="Find a treaty"
+            sorts={["title", "date", "date-desc", "connections"]}
+          />
+        </Suspense>
       </div>
     </main>
   );
