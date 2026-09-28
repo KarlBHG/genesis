@@ -28,7 +28,8 @@ export type PlaceId =
   | "akranes"
   | "fjardabyggd"
   | "vestmannaeyjar"
-  | "seltjarnarnes";
+  | "seltjarnarnes"
+  | "hvanneyri";
 
 export type Place = {
   id: PlaceId;
@@ -129,6 +130,7 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "ruv", layer: "companies", place: "reykjavik" },
   { slug: "landsnet", layer: "companies", place: "reykjavik" },
   { slug: "il-sjodur", layer: "state", place: "reykjavik" },
+  { slug: "orkuveita-reykjavikur", layer: "companies", place: "reykjavik" },
   { slug: "orka-natturunnar", layer: "companies", place: "reykjavik" },
   { slug: "on-power", layer: "companies", place: "reykjavik" },
   { slug: "competition-authority", layer: "state", place: "reykjavik" },
@@ -136,12 +138,18 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "fjarskiptastofa", layer: "state", place: "reykjavik" },
   { slug: "umhverfis-og-orkustofnun", layer: "state", place: "reykjavik" },
   { slug: "natturuverndarstofnun", layer: "state", place: "reykjavik" },
+  { slug: "hagstofa-islands", layer: "state", place: "reykjavik" },
+  { slug: "skatturinn", layer: "state", place: "reykjavik" },
+  { slug: "fiskistofa", layer: "state", place: "hafnarfjordur" },
+  { slug: "rikisendurskodun", layer: "state", place: "reykjavik" },
   { slug: "courts", layer: "state", place: "reykjavik" },
   { slug: "haestirettur", layer: "state", place: "reykjavik" },
   { slug: "landsrettur", layer: "state", place: "reykjavik" },
   { slug: "heradsdomstolar", layer: "state", place: "reykjavik" },
   { slug: "domstolasyslan", layer: "state", place: "reykjavik" },
   { slug: "haskoli-islands", layer: "state", place: "reykjavik" },
+  { slug: "haskolinn-a-akureyri", layer: "state", place: "akureyri" },
+  { slug: "landbunadarhaskoli-islands", layer: "state", place: "hvanneyri" },
   { slug: "embaetti-landlaeknis", layer: "state", place: "reykjavik" },
   { slug: "samband-islenskra-sveitarfelaga", layer: "state", place: "reykjavik" },
   { slug: "reykjavikurborg", layer: "state", place: "reykjavik" },

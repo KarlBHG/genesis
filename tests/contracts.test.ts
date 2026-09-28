@@ -42,6 +42,11 @@ import {
   INVOICE_PROGRAM_PILOT_BUYERS,
   paysEdgesForProgram,
 } from "@/lib/invoice-budget";
+import {
+  PUBLIC_ENTITY_CATEGORIES,
+  getPublicEntityCoverage,
+  summarizePublicEntityCoverage,
+} from "@/lib/public-entities";
 import type { Edge } from "@/lib/types";
 
 const ROOT = process.cwd();
@@ -187,6 +192,76 @@ describe("map membership", () => {
       (slug) => !mapSlugs.has(slug) && !officeIds.has(slug),
     );
     expect(unmapped.length).toBeLessThanOrEqual(70);
+  });
+});
+
+describe("public-entity inventory (phase 1)", () => {
+  it("keeps the canonical list in the catalog with unique slugs", () => {
+    const rows = getPublicEntityCoverage();
+    expect(rows.length).toBeGreaterThanOrEqual(61);
+    const slugs = rows.map((row) => row.slug);
+    expect(new Set(slugs).size).toBe(rows.length);
+    for (const row of rows) {
+      expect(row.inCatalog, `${row.slug} missing from catalog`).toBe(true);
+    }
+  });
+
+  it("keeps map and typed linkage coverage complete", () => {
+    const rows = getPublicEntityCoverage();
+    for (const row of rows) {
+      if (row.mapMode === "office-only") continue;
+      expect(row.mapped, `${row.slug} missing map pin`).toBe(true);
+      expect(
+        row.typedLinkage,
+        `${row.slug} has no direct or office typed linkage`,
+      ).toBe(true);
+    }
+  });
+
+  it("ratchets category floors for breadth", () => {
+    const summary = summarizePublicEntityCoverage();
+    expect(summary.map((row) => row.category)).toEqual(PUBLIC_ENTITY_CATEGORIES);
+    const floorByCategory = {
+      state: 14,
+      "agencies-regulators": 14,
+      courts: 5,
+      universities: 3,
+      municipalities: 12,
+      "public-companies-funds": 10,
+      "political-parties": 3,
+    } as const;
+    for (const row of summary) {
+      const floor = floorByCategory[row.category];
+      expect(row.total, `${row.category} total`).toBeGreaterThanOrEqual(floor);
+      expect(row.mapped, `${row.category} mapped`).toBeGreaterThanOrEqual(floor);
+      expect(
+        row.typedLinked,
+        `${row.category} typed-linked`,
+      ).toBeGreaterThanOrEqual(floor);
+    }
+  });
+
+  it("ratchets office-linked depth and high-impact edge density", () => {
+    const rows = getPublicEntityCoverage();
+    const bySlug = new Map(rows.map((row) => [row.slug, row]));
+    expect(rows.filter((row) => row.officeLinked).length).toBeGreaterThanOrEqual(
+      20,
+    );
+    const floors = {
+      althingi: 10,
+      "ministry-of-finance": 16,
+      "prime-ministers-office": 11,
+      "ministry-of-industries": 5,
+      landsvirkjun: 8,
+    } as const;
+    for (const [slug, floor] of Object.entries(floors)) {
+      const row = bySlug.get(slug);
+      expect(row, `${slug} missing from public-entity inventory`).toBeDefined();
+      expect(
+        row!.directTypedLinks,
+        `${slug} direct typed links`,
+      ).toBeGreaterThanOrEqual(floor);
+    }
   });
 });
 

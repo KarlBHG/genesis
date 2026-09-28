@@ -8,6 +8,7 @@ const ROUTES = [
   "/anomalies",
   "/methodology",
   "/connections",
+  "/public-entities",
   "/obligations",
   "/treaties",
   "/institutions",

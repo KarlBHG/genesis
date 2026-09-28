@@ -12,6 +12,7 @@ npm run dev -- --hostname 0.0.0.0 --port 38471
 ```
 
 Open [http://127.0.0.1:38471](http://127.0.0.1:38471) for the **dashboard** (home). Use **System** for how to read the map; **Overview** for the budget drawing and search. **Budget** (`/money`) lists the 35 policy areas for 2026 plus trade and Treasury flows; `/programs` redirects to the programs section on that page. **Evidence** (`/anomalies`) filters contradictions, field changes from `data/changes.json`, repeated invoices, and audit sentences. Connections groups edges into the seven map views. The map opens with Authority, Ownership, and Trade on.
+Public-entity coverage is listed on **Public entities** (`/public-entities`), with per-entity badges for catalog presence, map pinning, typed links, and office linkage.
 
 ## Content
 

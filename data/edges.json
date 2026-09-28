@@ -1974,7 +1974,7 @@
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
     "quotation": "06 Dómsmálaráðuneyti; 10 Rétt. einstakl., trúmál og stjórnsýsla dómsmála; Heildar-fjárheimild 20.524,0; Framlag úr ríkissjóði 20.189,0",
     "amount": {
-      "value": 20524.0,
+      "value": 20524,
       "unit": "mkr",
       "basis": "authorisation",
       "quotation": "Heildar-fjárheimild 20.524,0"
@@ -2170,7 +2170,7 @@
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
     "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 19 Fjölmiðlun; Heildar-fjárheimild 7.476,0; Framlag úr ríkissjóði 7.476,0",
     "amount": {
-      "value": 7476.0,
+      "value": 7476,
       "unit": "mkr",
       "basis": "authorisation",
       "quotation": "Heildar-fjárheimild 7.476,0"
@@ -2198,7 +2198,7 @@
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
     "quotation": "04 Atvinnuvegaráðuneyti; 21 Háskólastig; Heildar-fjárheimild 232,0; Framlag úr ríkissjóði 232,0",
     "amount": {
-      "value": 232.0,
+      "value": 232,
       "unit": "mkr",
       "basis": "authorisation",
       "quotation": "Heildar-fjárheimild 232,0"
@@ -2380,7 +2380,7 @@
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
     "quotation": "06 Dómsmálaráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 984,0; Framlag úr ríkissjóði 439,0",
     "amount": {
-      "value": 984.0,
+      "value": 984,
       "unit": "mkr",
       "basis": "authorisation",
       "quotation": "Heildar-fjárheimild 984,0"
@@ -2422,7 +2422,7 @@
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
     "quotation": "09 Fjármála- og efnahagsráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 21.000,0; Framlag úr ríkissjóði 21.000,0",
     "amount": {
-      "value": 21000.0,
+      "value": 21000,
       "unit": "mkr",
       "basis": "authorisation",
       "quotation": "Heildar-fjárheimild 21.000,0"
@@ -2464,7 +2464,7 @@
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
     "quotation": "09 Fjármála- og efnahagsráðuneyti; 31 Húsnæðis- og skipulagsmál; Heildar-fjárheimild 800,0; Framlag úr ríkissjóði 800,0",
     "amount": {
-      "value": 800.0,
+      "value": 800,
       "unit": "mkr",
       "basis": "authorisation",
       "quotation": "Heildar-fjárheimild 800,0"
@@ -4088,5 +4088,37 @@
     "asOf": "undated on the English page",
     "source": "https://www.government.is/ministries/ministry-of-infrastructure/about-the-ministry/",
     "quotation": "The English page says the responsibilities cover transport, local government, regional policy, telecommunications, and postal matters."
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "skatturinn",
+    "type": "regulates",
+    "asOf": "undated on https://www.stjornarradid.is/raduneyti/stofnanir",
+    "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
+    "quotation": "Stofnanaskra Stjornarradsins places Skatturinn under Fjarmala- og efnahagsraduneytid."
+  },
+  {
+    "from": "prime-ministers-office",
+    "to": "hagstofa-islands",
+    "type": "regulates",
+    "asOf": "undated on https://www.stjornarradid.is/raduneyti/stofnanir",
+    "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
+    "quotation": "Stofnanaskra Stjornarradsins places Hagstofa Islands under Forsaetisraduneytid."
+  },
+  {
+    "from": "ministry-of-industries",
+    "to": "fiskistofa",
+    "type": "regulates",
+    "asOf": "undated on https://www.sfs.is/en/efni/fisheries-management",
+    "source": "https://www.sfs.is/en/efni/fisheries-management",
+    "quotation": "The Ministry of Industries and Innovations sets the TAC and issues fisheries regulations. The Directorate of Fisheries then allots quotas."
+  },
+  {
+    "from": "althingi",
+    "to": "rikisendurskodun",
+    "type": "regulates",
+    "asOf": "undated on https://www.rikisendurskodun.is/um-rikisendurskodun",
+    "source": "https://www.rikisendurskodun.is/um-rikisendurskodun",
+    "quotation": "Rikisendurskodun says it operates on behalf of Althingi and audits state finances and state entities."
   }
 ]

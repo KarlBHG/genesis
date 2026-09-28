@@ -34,7 +34,11 @@ export default function SystemPage() {
       <header className="flex max-w-reading flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">How the system operates</h1>
         <p className="text-muted-foreground">
-          The records below are sentences from pages opened for this pass. A country named as a trade partner is not a company, and a legal form on the registry is not an influence score. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
+          The records below are sentences from pages opened for this pass. A country named as a trade partner is not a company, and a legal form on the registry is not an influence score. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>. Public-entity coverage is tracked on{" "}
+          <Link className="underline underline-offset-4" href="/public-entities">
+            Public entities
+          </Link>
+          .
         </p>
       </header>
 
