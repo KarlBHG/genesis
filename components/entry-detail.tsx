@@ -29,6 +29,7 @@ import { groupEdges } from "@/lib/connection-groups";
 import { uniqueProgramNullReasons } from "@/lib/invoice-budget";
 import { compareAsOf } from "@/lib/as-of";
 import { factStrip } from "@/lib/entry-facts";
+import { mapFocusHref } from "@/lib/map-focus";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
 import type { Edge, Entry } from "@/lib/types";
 import { icelandicLang } from "@/lib/lang";
@@ -315,6 +316,7 @@ function FactStrip({ entry }: { entry: Entry }) {
 export function EntryDetail({ entry }: { entry: Entry }) {
   const section = kindLabel(entry.kind);
   const { out, inn } = edgesFor(entry.slug);
+  const mapHref = mapFocusHref(entry.slug);
 
   return (
     <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-8 px-4 py-8 sm:px-6">
@@ -359,6 +361,16 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           >
             Export JSON
           </Button>
+          {mapHref ? (
+            <Button
+              nativeButton={false}
+              render={<Link href={mapHref} />}
+              size="sm"
+              variant="outline"
+            >
+              Open on map
+            </Button>
+          ) : null}
         </div>
         <h1 className="text-3xl font-medium tracking-tight sm:text-4xl">
           {entry.title}

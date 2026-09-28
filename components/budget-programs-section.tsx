@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { BudgetPolicyMagnitude } from "@/components/budget-policy-magnitude";
 import { EntryIndex } from "@/components/entry-index";
 import { getPolicyAreas, hrefFor } from "@/lib/content";
 import { icelandicLang } from "@/lib/lang";
@@ -27,6 +28,7 @@ export function BudgetProgramsSection() {
       className="flex min-w-0 flex-col gap-8 scroll-mt-24"
       id="government-programs"
     >
+      <BudgetPolicyMagnitude />
       <div className="glass-panel flex max-w-reading flex-col gap-3 rounded-2xl p-6">
         <h2 className="font-serif text-xl font-medium">Government programs, 2026</h2>
         <p className="text-sm leading-6 text-muted-foreground">

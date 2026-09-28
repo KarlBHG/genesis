@@ -310,7 +310,7 @@ describe("edge amounts are source-bound", () => {
       expect((row.amount as { unit: string }).unit).toBe("ISK");
       expect((row.amount as { basis: string }).basis).toBe("invoice");
     }
-    expect(getEdges().filter((edge) => edge.amount)).toHaveLength(27);
+    expect(getEdges().filter((edge) => edge.amount)).toHaveLength(86);
   });
 
   it("leaves amount off every row whose quotation prints no figure", () => {

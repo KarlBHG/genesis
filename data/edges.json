@@ -1748,7 +1748,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "00 Æðsta stjórn ríkisins; 01 Alþingi og eftirlitsstofnanir þess; Heildar-fjárheimild 6.999,5; Framlag úr ríkissjóði 6.790,3"
+    "quotation": "00 Æðsta stjórn ríkisins; 01 Alþingi og eftirlitsstofnanir þess; Heildar-fjárheimild 6.999,5; Framlag úr ríkissjóði 6.790,3",
+    "amount": {
+      "value": 6999.5,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 6.999,5"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1756,7 +1762,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "00 Æðsta stjórn ríkisins; 02 Dómstólar; Heildar-fjárheimild 296,7; Framlag úr ríkissjóði 296,7"
+    "quotation": "00 Æðsta stjórn ríkisins; 02 Dómstólar; Heildar-fjárheimild 296,7; Framlag úr ríkissjóði 296,7",
+    "amount": {
+      "value": 296.7,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 296,7"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1764,7 +1776,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "06 Dómsmálaráðuneyti; 02 Dómstólar; Heildar-fjárheimild 4.305,6; Framlag úr ríkissjóði 4.303,9"
+    "quotation": "06 Dómsmálaráðuneyti; 02 Dómstólar; Heildar-fjárheimild 4.305,6; Framlag úr ríkissjóði 4.303,9",
+    "amount": {
+      "value": 4305.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 4.305,6"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1772,7 +1790,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "00 Æðsta stjórn ríkisins; 03 Æðsta stjórnsýsla; Heildar-fjárheimild 1.273,4; Framlag úr ríkissjóði 1.273,4"
+    "quotation": "00 Æðsta stjórn ríkisins; 03 Æðsta stjórnsýsla; Heildar-fjárheimild 1.273,4; Framlag úr ríkissjóði 1.273,4",
+    "amount": {
+      "value": 1273.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 1.273,4"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1780,7 +1804,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "01 Forsætisráðuneyti; 03 Æðsta stjórnsýsla; Heildar-fjárheimild 1.959,6; Framlag úr ríkissjóði 1.959,6"
+    "quotation": "01 Forsætisráðuneyti; 03 Æðsta stjórnsýsla; Heildar-fjárheimild 1.959,6; Framlag úr ríkissjóði 1.959,6",
+    "amount": {
+      "value": 1959.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 1.959,6"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1788,7 +1818,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "03 Utanríkisráðuneyti; 04 Utanríkismál; Heildar-fjárheimild 23.154,3; Framlag úr ríkissjóði 22.447,2"
+    "quotation": "03 Utanríkisráðuneyti; 04 Utanríkismál; Heildar-fjárheimild 23.154,3; Framlag úr ríkissjóði 22.447,2",
+    "amount": {
+      "value": 23154.3,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 23.154,3"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1796,7 +1832,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "09 Fjármála- og efnahagsráðuneyti; 05 Skatta-, eigna- og fjármálaumsýsla; Heildar-fjárheimild 29.831,8; Framlag úr ríkissjóði 23.594,1"
+    "quotation": "09 Fjármála- og efnahagsráðuneyti; 05 Skatta-, eigna- og fjármálaumsýsla; Heildar-fjárheimild 29.831,8; Framlag úr ríkissjóði 23.594,1",
+    "amount": {
+      "value": 29831.8,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 29.831,8"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1804,7 +1846,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "01 Forsætisráðuneyti; 06 Hagskýrslugerð og grunnskrár; Heildar-fjárheimild 2.082,1; Framlag úr ríkissjóði 1.841,2"
+    "quotation": "01 Forsætisráðuneyti; 06 Hagskýrslugerð og grunnskrár; Heildar-fjárheimild 2.082,1; Framlag úr ríkissjóði 1.841,2",
+    "amount": {
+      "value": 2082.1,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 2.082,1"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1812,7 +1860,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "06 Dómsmálaráðuneyti; 06 Hagskýrslugerð og grunnskrár; Heildar-fjárheimild 1.298,5; Framlag úr ríkissjóði 840,3"
+    "quotation": "06 Dómsmálaráðuneyti; 06 Hagskýrslugerð og grunnskrár; Heildar-fjárheimild 1.298,5; Framlag úr ríkissjóði 840,3",
+    "amount": {
+      "value": 1298.5,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 1.298,5"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1820,7 +1874,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "09 Fjármála- og efnahagsráðuneyti; 06 Hagskýrslugerð og grunnskrár; Heildar-fjárheimild 59,9; Framlag úr ríkissjóði 59,9"
+    "quotation": "09 Fjármála- og efnahagsráðuneyti; 06 Hagskýrslugerð og grunnskrár; Heildar-fjárheimild 59,9; Framlag úr ríkissjóði 59,9",
+    "amount": {
+      "value": 59.9,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 59,9"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1828,7 +1888,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "04 Atvinnuvegaráðuneyti; 07 Nýsköpun, rannsóknir og þekkingargreinar; Heildar-fjárheimild 565,2; Framlag úr ríkissjóði 543,7"
+    "quotation": "04 Atvinnuvegaráðuneyti; 07 Nýsköpun, rannsóknir og þekkingargreinar; Heildar-fjárheimild 565,2; Framlag úr ríkissjóði 543,7",
+    "amount": {
+      "value": 565.2,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 565,2"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1836,7 +1902,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 07 Nýsköpun, rannsóknir og þekkingargreinar; Heildar-fjárheimild 36.621,2; Framlag úr ríkissjóði 35.645,0"
+    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 07 Nýsköpun, rannsóknir og þekkingargreinar; Heildar-fjárheimild 36.621,2; Framlag úr ríkissjóði 35.645,0",
+    "amount": {
+      "value": 36621.2,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 36.621,2"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1844,7 +1916,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "01 Forsætisráðuneyti; 08 Sveitarfélög og byggðamál; Heildar-fjárheimild 65,9; Framlag úr ríkissjóði 65,9"
+    "quotation": "01 Forsætisráðuneyti; 08 Sveitarfélög og byggðamál; Heildar-fjárheimild 65,9; Framlag úr ríkissjóði 65,9",
+    "amount": {
+      "value": 65.9,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 65,9"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1852,7 +1930,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "10 Innviðaráðuneyti; 08 Sveitarfélög og byggðamál; Heildar-fjárheimild 39.362,8; Framlag úr ríkissjóði 39.362,8"
+    "quotation": "10 Innviðaráðuneyti; 08 Sveitarfélög og byggðamál; Heildar-fjárheimild 39.362,8; Framlag úr ríkissjóði 39.362,8",
+    "amount": {
+      "value": 39362.8,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 39.362,8"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1860,7 +1944,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "01 Forsætisráðuneyti; 09 Almanna- og réttaröryggi; Heildar-fjárheimild 392,5; Framlag úr ríkissjóði 380,7"
+    "quotation": "01 Forsætisráðuneyti; 09 Almanna- og réttaröryggi; Heildar-fjárheimild 392,5; Framlag úr ríkissjóði 380,7",
+    "amount": {
+      "value": 392.5,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 392,5"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1868,7 +1958,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "06 Dómsmálaráðuneyti; 09 Almanna- og réttaröryggi; Heildar-fjárheimild 49.741,7; Framlag úr ríkissjóði 46.964,5"
+    "quotation": "06 Dómsmálaráðuneyti; 09 Almanna- og réttaröryggi; Heildar-fjárheimild 49.741,7; Framlag úr ríkissjóði 46.964,5",
+    "amount": {
+      "value": 49741.7,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 49.741,7"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1876,7 +1972,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "06 Dómsmálaráðuneyti; 10 Rétt. einstakl., trúmál og stjórnsýsla dómsmála; Heildar-fjárheimild 20.524,0; Framlag úr ríkissjóði 20.189,0"
+    "quotation": "06 Dómsmálaráðuneyti; 10 Rétt. einstakl., trúmál og stjórnsýsla dómsmála; Heildar-fjárheimild 20.524,0; Framlag úr ríkissjóði 20.189,0",
+    "amount": {
+      "value": 20524.0,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 20.524,0"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1884,7 +1986,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 10 Rétt. einstakl., trúmál og stjórnsýsla dómsmála; Heildar-fjárheimild 3.033,3; Framlag úr ríkissjóði 3.033,3"
+    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 10 Rétt. einstakl., trúmál og stjórnsýsla dómsmála; Heildar-fjárheimild 3.033,3; Framlag úr ríkissjóði 3.033,3",
+    "amount": {
+      "value": 3033.3,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 3.033,3"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1892,7 +2000,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "10 Innviðaráðuneyti; 11 Samgöngu- og fjarskiptamál; Heildar-fjárheimild 76.217,8; Framlag úr ríkissjóði 73.316,2"
+    "quotation": "10 Innviðaráðuneyti; 11 Samgöngu- og fjarskiptamál; Heildar-fjárheimild 76.217,8; Framlag úr ríkissjóði 73.316,2",
+    "amount": {
+      "value": 76217.8,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 76.217,8"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1900,7 +2014,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "04 Atvinnuvegaráðuneyti; 12 Landbúnaður; Heildar-fjárheimild 25.566,9; Framlag úr ríkissjóði 24.461,0"
+    "quotation": "04 Atvinnuvegaráðuneyti; 12 Landbúnaður; Heildar-fjárheimild 25.566,9; Framlag úr ríkissjóði 24.461,0",
+    "amount": {
+      "value": 25566.9,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 25.566,9"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1908,7 +2028,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "04 Atvinnuvegaráðuneyti; 13 Sjávarútvegur og fiskeldi; Heildar-fjárheimild 8.900,6; Framlag úr ríkissjóði 6.763,6"
+    "quotation": "04 Atvinnuvegaráðuneyti; 13 Sjávarútvegur og fiskeldi; Heildar-fjárheimild 8.900,6; Framlag úr ríkissjóði 6.763,6",
+    "amount": {
+      "value": 8900.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 8.900,6"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1916,7 +2042,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "04 Atvinnuvegaráðuneyti; 14 Ferðaþjónusta; Heildar-fjárheimild 2.402,6; Framlag úr ríkissjóði 2.356,3"
+    "quotation": "04 Atvinnuvegaráðuneyti; 14 Ferðaþjónusta; Heildar-fjárheimild 2.402,6; Framlag úr ríkissjóði 2.356,3",
+    "amount": {
+      "value": 2402.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 2.402,6"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1924,7 +2056,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "14 Umhverfis-, orku- og loftslagsráðuneyti; 15 Orkumál; Heildar-fjárheimild 11.586,6; Framlag úr ríkissjóði 11.586,6"
+    "quotation": "14 Umhverfis-, orku- og loftslagsráðuneyti; 15 Orkumál; Heildar-fjárheimild 11.586,6; Framlag úr ríkissjóði 11.586,6",
+    "amount": {
+      "value": 11586.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 11.586,6"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1932,7 +2070,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "04 Atvinnuvegaráðuneyti; 16 Markaðseftirlit og neytendamál; Heildar-fjárheimild 1.293,2; Framlag úr ríkissjóði 1.263,2"
+    "quotation": "04 Atvinnuvegaráðuneyti; 16 Markaðseftirlit og neytendamál; Heildar-fjárheimild 1.293,2; Framlag úr ríkissjóði 1.263,2",
+    "amount": {
+      "value": 1293.2,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 1.293,2"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1940,7 +2084,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "09 Fjármála- og efnahagsráðuneyti; 16 Markaðseftirlit og neytendamál; Heildar-fjárheimild 3.602,4; Framlag úr ríkissjóði 3.602,4"
+    "quotation": "09 Fjármála- og efnahagsráðuneyti; 16 Markaðseftirlit og neytendamál; Heildar-fjárheimild 3.602,4; Framlag úr ríkissjóði 3.602,4",
+    "amount": {
+      "value": 3602.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 3.602,4"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1948,7 +2098,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "01 Forsætisráðuneyti; 17 Umhverfismál; Heildar-fjárheimild 855,8; Framlag úr ríkissjóði 154,6"
+    "quotation": "01 Forsætisráðuneyti; 17 Umhverfismál; Heildar-fjárheimild 855,8; Framlag úr ríkissjóði 154,6",
+    "amount": {
+      "value": 855.8,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 855,8"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1956,7 +2112,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "14 Umhverfis-, orku- og loftslagsráðuneyti; 17 Umhverfismál; Heildar-fjárheimild 39.633,2; Framlag úr ríkissjóði 33.542,8"
+    "quotation": "14 Umhverfis-, orku- og loftslagsráðuneyti; 17 Umhverfismál; Heildar-fjárheimild 39.633,2; Framlag úr ríkissjóði 33.542,8",
+    "amount": {
+      "value": 39633.2,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 39.633,2"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1964,7 +2126,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "02 Mennta- og barnamálaráðuneyti; 18 Menning, listir, íþrótta- og æskulýðsmál; Heildar-fjárheimild 4.141,7; Framlag úr ríkissjóði 4.141,7"
+    "quotation": "02 Mennta- og barnamálaráðuneyti; 18 Menning, listir, íþrótta- og æskulýðsmál; Heildar-fjárheimild 4.141,7; Framlag úr ríkissjóði 4.141,7",
+    "amount": {
+      "value": 4141.7,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 4.141,7"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1972,7 +2140,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "14 Umhverfis-, orku- og loftslagsráðuneyti; 18 Menning, listir, íþrótta- og æskulýðsmál; Heildar-fjárheimild 824,6; Framlag úr ríkissjóði 730,3"
+    "quotation": "14 Umhverfis-, orku- og loftslagsráðuneyti; 18 Menning, listir, íþrótta- og æskulýðsmál; Heildar-fjárheimild 824,6; Framlag úr ríkissjóði 730,3",
+    "amount": {
+      "value": 824.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 824,6"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1980,7 +2154,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 18 Menning, listir, íþrótta- og æskulýðsmál; Heildar-fjárheimild 20.023,4; Framlag úr ríkissjóði 17.504,3"
+    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 18 Menning, listir, íþrótta- og æskulýðsmál; Heildar-fjárheimild 20.023,4; Framlag úr ríkissjóði 17.504,3",
+    "amount": {
+      "value": 20023.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 20.023,4"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1988,7 +2168,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 19 Fjölmiðlun; Heildar-fjárheimild 7.476,0; Framlag úr ríkissjóði 7.476,0"
+    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 19 Fjölmiðlun; Heildar-fjárheimild 7.476,0; Framlag úr ríkissjóði 7.476,0",
+    "amount": {
+      "value": 7476.0,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 7.476,0"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -1996,7 +2182,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "02 Mennta- og barnamálaráðuneyti; 20 Framhaldsskólastig; Heildar-fjárheimild 53.311,4; Framlag úr ríkissjóði 51.098,9"
+    "quotation": "02 Mennta- og barnamálaráðuneyti; 20 Framhaldsskólastig; Heildar-fjárheimild 53.311,4; Framlag úr ríkissjóði 51.098,9",
+    "amount": {
+      "value": 53311.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 53.311,4"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2004,7 +2196,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "04 Atvinnuvegaráðuneyti; 21 Háskólastig; Heildar-fjárheimild 232,0; Framlag úr ríkissjóði 232,0"
+    "quotation": "04 Atvinnuvegaráðuneyti; 21 Háskólastig; Heildar-fjárheimild 232,0; Framlag úr ríkissjóði 232,0",
+    "amount": {
+      "value": 232.0,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 232,0"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2012,7 +2210,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 21 Háskólastig; Heildar-fjárheimild 72.938,4; Framlag úr ríkissjóði 55.409,0"
+    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 21 Háskólastig; Heildar-fjárheimild 72.938,4; Framlag úr ríkissjóði 55.409,0",
+    "amount": {
+      "value": 72938.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 72.938,4"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2020,7 +2224,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "02 Mennta- og barnamálaráðuneyti; 22 Önnur skólastig og stjórnsýsla mennta- og barnamála; Heildar-fjárheimild 6.513,7; Framlag úr ríkissjóði 6.142,2"
+    "quotation": "02 Mennta- og barnamálaráðuneyti; 22 Önnur skólastig og stjórnsýsla mennta- og barnamála; Heildar-fjárheimild 6.513,7; Framlag úr ríkissjóði 6.142,2",
+    "amount": {
+      "value": 6513.7,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 6.513,7"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2028,7 +2238,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 22 Önnur skólastig og stjórnsýsla mennta- og barnamála; Heildar-fjárheimild 359,4; Framlag úr ríkissjóði 303,4"
+    "quotation": "17 Menningar-, nýsköpunar- og háskólaráðuneyti; 22 Önnur skólastig og stjórnsýsla mennta- og barnamála; Heildar-fjárheimild 359,4; Framlag úr ríkissjóði 303,4",
+    "amount": {
+      "value": 359.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 359,4"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2036,7 +2252,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "08 Heilbrigðisráðuneyti; 23 Sjúkrahúsþjónusta; Heildar-fjárheimild 192.293,9; Framlag úr ríkissjóði 180.420,8"
+    "quotation": "08 Heilbrigðisráðuneyti; 23 Sjúkrahúsþjónusta; Heildar-fjárheimild 192.293,9; Framlag úr ríkissjóði 180.420,8",
+    "amount": {
+      "value": 192293.9,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 192.293,9"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2044,7 +2266,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "08 Heilbrigðisráðuneyti; 24 Heilbrigðisþjónusta utan sjúkrahúsa; Heildar-fjárheimild 102.779,1; Framlag úr ríkissjóði 101.023,6"
+    "quotation": "08 Heilbrigðisráðuneyti; 24 Heilbrigðisþjónusta utan sjúkrahúsa; Heildar-fjárheimild 102.779,1; Framlag úr ríkissjóði 101.023,6",
+    "amount": {
+      "value": 102779.1,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 102.779,1"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2052,7 +2280,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 25 Hjúkrunar- og endurhæfingarþjónusta; Heildar-fjárheimild 7.175,2; Framlag úr ríkissjóði 7.175,2"
+    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 25 Hjúkrunar- og endurhæfingarþjónusta; Heildar-fjárheimild 7.175,2; Framlag úr ríkissjóði 7.175,2",
+    "amount": {
+      "value": 7175.2,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 7.175,2"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2060,7 +2294,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "08 Heilbrigðisráðuneyti; 25 Hjúkrunar- og endurhæfingarþjónusta; Heildar-fjárheimild 86.038,7; Framlag úr ríkissjóði 81.447,4"
+    "quotation": "08 Heilbrigðisráðuneyti; 25 Hjúkrunar- og endurhæfingarþjónusta; Heildar-fjárheimild 86.038,7; Framlag úr ríkissjóði 81.447,4",
+    "amount": {
+      "value": 86038.7,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 86.038,7"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2068,7 +2308,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "08 Heilbrigðisráðuneyti; 26 Lyf og lækningavörur; Heildar-fjárheimild 45.269,9; Framlag úr ríkissjóði 45.269,9"
+    "quotation": "08 Heilbrigðisráðuneyti; 26 Lyf og lækningavörur; Heildar-fjárheimild 45.269,9; Framlag úr ríkissjóði 45.269,9",
+    "amount": {
+      "value": 45269.9,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 45.269,9"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2076,7 +2322,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 27 Örorka og málefni fatlaðs fólks; Heildar-fjárheimild 132.621,8; Framlag úr ríkissjóði 132.610,5"
+    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 27 Örorka og málefni fatlaðs fólks; Heildar-fjárheimild 132.621,8; Framlag úr ríkissjóði 132.610,5",
+    "amount": {
+      "value": 132621.8,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 132.621,8"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2084,7 +2336,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 28 Málefni aldraðra; Heildar-fjárheimild 127.566,1; Framlag úr ríkissjóði 127.557,8"
+    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 28 Málefni aldraðra; Heildar-fjárheimild 127.566,1; Framlag úr ríkissjóði 127.557,8",
+    "amount": {
+      "value": 127566.1,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 127.566,1"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2092,7 +2350,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "01 Forsætisráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 92,4; Framlag úr ríkissjóði 92,4"
+    "quotation": "01 Forsætisráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 92,4; Framlag úr ríkissjóði 92,4",
+    "amount": {
+      "value": 92.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 92,4"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2100,7 +2364,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "02 Mennta- og barnamálaráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 9.605,6; Framlag úr ríkissjóði 9.470,1"
+    "quotation": "02 Mennta- og barnamálaráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 9.605,6; Framlag úr ríkissjóði 9.470,1",
+    "amount": {
+      "value": 9605.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 9.605,6"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2108,7 +2378,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "06 Dómsmálaráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 984,0; Framlag úr ríkissjóði 439,0"
+    "quotation": "06 Dómsmálaráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 984,0; Framlag úr ríkissjóði 439,0",
+    "amount": {
+      "value": 984.0,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 984,0"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2116,7 +2392,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 47.770,4; Framlag úr ríkissjóði 47.766,4"
+    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 47.770,4; Framlag úr ríkissjóði 47.766,4",
+    "amount": {
+      "value": 47770.4,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 47.770,4"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2124,7 +2406,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "08 Heilbrigðisráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 3.122,3; Framlag úr ríkissjóði 3.010,3"
+    "quotation": "08 Heilbrigðisráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 3.122,3; Framlag úr ríkissjóði 3.010,3",
+    "amount": {
+      "value": 3122.3,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 3.122,3"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2132,7 +2420,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "09 Fjármála- og efnahagsráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 21.000,0; Framlag úr ríkissjóði 21.000,0"
+    "quotation": "09 Fjármála- og efnahagsráðuneyti; 29 Fjölskyldumál; Heildar-fjárheimild 21.000,0; Framlag úr ríkissjóði 21.000,0",
+    "amount": {
+      "value": 21000.0,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 21.000,0"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2140,7 +2434,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 30 Vinnumarkaður og atvinnuleysi; Heildar-fjárheimild 46.210,5; Framlag úr ríkissjóði 45.019,9"
+    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 30 Vinnumarkaður og atvinnuleysi; Heildar-fjárheimild 46.210,5; Framlag úr ríkissjóði 45.019,9",
+    "amount": {
+      "value": 46210.5,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 46.210,5"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2148,7 +2448,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 31 Húsnæðis- og skipulagsmál; Heildar-fjárheimild 25.101,9; Framlag úr ríkissjóði 23.434,1"
+    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 31 Húsnæðis- og skipulagsmál; Heildar-fjárheimild 25.101,9; Framlag úr ríkissjóði 23.434,1",
+    "amount": {
+      "value": 25101.9,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 25.101,9"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2156,7 +2462,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "09 Fjármála- og efnahagsráðuneyti; 31 Húsnæðis- og skipulagsmál; Heildar-fjárheimild 800,0; Framlag úr ríkissjóði 800,0"
+    "quotation": "09 Fjármála- og efnahagsráðuneyti; 31 Húsnæðis- og skipulagsmál; Heildar-fjárheimild 800,0; Framlag úr ríkissjóði 800,0",
+    "amount": {
+      "value": 800.0,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 800,0"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2164,7 +2476,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "06 Dómsmálaráðuneyti; 32 Lýðheilsa og stjórnsýsla velferðarmála; Heildar-fjárheimild 398,2; Framlag úr ríkissjóði 386,5"
+    "quotation": "06 Dómsmálaráðuneyti; 32 Lýðheilsa og stjórnsýsla velferðarmála; Heildar-fjárheimild 398,2; Framlag úr ríkissjóði 386,5",
+    "amount": {
+      "value": 398.2,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 398,2"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2172,7 +2490,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 32 Lýðheilsa og stjórnsýsla velferðarmála; Heildar-fjárheimild 4.389,5; Framlag úr ríkissjóði 4.289,5"
+    "quotation": "07 Félags- og húsnæðismálaráðuneyti; 32 Lýðheilsa og stjórnsýsla velferðarmála; Heildar-fjárheimild 4.389,5; Framlag úr ríkissjóði 4.289,5",
+    "amount": {
+      "value": 4389.5,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 4.389,5"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2180,7 +2504,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "08 Heilbrigðisráðuneyti; 32 Lýðheilsa og stjórnsýsla velferðarmála; Heildar-fjárheimild 8.186,1; Framlag úr ríkissjóði 7.163,4"
+    "quotation": "08 Heilbrigðisráðuneyti; 32 Lýðheilsa og stjórnsýsla velferðarmála; Heildar-fjárheimild 8.186,1; Framlag úr ríkissjóði 7.163,4",
+    "amount": {
+      "value": 8186.1,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 8.186,1"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2188,7 +2518,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "09 Fjármála- og efnahagsráðuneyti; 33 Fjármagnskostnaður, ábyrgðir og lífeyrisskuldbindi; Heildar-fjárheimild 81.009,6; Framlag úr ríkissjóði 43.225,8"
+    "quotation": "09 Fjármála- og efnahagsráðuneyti; 33 Fjármagnskostnaður, ábyrgðir og lífeyrisskuldbindi; Heildar-fjárheimild 81.009,6; Framlag úr ríkissjóði 43.225,8",
+    "amount": {
+      "value": 81009.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 81.009,6"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2196,7 +2532,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "19 Vaxtagjöld ríkissjóðs; 33 Fjármagnskostnaður, ábyrgðir og lífeyrisskuldbindi; Heildar-fjárheimild 125.388,6; Framlag úr ríkissjóði 89.909,1"
+    "quotation": "19 Vaxtagjöld ríkissjóðs; 33 Fjármagnskostnaður, ábyrgðir og lífeyrisskuldbindi; Heildar-fjárheimild 125.388,6; Framlag úr ríkissjóði 89.909,1",
+    "amount": {
+      "value": 125388.6,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 125.388,6"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2204,7 +2546,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "09 Fjármála- og efnahagsráðuneyti; 34 Almennur varasjóður og sértækar fjárráðstafanir; Heildar-fjárheimild 30.562,3; Framlag úr ríkissjóði 23.374,2"
+    "quotation": "09 Fjármála- og efnahagsráðuneyti; 34 Almennur varasjóður og sértækar fjárráðstafanir; Heildar-fjárheimild 30.562,3; Framlag úr ríkissjóði 23.374,2",
+    "amount": {
+      "value": 30562.3,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 30.562,3"
+    }
   },
   {
     "from": "treasury-budget-2026",
@@ -2212,7 +2560,13 @@
     "type": "funds",
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
-    "quotation": "03 Utanríkisráðuneyti; 35 Alþjóðleg þróunarsamvinna; Heildar-fjárheimild 16.372,5; Framlag úr ríkissjóði 16.367,6"
+    "quotation": "03 Utanríkisráðuneyti; 35 Alþjóðleg þróunarsamvinna; Heildar-fjárheimild 16.372,5; Framlag úr ríkissjóði 16.367,6",
+    "amount": {
+      "value": 16372.5,
+      "unit": "mkr",
+      "basis": "authorisation",
+      "quotation": "Heildar-fjárheimild 16.372,5"
+    }
   },
   {
     "from": "landspitali",

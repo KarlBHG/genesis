@@ -492,7 +492,6 @@ export function IcelandMap({
                         stroke="var(--geo-frame)"
                         strokeWidth="3"
                         paintOrder="stroke"
-                        className="max-sm:hidden"
                       >
                         {year}
                       </text>
@@ -544,7 +543,6 @@ export function IcelandMap({
                       y={point.y - 10}
                       fill="var(--geo-ink)"
                       fontSize="13"
-                      className="max-sm:hidden"
                     >
                       {place.name}
                       {cluster ? ` · ${atPlace.length} entries` : ""}
