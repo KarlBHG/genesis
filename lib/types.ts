@@ -198,6 +198,8 @@ export type AuditFinding = {
 export type ContradictionSide = {
   source: string;
   quotation: string;
+  /** What this side's page prints as its date, or "" when it prints none. */
+  asOf: string;
 };
 
 export type OfficeRecord = {

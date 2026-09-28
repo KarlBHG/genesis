@@ -1,9 +1,96 @@
 import Link from "next/link";
 
+import { AsOfFilterBar } from "@/components/provenance-as-of-filter";
+import { ProvenanceEdgeCard } from "@/components/provenance-edge";
+import {
+  emptyAsOfFilter,
+  filterByAsOf,
+  isAsOfFilterEmpty,
+  type AsOfFilter,
+} from "@/lib/as-of-filter";
+import { tradeValueNote } from "@/lib/notes";
+import { OBLIGATION_EVIDENCE_LIMIT } from "@/lib/obligation-evidence";
 import { OBLIGATION_SECTIONS } from "@/lib/obligations";
 import { obligationVisual } from "@/lib/obligation-visual";
+import type { Edge } from "@/lib/types";
 
-export function ObligationsIndex() {
+type ObligationsIndexProps = {
+  /** Typed edges behind each theme, keyed by section id. */
+  evidence?: Map<string, Edge[]>;
+  asOfFilter?: AsOfFilter;
+};
+
+function ThemeEvidence({
+  edges,
+  filter,
+  sectionId,
+}: {
+  edges: Edge[];
+  filter: AsOfFilter;
+  sectionId: string;
+}) {
+  const visible = filterByAsOf(edges, (edge) => edge.asOf, filter);
+  const shown = visible.slice(0, OBLIGATION_EVIDENCE_LIMIT);
+  const withheld = visible.length - shown.length;
+
+  return (
+    <details
+      className="relative mt-6 rounded-2xl border border-border/60 bg-background/60 p-4"
+      id={`${sectionId}-evidence`}
+    >
+      <summary className="flex cursor-pointer list-none flex-wrap items-baseline gap-2 text-sm font-medium">
+        <span>Sourced lines behind this theme</span>
+        <span className="tabular-nums text-muted-foreground">
+          {visible.length}
+          {isAsOfFilterEmpty(filter) ? "" : ` of ${edges.length}`}
+        </span>
+      </summary>
+      {edges.length === 0 ? (
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">
+          No typed connection touches these records yet. The notes above are
+          authored from the pages each item links to; a note is not a connection.
+        </p>
+      ) : visible.length === 0 ? (
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">
+          All {edges.length} lines behind this theme fall outside the current
+          as-of filter.
+        </p>
+      ) : (
+        <>
+          <ul className="mt-3 flex min-w-0 flex-col gap-3">
+            {shown.map((edge) => (
+              <ProvenanceEdgeCard
+                edge={edge}
+                key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
+                note={tradeValueNote(edge.relationship)}
+              />
+            ))}
+          </ul>
+          {withheld > 0 ? (
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              {withheld} more {withheld === 1 ? "line" : "lines"} touch these
+              records. They are on the entry pages above and in{" "}
+              <Link className="underline underline-offset-4" href="/connections">
+                Connections
+              </Link>
+              .
+            </p>
+          ) : null}
+        </>
+      )}
+    </details>
+  );
+}
+
+export function ObligationsIndex({
+  evidence,
+  asOfFilter,
+}: ObligationsIndexProps = {}) {
+  const filter = asOfFilter ?? emptyAsOfFilter();
+  const allValues = evidence
+    ? [...evidence.values()].flatMap((edges) => edges.map((edge) => edge.asOf))
+    : [];
+
   return (
     <div className="relative">
       <div className="mx-auto grid w-full max-w-shell gap-12 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,13rem)_1fr] lg:gap-16 lg:py-16">
@@ -36,6 +123,14 @@ export function ObligationsIndex() {
         </nav>
 
         <div className="flex min-w-0 flex-col gap-14">
+          {allValues.length > 0 ? (
+            <AsOfFilterBar
+              basePath="/obligations"
+              filter={filter}
+              unit="sourced lines"
+              values={allValues}
+            />
+          ) : null}
           {OBLIGATION_SECTIONS.map((section, index) => {
             const visual = obligationVisual(section.id);
             const Icon = visual.icon;
@@ -97,6 +192,13 @@ export function ObligationsIndex() {
                     <p className="relative mt-6 text-sm leading-6 text-muted-foreground">
                       {section.footnote}
                     </p>
+                  ) : null}
+                  {evidence ? (
+                    <ThemeEvidence
+                      edges={evidence.get(section.id) ?? []}
+                      filter={filter}
+                      sectionId={section.id}
+                    />
                   ) : null}
                 </article>
               </section>

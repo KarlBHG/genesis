@@ -603,6 +603,8 @@ describe("Icelandic quotations are marked up as Icelandic", () => {
   });
 
   it("marks up every surface that prints a quotation", () => {
+    /** A surface may mark up its own quotation or hand it to one of these. */
+    const DELEGATES = ["ProvenanceCard", "ProvenanceEdgeCard", "EdgeRow"];
     for (const file of [
       "app/connections/page.tsx",
       "app/system/page.tsx",
@@ -613,12 +615,16 @@ describe("Icelandic quotations are marked up as Icelandic", () => {
       "components/program-invoice-bridge.tsx",
       "components/markdown-body.tsx",
       "components/budget-programs-section.tsx",
+      "components/obligations-index.tsx",
+      "components/provenance-card.tsx",
       "components/viz/edge-row.tsx",
     ]) {
+      const source = fs.readFileSync(path.join(ROOT, file), "utf8");
       expect(
-        fs.readFileSync(path.join(ROOT, file), "utf8"),
+        source.includes("icelandicLang") ||
+          DELEGATES.some((name) => source.includes(`<${name}`)),
         `${file} prints a quotation without marking its language`,
-      ).toContain("icelandicLang");
+      ).toBe(true);
     }
   });
 });

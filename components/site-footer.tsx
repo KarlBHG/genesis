@@ -6,6 +6,7 @@ const LINKS = [
   { href: "/treaties", label: "Treaties" },
   { href: "/connections", label: "Connections" },
   { href: "/system", label: "How to read" },
+  { href: "/methodology", label: "Methodology" },
 ] as const;
 
 export function SiteFooter() {
@@ -17,7 +18,15 @@ export function SiteFooter() {
           <p className="text-sm leading-7 text-muted-foreground">
             A reading map of Icelandic treaties, institutions, events, sectors,
             money flows, and public office-holders. Every connection quotes its
-            source.
+            source — six required fields, a dated page, and no figure this
+            project made up. The contract is written out on{" "}
+            <Link
+              className="text-foreground underline underline-offset-4"
+              href="/methodology"
+            >
+              Methodology
+            </Link>
+            .
           </p>
         </div>
         <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2">

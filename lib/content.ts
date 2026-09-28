@@ -814,9 +814,15 @@ function buildContradictions(entries: Entry[]): Contradiction[] {
           );
         }
       }
+      if ("asOf" in sideRow && typeof sideRow.asOf !== "string") {
+        throw new Error(
+          `data/contradictions.json record ${index + 1} side ${sideIndex + 1} asOf must be a string`,
+        );
+      }
       return {
         source: (sideRow.source as string).trim(),
         quotation: (sideRow.quotation as string).trim(),
+        asOf: typeof sideRow.asOf === "string" ? sideRow.asOf.trim() : "",
       };
     });
     const first = sides[0];

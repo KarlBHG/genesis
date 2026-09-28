@@ -5,6 +5,7 @@ import {
   LandmarkIcon,
   MapIcon,
   ScaleIcon,
+  ScrollTextIcon,
   SearchIcon,
   ShieldIcon,
   SparklesIcon,
@@ -63,6 +64,14 @@ const PORTALS = [
     description: "Crises, accession, and turning points.",
     icon: SparklesIcon,
     accent: "from-rose-500/10 to-transparent",
+  },
+  {
+    href: "/methodology",
+    title: "Methodology",
+    description:
+      "Six required fields, as-of buckets, and what this project refuses to publish.",
+    icon: ScrollTextIcon,
+    accent: "from-slate-500/12 to-transparent",
   },
 ] as const;
 
@@ -166,6 +175,13 @@ export function HomeDashboard({
                 href="/system"
               >
                 How to read the map
+              </Link>
+              , and the sourcing contract behind it on{" "}
+              <Link
+                className="text-foreground underline underline-offset-4"
+                href="/methodology"
+              >
+                Methodology
               </Link>
               .
             </p>

@@ -1,28 +1,40 @@
-"use client";
-
 import Link from "next/link";
-import { useMemo, useState } from "react";
 
 import { edgeKey } from "@/components/connection-graph";
-import { Button } from "@/components/ui/button";
+import { AsOfFilterBar } from "@/components/provenance-as-of-filter";
+import { ProvenanceCard } from "@/components/provenance-card";
+import { ProvenanceEdgeCard } from "@/components/provenance-edge";
+import {
+  ContradictionCard,
+  contradictionAnchor,
+} from "@/components/provenance-contradiction";
+import { Badge } from "@/components/ui/badge";
+import {
+  filterByAsOf,
+  matchesAsOfFilter,
+  type AsOfFilter,
+} from "@/lib/as-of-filter";
+import {
+  contradictionAsOfValues,
+  matchesContradiction,
+  sortContradictions,
+} from "@/lib/contradictions";
+import {
+  EVIDENCE_FACETS,
+  EVIDENCE_PARAM,
+  evidenceFacetActive,
+  type EvidenceFacet,
+} from "@/lib/evidence";
 import { formatDate } from "@/lib/format";
-import type { AuditFinding, ChangeRecord, Contradiction, Edge, Entry } from "@/lib/types";
-import { icelandicLang } from "@/lib/lang";
+import type {
+  AuditFinding,
+  ChangeRecord,
+  Contradiction,
+  Edge,
+  Entry,
+} from "@/lib/types";
 
-export type EvidenceFacet =
-  | "all"
-  | "contradictions"
-  | "changes"
-  | "audits"
-  | "repeated";
-
-const FACETS: { id: EvidenceFacet; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "contradictions", label: "Contradictions" },
-  { id: "changes", label: "Changes" },
-  { id: "audits", label: "Audits" },
-  { id: "repeated", label: "Repeated invoices" },
-];
+const BASE_PATH = "/anomalies";
 
 type EvidenceRoomProps = {
   contradictions: Contradiction[];
@@ -31,10 +43,48 @@ type EvidenceRoomProps = {
   repeats: Edge[][];
   catalogBySlug: Map<string, Entry>;
   hrefForEntry: (entry: Entry) => string;
+  facet: EvidenceFacet;
+  asOfFilter: AsOfFilter;
+  /** Serialized `?asOf=` value, preserved on the facet chips. */
+  asOfParam: string;
 };
 
-function facetActive(facet: EvidenceFacet, selected: EvidenceFacet) {
-  return selected === "all" || selected === facet;
+function SectionShell({
+  anchor,
+  children,
+  count,
+  lede,
+  title,
+}: {
+  anchor: string;
+  children: React.ReactNode;
+  count: number;
+  lede: React.ReactNode;
+  title: string;
+}) {
+  return (
+    <section className="flex min-w-0 scroll-mt-24 flex-col gap-4" id={anchor}>
+      <div className="flex max-w-reading flex-col gap-2">
+        <h2 className="flex flex-wrap items-baseline gap-2 text-xl font-medium">
+          {title}
+          <span className="text-sm tabular-nums text-muted-foreground">
+            {count}
+          </span>
+        </h2>
+        <p className="text-sm leading-6 text-muted-foreground">{lede}</p>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function NothingInScope({ what }: { what: string }) {
+  return (
+    <p className="rounded-xl border border-dashed border-border/70 p-4 text-sm text-muted-foreground">
+      No {what} match the current as-of filter. Clear it above to see the whole
+      list.
+    </p>
+  );
 }
 
 export function EvidenceRoom({
@@ -44,155 +94,222 @@ export function EvidenceRoom({
   repeats,
   catalogBySlug,
   hrefForEntry,
+  facet,
+  asOfFilter,
+  asOfParam,
 }: EvidenceRoomProps) {
-  const [facet, setFacet] = useState<EvidenceFacet>("all");
+  const showContradictions = evidenceFacetActive("contradictions", facet);
+  const showChanges = evidenceFacetActive("changes", facet);
+  const showAudits = evidenceFacetActive("audits", facet);
+  const showRepeated = evidenceFacetActive("repeated", facet);
 
-  const counts = useMemo(
-    () => ({
-      contradictions: contradictions.length,
-      changes: changes.length,
-      audits: audits.length,
-      repeated: repeats.length,
-    }),
-    [audits.length, changes.length, contradictions.length, repeats.length],
+  const sortedContradictions = sortContradictions(contradictions);
+  const visibleContradictions = sortedContradictions.filter((record) =>
+    matchesContradiction(record, asOfFilter),
+  );
+  const visibleChanges = filterByAsOf(changes, (row) => row.observed, asOfFilter);
+  const visibleAudits = filterByAsOf(audits, (row) => row.published, asOfFilter);
+  const visibleRepeats = repeats.filter((group) =>
+    group.some((edge) => matchesAsOfFilter(edge.asOf, asOfFilter)),
   );
 
-  const showContradictions = facetActive("contradictions", facet);
-  const showChanges = facetActive("changes", facet);
-  const showAudits = facetActive("audits", facet);
-  const showRepeated = facetActive("repeated", facet);
+  const scopedAsOfValues = [
+    ...(showContradictions
+      ? sortedContradictions.flatMap(contradictionAsOfValues)
+      : []),
+    ...(showChanges ? changes.map((row) => row.observed) : []),
+    ...(showAudits ? audits.map((row) => row.published) : []),
+    ...(showRepeated ? repeats.flatMap((group) => group.map((e) => e.asOf)) : []),
+  ];
+
+  const counts = {
+    contradictions: contradictions.length,
+    changes: changes.length,
+    audits: audits.length,
+    repeated: repeats.length,
+  };
+
+  const facetHref = (id: EvidenceFacet, anchor: string) => {
+    const search = new URLSearchParams();
+    if (id !== "all") search.set(EVIDENCE_PARAM, id);
+    if (asOfParam) search.set("asOf", asOfParam);
+    const query = search.toString();
+    return `${BASE_PATH}${query ? `?${query}` : ""}#${anchor}`;
+  };
 
   return (
-    <div className="flex min-w-0 flex-col gap-8">
-      <div
+    <div className="flex min-w-0 flex-col gap-8" id="evidence">
+      <nav
         aria-label="Filter evidence by type"
         className="flex min-w-0 flex-wrap gap-2"
-        role="group"
       >
-        {FACETS.map((item) => (
-          <Button
-            aria-pressed={facet === item.id}
+        {EVIDENCE_FACETS.map((item) => (
+          <Link
+            aria-current={facet === item.id ? "true" : undefined}
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors ${
+              facet === item.id
+                ? "border-primary/40 bg-secondary text-secondary-foreground"
+                : "border-border/70 text-muted-foreground hover:border-primary/25 hover:text-foreground"
+            }`}
+            href={facetHref(item.id, item.anchor)}
             key={item.id}
-            onClick={() => setFacet(item.id)}
-            size="sm"
-            type="button"
-            variant={facet === item.id ? "secondary" : "outline"}
           >
             {item.label}
             {item.id !== "all" ? (
-              <span className="ml-1.5 text-muted-foreground tabular-nums">
+              <span className="tabular-nums opacity-70">
                 {counts[item.id as keyof typeof counts]}
               </span>
             ) : null}
-          </Button>
+          </Link>
         ))}
-      </div>
+      </nav>
+
+      {scopedAsOfValues.length > 0 ? (
+        <AsOfFilterBar
+          basePath={BASE_PATH}
+          filter={asOfFilter}
+          params={facet === "all" ? {} : { [EVIDENCE_PARAM]: facet }}
+          unit="stored dates"
+          values={scopedAsOfValues}
+        />
+      ) : null}
 
       {showContradictions ? (
-        <section className="flex min-w-0 flex-col gap-3" id="contradictions">
-          <h2 className="text-xl font-medium">Contradictions</h2>
-          <p className="text-sm text-muted-foreground">
-            Two sourced sentences about the same entries, kept side by side. Both
-            sentences stay.
-          </p>
+        <SectionShell
+          anchor="contradictions"
+          count={visibleContradictions.length}
+          lede={
+            <>
+              A contradiction is the unit here: two sourced sentences about the
+              same records that cannot both be the whole story. Each card shows
+              both quotations, each side’s own as-of value, and the records the
+              disagreement lands on. None of them is resolved, and none is
+              averaged away.
+            </>
+          }
+          title="Contradictions"
+        >
           {contradictions.length === 0 ? (
             <p className="text-sm text-muted-foreground">None on file.</p>
+          ) : visibleContradictions.length === 0 ? (
+            <NothingInScope what="contradictions" />
           ) : (
-            <ul className="flex min-w-0 flex-col gap-3">
-              {contradictions.map((record) => (
-                <li className="min-w-0 rounded-lg border p-4" key={record.id}>
-                  <p className="break-words">{record.summary}</p>
-                  <ul className="mt-2 flex flex-col gap-2">
-                    {record.sides.map((side) => (
-                      <li className="break-words text-sm leading-6" key={side.quotation}>
-                        <span lang={icelandicLang(side.quotation)}>{side.quotation}</span>{" "}
-                        <a
-                          className="break-all underline underline-offset-4"
-                          href={side.source}
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          {side.source}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="flex min-w-0 flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                {visibleContradictions.map((record) => (
+                  <li key={record.id}>
+                    <Link
+                      className="underline underline-offset-4 hover:text-foreground"
+                      href={`#${contradictionAnchor(record.id)}`}
+                    >
+                      {record.id}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <ul className="flex min-w-0 flex-col gap-4">
+                {visibleContradictions.map((record) => (
+                  <li className="min-w-0" key={record.id}>
+                    <ContradictionCard
+                      entries={record.entries.flatMap((slug) => {
+                        const entry = catalogBySlug.get(slug);
+                        return entry
+                          ? [
+                              {
+                                slug,
+                                title: entry.title,
+                                href: hrefForEntry(entry),
+                              },
+                            ]
+                          : [];
+                      })}
+                      record={record}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
-        </section>
+        </SectionShell>
       ) : null}
 
       {showChanges ? (
-        <section className="flex min-w-0 flex-col gap-3" id="changes">
-          <h2 className="text-xl font-medium">Field changes</h2>
-          <p className="text-sm text-muted-foreground">
-            A stored edge field that differs from a later reading. Rewrites are not
-            applied silently; contradictions stay visible when both readings matter.
-          </p>
+        <SectionShell
+          anchor="changes"
+          count={visibleChanges.length}
+          lede="A stored edge field that differs from a later reading. Rewrites are not applied silently; where both readings matter the row stays a contradiction instead."
+          title="Field changes"
+        >
           {changes.length === 0 ? (
             <p className="text-sm text-muted-foreground">None on file.</p>
+          ) : visibleChanges.length === 0 ? (
+            <NothingInScope what="changes" />
           ) : (
             <ul className="flex min-w-0 flex-col gap-3">
-              {changes.map((change) => (
-                <li className="min-w-0 rounded-lg border p-4" key={change.id}>
-                  <p className="break-words font-medium">
-                    {change.edgeId} · {change.field}
-                  </p>
-                  <p className="mt-1 break-words text-sm leading-6">
-                    {change.oldValue} → {change.newValue}. Observed{" "}
-                    {formatDate(change.observed)}.
-                  </p>
-                  <a
-                    className="mt-1 block break-all text-sm underline underline-offset-4"
-                    href={change.source}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {change.source}
-                  </a>
-                </li>
+              {visibleChanges.map((change) => (
+                <ProvenanceCard
+                  as="li"
+                  asOf={change.observed}
+                  key={change.id}
+                  quotation={`${change.oldValue} → ${change.newValue}`}
+                  source={change.source}
+                  title={
+                    <>
+                      {change.edgeId}{" "}
+                      <span className="text-muted-foreground">
+                        · {change.field}
+                      </span>
+                    </>
+                  }
+                  note={`Observed ${formatDate(change.observed)}. The stored value was replaced only because the page now prints the second reading.`}
+                />
               ))}
             </ul>
           )}
-        </section>
+        </SectionShell>
       ) : null}
 
       {showRepeated ? (
-        <section className="flex min-w-0 flex-col gap-3" id="repeated-payments">
-          <h2 className="text-xl font-medium">
-            Repeated payments · {repeats.length}
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            The same buyer and the same vendor appear on more than one invoice in the
-            same month, among the invoices stored here. Both invoices are listed. They
-            are not added up. Repetition is not a finding.
-          </p>
+        <SectionShell
+          anchor="repeated-payments"
+          count={visibleRepeats.length}
+          lede="The same buyer and the same vendor appear on more than one invoice in the same month, among the invoices stored here. Both invoices are listed. They are not added up. Repetition is not a finding."
+          title="Repeated payments"
+        >
           {repeats.length === 0 ? (
             <p className="text-sm text-muted-foreground">None in this sample.</p>
+          ) : visibleRepeats.length === 0 ? (
+            <NothingInScope what="invoice pairs" />
           ) : (
             <ul className="flex min-w-0 flex-col gap-4">
-              {repeats.map((list) => {
-                const first = list[0];
+              {visibleRepeats.map((group) => {
+                const first = group[0];
                 const month = /^\d{4}-\d{2}/.test(first.asOf)
                   ? first.asOf.slice(0, 7)
                   : first.asOf;
+                const rows = filterByAsOf(group, (edge) => edge.asOf, asOfFilter);
                 return (
                   <li
-                    className="min-w-0 rounded-lg border p-4"
+                    className="flex min-w-0 flex-col gap-3 rounded-2xl border border-border/70 p-4"
                     key={`${first.from}-${first.to}-${month}`}
                   >
-                    <p className="break-words font-medium">
-                      {first.fromTitle} pays {first.toTitle} · {formatDate(month)} ·{" "}
-                      {list.length} invoices
+                    <p className="flex min-w-0 flex-wrap items-baseline gap-2 break-words font-medium">
+                      {first.fromTitle} pays {first.toTitle}
+                      <Badge className="font-normal" variant="outline">
+                        {formatDate(month)}
+                      </Badge>
+                      <span className="text-sm tabular-nums text-muted-foreground">
+                        {group.length} invoices
+                      </span>
                     </p>
-                    <ul className="mt-2 flex flex-col gap-2">
-                      {list.map((edge) => (
-                        <li className="break-words text-sm leading-6" key={edgeKey(edge)}>
-                          {formatDate(edge.asOf)}.{" "}
-                          <span lang={icelandicLang(edge.quotation)}>{edge.quotation}</span>
-                        </li>
+                    <ul className="flex min-w-0 flex-col gap-3">
+                      {rows.map((edge) => (
+                        <ProvenanceEdgeCard
+                          edge={edge}
+                          key={edgeKey(edge)}
+                          showProgramQuotation
+                          showRelationship={false}
+                        />
                       ))}
                     </ul>
                   </li>
@@ -200,58 +317,52 @@ export function EvidenceRoom({
               })}
             </ul>
           )}
-        </section>
+        </SectionShell>
       ) : null}
 
       {showAudits ? (
-        <section className="flex min-w-0 flex-col gap-3" id="audits">
-          <h2 className="text-xl font-medium">Audit sentences</h2>
-          <p className="text-sm text-muted-foreground">
-            Ríkisendurskoðun pages that opened and name an entry already on the map.
-            The 16 September 2026 follow-up on Samkeppniseftirlitið names the authority
-            and does not print the result, so it is not listed.
-          </p>
+        <SectionShell
+          anchor="audits"
+          count={visibleAudits.length}
+          lede="Ríkisendurskoðun pages that opened and name a record already on the map. The 16 September 2026 follow-up on Samkeppniseftirlitið names the authority and does not print the result, so it is not listed."
+          title="Audit sentences"
+        >
           {audits.length === 0 ? (
             <p className="text-sm text-muted-foreground">None on file.</p>
+          ) : visibleAudits.length === 0 ? (
+            <NothingInScope what="audit sentences" />
           ) : (
             <ul className="flex min-w-0 flex-col gap-3">
-              {audits.map((finding) => (
-                <li className="min-w-0 rounded-lg border p-4" key={finding.id}>
-                  <p className="break-words text-sm text-muted-foreground">
-                    {formatDate(finding.published)}
-                  </p>
-                  <p className="mt-1 break-words">
-                    {finding.entries.map((slug) => {
-                      const entry = catalogBySlug.get(slug);
-                      return entry ? (
-                        <Link
-                          className="mr-2 underline underline-offset-4"
-                          href={hrefForEntry(entry)}
-                          key={slug}
-                        >
-                          {entry.title}
-                        </Link>
-                      ) : (
-                        slug
-                      );
-                    })}
-                  </p>
-                  <p className="mt-2 break-words text-sm leading-6" lang={icelandicLang(finding.quotation)}>
-                    {finding.quotation}
-                  </p>
-                  <a
-                    className="mt-1 block break-all text-sm underline underline-offset-4"
-                    href={finding.source}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {finding.source}
-                  </a>
-                </li>
+              {visibleAudits.map((finding) => (
+                <ProvenanceCard
+                  as="li"
+                  asOf={finding.published}
+                  key={finding.id}
+                  quotation={finding.quotation}
+                  source={finding.source}
+                  title={
+                    <span className="flex flex-wrap gap-x-3 gap-y-1">
+                      {finding.entries.map((slug) => {
+                        const entry = catalogBySlug.get(slug);
+                        return entry ? (
+                          <Link
+                            className="underline underline-offset-4"
+                            href={hrefForEntry(entry)}
+                            key={slug}
+                          >
+                            {entry.title}
+                          </Link>
+                        ) : (
+                          <span key={slug}>{slug}</span>
+                        );
+                      })}
+                    </span>
+                  }
+                />
               ))}
             </ul>
           )}
-        </section>
+        </SectionShell>
       ) : null}
     </div>
   );

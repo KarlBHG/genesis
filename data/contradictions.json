@@ -8,11 +8,13 @@
     "sides": [
       {
         "source": "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/",
-        "quotation": "Citizens of all 30 countries have the right to move freely throughout the EEA"
+        "quotation": "Citizens of all 30 countries have the right to move freely throughout the EEA",
+        "asOf": "undated on the cited page"
       },
       {
         "source": "https://www.government.is/topics/business-and-industry/the-eea-agreement/",
-        "quotation": "The EEA Agreement provides for the inclusion of EU legislation covering the four freedoms — the free movement of goods, services, persons and capital — throughout the 31 EEA States."
+        "quotation": "The EEA Agreement provides for the inclusion of EU legislation covering the four freedoms — the free movement of goods, services, persons and capital — throughout the 31 EEA States.",
+        "asOf": "undated on the cited page"
       }
     ]
   },
@@ -25,11 +27,13 @@
     "sides": [
       {
         "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4202691299",
-        "quotation": "B1 Sameignarfélag almennt (sf)"
+        "quotation": "B1 Sameignarfélag almennt (sf)",
+        "asOf": "undated on the registry page"
       },
       {
         "source": "https://www.althingi.is/lagas/nuna/1983042.html",
-        "quotation": "Á ríkissjóður 99,9% eignarhluta í fyrirtækinu og Eignarhlutir ehf. 0,1%."
+        "quotation": "Á ríkissjóður 99,9% eignarhluta í fyrirtækinu og Eignarhlutir ehf. 0,1%.",
+        "asOf": "consolidated statute"
       }
     ]
   },
@@ -42,11 +46,13 @@
     "sides": [
       {
         "source": "https://statice.is/publications/news-archive/external-trade/trade-in-services-by-classification-and-countries-2024/",
-        "quotation": "Imports of services increased by 12% between years"
+        "quotation": "Imports of services increased by 12% between years",
+        "asOf": "2025-09-05"
       },
       {
         "source": "https://statice.is/publications/news-archive/external-trade/trade-in-services-by-classification-and-countries-2024/",
-        "quotation": "In 2024, the total value of service imports was 55.4 billion ISK higher than in 2023, representing an 8% increase at current exchange rates."
+        "quotation": "In 2024, the total value of service imports was 55.4 billion ISK higher than in 2023, representing an 8% increase at current exchange rates.",
+        "asOf": "2025-09-05"
       }
     ]
   },
@@ -60,11 +66,13 @@
     "sides": [
       {
         "source": "https://www.landsbankinn.is/en/the-bank/about-us/strategy-and-organisation/ownership",
-        "quotation": "Landsbankinn's shareholders are around 800 with the National Treasury as the largest owner of a 98.2% share."
+        "quotation": "Landsbankinn's shareholders are around 800 with the National Treasury as the largest owner of a 98.2% share.",
+        "asOf": "undated on the ownership page"
       },
       {
         "source": "https://www.landsbankinn.is/uploads/documents/arsskyrsluroguppgjor/fact-book-2025-en.pdf",
-        "quotation": "The Icelandic State holds 98.2% of the shares and the total number of shareholders amount to approximately 819."
+        "quotation": "The Icelandic State holds 98.2% of the shares and the total number of shareholders amount to approximately 819.",
+        "asOf": "2025-12-31"
       }
     ]
   },
@@ -78,11 +86,13 @@
     "sides": [
       {
         "source": "https://opnirreikningar.is/rest/vendor?term=Orka%20n%C3%A1tt%C3%BArunnar%20ohf.",
-        "quotation": "\"id\":\"5212130190\",\"text\":\"Orka náttúrunnar ohf.\""
+        "quotation": "\"id\":\"5212130190\",\"text\":\"Orka náttúrunnar ohf.\"",
+        "asOf": "undated on the vendor lookup"
       },
       {
         "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/5212130190",
-        "quotation": "ON Power ohf. (5212130190)"
+        "quotation": "ON Power ohf. (5212130190)",
+        "asOf": "undated on the registry page"
       }
     ]
   },
