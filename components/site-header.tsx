@@ -37,6 +37,7 @@ export const NAV: NavEntry[] = [
     ],
   },
   { href: "/business", label: "Business" },
+  { href: "/connections", label: "Connections" },
   { href: "/anomalies", label: "Evidence" },
 ];
 

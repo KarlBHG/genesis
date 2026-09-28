@@ -40,10 +40,10 @@ export function HomeConstellation() {
   });
 
   return (
-    <div className="relative mx-auto hidden w-full max-w-[33rem] sm:block">
+    <div className="home-constellation relative mx-auto w-full max-w-[36rem] overflow-visible px-2 py-2 sm:px-3 sm:py-4">
       <svg
         aria-labelledby="constellation-title"
-        className="h-auto w-full drop-shadow-sm"
+        className="mx-auto h-auto w-full max-h-[min(72vw,18rem)] drop-shadow-sm sm:max-h-none"
         role="img"
         viewBox={`0 0 ${SIZE} ${SIZE}`}
       >
@@ -131,7 +131,7 @@ export function HomeConstellation() {
           />
         ))}
       </svg>
-      <ul className="absolute inset-0 m-0 list-none p-0">
+      <ul className="absolute inset-0 m-0 hidden list-none p-0 sm:block">
         {nodes.map(({ section, label, isVertical, isTop, isRightHalf }) => {
           const topPct = (label.y / SIZE) * 100;
           const leftPct = (label.x / SIZE) * 100;
@@ -172,7 +172,7 @@ export function HomeConstellation() {
 /** Compact fallback for narrow screens — a legend, not the full radial diagram. */
 export function ConstellationLegend() {
   return (
-    <ul className="grid grid-cols-1 gap-2 sm:hidden">
+    <ul className="grid w-full max-w-sm grid-cols-1 gap-2 sm:hidden">
       {OBLIGATION_SECTIONS.map((section) => {
         const visual = obligationVisual(section.id);
         return (

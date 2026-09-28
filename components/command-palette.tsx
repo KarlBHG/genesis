@@ -28,8 +28,11 @@ export function CommandPalette() {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
         setOpen((current) => !current);
-      } else if (event.key === "Escape") {
+        return;
+      }
+      if (event.key === "Escape") {
         setOpen(false);
+        setQuery("");
       }
     }
     window.addEventListener("keydown", onKey);
@@ -42,24 +45,30 @@ export function CommandPalette() {
 
   useEffect(() => {
     if (!open) return;
-    if (docs) {
-      inputRef.current?.focus();
-      return;
-    }
+    if (docs) return;
     let cancelled = false;
     fetch("/api/search")
       .then((response) => response.json() as Promise<SearchDoc[]>)
       .then((loaded) => {
-        if (!cancelled) {
-          setDocs(loaded);
-          inputRef.current?.focus();
-        }
+        if (!cancelled) setDocs(loaded);
       })
       .catch(() => {
         if (!cancelled) setDocs([]);
       });
     return () => {
       cancelled = true;
+    };
+  }, [open, docs]);
+
+  useEffect(() => {
+    if (!open) return;
+    const focusInput = () => inputRef.current?.focus();
+    focusInput();
+    const frame = requestAnimationFrame(focusInput);
+    const timer = window.setTimeout(focusInput, 50);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
     };
   }, [open, docs]);
 

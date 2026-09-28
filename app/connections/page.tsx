@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { edgeKey } from "@/components/connection-graph";
+import { ConnectionGroupedPanels, edgeKey } from "@/components/connection-graph";
 import { Badge } from "@/components/ui/badge";
 import { getCatalog, getContradictions, getEdges, hrefFor, resolveSlug } from "@/lib/content";
-import { GROUP_BY_VIEW, groupEdges } from "@/lib/connection-groups";
+import { GROUP_BY_VIEW } from "@/lib/connection-groups";
 import { compareAsOf } from "@/lib/as-of";
 import { AsOfChip } from "@/components/as-of-chip";
 import { kindLabel, labelize } from "@/lib/format";
@@ -87,47 +87,13 @@ function ViewBody({
     );
   }
   return (
-    <div className="flex min-w-0 flex-col gap-2">
-      {groupEdges(edges, by).map((group) => {
-        const first = group.edges[0];
-        if (!first) return null;
-        const target = by === "from" ? resolveSlug(first.from) : null;
-        const title =
-          by === "from" ? first.fromTitle : labelize(first.relationship);
-        return (
-          <details
-            className="min-w-0 rounded-lg border px-4"
-            key={group.key}
-            open
-          >
-            <summary className="cursor-pointer list-none py-3 [&::-webkit-details-marker]:hidden">
-              <span className="flex flex-wrap items-baseline gap-x-2">
-                {target ? (
-                  <Link
-                    className="font-medium underline underline-offset-4"
-                    href={target.href}
-                  >
-                    {title}
-                  </Link>
-                ) : (
-                  <span className="font-medium">{title}</span>
-                )}
-                <Badge variant="outline">{group.edges.length}</Badge>
-              </span>
-            </summary>
-            <ul className="flex min-w-0 flex-col pb-2">
-              {group.edges.map((edge) => (
-                <EdgeLine
-                  edge={edge}
-                  key={edgeKey(edge)}
-                  note={noteFor(edge)}
-                />
-              ))}
-            </ul>
-          </details>
-        );
-      })}
-    </div>
+    <ConnectionGroupedPanels
+      edges={edges}
+      groupBy={by}
+      renderEdge={(edge) => (
+        <EdgeLine edge={edge} key={edgeKey(edge)} note={noteFor(edge)} />
+      )}
+    />
   );
 }
 

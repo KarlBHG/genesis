@@ -11,7 +11,10 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
-    { name: "mobile", use: { ...devices["iPhone 13"] } },
+    {
+      name: "mobile",
+      use: { ...devices["Desktop Chrome"], viewport: { width: 390, height: 844 } },
+    },
     { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } } },
   ],
   webServer: process.env.PLAYWRIGHT_BASE_URL

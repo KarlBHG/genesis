@@ -21,7 +21,7 @@ for (const route of ROUTES) {
     await page.goto(route);
     await expect(page.getByRole("main")).toBeVisible();
     const results = await new AxeBuilder({ page })
-      .disableRules(["color-contrast", "nested-interactive"])
+      .disableRules(["color-contrast"])
       .analyze();
     const serious = results.violations.filter(
       (v) => v.impact === "critical" || v.impact === "serious",

@@ -221,7 +221,7 @@ export function HomeDashboard({
               ))}
             </dl>
           </div>
-          <div className="flex flex-col items-center gap-4 lg:max-w-md lg:flex-1">
+          <div className="flex w-full min-w-0 flex-col items-center gap-3 sm:gap-4 lg:max-w-md lg:flex-1">
             <p className="text-center text-sm text-muted-foreground">
               {obligationThemeCount} themes ·{" "}
               <Link className="underline underline-offset-4" href="/obligations">
@@ -229,9 +229,7 @@ export function HomeDashboard({
               </Link>
             </p>
             <HomeConstellation />
-            <div className="w-full max-w-xs">
-              <ConstellationLegend />
-            </div>
+            <ConstellationLegend />
           </div>
         </div>
       </section>
