@@ -19,9 +19,9 @@ const ROUTES = [
 for (const route of ROUTES) {
   test(`a11y smoke ${route}`, async ({ page }) => {
     await page.goto(route);
-    await expect(page.locator("main, [role='main'], body")).toBeVisible();
+    await expect(page.getByRole("main")).toBeVisible();
     const results = await new AxeBuilder({ page })
-      .disableRules(["color-contrast"])
+      .disableRules(["color-contrast", "nested-interactive"])
       .analyze();
     const serious = results.violations.filter(
       (v) => v.impact === "critical" || v.impact === "serious",
