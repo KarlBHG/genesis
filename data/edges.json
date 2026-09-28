@@ -2413,5 +2413,57 @@
     "asOf": "2024",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2024/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
     "quotation": "Starfsemi málaflokksins er í höndum heilbrigðisráðuneytis, Landspítala (LSH) og Sjúkrahússins á Akureyri (SAk)."
+  },
+  {
+    "from": "treasury-debt",
+    "to": "landsnet",
+    "type": "funds",
+    "asOf": "2024-11",
+    "source": "https://www.government.is/library/01-Ministries/Ministry-of-Finance/Medium%20term%20debt%20management%20strategy%202025-2029.pdf",
+    "quotation": "Loan for acquisition of Landsnet 37,843"
+  },
+  {
+    "from": "jon-thorvardur-sigurgeirsson",
+    "to": "landsbankinn",
+    "type": "sits-on-board",
+    "asOf": "undated on the registry page",
+    "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4710080280",
+    "quotation": "Jón Þorvarður Sigurgeirsson - stjórnarformaður",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "heidar-gudjonsson",
+    "to": "islandsbanki",
+    "type": "sits-on-board",
+    "asOf": "2025",
+    "source": "https://cdn.islandsbanki.is/image/upload/v1/documents/ISB_2025_FINAL.pdf",
+    "quotation": "Heiðar Guðjónsson Chairman of the Board",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "greta-maria-gretarsdottir",
+    "to": "isavia",
+    "type": "sits-on-board",
+    "asOf": "2025",
+    "source": "https://eu-assets.contentstack.com/v3/assets/bltde8e98ee10782d85/blt0adda88abbe83d4c/6a044373f2b294f4a7927b05/Isavia_Consolidated_FinancialStatements_2025.pdf",
+    "quotation": "chairman of the Board Gréta María Grétarsdóttir",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "harpa-thuridur-bodvarsdottir",
+    "to": "landsnet",
+    "type": "sits-on-board",
+    "asOf": "2025",
+    "source": "https://ml-eu.globenewswire.com/Resource/Download/441b1630-ff23-447f-bed1-0b19f6969906",
+    "quotation": "Chairman of the Board, Harpa Þuríður Böðvarsdóttir, Kristján Arinbjarnar",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
   }
 ]

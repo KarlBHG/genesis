@@ -5,7 +5,7 @@ playerType: "organization"
 role: "Electricity transmission"
 asOf: "2025"
 website: "https://www.landsnet.is"
-related: ["ministry-of-finance", "landsvirkjun", "orkuveita-reykjavikur", "treasury-debt", "althingi"]
+related: ["ministry-of-finance", "landsvirkjun", "orkuveita-reykjavikur", "treasury-debt", "althingi", "harpa-thuridur-bodvarsdottir"]
 ---
 
 # Landsnet

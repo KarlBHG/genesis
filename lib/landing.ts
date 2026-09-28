@@ -84,6 +84,16 @@ export const LANDING_CHAINS: LandingChain[] = [
     ],
   },
   {
+    id: "treasury-landsnet",
+    title: "Treasury debt and Landsnet",
+    blurb: "The state owns the grid company. The debt strategy prints the acquisition loan line.",
+    href: "/money/treasury-debt",
+    steps: [
+      { from: "ministry-of-finance", relationship: "owns", to: "landsnet" },
+      { from: "treasury-debt", relationship: "funds", to: "landsnet" },
+    ],
+  },
+  {
     id: "crisis-2008",
     title: "Crisis, IMF, and capital controls",
     blurb: "Stand-By Arrangement, foreign-exchange restrictions, and the 2017 lifting for residents.",

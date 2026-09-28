@@ -356,7 +356,15 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         <>
           <Separator />
           <section className="flex flex-col gap-3">
-            <h2 className="text-xl font-medium">Connections</h2>
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <h2 className="text-xl font-medium">Connections</h2>
+              <Link
+                className="text-sm text-muted-foreground underline underline-offset-4"
+                href={`/connections?entry=${entry.slug}`}
+              >
+                Open in connections index
+              </Link>
+            </div>
             <div className="flex flex-col gap-4">
               <EdgeSection edges={out} slug={entry.slug} title="Outgoing" />
               <EdgeSection edges={inn} slug={entry.slug} title="Incoming" />

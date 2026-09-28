@@ -5,7 +5,7 @@ playerType: "organization"
 role: "Commercial bank"
 asOf: "2025-12-31"
 website: "https://www.landsbankinn.is"
-related: ["banking-after-2008", "landsbankinn-state-holding", "ministry-of-finance", "lilja-bjork-einarsdottir", "2008-financial-crisis", "2010-icesave-referendum", "2011-icesave-referendum", "2013-icesave-judgment"]
+related: ["banking-after-2008", "landsbankinn-state-holding", "ministry-of-finance", "lilja-bjork-einarsdottir", "jon-thorvardur-sigurgeirsson", "2008-financial-crisis", "2010-icesave-referendum", "2011-icesave-referendum", "2013-icesave-judgment"]
 ---
 
 # Landsbankinn

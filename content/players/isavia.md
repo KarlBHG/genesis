@@ -5,7 +5,7 @@ playerType: "organization"
 role: "Airports and air navigation"
 asOf: "2025"
 website: "https://www.isavia.is"
-related: ["ministry-of-finance", "ministry-of-infrastructure", "icelandair"]
+related: ["ministry-of-finance", "ministry-of-infrastructure", "icelandair", "greta-maria-gretarsdottir"]
 ---
 
 # Isavia
