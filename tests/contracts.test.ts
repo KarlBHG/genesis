@@ -17,6 +17,7 @@ import {
 } from "@/lib/content";
 import { MAP_ENTRIES, MAP_VIEWS, viewOf } from "@/lib/geo-map";
 import { highlightParts, searchEntries } from "@/lib/search";
+import { LANDING_CHAINS, resolveChain } from "@/lib/landing";
 
 const ROOT = process.cwd();
 
@@ -177,6 +178,25 @@ describe("offices are routable", () => {
     for (const office of getOffices()) {
       expect(slugs.has(office.holder)).toBe(true);
       expect(slugs.has(office.organization)).toBe(true);
+    }
+  });
+});
+
+describe("landing chains", () => {
+  it("resolves every chain step to a stored edge and a page", () => {
+    const edges = getEdges();
+    for (const chain of LANDING_CHAINS) {
+      expect(chain.steps.length).toBeGreaterThan(0);
+      for (const step of resolveChain(chain)) {
+        const edge = edges.find(
+          (item) =>
+            item.fromTitle === step.fromTitle &&
+            item.toTitle === step.toTitle,
+        );
+        expect(edge, `${step.fromTitle} → ${step.toTitle}`).toBeDefined();
+        expect(step.fromHref, step.fromTitle).not.toBeNull();
+        expect(step.toHref, step.toTitle).not.toBeNull();
+      }
     }
   });
 });
