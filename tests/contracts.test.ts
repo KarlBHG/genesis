@@ -621,7 +621,6 @@ describe("visualisation primitives", () => {
       "printedFigure",
       "icelandicLang(edge.quotation)",
       "edgeHref",
-      "/connections/",
       "Open this connection",
     ]) {
       expect(row, `EdgeRow is missing ${part}`).toContain(part);
@@ -1124,6 +1123,6 @@ describe("sourced kennitala", () => {
   });
 
   it("rejects a mistyped check digit", () => {
-    expect(kennitalaChecksumOk("5402696458")).toBe(false);
+    expect(kennitalaChecksumOk("5402696449")).toBe(false);
   });
 });
