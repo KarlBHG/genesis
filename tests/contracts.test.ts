@@ -24,6 +24,7 @@ import {
 } from "@/lib/content";
 import { MAP_ENTRIES, MAP_VIEWS, viewOf } from "@/lib/geo-map";
 import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
+import { icelandicLang } from "@/lib/lang";
 import { highlightParts, searchEntries } from "@/lib/search";
 import { LANDING_CHAINS, resolveChain } from "@/lib/landing";
 import { OBLIGATION_SECTIONS } from "@/lib/obligations";
@@ -483,9 +484,141 @@ describe("visualisation primitives", () => {
       "edge.source",
       "edge.year",
       "printedFigure",
-      'lang="is"',
+      "icelandicLang(edge.quotation)",
     ]) {
       expect(row, `EdgeRow is missing ${part}`).toContain(part);
+    }
+  });
+});
+
+describe("one design system", () => {
+  const sourceFiles = (): string[] => {
+    const files: string[] = [];
+    const walk = (dir: string): void => {
+      for (const name of fs.readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (fs.statSync(full).isDirectory()) walk(full);
+        else if (/\.(ts|tsx)$/.test(name)) files.push(full);
+      }
+    };
+    for (const dir of ["app", "components", "lib"]) walk(path.join(ROOT, dir));
+    return files;
+  };
+
+  it("keeps every colour in the token sheet, not hand-written in a component", () => {
+    // Satori renders the OG cards without a CSS engine, so it can resolve
+    // neither a custom property nor oklch. That file restates the palette as
+    // hex and says so; it is the only place allowed to.
+    const satori = path.join(ROOT, "lib", "og-entry-image.tsx");
+    const offences: string[] = [];
+    for (const file of sourceFiles()) {
+      if (file === satori) continue;
+      for (const [index, line] of fs
+        .readFileSync(file, "utf8")
+        .split("\n")
+        .entries()) {
+        if (/#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?\b/.test(line.replace(/#[a-z][\w-]*/g, ""))) {
+          offences.push(`${path.relative(ROOT, file)}:${index + 1} hex colour`);
+        }
+        if (/\boklch\(/.test(line) || /\brgba?\(/.test(line)) {
+          offences.push(`${path.relative(ROOT, file)}:${index + 1} colour function`);
+        }
+      }
+    }
+    expect(offences).toEqual([]);
+  });
+
+  it("has exactly two rooms and no third palette", () => {
+    const css = fs.readFileSync(path.join(ROOT, "app", "globals.css"), "utf8");
+    // The light paper surface is `:root`; the dark geographic room is scoped.
+    expect(css).toContain(".geo-room {");
+    expect(css).not.toMatch(/^\.dark \{/m);
+    const rooms = fs
+      .readFileSync(path.join(ROOT, "app", "map", "page.tsx"), "utf8")
+      .match(/geo-room/g);
+    expect(rooms).toHaveLength(1);
+    for (const dir of ["app", "components"]) {
+      const usingGeoTokens = sourceFiles()
+        .filter((file) => file.startsWith(path.join(ROOT, dir)))
+        .filter((file) => /var\(--geo-|-\(--geo-/.test(fs.readFileSync(file, "utf8")))
+        .map((file) => path.relative(ROOT, file));
+      for (const file of usingGeoTokens) {
+        expect(
+          ["app/map/page.tsx", "components/iceland-map.tsx"],
+          `${file} reaches for the dark room outside it`,
+        ).toContain(file);
+      }
+    }
+  });
+
+  it("frames every page at one width", () => {
+    const offences: string[] = [];
+    for (const file of sourceFiles()) {
+      const source = fs.readFileSync(file, "utf8");
+      for (const stale of source.match(/\bmax-w-[2-6]xl\b/g) ?? []) {
+        offences.push(`${path.relative(ROOT, file)} still uses ${stale}`);
+      }
+    }
+    expect(offences).toEqual([]);
+    const css = fs.readFileSync(path.join(ROOT, "app", "globals.css"), "utf8");
+    expect(css).toContain("--container-shell:");
+    expect(css).toContain("--container-reading:");
+    for (const shell of ["components/site-header.tsx", "components/site-footer.tsx"]) {
+      expect(fs.readFileSync(path.join(ROOT, shell), "utf8")).toContain(
+        "max-w-shell",
+      );
+    }
+  });
+});
+
+describe("Icelandic quotations are marked up as Icelandic", () => {
+  it("tags Icelandic prose and leaves English prose alone", () => {
+    const icelandic = getEdges().filter((edge) => icelandicLang(edge.quotation));
+    expect(icelandic.length).toBeGreaterThanOrEqual(15);
+    for (const edge of icelandic) {
+      expect(/[þðæöáíúýéó]/i.test(edge.quotation), edge.quotation.slice(0, 60)).toBe(
+        true,
+      );
+    }
+    // English sentences that merely name Icelandic bodies stay English.
+    expect(
+      icelandicLang(
+        "Article 4 prints a 2026 total authorisation of 73.572,4 m.kr. for Mennta- og barnamálaráðuneyti.",
+      ),
+    ).toBeUndefined();
+    expect(
+      icelandicLang(
+        "The page lists the six as Samtök orku- og veitufyrirtækja and Samtök verslunar og þjónustu.",
+      ),
+    ).toBeUndefined();
+    expect(
+      icelandicLang(
+        "í fjárlögum fyrir árið 2024 sem hafa verið samþykkt á Alþingi og nema um 379,4 ma.kr.",
+      ),
+    ).toBe("is");
+    // A bare ledger row is names and figures, not prose in either language.
+    expect(
+      icelandicLang("Landspítali; 2026-08-28; Sýn hf.; SB0629049; 3592"),
+    ).toBeUndefined();
+  });
+
+  it("marks up every surface that prints a quotation", () => {
+    for (const file of [
+      "app/connections/page.tsx",
+      "app/system/page.tsx",
+      "app/offices/[id]/page.tsx",
+      "components/entry-detail.tsx",
+      "components/evidence-room.tsx",
+      "components/iceland-map.tsx",
+      "components/program-invoice-bridge.tsx",
+      "components/markdown-body.tsx",
+      "components/budget-programs-section.tsx",
+      "components/viz/edge-row.tsx",
+    ]) {
+      expect(
+        fs.readFileSync(path.join(ROOT, file), "utf8"),
+        `${file} prints a quotation without marking its language`,
+      ).toContain("icelandicLang");
     }
   });
 });

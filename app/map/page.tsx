@@ -96,7 +96,7 @@ export default function MapPage() {
   }));
 
   return (
-    <main className="min-h-full bg-[#0e100c]">
+    <main className="geo-room min-h-full">
       <Suspense>
         <IcelandMap entries={entries} edges={edges} tradePartners={tradePartners} />
       </Suspense>

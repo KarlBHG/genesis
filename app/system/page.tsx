@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getBySlug, getChanges, getEdges, hrefFor } from "@/lib/content";
 import { formatDate, labelize } from "@/lib/format";
 import { tradeValueNote } from "@/lib/notes";
+import { icelandicLang } from "@/lib/lang";
 
 export const metadata: Metadata = {
   title: "System",
@@ -28,8 +29,8 @@ export default function SystemPage() {
   );
 
   return (
-    <main className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-8 px-4 py-8 sm:px-6">
-      <header className="flex max-w-3xl flex-col gap-2">
+    <main className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-8 sm:px-6">
+      <header className="flex max-w-reading flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">How the system operates</h1>
         <p className="text-muted-foreground">
           The records below are sentences from pages opened for this pass. A country named as a trade partner is not a company, and a legal form on the registry is not an influence score. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
@@ -74,7 +75,9 @@ export default function SystemPage() {
                 <p className="break-words font-medium">
                   {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
                 </p>
-                <p className="mt-1 break-words text-sm leading-6">{edge.quotation}</p>
+                <p className="mt-1 break-words text-sm leading-6" lang={icelandicLang(edge.quotation)}>
+                  {edge.quotation}
+                </p>
               </li>
             ))}
         </ul>
@@ -93,7 +96,9 @@ export default function SystemPage() {
                 <p className="break-words font-medium">
                   {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
                 </p>
-                <p className="mt-1 break-words text-sm leading-6">{edge.quotation}</p>
+                <p className="mt-1 break-words text-sm leading-6" lang={icelandicLang(edge.quotation)}>
+                  {edge.quotation}
+                </p>
               </li>
             ))}
         </ul>

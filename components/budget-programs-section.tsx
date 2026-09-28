@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { EntryIndex } from "@/components/entry-index";
 import { getPolicyAreas, hrefFor } from "@/lib/content";
+import { icelandicLang } from "@/lib/lang";
 
 const INTRO = [
   "Hér á eftir fer umfjöllun um stefnumið, áform og aðgerðir næsta fjárlagaárs fyrir þau 35 málefnasvið og 105 málaflokka sem frumvarpið tekur til. Í umfjölluninni er gerð grein fyrir ábyrgð á einstökum sviðum, fjárhagslegri þróun á málefnasviði og einstökum málaflokkum á tímabilinu 2024–2026. Þá eru breytingar sundurliðaðar á útgjaldaramma málefnasviðs eftir helstu tilefnum og helstu tillögum um breytingar á fjárheimildum málaflokka frá gildandi fjárlögum.",
@@ -26,7 +27,7 @@ export function BudgetProgramsSection() {
       className="flex min-w-0 flex-col gap-8 scroll-mt-24"
       id="government-programs"
     >
-      <div className="glass-panel flex max-w-3xl flex-col gap-3 rounded-2xl p-6">
+      <div className="glass-panel flex max-w-reading flex-col gap-3 rounded-2xl p-6">
         <h2 className="font-serif text-xl font-medium">Government programs, 2026</h2>
         <p className="text-sm leading-6 text-muted-foreground">
           {areas.length} policy areas. Each card quotes the spending line that area’s
@@ -38,17 +39,22 @@ export function BudgetProgramsSection() {
           <blockquote
             className="border-l-2 border-primary/20 pl-4 text-sm leading-6"
             key={quote.slice(0, 40)}
+            lang={icelandicLang(quote)}
           >
             {quote}
           </blockquote>
         ))}
         <h3 className="text-lg font-medium">How Article 4 says the money is set</h3>
-        <blockquote className="border-l-2 border-primary/20 pl-4 text-sm leading-6">
+        <blockquote
+          className="border-l-2 border-primary/20 pl-4 text-sm leading-6"
+          lang={icelandicLang(ARTICLE_FOUR)}
+        >
           {ARTICLE_FOUR}
         </blockquote>
         <p className="text-sm text-muted-foreground">
-          Article 4’s Samtals row prints Heildar-fjárheimild 1.672.186,3. The row
-          “Samtals skv. GFS staðli” prints 1.606.582,9. Article 1 prints that same
+          Article 4’s <span lang="is">Samtals</span> row prints{" "}
+          <span lang="is">Heildar-fjárheimild</span> 1.672.186,3. The row{" "}
+          <span lang="is">“Samtals skv. GFS staðli”</span> prints 1.606.582,9. Article 1 prints that same
           1.606.582,9 as total expenditure. Area rows are not added together. Ledger
           display names for{" "}
           <Link className="underline underline-offset-4" href="/players/on-power">
@@ -56,7 +62,7 @@ export function BudgetProgramsSection() {
           </Link>{" "}
           and{" "}
           <Link className="underline underline-offset-4" href="/players/orka-natturunnar">
-            Orka náttúrunnar
+            <span lang="is">Orka náttúrunnar</span>
           </Link>{" "}
           are called out in the budget materials.
         </p>

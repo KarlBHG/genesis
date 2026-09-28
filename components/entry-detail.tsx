@@ -31,6 +31,7 @@ import { compareAsOf } from "@/lib/as-of";
 import { factStrip } from "@/lib/entry-facts";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
 import type { Edge, Entry } from "@/lib/types";
+import { icelandicLang } from "@/lib/lang";
 
 function Fact({
   term,
@@ -264,7 +265,7 @@ function EvidenceNotice({ slug }: { slug: string }) {
         ) : null}
         {audits.map((audit) => (
           <p className="text-muted-foreground" key={audit.id}>
-            Ríkisendurskoðun, {formatDate(audit.published)}: “{audit.quotation}”{" "}
+            Ríkisendurskoðun, {formatDate(audit.published)}: <span lang={icelandicLang(audit.quotation)}>“{audit.quotation}”</span>{" "}
             <a
               className="break-all underline underline-offset-4"
               href={audit.source}
@@ -316,7 +317,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
   const { out, inn } = edgesFor(entry.slug);
 
   return (
-    <article className="atlas-page mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-8 sm:px-6">
+    <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-8 px-4 py-8 sm:px-6">
       <p className="print-only">
         AlltÍkerfi · {kindPath(entry.kind)}/{entry.slug}
       </p>
@@ -363,9 +364,9 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           {entry.title}
         </h1>
         {entry.lede ? (
-          <p className="max-w-2xl font-serif text-xl leading-8">{entry.lede}</p>
+          <p className="max-w-lede font-serif text-xl leading-8">{entry.lede}</p>
         ) : entry.summary ? (
-          <div className="flex max-w-2xl flex-col gap-1">
+          <div className="flex max-w-lede flex-col gap-1">
             <p className="text-lg leading-8 text-muted-foreground">
               {entry.summary}
             </p>

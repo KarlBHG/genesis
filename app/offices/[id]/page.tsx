@@ -19,6 +19,7 @@ import {
   resolveSlug,
 } from "@/lib/content";
 import { formatDate, labelize } from "@/lib/format";
+import { icelandicLang } from "@/lib/lang";
 
 type Params = { id: string };
 
@@ -56,7 +57,7 @@ export default async function OfficePage({
   );
 
   return (
-    <article className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-8 sm:px-6">
+    <article className="mx-auto flex w-full max-w-reading flex-col gap-8 px-4 py-8 sm:px-6">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -163,7 +164,7 @@ export default async function OfficePage({
                     </span>
                   </p>
                   <p className="mt-1 break-words text-sm leading-6">
-                    {edge.quotation}
+                    <span lang={icelandicLang(edge.quotation)}>{edge.quotation}</span>
                   </p>
                 </li>
               );

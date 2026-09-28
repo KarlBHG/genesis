@@ -141,7 +141,7 @@ export default async function ComparePage({
   }));
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-8 sm:px-6">
+    <main className="mx-auto flex w-full max-w-shell flex-col gap-8 px-4 py-8 sm:px-6">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -153,7 +153,7 @@ export default async function ComparePage({
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <header className="flex max-w-3xl flex-col gap-2">
+      <header className="flex max-w-reading flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">Compare</h1>
         <p className="text-muted-foreground">
           Two entries side by side. Figures stay in the wording of each summary. A connection is shared only when both entries have the same relationship to the same other entry.

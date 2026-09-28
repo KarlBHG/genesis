@@ -11,6 +11,7 @@ import { AsOfChip } from "@/components/as-of-chip";
 import { getEdges, resolveSlug } from "@/lib/content";
 import { paysEdgesForProgram } from "@/lib/invoice-budget";
 import type { Edge } from "@/lib/types";
+import { icelandicLang } from "@/lib/lang";
 
 function InvoiceRow({ edge }: { edge: Edge }) {
   const buyer = resolveSlug(edge.from);
@@ -43,11 +44,13 @@ function InvoiceRow({ edge }: { edge: Edge }) {
           </Badge>
         ) : null}
       </p>
-      <p className="text-sm text-muted-foreground">{edge.quotation}</p>
+      <p className="text-sm text-muted-foreground" lang={icelandicLang(edge.quotation)}>
+        {edge.quotation}
+      </p>
       {edge.programQuotation ? (
         <p className="text-sm">
           <span className="text-muted-foreground">Program link: </span>
-          “{edge.programQuotation}”
+          <span lang={icelandicLang(edge.programQuotation)}>“{edge.programQuotation}”</span>
           {edge.programSource ? (
             <>
               {" "}

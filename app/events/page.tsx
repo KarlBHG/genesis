@@ -51,7 +51,7 @@ export default function EventsPage() {
         eyebrow={`${events.length} dated entries`}
         title="Events"
       />
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-10 sm:px-6">
+      <div className="mx-auto flex w-full max-w-reading flex-col gap-6 px-4 py-10 sm:px-6">
       {events.length === 0 ? (
         <Empty className="border">
           <EmptyHeader>

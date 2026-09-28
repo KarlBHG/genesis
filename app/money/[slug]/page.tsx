@@ -38,7 +38,7 @@ export default async function FlowPage({
     <>
       <EntryDetail entry={flow} />
       {isPolicyArea ? (
-        <div className="mx-auto -mt-4 mb-8 flex w-full max-w-3xl flex-col gap-4 px-4 sm:px-6">
+        <div className="mx-auto -mt-4 mb-8 flex w-full max-w-reading flex-col gap-4 px-4 sm:px-6">
           <ProgramInvoiceBridge programSlug={flow.slug} />
         </div>
       ) : null}

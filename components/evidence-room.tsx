@@ -7,6 +7,7 @@ import { edgeKey } from "@/components/connection-graph";
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/lib/format";
 import type { AuditFinding, ChangeRecord, Contradiction, Edge, Entry } from "@/lib/types";
+import { icelandicLang } from "@/lib/lang";
 
 export type EvidenceFacet =
   | "all"
@@ -104,7 +105,7 @@ export function EvidenceRoom({
                   <ul className="mt-2 flex flex-col gap-2">
                     {record.sides.map((side) => (
                       <li className="break-words text-sm leading-6" key={side.quotation}>
-                        {side.quotation}{" "}
+                        <span lang={icelandicLang(side.quotation)}>{side.quotation}</span>{" "}
                         <a
                           className="break-all underline underline-offset-4"
                           href={side.source}
@@ -189,7 +190,8 @@ export function EvidenceRoom({
                     <ul className="mt-2 flex flex-col gap-2">
                       {list.map((edge) => (
                         <li className="break-words text-sm leading-6" key={edgeKey(edge)}>
-                          {formatDate(edge.asOf)}. {edge.quotation}
+                          {formatDate(edge.asOf)}.{" "}
+                          <span lang={icelandicLang(edge.quotation)}>{edge.quotation}</span>
                         </li>
                       ))}
                     </ul>
@@ -234,7 +236,9 @@ export function EvidenceRoom({
                       );
                     })}
                   </p>
-                  <p className="mt-2 break-words text-sm leading-6">{finding.quotation}</p>
+                  <p className="mt-2 break-words text-sm leading-6" lang={icelandicLang(finding.quotation)}>
+                    {finding.quotation}
+                  </p>
                   <a
                     className="mt-1 block break-all text-sm underline underline-offset-4"
                     href={finding.source}

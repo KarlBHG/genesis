@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { printedFigure } from "@/components/viz/money";
 import { resolveSlug } from "@/lib/content";
 import { labelize } from "@/lib/format";
+import { icelandicLang } from "@/lib/lang";
 import { officeLabel } from "@/lib/notes";
 import type { Edge } from "@/lib/types";
 
@@ -43,8 +44,9 @@ function SlugLink({
  * The one way this app draws a stored edge.
  *
  * Every row shows the same four things in the same order: who, the typed
- * relationship, when it was true, and the sentence that says so. The quotation
- * carries `lang="is"` because it is Icelandic prose inside an English page.
+ * relationship, when it was true, and the sentence that says so. A quotation is
+ * tagged `lang="is"` when it reads as Icelandic, so a screen reader does not
+ * announce an English sentence with Icelandic phonemes.
  *
  * When an `amount` is present it is printed as its own source printed it.
  * Amounts are never added across rows, so there is no total line here.
@@ -126,7 +128,10 @@ export function EdgeRow({
         </p>
       ) : null}
 
-      <p className="break-words text-sm leading-6 text-muted-foreground" lang="is">
+      <p
+        className="break-words text-sm leading-6 text-muted-foreground"
+        lang={icelandicLang(edge.quotation)}
+      >
         {edge.quotation}
       </p>
 
@@ -137,7 +142,9 @@ export function EdgeRow({
       {program === "quotation" && edge.programQuotation ? (
         <p className="text-sm">
           <span className="text-muted-foreground">Program heading: </span>
-          <span lang="is">“{edge.programQuotation}”</span>
+          <span lang={icelandicLang(edge.programQuotation)}>
+            “{edge.programQuotation}”
+          </span>
           {edge.programSource ? (
             <>
               {" "}

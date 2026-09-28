@@ -32,7 +32,7 @@ export default function BusinessPage() {
         eyebrow={`${sectors.length} sectors · sourced`}
         title="Business"
       />
-      <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-10 sm:px-6">
+      <div className="mx-auto w-full max-w-shell px-4 pb-16 pt-10 sm:px-6">
         <Suspense fallback={<Skeleton className="h-64 w-full rounded-2xl" />}>
           <EntryIndexBrowser
             defaultSort="title"

@@ -1,12 +1,12 @@
 import placesJson from "@/data/places.json";
 
 export const LAYERS = [
-  { id: "state", label: "State", swatch: "#d7c4a3" },
-  { id: "companies", label: "Companies", swatch: "#8fb59a" },
-  { id: "multinationals", label: "Multinationals", swatch: "#d08b62" },
-  { id: "ngos", label: "NGOs", swatch: "#8eabcc" },
-  { id: "societies", label: "Societies", swatch: "#c6b06a" },
-  { id: "family", label: "Family", swatch: "#b7a3b0" },
+  { id: "state", label: "State", swatch: "var(--layer-state)" },
+  { id: "companies", label: "Companies", swatch: "var(--layer-companies)" },
+  { id: "multinationals", label: "Multinationals", swatch: "var(--layer-multinationals)" },
+  { id: "ngos", label: "NGOs", swatch: "var(--layer-ngos)" },
+  { id: "societies", label: "Societies", swatch: "var(--layer-societies)" },
+  { id: "family", label: "Family", swatch: "var(--layer-family)" },
 ] as const;
 
 export type LayerId = (typeof LAYERS)[number]["id"];

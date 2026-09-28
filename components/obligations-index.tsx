@@ -6,7 +6,7 @@ import { obligationVisual } from "@/lib/obligation-visual";
 export function ObligationsIndex() {
   return (
     <div className="relative">
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,13rem)_1fr] lg:gap-16 lg:py-16">
+      <div className="mx-auto grid w-full max-w-shell gap-12 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,13rem)_1fr] lg:gap-16 lg:py-16">
         <nav
           aria-label="Obligation themes"
           className="top-24 hidden h-fit lg:sticky lg:block"
@@ -70,7 +70,7 @@ export function ObligationsIndex() {
                         <h2 className="text-2xl font-medium tracking-tight">
                           {section.title}
                         </h2>
-                        <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
+                        <p className="max-w-lede text-sm leading-7 text-muted-foreground">
                           {section.lead}
                         </p>
                       </div>

@@ -52,14 +52,14 @@ export function HomeConstellation() {
         </title>
         <defs>
           <radialGradient cx="50%" cy="50%" id="core-glow" r="50%">
-            <stop offset="0%" stopColor="oklch(0.72 0.08 255 / 0.4)" />
-            <stop offset="55%" stopColor="oklch(0.9 0.04 220 / 0.1)" />
+            <stop offset="0%" stopColor="var(--constellation-core)" />
+            <stop offset="55%" stopColor="var(--constellation-core-mid)" />
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
           <linearGradient id="orbit-stroke" x1="0%" x2="100%" y1="0%" y2="100%">
-            <stop offset="0%" stopColor="oklch(0.75 0.06 255 / 0.5)" />
-            <stop offset="50%" stopColor="oklch(0.82 0.08 85 / 0.35)" />
-            <stop offset="100%" stopColor="oklch(0.78 0.07 200 / 0.45)" />
+            <stop offset="0%" stopColor="var(--constellation-orbit-a)" />
+            <stop offset="50%" stopColor="var(--constellation-orbit-b)" />
+            <stop offset="100%" stopColor="var(--constellation-orbit-c)" />
           </linearGradient>
         </defs>
         <circle cx={CX} cy={CY} fill="url(#core-glow)" r={R + 46} />
@@ -122,7 +122,7 @@ export function HomeConstellation() {
             fill={visual.ring}
             key={section.id}
             r={6}
-            stroke="oklch(0.99 0.005 90)"
+            stroke="var(--constellation-node-ring)"
             strokeWidth="2"
             style={{
               animation: "constellation-pulse 4s ease-in-out infinite",

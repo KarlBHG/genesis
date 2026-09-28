@@ -1,5 +1,6 @@
 import { Bar } from "@/components/viz/bar";
 import { basisLabel, comparable, printedFigure, widestFigure } from "@/components/viz/money";
+import { icelandicLang } from "@/lib/lang";
 import type { EdgeAmount } from "@/lib/types";
 
 /**
@@ -51,7 +52,10 @@ export function Magnitude({
                 </span>
               </div>
             )}
-            <p className="mt-1 text-xs leading-5 text-muted-foreground" lang="is">
+            <p
+              className="mt-1 text-xs leading-5 text-muted-foreground"
+              lang={icelandicLang(row.amount.quotation)}
+            >
               {row.amount.quotation}
             </p>
           </li>

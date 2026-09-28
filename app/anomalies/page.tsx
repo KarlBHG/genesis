@@ -60,8 +60,8 @@ export default function AnomaliesPage() {
   const repeats = buildRepeatedPayments();
 
   return (
-    <main className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-8 px-4 py-8 sm:px-6">
-      <header className="flex max-w-3xl flex-col gap-2">
+    <main className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-8 sm:px-6">
+      <header className="flex max-w-reading flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">Evidence</h1>
         <p className="text-muted-foreground">
           Public records that disagree, change, repeat, or come from Ríkisendurskoðun.

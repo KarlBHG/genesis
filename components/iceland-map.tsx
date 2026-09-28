@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import coast from "@/data/iceland-coast.json";
 import { labelize, yearOf } from "@/lib/format";
+import { icelandicLang } from "@/lib/lang";
 import {
   LAYERS,
   MAP_LAYERS,
@@ -66,7 +67,7 @@ const LAYER_LABEL = Object.fromEntries(LAYERS.map((layer) => [layer.id, layer.la
   string
 >;
 
-const MAP_CONTROL = "map-control focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e6d3a4]";
+const MAP_CONTROL = "map-control focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--geo-accent)";
 
 function usePrefersReducedMotion(): boolean {
   const [reduce, setReduce] = useState(false);
@@ -81,12 +82,12 @@ function usePrefersReducedMotion(): boolean {
 }
 
 const STROKE: Record<string, string> = {
-  owns: "#8fb59a",
-  "invests-in": "#c6b06a",
-  funds: "#d7c4a3",
-  "sells-power-to": "#e6d3a4",
-  "export-of": "#d08b62",
-  "import-line-of": "#d08b62",
+  owns: "var(--layer-companies)",
+  "invests-in": "var(--layer-societies)",
+  funds: "var(--layer-state)",
+  "sells-power-to": "var(--geo-accent)",
+  "export-of": "var(--layer-multinationals)",
+  "import-line-of": "var(--layer-multinationals)",
 };
 
 function projectCoast() {
@@ -384,13 +385,13 @@ export function IcelandMap({
   }
 
   return (
-    <div className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-5 px-4 py-6 text-[#e6e0d4] sm:px-6">
-      <header className="flex max-w-3xl flex-col gap-2">
-        <p className="text-xs tracking-[0.18em] text-[#9a917f] uppercase">Geographic view</p>
-        <h1 className="text-3xl font-medium tracking-tight text-[#f3ecdf] sm:text-4xl" style={{ fontFamily: "var(--font-serif), serif" }}>
+    <div className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-5 px-4 py-6 sm:px-6">
+      <header className="flex max-w-reading flex-col gap-2">
+        <p className="text-xs tracking-[0.18em] text-(--geo-ink-dim) uppercase">Geographic view</p>
+        <h1 className="text-3xl font-medium tracking-tight text-(--geo-ink) sm:text-4xl" style={{ fontFamily: "var(--font-serif), serif" }}>
           Iceland, only where a page names the place.
         </h1>
-        <p className="text-sm leading-6 text-[#c9c1b2]">
+        <p className="text-sm leading-6 text-(--geo-ink-muted)">
           Pins are real places. Reykjavík is one cluster, not a door for each office. Ownership, investments, money flows, careers, spending, authority, and trade partners are the typed edges already on file. Family is a separate channel, and it is empty. Trade-partner countries are listed, not pinned.
         </p>
       </header>
@@ -403,9 +404,9 @@ export function IcelandMap({
             aria-pressed={enabled[layer.id]}
             className={`rounded-full border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
             style={{
-              borderColor: enabled[layer.id] ? layer.swatch : "#3a4036",
-              color: enabled[layer.id] ? "#f3ecdf" : "#9a917f",
-              background: enabled[layer.id] ? "#23281f" : "transparent",
+              borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
+              color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+              background: enabled[layer.id] ? "var(--geo-chip-active)" : "transparent",
             }}
             onClick={() => toggle(layer.id)}
           >
@@ -424,10 +425,10 @@ export function IcelandMap({
             key={view.id}
             type="button"
             aria-pressed={viewsOn[view.id]}
-            className={`rounded-full border border-[#3a4036] px-3 py-1.5 text-sm ${MAP_CONTROL}`}
+            className={`rounded-full border border-(--geo-line) px-3 py-1.5 text-sm ${MAP_CONTROL}`}
             style={{
-              color: viewsOn[view.id] ? "#f3ecdf" : "#9a917f",
-              background: viewsOn[view.id] ? "#23281f" : "transparent",
+              color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+              background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
             }}
             onClick={() => toggleView(view.id)}
           >
@@ -447,9 +448,9 @@ export function IcelandMap({
                 aria-pressed={selected}
                 className={`flex w-[5.25rem] flex-col items-center gap-1 rounded-lg border px-1 py-2 text-center text-[11px] leading-tight ${MAP_CONTROL}`}
                 style={{
-                  borderColor: selected ? layer.swatch : "#34392f",
-                  color: selected ? layer.swatch : "#b7af9f",
-                  background: "#161910",
+                  borderColor: selected ? layer.swatch : "var(--geo-line)",
+                  color: selected ? layer.swatch : "var(--geo-ink-dim)",
+                  background: "var(--geo-panel-sunken)",
                 }}
                 onClick={() => selectLayer(layer.id)}
               >
@@ -460,7 +461,7 @@ export function IcelandMap({
           })}
         </div>
 
-        <div className="min-w-0 rounded-2xl border border-[#3d4336] bg-[#1a1f16] p-2 shadow-[0_0_60px_rgba(214,196,150,0.08)] sm:p-3">
+        <div className="min-w-0 rounded-2xl border border-(--geo-line-strong) bg-(--geo-frame) p-2 shadow-(--geo-glow) sm:p-3">
           <div className="relative min-w-0">
             <svg
               viewBox={`0 0 ${scene.width} ${scene.height}`}
@@ -468,8 +469,8 @@ export function IcelandMap({
               role="img"
               aria-label="Outline of Iceland with sourced pins"
             >
-              <rect width={scene.width} height={scene.height} fill="#12160f" rx="12" />
-              <path d={scene.d} fill="#2a3124" stroke="#d9d0bf" strokeWidth="1.4" />
+              <rect width={scene.width} height={scene.height} fill="var(--geo-plate)" rx="12" />
+              <path d={scene.d} fill="var(--geo-land)" stroke="var(--geo-ink-muted)" strokeWidth="1.4" />
               {strings.map(({ edge, bend, year }) => {
                 const drawn = curve(points[edge.fromPlace!], points[edge.toPlace!], bend);
                 const active = !selectedSlug || litKeys.has(edgeKey(edge));
@@ -478,7 +479,7 @@ export function IcelandMap({
                     <path
                       d={drawn.d}
                       fill="none"
-                      stroke={STROKE[edge.relationship] ?? "#e6d3a4"}
+                      stroke={STROKE[edge.relationship] ?? "var(--geo-accent)"}
                       strokeWidth="1.4"
                     />
                     {year ? (
@@ -486,9 +487,9 @@ export function IcelandMap({
                         x={drawn.labelX}
                         y={drawn.labelY}
                         textAnchor="middle"
-                        fill="#f0e2c4"
+                        fill="var(--geo-accent-soft)"
                         fontSize="12"
-                        stroke="#1a1f16"
+                        stroke="var(--geo-frame)"
                         strokeWidth="3"
                         paintOrder="stroke"
                         className="max-sm:hidden"
@@ -503,7 +504,7 @@ export function IcelandMap({
                 const atPlace = visible.filter((entry) => entry.place === place.id);
                 if (atPlace.length === 0) return null;
                 const point = points[place.id];
-                const swatch = LAYERS.find((layer) => layer.id === atPlace[0]?.layer)?.swatch ?? "#d7c4a3";
+                const swatch = LAYERS.find((layer) => layer.id === atPlace[0]?.layer)?.swatch ?? "var(--layer-state)";
                 const selected = selectedPlace === place.id;
                 const cluster = atPlace.length > 1;
                 const involved =
@@ -521,7 +522,7 @@ export function IcelandMap({
                       cy={point.y}
                       r={selected ? 9 : cluster ? 8 : 6}
                       fill={swatch}
-                      stroke="#f3ecdf"
+                      stroke="var(--geo-ink)"
                       strokeWidth={selected ? 2 : 1}
                     />
                     {cluster ? (
@@ -530,7 +531,7 @@ export function IcelandMap({
                         y={point.y}
                         textAnchor="middle"
                         dominantBaseline="central"
-                        fill="#0e100c"
+                        fill="var(--geo-canvas)"
                         fontSize="9"
                         fontWeight="600"
                         pointerEvents="none"
@@ -541,7 +542,7 @@ export function IcelandMap({
                     <text
                       x={point.x + 10}
                       y={point.y - 10}
-                      fill="#f3ecdf"
+                      fill="var(--geo-ink)"
                       fontSize="13"
                       className="max-sm:hidden"
                     >
@@ -569,7 +570,7 @@ export function IcelandMap({
             })}
           </div>
           <nav className="mt-3" aria-label="Places on the map">
-            <p className="mb-2 text-xs tracking-wide text-[#9a917f] uppercase">Pins</p>
+            <p className="mb-2 text-xs tracking-wide text-(--geo-ink-dim) uppercase">Pins</p>
             <ul className="flex flex-wrap gap-2">
               {PLACES.map((place) => {
                 const atPlace = visible.filter((entry) => entry.place === place.id);
@@ -583,15 +584,15 @@ export function IcelandMap({
                       aria-pressed={selected}
                       className={`rounded-full border px-3 py-1 text-sm ${MAP_CONTROL}`}
                       style={{
-                        borderColor: selected ? "#d7c4a3" : "#3d4336",
-                        color: selected ? "#f3ecdf" : "#c9c1b2",
-                        background: selected ? "#23281f" : "transparent",
+                        borderColor: selected ? "var(--layer-state)" : "var(--geo-line-strong)",
+                        color: selected ? "var(--geo-ink)" : "var(--geo-ink-muted)",
+                        background: selected ? "var(--geo-chip-active)" : "transparent",
                       }}
                       onClick={() => selectPlace(place.id)}
                     >
                       {place.name}
                       {cluster ? (
-                        <span className="ml-1.5 inline-flex min-w-[1.25rem] justify-center rounded-full bg-[#d7c4a3] px-1 text-[11px] font-medium text-[#0e100c]">
+                        <span className="ml-1.5 inline-flex min-w-[1.25rem] justify-center rounded-full bg-(--layer-state) px-1 text-[11px] font-medium text-(--geo-canvas)">
                           {atPlace.length}
                         </span>
                       ) : null}
@@ -603,7 +604,7 @@ export function IcelandMap({
           </nav>
           {selectedPlace && placeEntries.length > 1 ? (
             <div
-              className="mt-3 rounded-xl border border-[#3d4336] bg-[#141710] p-3"
+              className="mt-3 rounded-xl border border-(--geo-line-strong) bg-(--geo-panel) p-3"
               tabIndex={0}
               role="region"
               aria-label={`${placeName} entries`}
@@ -614,7 +615,7 @@ export function IcelandMap({
                 )
               }
             >
-              <p className="text-xs tracking-wide text-[#9a917f] uppercase">
+              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">
                 {placeName} · spread list · ↑↓ or j/k
               </p>
               <ul className="mt-2 flex max-h-48 flex-col gap-1 overflow-y-auto">
@@ -627,20 +628,20 @@ export function IcelandMap({
                         aria-current={focused ? "true" : undefined}
                         className={`flex w-full items-baseline justify-between gap-2 rounded-lg px-2 py-1.5 text-left text-sm ${MAP_CONTROL}`}
                         style={{
-                          color: focused ? "#f3ecdf" : "#d5cdbf",
-                          background: focused ? "#23281f" : "transparent",
+                          color: focused ? "var(--geo-ink)" : "var(--geo-ink-muted)",
+                          background: focused ? "var(--geo-chip-active)" : "transparent",
                         }}
                         onClick={() => selectSlug(entry.slug, selectedPlace)}
                       >
                         <span className="min-w-0 break-words">
                           {entry.title}
                           {entry.pinOnly ? (
-                            <span className="mt-0.5 block text-[10px] font-normal tracking-wide text-[#9a917f] normal-case">
+                            <span className="mt-0.5 block text-[10px] font-normal tracking-wide text-(--geo-ink-dim) normal-case">
                               Pin only · no typed edge
                             </span>
                           ) : null}
                         </span>
-                        <span className="shrink-0 text-[10px] tracking-wide text-[#9a917f] uppercase">
+                        <span className="shrink-0 text-[10px] tracking-wide text-(--geo-ink-dim) uppercase">
                           {LAYER_LABEL[entry.layer]}
                         </span>
                       </button>
@@ -652,45 +653,47 @@ export function IcelandMap({
           ) : null}
         </div>
 
-        <aside className="min-w-0 rounded-2xl border border-[#34392f] bg-[#141710] p-4" aria-live="polite">
+        <aside className="min-w-0 rounded-2xl border border-(--geo-line) bg-(--geo-panel) p-4" aria-live="polite">
           {focus ? (
             <div className="flex flex-col gap-3">
-              <p className="text-xs tracking-wide text-[#9a917f] uppercase">{LAYER_LABEL[focus.layer]}</p>
+              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">{LAYER_LABEL[focus.layer]}</p>
               {focus.pinOnly ? (
                 <p
-                  className="w-fit rounded-full border border-[#5c5345] bg-[#1f2319] px-2.5 py-0.5 text-[11px] tracking-wide text-[#c9b896] uppercase"
+                  className="w-fit rounded-full border border-(--geo-line-bright) bg-(--geo-chip) px-2.5 py-0.5 text-[11px] tracking-wide text-(--geo-accent-dim) uppercase"
                   title="This pin is geographic only until a sourced typed edge exists."
                 >
                   Pin only · no typed edge
                 </p>
               ) : null}
-              <h2 className="text-xl font-medium text-[#f3ecdf]">{focus.title}</h2>
-              <p className="text-sm leading-6 text-[#d5cdbf]">{focus.fact}</p>
-              <a className="text-sm text-[#e6d3a4] underline underline-offset-4" href={focus.href}>
+              <h2 className="text-xl font-medium text-(--geo-ink)">{focus.title}</h2>
+              <p className="text-sm leading-6 text-(--geo-ink-muted)">{focus.fact}</p>
+              <a className="text-sm text-(--geo-accent) underline underline-offset-4" href={focus.href}>
                 Open the entry
               </a>
               <button
                 type="button"
-                className={`w-fit text-left text-sm text-[#9a917f] underline underline-offset-4 ${MAP_CONTROL}`}
+                className={`w-fit text-left text-sm text-(--geo-ink-dim) underline underline-offset-4 ${MAP_CONTROL}`}
                 onClick={copyLink}
               >
                 {copied ? "Link copied" : "Copy a link to this view"}
               </button>
               {focus.person ? (
                 <div className="flex min-w-0 flex-col gap-2">
-                  <h3 className="text-sm font-medium text-[#f3ecdf]">Career</h3>
+                  <h3 className="text-sm font-medium text-(--geo-ink)">Career</h3>
                   {timeline.length === 0 ? (
-                    <p className="text-sm leading-6 text-[#9a917f]">No career lines are on file.</p>
+                    <p className="text-sm leading-6 text-(--geo-ink-dim)">No career lines are on file.</p>
                   ) : (
                     <ol className="flex min-w-0 flex-col gap-3">
                       {timeline.map((edge) => (
-                        <li key={edgeKey(edge)} className="min-w-0 text-sm leading-5 break-words text-[#d5cdbf]">
-                          <span className="block text-xs tracking-wide text-[#e6d3a4] uppercase">
+                        <li key={edgeKey(edge)} className="min-w-0 text-sm leading-5 break-words text-(--geo-ink-muted)">
+                          <span className="block text-xs tracking-wide text-(--geo-accent) uppercase">
                             {edge.channel === "political" ? "Political" : "Business"} · {labelize(edge.relationship)}
                           </span>
                           {edge.from === focus.slug ? placeLabel(edge) : edge.fromTitle}
-                          <span className="mt-0.5 block text-[#9a917f]">{careerSpan(edge)}</span>
-                          <span className="mt-0.5 block text-[#9a917f]">{edge.quotation}</span>
+                          <span className="mt-0.5 block text-(--geo-ink-dim)">{careerSpan(edge)}</span>
+                          <span className="mt-0.5 block text-(--geo-ink-dim)" lang={icelandicLang(edge.quotation)}>
+                          {edge.quotation}
+                        </span>
                         </li>
                       ))}
                     </ol>
@@ -700,24 +703,26 @@ export function IcelandMap({
               {panelLines.length > 0 ? (
                 <ul className="flex flex-col gap-2">
                   {panelLines.map((edge) => (
-                    <li key={edgeKey(edge)} className="text-sm leading-5 break-words text-[#d5cdbf]">
+                    <li key={edgeKey(edge)} className="text-sm leading-5 break-words text-(--geo-ink-muted)">
                       {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {placeLabel(edge)}
                       {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
                       {edge.view === "careers" || edge.view === "spending" || careerHolding(edge) ? (
-                        <span className="mt-0.5 block text-[#9a917f]">{edge.quotation}</span>
+                        <span className="mt-0.5 block text-(--geo-ink-dim)" lang={icelandicLang(edge.quotation)}>
+                          {edge.quotation}
+                        </span>
                       ) : null}
-                      {edge.note ? <span className="mt-0.5 block text-[#9a917f]">{edge.note}</span> : null}
+                      {edge.note ? <span className="mt-0.5 block text-(--geo-ink-dim)">{edge.note}</span> : null}
                     </li>
                   ))}
                 </ul>
               ) : focus.person ? null : (
-                <p className="text-sm leading-6 text-[#9a917f]">No lines in the views that are on.</p>
+                <p className="text-sm leading-6 text-(--geo-ink-dim)">No lines in the views that are on.</p>
               )}
               {focus.flows.length > 0 ? (
                 <ul className="flex flex-col gap-2">
                   {focus.flows.map((flow) => (
                     <li key={flow.href}>
-                      <a className="text-sm text-[#e6d3a4] underline underline-offset-4" href={flow.href}>
+                      <a className="text-sm text-(--geo-accent) underline underline-offset-4" href={flow.href}>
                         {flow.title}
                       </a>
                     </li>
@@ -727,7 +732,7 @@ export function IcelandMap({
               {placeEntries.length > 1 ? (
                 <button
                   type="button"
-                  className="text-left text-sm text-[#9a917f] underline underline-offset-4"
+                  className="text-left text-sm text-(--geo-ink-dim) underline underline-offset-4"
                   onClick={() => go({ ...query, focus: null })}
                 >
                   Back to {placeName}
@@ -736,27 +741,27 @@ export function IcelandMap({
             </div>
           ) : selectedPlace ? (
             <div className="flex flex-col gap-3">
-              <p className="text-xs tracking-wide text-[#9a917f] uppercase">Place</p>
-              <h2 className="text-xl font-medium text-[#f3ecdf]">{placeName}</h2>
+              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">Place</p>
+              <h2 className="text-xl font-medium text-(--geo-ink)">{placeName}</h2>
               {selectedPlace === "reykjavik" ? (
-                <p className="text-sm leading-6 text-[#d5cdbf]">
+                <p className="text-sm leading-6 text-(--geo-ink-muted)">
                   One pin for the capital. The list is grouped by layer. Offices are not given separate coordinates.
                 </p>
               ) : null}
               {grouped.map((group) => (
                 <div key={group.layer.id} className="flex flex-col gap-2">
-                  <p className="text-xs tracking-wide text-[#9a917f] uppercase">{group.layer.label}</p>
+                  <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">{group.layer.label}</p>
                   <ul className="flex flex-col gap-2">
                     {group.entries.map((entry) => (
                       <li key={entry.slug}>
                         <button
                           type="button"
-                          className="text-left text-sm text-[#f3ecdf] underline underline-offset-4"
+                          className="text-left text-sm text-(--geo-ink) underline underline-offset-4"
                           onClick={() => selectSlug(entry.slug, selectedPlace)}
                         >
                           {entry.title}
                           {entry.pinOnly ? (
-                            <span className="mt-0.5 block text-[10px] font-normal text-[#9a917f] no-underline">
+                            <span className="mt-0.5 block text-[10px] font-normal text-(--geo-ink-dim) no-underline">
                               Pin only · no typed edge
                             </span>
                           ) : null}
@@ -769,17 +774,17 @@ export function IcelandMap({
             </div>
           ) : selectedLayer ? (
             <div className="flex flex-col gap-3">
-              <p className="text-xs tracking-wide text-[#9a917f] uppercase">Layer</p>
-              <h2 className="text-xl font-medium text-[#f3ecdf]">{LAYER_LABEL[selectedLayer]}</h2>
+              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">Layer</p>
+              <h2 className="text-xl font-medium text-(--geo-ink)">{LAYER_LABEL[selectedLayer]}</h2>
               {layerEntries.length === 0 ? (
-                <p className="text-sm leading-6 text-[#d5cdbf]">Nothing sourced on this layer yet.</p>
+                <p className="text-sm leading-6 text-(--geo-ink-muted)">Nothing sourced on this layer yet.</p>
               ) : (
                 <ul className="flex flex-col gap-2">
                   {layerEntries.map((entry) => (
                     <li key={entry.slug}>
                         <button
                           type="button"
-                          className="text-left text-sm text-[#f3ecdf] underline underline-offset-4"
+                          className="text-left text-sm text-(--geo-ink) underline underline-offset-4"
                           onClick={() => selectSlug(entry.slug, entry.place)}
                         >
                         {entry.title}
@@ -790,7 +795,7 @@ export function IcelandMap({
               )}
             </div>
           ) : (
-            <p className="text-sm leading-6 text-[#d5cdbf]">Select a pin or a figure.</p>
+            <p className="text-sm leading-6 text-(--geo-ink-muted)">Select a pin or a figure.</p>
           )}
         </aside>
       </div>
@@ -804,38 +809,40 @@ export function IcelandMap({
               : shown.filter((edge) => edge.view === view.id);
           return (
             <section key={view.id} className="min-w-0">
-              <h2 className="text-sm font-medium text-[#f3ecdf]">
+              <h2 className="text-sm font-medium text-(--geo-ink)">
                 {view.label} · {lines.length}
               </h2>
               {lines.length === 0 ? (
-                <p className="mt-1 text-sm text-[#9a917f]">No lines in this view.</p>
+                <p className="mt-1 text-sm text-(--geo-ink-dim)">No lines in this view.</p>
               ) : (
                 <ul className="mt-2 flex flex-col gap-1">
                   {lines.map((edge) => (
-                    <li key={edgeKey(edge)} className="min-w-0 text-sm leading-5 break-words text-[#d5cdbf]" style={lineStyle(edge)}>
+                    <li key={edgeKey(edge)} className="min-w-0 text-sm leading-5 break-words text-(--geo-ink-muted)" style={lineStyle(edge)}>
                       {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {placeLabel(edge)}
                       {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
                       {edge.view === "careers" || edge.view === "spending" || careerHolding(edge) ? (
-                        <span className="mt-0.5 block text-[#9a917f]">{edge.quotation}</span>
+                        <span className="mt-0.5 block text-(--geo-ink-dim)" lang={icelandicLang(edge.quotation)}>
+                          {edge.quotation}
+                        </span>
                       ) : null}
-                      {edge.note ? <span className="mt-0.5 block text-[#9a917f]">{edge.note}</span> : null}
+                      {edge.note ? <span className="mt-0.5 block text-(--geo-ink-dim)">{edge.note}</span> : null}
                     </li>
                   ))}
                 </ul>
               )}
               {view.id === "trade" && tradePartners.length > 0 ? (
-                <div className="mt-3 rounded-xl border border-[#34392f] bg-[#141710] p-3">
-                  <p className="text-xs tracking-wide text-[#9a917f] uppercase">
+                <div className="mt-3 rounded-xl border border-(--geo-line) bg-(--geo-panel) p-3">
+                  <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">
                     Trade partners · not on the map
                   </p>
-                  <p className="mt-1 text-sm leading-6 text-[#9a917f]">
+                  <p className="mt-1 text-sm leading-6 text-(--geo-ink-dim)">
                     Countries named on trade edges have no Icelandic place on file, so they are listed here instead of pinned in Reykjavík.
                   </p>
                   <ul className="mt-2 flex flex-col gap-1">
                     {tradePartners.map((partner) => (
                       <li key={partner.slug}>
                         <a
-                          className="text-sm text-[#e6d3a4] underline underline-offset-4"
+                          className="text-sm text-(--geo-accent) underline underline-offset-4"
                           href={partner.href}
                         >
                           {partner.title}
@@ -850,7 +857,7 @@ export function IcelandMap({
         })}
       </div>
 
-      <p className="text-xs leading-5 text-[#8f8778]">
+      <p className="text-xs leading-5 text-(--geo-ink-dim)">
         Coastline: Natural Earth 1:50m, public domain. Place points: Nominatim names for Reykjavík, Straumsvík, Grundartangi, Reyðarfjörður, Keflavík airport, and Blönduós.
       </p>
     </div>

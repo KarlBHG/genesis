@@ -149,7 +149,7 @@ export function HomeDashboard({
   return (
     <div className="dashboard-canvas">
       <section className="dashboard-hero relative border-b">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
+        <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
           <div className="flex max-w-xl flex-col gap-6">
             <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
               AlltÍkerfi · sourced atlas
@@ -220,7 +220,7 @@ export function HomeDashboard({
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
+      <section className="mx-auto w-full max-w-shell px-4 py-12 sm:px-6">
         <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-2xl font-medium tracking-tight">Enter anywhere</h2>
@@ -259,9 +259,9 @@ export function HomeDashboard({
       </section>
 
       <section className="border-y border-border/60 bg-muted/20 backdrop-blur-sm">
-        <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
+        <div className="mx-auto w-full max-w-shell px-4 py-12 sm:px-6">
           <h2 className="mb-2 text-2xl font-medium tracking-tight">Catalog shape</h2>
-          <p className="mb-6 max-w-2xl text-sm text-muted-foreground">
+          <p className="mb-6 max-w-lede text-sm text-muted-foreground">
             {total} indexed records across six kinds — width of the atlas, not a
             ranking.
           </p>
@@ -299,12 +299,12 @@ export function HomeDashboard({
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
+      <section className="mx-auto w-full max-w-shell px-4 py-12 sm:px-6">
         <div className="mb-8 flex flex-col gap-2">
           <h2 className="text-2xl font-medium tracking-tight">
             {LANDING_CHAINS.length} chains to start from
           </h2>
-          <p className="max-w-2xl text-sm text-muted-foreground">
+          <p className="max-w-lede text-sm text-muted-foreground">
             Short paths through the evidence — each step is a stored edge with a
             quotation.
           </p>
@@ -316,7 +316,7 @@ export function HomeDashboard({
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
+      <section className="mx-auto w-full max-w-shell px-4 pb-16 sm:px-6">
         <div className="glass-panel rounded-2xl p-6 sm:p-8">
           <div className="mb-4 flex items-center gap-2">
             <SearchIcon className="size-5 text-muted-foreground" strokeWidth={1.5} />

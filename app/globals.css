@@ -2,9 +2,20 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/*
+ * This site has exactly two rooms and no light/dark pair, so `dark:` is
+ * pinned to a class nothing ever applies. That keeps the variant inert in the
+ * shadcn primitives rather than half-activating it from an OS preference.
+ */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* One frame width for the header, the footer, and every page inside them. */
+  --container-shell: 72rem;
+  /* The reading column: prose, ledes, and quotations. */
+  --container-reading: 48rem;
+  /* The narrow measure for ledes and standfirsts. */
+  --container-lede: 42rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -90,41 +101,112 @@
   --viz-link: oklch(0.6 0.04 255);
   --viz-node: oklch(0.7 0.03 255);
   --viz-node-ring: oklch(0.99 0.004 90);
+
+  /*
+   * —— Room one: the light paper reading surface ——
+   * Every ambient wash, orb, glass panel, and halo on the reading side of the
+   * site resolves here. Components carry no colour literals of their own.
+   */
+  --paper-wash-cool: oklch(0.88 0.04 255 / 0.22);
+  --paper-wash-warm: oklch(0.9 0.05 85 / 0.18);
+  --paper-orb-cool: oklch(0.78 0.09 255 / 0.35);
+  --paper-orb-warm: oklch(0.82 0.1 85 / 0.28);
+  --paper-orb-sea: oklch(0.8 0.08 175 / 0.22);
+  --paper-vignette: oklch(0.55 0.02 255 / 0.06);
+  --paper-hero-cool: oklch(0.8 0.08 220 / 0.14);
+  --paper-hero-warm: oklch(0.85 0.07 45 / 0.12);
+  --paper-glass: oklch(0.995 0.004 90 / 0.86);
+  --paper-glass-border: oklch(0.86 0.014 90 / 0.9);
+  --paper-glass-shadow: oklch(0.35 0.04 255 / 0.06);
+  --paper-glass-sheen: oklch(1 0 0 / 0.6);
+  --paper-halo: oklch(0.995 0.004 90 / 0.9);
+  --paper-halo-soft: oklch(0.995 0.004 90 / 0.85);
+  --paper-halo-faint: oklch(0.995 0.004 90 / 0.6);
+  --paper-footer-near: oklch(0.94 0.02 95 / 0.9);
+  --paper-footer-far: oklch(0.97 0.012 95 / 0.4);
+
+  /* The constellation on the landing page, drawn on paper. */
+  --constellation-core: oklch(0.72 0.08 255 / 0.4);
+  --constellation-core-mid: oklch(0.9 0.04 220 / 0.1);
+  --constellation-orbit-a: oklch(0.75 0.06 255 / 0.5);
+  --constellation-orbit-b: oklch(0.82 0.08 85 / 0.35);
+  --constellation-orbit-c: oklch(0.78 0.07 200 / 0.45);
+  --constellation-node-ring: oklch(0.99 0.005 90);
+
+  /*
+   * The six map layers. One categorical palette, shared by the map pins, the
+   * layer chips, and the relationship strokes below.
+   */
+  --layer-state: #d7c4a3;
+  --layer-companies: #8fb59a;
+  --layer-multinationals: #d08b62;
+  --layer-ngos: #8eabcc;
+  --layer-societies: #c6b06a;
+  --layer-family: #b7a3b0;
+
+  /* The nine obligation themes. Categorical, like the map layers. */
+  --theme-security: oklch(0.5 0.07 265);
+  --theme-europe: oklch(0.52 0.11 275);
+  --theme-bilateral-trade: oklch(0.6 0.13 65);
+  --theme-multilateral: oklch(0.54 0.09 200);
+  --theme-financial: oklch(0.52 0.15 25);
+  --theme-budget: oklch(0.5 0.11 155);
+  --theme-aviation: oklch(0.54 0.11 235);
+  --theme-investment: oklch(0.48 0.13 305);
+  --theme-development: oklch(0.52 0.12 145);
+  --theme-fallback: oklch(0.5 0.06 255);
+
+  /* The six entry kinds, for the catalogue swatches. */
+  --kind-treaty: oklch(0.62 0.08 255);
+  --kind-institution: oklch(0.55 0.06 255);
+  --kind-event: oklch(0.72 0.06 85);
+  --kind-sector: oklch(0.65 0.09 155);
+  --kind-flow: oklch(0.7 0.1 45);
+  --kind-player: oklch(0.68 0.05 320);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+/*
+ * —— Room two: the dark geographic room ——
+ * The map is the one place the site goes dark. These tokens are scoped to the
+ * room so the palette cannot leak onto a reading page.
+ */
+.geo-room {
+  --geo-canvas: #0e100c;
+  --geo-plate: #12160f;
+  --geo-panel: #141710;
+  --geo-panel-sunken: #161910;
+  --geo-frame: #1a1f16;
+  --geo-chip: #1f2319;
+  --geo-chip-active: #23281f;
+  --geo-land: #2a3124;
+  --geo-line: #34392f;
+  --geo-line-strong: #3d4336;
+  --geo-line-bright: #5c5345;
+  --geo-ink: #f3ecdf;
+  --geo-ink-soft: #e6e0d4;
+  --geo-ink-muted: #d5cdbf;
+  --geo-ink-dim: #9a917f;
+  --geo-accent: #e6d3a4;
+  --geo-accent-soft: #f0e2c4;
+  --geo-accent-dim: #c9b896;
+  --geo-glow: 0 0 60px rgb(214 196 150 / 0.08);
+
+  /* Relationship families, drawn from the same palette as the layer chips. */
+  --edge-money: var(--layer-state);
+  --edge-ownership: var(--layer-companies);
+  --edge-trade: var(--layer-multinationals);
+  --edge-investment: var(--layer-societies);
+  --edge-power: var(--geo-accent);
+
+  background: var(--geo-canvas);
+  color: var(--geo-ink-soft);
 }
+
+.geo-room .map-control:focus-visible {
+  outline: 2px solid var(--geo-accent);
+  outline-offset: 2px;
+}
+
 
 @layer base {
   * {
@@ -187,8 +269,8 @@
 
 .dashboard-canvas {
   background:
-    radial-gradient(ellipse 90% 50% at 50% -10%, oklch(0.88 0.04 255 / 0.22), transparent 55%),
-    radial-gradient(ellipse 60% 40% at 100% 20%, oklch(0.9 0.05 85 / 0.18), transparent 50%),
+    radial-gradient(ellipse 90% 50% at 50% -10%, var(--paper-wash-cool), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 20%, var(--paper-wash-warm), transparent 50%),
     var(--background);
 }
 
@@ -198,8 +280,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 30%, oklch(0.82 0.07 220 / 0.12), transparent 45%),
-    radial-gradient(circle at 80% 60%, oklch(0.86 0.06 45 / 0.1), transparent 40%);
+    radial-gradient(circle at 20% 30%, var(--paper-hero-cool), transparent 45%),
+    radial-gradient(circle at 80% 60%, var(--paper-hero-warm), transparent 40%);
   opacity: 0.9;
 }
 
@@ -223,7 +305,7 @@
   background: radial-gradient(
     ellipse 85% 70% at 50% 45%,
     transparent 40%,
-    oklch(0.55 0.02 255 / 0.06) 100%
+    var(--paper-vignette) 100%
   );
 }
 
@@ -240,7 +322,7 @@
   height: min(55vw, 520px);
   top: -12%;
   left: -8%;
-  background: oklch(0.78 0.09 255 / 0.35);
+  background: var(--paper-orb-cool);
   animation: aurora-drift-a 28s ease-in-out infinite alternate;
 }
 
@@ -249,7 +331,7 @@
   height: min(45vw, 420px);
   top: 35%;
   right: -12%;
-  background: oklch(0.82 0.1 85 / 0.28);
+  background: var(--paper-orb-warm);
   animation: aurora-drift-b 34s ease-in-out infinite alternate;
 }
 
@@ -258,7 +340,7 @@
   height: min(38vw, 360px);
   bottom: -8%;
   left: 28%;
-  background: oklch(0.8 0.08 175 / 0.22);
+  background: var(--paper-orb-sea);
   animation: aurora-drift-c 40s ease-in-out infinite alternate;
 }
 
@@ -332,31 +414,26 @@
   }
 }
 
-.map-control:focus-visible {
-  outline: 2px solid #e6d3a4;
-  outline-offset: 2px;
-}
-
 .glass-panel {
-  border: 1px solid oklch(0.86 0.014 90 / 0.9);
-  background: oklch(0.995 0.004 90 / 0.86);
+  border: 1px solid var(--paper-glass-border);
+  background: var(--paper-glass);
   box-shadow:
-    0 1px 0 oklch(1 0 0 / 0.6) inset,
-    0 12px 40px oklch(0.35 0.04 255 / 0.06);
+    0 1px 0 var(--paper-glass-sheen) inset,
+    0 12px 40px var(--paper-glass-shadow);
   backdrop-filter: blur(14px);
 }
 
 .constellation-label {
   color: var(--foreground);
   text-shadow:
-    0 0 1px oklch(0.995 0.004 90 / 0.9),
-    0 1px 3px oklch(0.995 0.004 90 / 0.85),
-    0 0 10px oklch(0.995 0.004 90 / 0.6);
+    0 0 1px var(--paper-halo),
+    0 1px 3px var(--paper-halo-soft),
+    0 0 10px var(--paper-halo-faint);
 }
 
 .page-hero {
   background:
-    radial-gradient(ellipse 100% 80% at 50% -30%, oklch(0.88 0.05 255 / 0.2), transparent 55%),
+    radial-gradient(ellipse 100% 80% at 50% -30%, var(--paper-wash-cool), transparent 55%),
     transparent;
 }
 
@@ -370,8 +447,8 @@
   inset: 0;
   opacity: 0.85;
   background:
-    radial-gradient(circle at 15% 40%, oklch(0.8 0.08 220 / 0.14), transparent 42%),
-    radial-gradient(circle at 88% 25%, oklch(0.85 0.07 45 / 0.12), transparent 38%);
+    radial-gradient(circle at 15% 40%, var(--paper-hero-cool), transparent 42%),
+    radial-gradient(circle at 88% 25%, var(--paper-hero-warm), transparent 38%);
 }
 
 .atlas-page {
@@ -387,8 +464,8 @@
 .site-footer-glow {
   background: linear-gradient(
     to top,
-    oklch(0.94 0.02 95 / 0.9),
-    oklch(0.97 0.012 95 / 0.4)
+    var(--paper-footer-near),
+    var(--paper-footer-far)
   );
 }
 

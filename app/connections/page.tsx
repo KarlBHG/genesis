@@ -11,6 +11,7 @@ import { kindLabel, labelize } from "@/lib/format";
 import { MAP_VIEWS, viewOf } from "@/lib/geo-map";
 import { officeLabel, ownsRowNote, tradeValueNote } from "@/lib/notes";
 import type { Edge, Kind } from "@/lib/types";
+import { icelandicLang } from "@/lib/lang";
 
 export const metadata: Metadata = {
   title: "Connections",
@@ -58,7 +59,9 @@ function EdgeLine({ edge, note }: { edge: Edge; note: string | null }) {
           · <AsOfChip asOf={edge.asOf} />
         </span>
       </p>
-      <p className="break-words text-sm leading-6">{edge.quotation}</p>
+      <p className="break-words text-sm leading-6" lang={icelandicLang(edge.quotation)}>
+        {edge.quotation}
+      </p>
       {note ? <p className="break-words text-sm leading-6 text-muted-foreground">{note}</p> : null}
     </li>
   );
@@ -178,8 +181,8 @@ export default async function ConnectionsPage({
     .sort((a, b) => a.relationship.localeCompare(b.relationship) || a.fromTitle.localeCompare(b.fromTitle, "en"));
 
   return (
-    <main className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-8 px-4 py-8 sm:px-6">
-      <header className="flex max-w-3xl flex-col gap-2">
+    <main className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-8 sm:px-6">
+      <header className="flex max-w-reading flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">Connections</h1>
         <p className="text-muted-foreground">
           Seven views, the same buckets as the map. Each line is one typed relationship. Full names wrap. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>.

@@ -10,12 +10,12 @@ const KIND_LABELS: Record<Kind, string> = {
 };
 
 const KIND_SWATCH: Record<Kind, string> = {
-  treaty: "oklch(0.62 0.08 255)",
-  institution: "oklch(0.55 0.06 255)",
-  event: "oklch(0.72 0.06 85)",
-  sector: "oklch(0.65 0.09 155)",
-  flow: "oklch(0.7 0.1 45)",
-  player: "oklch(0.68 0.05 320)",
+  treaty: "var(--kind-treaty)",
+  institution: "var(--kind-institution)",
+  event: "var(--kind-event)",
+  sector: "var(--kind-sector)",
+  flow: "var(--kind-flow)",
+  player: "var(--kind-player)",
 };
 
 export type CatalogSlice = {

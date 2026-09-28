@@ -5,6 +5,7 @@ import { linkHorizontal } from "d3-shape";
 
 import type { EgoLayout } from "@/components/viz/ego-layout";
 import { labelize } from "@/lib/format";
+import { icelandicLang } from "@/lib/lang";
 
 const curve = linkHorizontal<
   { x1: number; y1: number; x2: number; y2: number },
@@ -88,7 +89,10 @@ export function EgoNetwork({
         ))}
       </ul>
       {activeLink ? (
-        <p className="text-xs leading-5 text-muted-foreground" lang="is">
+        <p
+          className="text-xs leading-5 text-muted-foreground"
+          lang={icelandicLang(activeLink.edge.quotation)}
+        >
           {activeLink.edge.quotation}
         </p>
       ) : null}

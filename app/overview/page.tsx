@@ -40,7 +40,7 @@ export default function OverviewPage() {
         eyebrow="Iceland system map"
         title="Map how Iceland is wired."
       />
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6">
+      <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 py-10 sm:px-6">
         <ConnectionStrips edges={edges} only="budget" />
         <div className="glass-panel rounded-2xl p-6 sm:p-8">
           <SearchPanel docs={toSearchDocs(entries)} />

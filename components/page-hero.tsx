@@ -22,8 +22,8 @@ export function PageHero({
       className={`page-hero relative overflow-hidden border-b ${size === "dramatic" ? "page-hero-dramatic" : ""}`}
     >
       <div className="page-hero-glow" aria-hidden />
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:flex-row lg:items-end lg:justify-between">
-        <div className="flex max-w-2xl flex-col gap-4">
+      <div className="relative z-10 mx-auto flex w-full max-w-shell flex-col gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex max-w-lede flex-col gap-4">
           {eyebrow ? (
             <p className="text-xs font-medium tracking-[0.22em] text-muted-foreground uppercase">
               {eyebrow}

@@ -29,7 +29,7 @@ export default function MoneyPage() {
         eyebrow="Budget · flows · 2026"
         title="Budget & money"
       />
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6">
+      <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 py-10 sm:px-6">
         <BudgetProgramsSection />
         <section className="flex min-w-0 flex-col gap-4">
           <h2 className="text-xl font-medium tracking-tight">Other money flows</h2>
