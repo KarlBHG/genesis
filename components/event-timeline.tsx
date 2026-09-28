@@ -228,14 +228,30 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
                               )}
                             </ul>
                           )}
-                          <Button
-                            nativeButton={false}
-                            render={<Link href={`/events/${event.slug}`} />}
-                            size="sm"
-                            variant="outline"
-                          >
-                            Open event
-                          </Button>
+                          <div className="flex flex-wrap gap-2">
+                            <Button
+                              nativeButton={false}
+                              render={<Link href={`/events/${event.slug}`} />}
+                              size="sm"
+                              variant="outline"
+                            >
+                              Open event
+                            </Button>
+                            {event.connectionCount > 0 ? (
+                              <Button
+                                nativeButton={false}
+                                render={
+                                  <Link
+                                    href={`/connections?entry=${event.slug}`}
+                                  />
+                                }
+                                size="sm"
+                                variant="outline"
+                              >
+                                Typed connections
+                              </Button>
+                            ) : null}
+                          </div>
                         </CardContent>
                       ) : null}
                     </Card>

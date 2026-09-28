@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function EventsPage() {
   const events = getEvents().map((event) => {
     const graph = edgesFor(event.slug);
-    const connectionCount = graph.in.length + graph.out.length;
+    const connectionCount = graph.inn.length + graph.out.length;
     return {
     slug: event.slug,
     title: event.title,

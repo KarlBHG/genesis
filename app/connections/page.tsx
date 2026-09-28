@@ -124,11 +124,24 @@ function ViewBody({
   );
 }
 
-export default function ConnectionsPage() {
+export default async function ConnectionsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ entry?: string }>;
+}) {
+  const params = await searchParams;
+  const focusSlug = params.entry?.trim() ?? "";
+  const focusEntry = focusSlug ? resolveSlug(focusSlug) : null;
   const entries = getCatalog();
-  const edges = getEdges();
+  const allEdges = getEdges();
+  const edges =
+    focusSlug.length > 0
+      ? allEdges.filter(
+          (edge) => edge.from === focusSlug || edge.to === focusSlug,
+        )
+      : allEdges;
   const contradictions = getContradictions();
-  const drawn = new Set(edges.flatMap((edge) => [edge.from, edge.to]));
+  const drawn = new Set(allEdges.flatMap((edge) => [edge.from, edge.to]));
   const missing = entries
     .filter((entry) => !drawn.has(entry.slug))
     .sort((a, b) => {
@@ -161,6 +174,29 @@ export default function ConnectionsPage() {
         <p className="text-muted-foreground">
           Seven views, the same buckets as the map. Each line is one typed relationship. Full names wrap. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
         </p>
+        {focusSlug ? (
+          <p className="text-sm text-muted-foreground">
+            {focusEntry ? (
+              <>
+                Showing {edges.length} line{edges.length === 1 ? "" : "s"} involving{" "}
+                <Link className="underline underline-offset-4" href={focusEntry.href}>
+                  {focusEntry.title}
+                </Link>
+                .{" "}
+                <Link className="underline underline-offset-4" href="/connections">
+                  Clear filter
+                </Link>
+              </>
+            ) : (
+              <>
+                No catalog entry for <code className="text-xs">{focusSlug}</code>.{" "}
+                <Link className="underline underline-offset-4" href="/connections">
+                  Show all connections
+                </Link>
+              </>
+            )}
+          </p>
+        ) : null}
       </header>
       <nav aria-label="Connection views" className="flex flex-wrap gap-2">
         {byView.map((view) => (
@@ -209,27 +245,31 @@ export default function ConnectionsPage() {
           </ul>
         </section>
       ) : null}
-      <p>
-        <a className="underline underline-offset-4" href="#not-on-the-drawing">
-          {missing.length} of {entries.length} entries are not on this drawing.
-        </a>
-      </p>
-      <section className="flex flex-col gap-3" id="not-on-the-drawing">
-        <h2 className="text-xl font-medium">Not on this drawing</h2>
-        <p className="text-muted-foreground">
-          These entries have no typed edge. Related links on their pages are not drawn here.
-        </p>
-        <ul className="flex flex-col gap-2">
-          {missing.map((entry) => (
-            <li className="flex flex-wrap items-baseline gap-2" key={entry.slug}>
-              <Link className="underline underline-offset-4" href={hrefFor(entry)}>
-                {entry.title}
-              </Link>
-              <span className="text-sm text-muted-foreground">{kindLabel(entry.kind)}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {focusSlug ? null : (
+        <>
+          <p>
+            <a className="underline underline-offset-4" href="#not-on-the-drawing">
+              {missing.length} of {entries.length} entries are not on this drawing.
+            </a>
+          </p>
+          <section className="flex flex-col gap-3" id="not-on-the-drawing">
+            <h2 className="text-xl font-medium">Not on this drawing</h2>
+            <p className="text-muted-foreground">
+              These entries have no typed edge. Related links on their pages are not drawn here.
+            </p>
+            <ul className="flex flex-col gap-2">
+              {missing.map((entry) => (
+                <li className="flex flex-wrap items-baseline gap-2" key={entry.slug}>
+                  <Link className="underline underline-offset-4" href={hrefFor(entry)}>
+                    {entry.title}
+                  </Link>
+                  <span className="text-sm text-muted-foreground">{kindLabel(entry.kind)}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </>
+      )}
       <p className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
         <a className="underline underline-offset-4" download="alltikerfi-catalog.json" href="/api/catalog">
           Download catalog JSON

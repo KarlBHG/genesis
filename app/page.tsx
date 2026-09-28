@@ -64,8 +64,8 @@ export default function HomePage() {
       </section>
 
       <section className="flex min-w-0 flex-col gap-4">
-        <h2 className="text-xl font-medium">Three chains to start from</h2>
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <h2 className="text-xl font-medium">Four chains to start from</h2>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
           {LANDING_CHAINS.map((chain) => (
             <Card key={chain.id}>
               <CardHeader>

@@ -68,6 +68,29 @@ export const LANDING_CHAINS: LandingChain[] = [
       },
     ],
   },
+  {
+    id: "crisis-2008",
+    title: "Crisis, IMF, and capital controls",
+    blurb: "Stand-By Arrangement, foreign-exchange restrictions, and the 2017 lifting for residents.",
+    href: "/events/2008-financial-crisis",
+    steps: [
+      {
+        from: "2008-financial-crisis",
+        relationship: "represents",
+        to: "imf-program-2008",
+      },
+      {
+        from: "2008-financial-crisis",
+        relationship: "represents",
+        to: "2008-capital-controls",
+      },
+      {
+        from: "2008-capital-controls",
+        relationship: "represents",
+        to: "2017-capital-controls",
+      },
+    ],
+  },
 ];
 
 export function resolveChain(chain: LandingChain): ResolvedStep[] {
