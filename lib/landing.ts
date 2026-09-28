@@ -69,6 +69,21 @@ export const LANDING_CHAINS: LandingChain[] = [
     ],
   },
   {
+    id: "hospital-money",
+    title: "Hospital money and responsibility",
+    blurb: "Budget authorisation, the health policy area, and who runs Landspítali.",
+    href: "/programs",
+    steps: [
+      {
+        from: "treasury-budget-2026",
+        relationship: "funds",
+        to: "policy-area-23-sjukrahusthjonusta",
+      },
+      { from: "ministry-of-health", relationship: "regulates", to: "healthcare" },
+      { from: "ministry-of-health", relationship: "regulates", to: "landspitali" },
+    ],
+  },
+  {
     id: "crisis-2008",
     title: "Crisis, IMF, and capital controls",
     blurb: "Stand-By Arrangement, foreign-exchange restrictions, and the 2017 lifting for residents.",

@@ -2389,5 +2389,29 @@
     "asOf": "2008-10",
     "source": "https://www.imf.org/external/pubs/ft/scr/2008/cr08362.pdf",
     "quotation": "the FME’s rationale for intervening was to prevent the problems from escalating further, given growing  liquidity pressure"
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "treasury-debt",
+    "type": "regulates",
+    "asOf": "undated on the cited page",
+    "source": "https://www.government.is/topics/economic-affairs-and-economic-outlook/government-debt-management/",
+    "quotation": "The Ministry of Finance and Economic Affairs is responsible for the central government's debt management and formulates its debt management strategy."
+  },
+  {
+    "from": "sedlabanki",
+    "to": "treasury-debt",
+    "type": "regulates",
+    "asOf": "2024-12-30",
+    "source": "https://www.government.is/library/01-Ministries/Ministry-of-Finance/Medium%20term%20debt%20management%20strategy%202025-2029.pdf",
+    "quotation": "Government Debt Management, a special department within the Central Bank of Iceland, is responsible for executing the Treasury’s debt management strategy in accordance with an agreement between the two parties."
+  },
+  {
+    "from": "ministry-of-health",
+    "to": "landspitali",
+    "type": "regulates",
+    "asOf": "2024",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2024/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "quotation": "Starfsemi málaflokksins er í höndum heilbrigðisráðuneytis, Landspítala (LSH) og Sjúkrahússins á Akureyri (SAk)."
   }
 ]

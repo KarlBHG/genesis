@@ -146,5 +146,7 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "treasury-budget-2026", layer: "state", place: "reykjavik" },
   { slug: "landspitali", layer: "state", place: "reykjavik" },
   { slug: "landsnet", layer: "companies", place: "reykjavik" },
+  { slug: "treasury-debt", layer: "state", place: "reykjavik" },
+  { slug: "healthcare", layer: "state", place: "reykjavik" },
 ];
 
