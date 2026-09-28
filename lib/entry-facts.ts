@@ -1,8 +1,22 @@
 import { edgesFor } from "@/lib/content";
-import { formatDate, kindLabel, labelize } from "@/lib/format";
-import type { Entry } from "@/lib/types";
+import { formatDate, labelize } from "@/lib/format";
+import type { Entry, Kind } from "@/lib/types";
 
 const URL_PATTERN = /https?:\/\/[^\s)\]<>"']+/g;
+
+/** Section names are plural; a single record needs the singular. */
+const KIND_NOUN: Record<Kind, string> = {
+  treaty: "Treaty",
+  institution: "Institution",
+  event: "Event",
+  sector: "Sector",
+  flow: "Money flow",
+  player: "Player",
+};
+
+export function kindNoun(kind: Kind): string {
+  return KIND_NOUN[kind];
+}
 
 export type EntryFact = { term: string; value: string };
 
@@ -64,7 +78,7 @@ export function factStrip(entry: Entry): EntryFact[] {
   const connections = degree(entry);
   const sources = sourceCount(entry);
   return [
-    { term: "Kind", value: kindLabel(entry.kind).replace(/s$/, "") },
+    { term: "Kind", value: kindNoun(entry.kind) },
     primaryDate(entry),
     {
       term: "Connections",

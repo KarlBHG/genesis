@@ -1,7 +1,11 @@
 import { ImageResponse } from "next/og";
 
-import { clampSentence, factStrip, ledeOrSummary } from "@/lib/entry-facts";
-import { kindLabel } from "@/lib/format";
+import {
+  clampSentence,
+  factStrip,
+  kindNoun,
+  ledeOrSummary,
+} from "@/lib/entry-facts";
 import type { Entry } from "@/lib/types";
 
 export const ogSize = { width: 1200, height: 630 };
@@ -16,7 +20,7 @@ const RULE = "#ded7c8";
 const ACCENT = "#3d5a80";
 
 export function ogAlt(entry: Entry): string {
-  return `${entry.title} — ${kindLabel(entry.kind).replace(/s$/, "")} in the AlltÍkerfi system map`;
+  return `${entry.title} — ${kindNoun(entry.kind)} in the AlltÍkerfi system map`;
 }
 
 /** One card per entry, with alt text naming the actual record. */
@@ -68,7 +72,7 @@ export function renderEntryOgImage(entry: Entry): ImageResponse {
             }}
           >
             <div style={{ display: "flex" }}>
-              {kindLabel(entry.kind).replace(/s$/, "")}
+              {kindNoun(entry.kind)}
             </div>
             <div
               style={{

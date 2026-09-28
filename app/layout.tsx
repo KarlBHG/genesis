@@ -18,6 +18,12 @@ const serif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
+  // Open Graph and Twitter image URLs have to be absolute. Set
+  // NEXT_PUBLIC_SITE_URL wherever this is deployed; locally the dev origin
+  // keeps the generated cards resolvable.
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3000",
+  ),
   title: {
     default: "AlltÍkerfi",
     template: "%s · AlltÍkerfi",

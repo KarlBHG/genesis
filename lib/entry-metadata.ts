@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
-import { clampSentence, ledeOrSummary } from "@/lib/entry-facts";
-import { kindLabel } from "@/lib/format";
+import { clampSentence, kindNoun, ledeOrSummary } from "@/lib/entry-facts";
 import type { Entry } from "@/lib/types";
 
 /** Search engines truncate past roughly this; social cards clip sooner. */
@@ -10,7 +9,7 @@ const DESCRIPTION_LIMIT = 200;
 export function entryDescription(entry: Entry): string {
   const lead = clampSentence(ledeOrSummary(entry), DESCRIPTION_LIMIT);
   if (lead) return lead;
-  return `${kindLabel(entry.kind).replace(/s$/, "")} record in the Iceland system map, with the sources it was built from.`;
+  return `${kindNoun(entry.kind)} record in the Iceland system map, with the sources it was built from.`;
 }
 
 /**
