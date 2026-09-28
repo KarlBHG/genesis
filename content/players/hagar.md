@@ -5,7 +5,7 @@ playerType: "organization"
 role: "Retail group"
 asOf: "2025-02-28"
 website: "https://www.hagar.is"
-related: ["retail", "bru", "birta", "stapi", "lsr"]
+related: ["retail", "bru", "birta", "stapi", "lsr", "eirikur-s-johannsson"]
 ---
 
 # Hagar

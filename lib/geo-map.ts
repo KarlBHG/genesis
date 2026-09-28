@@ -132,5 +132,8 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "flokkur-folksins", layer: "state", place: "reykjavik" },
   { slug: "sa-confederation", layer: "companies", place: "reykjavik" },
   { slug: "fisheries-iceland", layer: "companies", place: "reykjavik" },
+  { slug: "helga-jonsdottir", layer: "companies", place: "reykjavik" },
+  { slug: "brynja-baldursdottir", layer: "companies", place: "reykjavik" },
+  { slug: "eirikur-s-johannsson", layer: "companies", place: "reykjavik" },
 ];
 

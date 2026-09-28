@@ -5,7 +5,7 @@ playerType: "organization"
 role: "Registered company"
 asOf: "2013-12-06"
 website: ""
-related: ["orka-natturunnar"]
+related: ["orka-natturunnar", "helga-jonsdottir"]
 ---
 
 # ON Power ohf.

@@ -2217,5 +2217,49 @@
     "asOf": "2020-01-01",
     "source": "https://www.althingi.is/lagas/nuna/2019092.html",
     "quotation": "Act No. 92/2019 says the bank undertakes the tasks entrusted to the Financial Supervisory Authority, and that the authority is part of the bank. Article 47 transfers those tasks to the central bank when the act enters into force on 1 January 2020."
+  },
+  {
+    "from": "helga-jonsdottir",
+    "to": "on-power",
+    "type": "sits-on-board",
+    "asOf": "undated on the registry page",
+    "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/5212130190",
+    "quotation": "Helga Jónsdóttir - stjórnarformaður",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "helga-jonsdottir",
+    "to": "orka-natturunnar",
+    "type": "sits-on-board",
+    "asOf": "undated on the registry page",
+    "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4711190830",
+    "quotation": "Helga Jónsdóttir - stjórnarformaður",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "brynja-baldursdottir",
+    "to": "landsvirkjun",
+    "type": "sits-on-board",
+    "asOf": "undated on the registry page",
+    "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4202691299",
+    "quotation": "Brynja Baldursdóttir - stjórnarformaður",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
+  },
+  {
+    "from": "eirikur-s-johannsson",
+    "to": "hagar",
+    "type": "sits-on-board",
+    "asOf": "undated on the registry page",
+    "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/6702032120",
+    "quotation": "Eiríkur S Jóhannsson - stjórnarformaður",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
   }
 ]

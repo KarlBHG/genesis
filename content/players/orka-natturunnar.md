@@ -5,7 +5,7 @@ playerType: "organization"
 role: "Registered company"
 asOf: "2019-10-01"
 website: ""
-related: ["on-power", "orkuveita-reykjavikur", "landspitali", "umhverfis-og-orkustofnun"]
+related: ["on-power", "orkuveita-reykjavikur", "landspitali", "umhverfis-og-orkustofnun", "helga-jonsdottir"]
 ---
 
 # Orka náttúrunnar ohf.
