@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "check": "tsc --noEmit --pretty false && vitest run"
+    "check": "next typegen && tsc --noEmit --pretty false && vitest run"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

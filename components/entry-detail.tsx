@@ -410,7 +410,14 @@ export function EntryDetail({ entry }: { entry: Entry }) {
       ) : null}
       <Separator />
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-medium">Related</h2>
+        <h2 className="text-xl font-medium">Reading suggestions</h2>
+        {entry.related.length > 0 ? (
+          <p className="text-sm text-muted-foreground">
+            Untyped links from this record&apos;s Markdown. They are reading
+            suggestions only — not sourced graph edges. Typed connections appear
+            in Connections above and on the map.
+          </p>
+        ) : null}
         <Related slugs={entry.related} />
       </section>
       <Separator />
