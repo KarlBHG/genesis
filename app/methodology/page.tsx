@@ -38,6 +38,7 @@ const SECTIONS = [
   { id: "article-four", label: "Why Article 4 is never summed" },
   { id: "contradictions", label: "Contradictions" },
   { id: "pin-only", label: "Pin only · no typed edge" },
+  { id: "open-checklists", label: "Open checklists" },
   { id: "refusals", label: "What this refuses to do" },
 ] as const;
 
@@ -535,6 +536,30 @@ export default function MethodologyPage() {
         </Section>
 
         <Section
+          id="open-checklists"
+          lede={
+            <>
+              <p>
+                Govdirectory and Wikidata publish open lists of Icelandic ministries,
+                courts, and municipalities. AlltÍkerfi stores a dated snapshot of that
+                country page as a completeness checklist on{" "}
+                <Link className="underline underline-offset-4" href="/public-entities">
+                  Public entities
+                </Link>
+                . The snapshot is not loaded as typed edges. A Govdirectory title that
+                does not match a catalog title is left unmatched rather than forced
+                onto a nearby ministry.
+              </p>
+              <p>
+                Wikidata is CC0. Using it as a checklist does not make it a primary
+                source for an owns, regulates, or funds line.
+              </p>
+            </>
+          }
+          title="Open checklists"
+        />
+
+        <Section
           id="refusals"
           lede={
             <p>
@@ -576,6 +601,11 @@ export default function MethodologyPage() {
                 title: "No inferred relationships",
                 body:
                   "Reading suggestions between entries are labelled as reading suggestions. They are not drawn as connections, and family, club, or school ties are not collected at all.",
+              },
+              {
+                title: "No Wikidata edges",
+                body:
+                  "Open checklists from Govdirectory and Wikidata are not turned into owns, regulates, or parent-ministry lines. They only show which public bodies this phase chose to track.",
               },
             ].map((item) => (
               <li

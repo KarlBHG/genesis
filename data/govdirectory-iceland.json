@@ -1,0 +1,470 @@
+{
+  "source": "https://www.govdirectory.org/iceland/",
+  "wikidataProject": "https://www.wikidata.org/wiki/Wikidata:WikiProject_Govdirectory/Iceland",
+  "license": "Wikidata data is CC0. This snapshot is a completeness checklist, not a source of typed edges.",
+  "retrieved": "2026-09-28",
+  "govdirectoryUpdated": "2026-09-25",
+  "note": "Govdirectory currently publishes ministries, courts, and municipalities for Iceland. Agency long-tail is not on that country page. Names that do not match an AlltÍkerfi catalog title are left unmatched.",
+  "classes": [
+    {
+      "id": "ministries",
+      "label": "Ministries",
+      "sourceClass": "Icelandic government ministry",
+      "rows": [
+        {
+          "name": "Prime Minister’s Office",
+          "wikidataId": "Q119787645",
+          "slug": "prime-ministers-office",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Ministry of Education and Children",
+          "wikidataId": "Q119782382",
+          "slug": "ministry-of-education-and-children",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Ministry of Finance and Economic Affairs",
+          "wikidataId": "Q50041105",
+          "slug": "ministry-of-finance",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Ministry of Foreign Affairs of Iceland",
+          "wikidataId": "Q15983772",
+          "slug": "ministry-for-foreign-affairs",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Ministry of Health",
+          "wikidataId": "Q1816797",
+          "slug": "ministry-of-health",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Ministry of Infrastructure",
+          "wikidataId": "Q119782103",
+          "slug": "ministry-of-infrastructure",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Ministry of Justice",
+          "wikidataId": "Q65336756",
+          "slug": "ministry-of-justice",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Ministry of the Environment, Energy and Climate",
+          "wikidataId": "Q108063353",
+          "slug": "ministry-of-the-environment-energy-and-climate",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Ministry of Culture and Business Affairs",
+          "wikidataId": "Q115538865",
+          "slug": null,
+          "matchKind": "unmatched",
+          "note": "Govdirectory/Wikidata title does not match the catalog title Menningar-, nýsköpunar- og háskólaráðuneytið. Left unmatched on purpose."
+        },
+        {
+          "name": "Ministry of Higher Education, Science and Innovation",
+          "wikidataId": "Q119443645",
+          "slug": null,
+          "matchKind": "unmatched",
+          "note": "Govdirectory/Wikidata title does not match a current AlltÍkerfi ministry record. Left unmatched on purpose."
+        },
+        {
+          "name": "Ministry of Food, Agriculture and Fisheries",
+          "wikidataId": "Q119776869",
+          "slug": null,
+          "matchKind": "unmatched",
+          "note": "Govdirectory/Wikidata title does not match the catalog title Ministry of Industries. Left unmatched on purpose."
+        },
+        {
+          "name": "Ministry of Social Affairs and Labour",
+          "wikidataId": "Q119787362",
+          "slug": null,
+          "matchKind": "unmatched",
+          "note": "Govdirectory/Wikidata title does not match the catalog title Félags- og húsnæðismálaráðuneytið. Left unmatched on purpose."
+        }
+      ]
+    },
+    {
+      "id": "courts",
+      "label": "Courts",
+      "sourceClass": "Courts listed on Govdirectory Iceland",
+      "rows": [
+        {
+          "name": "Supreme Court of Iceland",
+          "slug": "haestirettur",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Court of Appeal",
+          "slug": "landsrettur",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Austurlands District Court (Iceland)",
+          "slug": "heradsdomstolar",
+          "matchKind": "grouped"
+        },
+        {
+          "name": "Norðurlands eystra District Court (Iceland)",
+          "slug": "heradsdomstolar",
+          "matchKind": "grouped"
+        },
+        {
+          "name": "Norðurlands vestra District Court (Iceland)",
+          "slug": "heradsdomstolar",
+          "matchKind": "grouped"
+        },
+        {
+          "name": "Reykjaness District Court (Iceland)",
+          "slug": "heradsdomstolar",
+          "matchKind": "grouped"
+        },
+        {
+          "name": "Reykjavík District Court (Iceland)",
+          "slug": "heradsdomstolar",
+          "matchKind": "grouped"
+        },
+        {
+          "name": "Suðurlands District Court (Iceland)",
+          "slug": "heradsdomstolar",
+          "matchKind": "grouped"
+        },
+        {
+          "name": "Vestfjarða District Court (Iceland)",
+          "slug": "heradsdomstolar",
+          "matchKind": "grouped"
+        },
+        {
+          "name": "Vesturlands District Court (Iceland)",
+          "slug": "heradsdomstolar",
+          "matchKind": "grouped"
+        }
+      ]
+    },
+    {
+      "id": "municipalities",
+      "label": "Municipalities",
+      "sourceClass": "municipality of Iceland",
+      "rows": [
+        {
+          "name": "Akraneskaupstaður",
+          "slug": "akraneskaupstaður",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Akureyrarbær",
+          "slug": "akureyrarbær",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Bláskógabyggð",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Bolungarvíkurkaupstaður",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Borgarbyggð",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Dalabyggð",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Dalvíkurbyggð",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Eyja- og Miklaholtshreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Eyjafjarðarsveit",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Fjallabyggð",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Fjarðabyggð",
+          "slug": "fjardabyggd",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Fljótsdalshreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Flóahreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Garðabær",
+          "slug": "gardabær",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Grindavíkurbær",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Grundarfjarðarbær",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Grímsnes- og Grafningshreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Grýtubakkahreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Hafnarfjarðarkaupstaður",
+          "slug": "hafnarfjordurbær",
+          "matchKind": "name-variant",
+          "note": "Govdirectory prints Hafnarfjarðarkaupstaður; the catalog title is Hafnarfjarðarbær."
+        },
+        {
+          "name": "Hornafjörður",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Hrunamannahreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Hvalfjarðarsveit",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Hveragerðisbær",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Hörgársveit",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Húnabyggð",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Húnaþing vestra",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Kaldrananeshreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Kjósarhreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Kópavogsbær",
+          "slug": "kopavogsbær",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Langanesbyggð",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Mosfellsbær",
+          "slug": "mosfellsbær",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Múlaþing",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Mýrdalshreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Norðurþing",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Rangárþing eystra",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Rangárþing ytra",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Reykhólahreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Reykjanesbær",
+          "slug": "reykjanesbær",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Reykjavíkurborg",
+          "slug": "reykjavikurborg",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Seltjarnarnes",
+          "slug": "seltjarnarnesbær",
+          "matchKind": "name-variant",
+          "note": "Govdirectory prints Seltjarnarnes; the catalog title is Seltjarnarnesbær."
+        },
+        {
+          "name": "Skaftárhreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Skagafjörður",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Skeiða- og Gnúpverjahreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Skorradalshreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Snæfellsbær",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Strandabyggð",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Stykkishólmur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Suðurnesjabær",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Svalbarðsstrandarhreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Sveitarfélagið Skagaströnd",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Sveitarfélagið Árborg",
+          "slug": "sveitarfelagid-arborg",
+          "matchKind": "same-name"
+        },
+        {
+          "name": "Súðavíkurhreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Tjörneshreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Vestmannaeyjar",
+          "slug": "vestmannaeyjabær",
+          "matchKind": "name-variant",
+          "note": "Govdirectory prints Vestmannaeyjar; the catalog title is Vestmannaeyjabær."
+        },
+        {
+          "name": "Vesturbyggð",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Vogar",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Vopnafjarðarhreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Árneshreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Ásahreppur",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Ísafjarðarbær",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Ölfus",
+          "slug": null,
+          "matchKind": "unmatched"
+        },
+        {
+          "name": "Þingeyjarsveit",
+          "slug": null,
+          "matchKind": "unmatched"
+        }
+      ]
+    }
+  ]
+}

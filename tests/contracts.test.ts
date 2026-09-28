@@ -43,6 +43,10 @@ import {
   paysEdgesForProgram,
 } from "@/lib/invoice-budget";
 import {
+  GOVDIRECTORY_ICELAND,
+  getGovdirectoryLedger,
+} from "@/lib/govdirectory";
+import {
   PUBLIC_ENTITY_CATEGORIES,
   getPublicEntityCoverage,
   summarizePublicEntityCoverage,
@@ -238,6 +242,38 @@ describe("public-entity inventory (phase 1)", () => {
         row.typedLinked,
         `${row.category} typed-linked`,
       ).toBeGreaterThanOrEqual(floor);
+    }
+  });
+
+  it("keeps the Govdirectory checklist as a snapshot, not as typed edges", () => {
+    expect(GOVDIRECTORY_ICELAND.source).toBe("https://www.govdirectory.org/iceland/");
+    expect(GOVDIRECTORY_ICELAND.retrieved).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    const byId = new Map(getGovdirectoryLedger().map((group) => [group.id, group]));
+    const ministries = byId.get("ministries");
+    const courts = byId.get("courts");
+    const municipalities = byId.get("municipalities");
+    expect(ministries?.total).toBe(12);
+    expect(courts?.total).toBe(10);
+    expect(municipalities?.total).toBeGreaterThanOrEqual(62);
+    expect(municipalities?.matched).toBe(12);
+    expect(courts?.grouped).toBe(8);
+
+    const unmatchedMinistryNames = new Set(
+      ministries?.rows
+        .filter((row) => row.matchKind === "unmatched")
+        .map((row) => row.name),
+    );
+    for (const name of [
+      "Ministry of Culture and Business Affairs",
+      "Ministry of Higher Education, Science and Innovation",
+      "Ministry of Food, Agriculture and Fisheries",
+      "Ministry of Social Affairs and Labour",
+    ]) {
+      expect(unmatchedMinistryNames.has(name), name).toBe(true);
+    }
+    for (const row of ministries?.rows ?? []) {
+      if (!row.slug) continue;
+      expect(row.inInventory, row.slug).toBe(true);
     }
   });
 
