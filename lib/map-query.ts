@@ -41,6 +41,8 @@ export function defaultQuery(): MapQuery {
 const LAYER_IDS = new Set<LayerId>(LAYERS.map((layer) => layer.id));
 const VIEW_IDS = new Set<ViewId>(MAP_VIEWS.map((view) => view.id));
 const PLACE_IDS = new Set<PlaceId>(PLACES.map((place) => place.id));
+/** Older share links used a single “money” view for funds, power, and commodity lines. */
+const VIEW_ALIASES: Record<string, ViewId> = { money: "authorisations" };
 
 function listParam(
   raw: string | null,
@@ -48,10 +50,15 @@ function listParam(
 ): string[] | null {
   if (raw == null) return null;
   if (raw.trim() === "") return [];
-  return raw
-    .split(",")
-    .map((part) => part.trim())
-    .filter((part) => valid.has(part));
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const part of raw.split(",").map((item) => item.trim())) {
+    const mapped = valid === VIEW_IDS ? VIEW_ALIASES[part] ?? part : part;
+    if (!valid.has(mapped) || seen.has(mapped)) continue;
+    seen.add(mapped);
+    out.push(mapped);
+  }
+  return out;
 }
 
 export function parseMapQuery(

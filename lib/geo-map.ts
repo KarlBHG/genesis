@@ -46,16 +46,21 @@ export const MAP_VIEWS = [
   { id: "ownership", label: "Ownership", relationships: ["owns"] },
   { id: "investments", label: "Investments", relationships: ["invests-in"] },
   {
-    id: "money",
-    label: "Money flows",
-    relationships: ["funds", "sells-power-to", "export-of", "import-line-of"],
+    id: "authorisations",
+    label: "Authorisations",
+    relationships: ["funds"],
+  },
+  {
+    id: "contracts",
+    label: "Contracts",
+    relationships: ["sells-power-to", "export-of", "import-line-of"],
   },
   {
     id: "careers",
     label: "Careers",
     relationships: ["holds-office", "sits-on-board"],
   },
-  { id: "spending", label: "Spending", relationships: ["pays"] },
+  { id: "spending", label: "Invoices", relationships: ["pays"] },
   {
     id: "authority",
     label: "Authority",

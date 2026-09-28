@@ -4,6 +4,7 @@ import { AsOfChip } from "@/components/as-of-chip";
 import { Badge } from "@/components/ui/badge";
 import { printedFigure } from "@/components/viz/money";
 import { resolveSlug } from "@/lib/content";
+import { edgeHref } from "@/lib/edge-id";
 import { labelize } from "@/lib/format";
 import { icelandicLang } from "@/lib/lang";
 import { officeLabel } from "@/lib/notes";
@@ -171,6 +172,15 @@ export function EdgeRow({
           {edge.source}
         </a>
       ) : null}
+
+      <p className="print:hidden">
+        <Link
+          className="text-sm text-muted-foreground underline underline-offset-4"
+          href={edgeHref(edge)}
+        >
+          Open this connection
+        </Link>
+      </p>
     </li>
   );
 }

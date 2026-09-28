@@ -5,7 +5,8 @@ export type GroupBy = "from" | "relationship" | "none";
 export const GROUP_BY_VIEW: Record<string, GroupBy> = {
   ownership: "none",
   investments: "from",
-  money: "from",
+  authorisations: "from",
+  contracts: "from",
   careers: "from",
   spending: "from",
   authority: "relationship",

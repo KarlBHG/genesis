@@ -38,6 +38,13 @@ import {
 } from "@/lib/map-query";
 import { GROUP_BY_VIEW, groupEdges } from "@/lib/connection-groups";
 import { asOfMeta, classifyAsOfBucket, compareAsOf } from "@/lib/as-of";
+import { edgeHref, edgeId, findEdgeById } from "@/lib/edge-id";
+import { partitionOtherFlows } from "@/lib/fiscal-phases";
+import {
+  KENNITALA_RECORDS,
+  assertKennitalaRecord,
+} from "@/lib/identifiers";
+import { kennitalaChecksumOk } from "@/lib/kennitala";
 import {
   INVOICE_PROGRAM_PILOT_BUYERS,
   paysEdgesForProgram,
@@ -147,16 +154,33 @@ describe("edge fields", () => {
     const keys = getEdges().map(edgeKey);
     expect(new Set(keys).size).toBe(keys.length);
   });
+
+  it("gives every edge a unique permalink id", () => {
+    const ids = getEdges().map(edgeId);
+    expect(new Set(ids).size).toBe(ids.length);
+    const first = getEdges()[0];
+    expect(first).toBeDefined();
+    expect(findEdgeById(edgeId(first!), getEdges())).toEqual(first);
+    expect(edgeHref(first!).startsWith("/connections/")).toBe(true);
+  });
 });
 
 describe("views cover the graph", () => {
-  it("leaves zero edges outside the seven views", () => {
+  it("leaves zero edges outside the map views", () => {
     const leftover = getEdges().filter(
       (edge) => viewOf(edge.relationship) == null,
     );
     expect(
       leftover.map((e) => `${e.from} ${e.relationship} ${e.to}`),
     ).toEqual([]);
+  });
+
+  it("keeps authorisations, invoices, and contracts in separate views", () => {
+    expect(viewOf("funds")).toBe("authorisations");
+    expect(viewOf("pays")).toBe("spending");
+    expect(viewOf("sells-power-to")).toBe("contracts");
+    expect(viewOf("export-of")).toBe("contracts");
+    expect(viewOf("import-line-of")).toBe("contracts");
   });
 });
 
@@ -596,6 +620,9 @@ describe("visualisation primitives", () => {
       "edge.year",
       "printedFigure",
       "icelandicLang(edge.quotation)",
+      "edgeHref",
+      "/connections/",
+      "Open this connection",
     ]) {
       expect(row, `EdgeRow is missing ${part}`).toContain(part);
     }
@@ -718,6 +745,7 @@ describe("Icelandic quotations are marked up as Icelandic", () => {
     const DELEGATES = ["ProvenanceCard", "ProvenanceEdgeCard", "EdgeRow"];
     for (const file of [
       "app/connections/page.tsx",
+      "app/connections/[id]/page.tsx",
       "app/system/page.tsx",
       "app/offices/[id]/page.tsx",
       "components/entry-detail.tsx",
@@ -905,6 +933,12 @@ describe("map query", () => {
       parseMapQuery(params.get.bind(params), new Set()).focus,
     ).toBeNull();
   });
+
+  it("maps the old mixed money view onto authorisations", () => {
+    const params = new URLSearchParams("views=money,spending");
+    const query = parseMapQuery(params.get.bind(params), slugs);
+    expect(query.views).toEqual(["authorisations", "spending"]);
+  });
 });
 
 describe("connection groups", () => {
@@ -933,9 +967,8 @@ describe("connection groups", () => {
   }
 
   it("covers every view with a grouping rule", () => {
-    const views = ["ownership", "investments", "money", "careers", "spending", "authority", "trade"];
-    for (const view of views) {
-      expect(["from", "relationship", "none"]).toContain(GROUP_BY_VIEW[view]);
+    for (const view of MAP_VIEWS) {
+      expect(["from", "relationship", "none"]).toContain(GROUP_BY_VIEW[view.id]);
     }
   });
 
@@ -1058,5 +1091,39 @@ describe("search", () => {
     const docs = toSearchDocs(getCatalog());
     const hits = searchEntries(docs, "althingi");
     expect(hits.some((doc) => doc.slug === "althingi")).toBe(true);
+  });
+});
+
+describe("fiscal phases", () => {
+  it("puts commodity and power-sale flows with contracts, not invoices", () => {
+    const { contracts, other } = partitionOtherFlows(getOtherFlows());
+    const slugs = new Set(contracts.map((flow) => flow.slug));
+    expect(slugs.has("aluminium-exports-2024")).toBe(true);
+    expect(slugs.has("landsvirkjun-power-sales")).toBe(true);
+    expect(other.some((flow) => flow.slug === "treasury-budget-2026")).toBe(true);
+    expect(other.some((flow) => flow.slug === "aluminium-exports-2024")).toBe(
+      false,
+    );
+  });
+});
+
+describe("sourced kennitala", () => {
+  it("stores only checksum-true ids that a cited page prints", () => {
+    expect(KENNITALA_RECORDS.length).toBeGreaterThan(0);
+    const slugs = new Set(getCatalog().map((entry) => entry.slug));
+    const seen = new Set<string>();
+    for (const row of KENNITALA_RECORDS) {
+      expect(slugs.has(row.slug), `${row.slug} is not in the catalog`).toBe(true);
+      expect(seen.has(row.slug), `duplicate kennitala for ${row.slug}`).toBe(
+        false,
+      );
+      seen.add(row.slug);
+      assertKennitalaRecord(row);
+      expect(kennitalaChecksumOk(row.kennitala)).toBe(true);
+    }
+  });
+
+  it("rejects a mistyped check digit", () => {
+    expect(kennitalaChecksumOk("5402696458")).toBe(false);
   });
 });

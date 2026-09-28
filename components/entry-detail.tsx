@@ -28,6 +28,7 @@ import {
   resolveSlug,
 } from "@/lib/content";
 import { groupEdges } from "@/lib/connection-groups";
+import { kennitalaFor } from "@/lib/identifiers";
 import { uniqueProgramNullReasons } from "@/lib/invoice-budget";
 import { compareAsOf } from "@/lib/as-of";
 import { factStrip } from "@/lib/entry-facts";
@@ -60,6 +61,25 @@ function ParentValue({ parent }: { parent: string }) {
     return <Badge variant="outline">Unresolved reference: {parent}</Badge>;
   }
   return <Link href={target.href}>{target.title}</Link>;
+}
+
+function KennitalaFact({ slug }: { slug: string }) {
+  const record = kennitalaFor(slug);
+  if (!record) return null;
+  return (
+    <Fact term="Kennitala">
+      <span className="font-mono tabular-nums">{record.kennitala}</span>
+      <p className="text-sm leading-6 text-muted-foreground">{record.quotation}</p>
+      <a
+        className="break-all text-sm underline underline-offset-4"
+        href={record.source}
+        rel="noreferrer"
+        target="_blank"
+      >
+        {record.source}
+      </a>
+    </Fact>
+  );
 }
 
 function Record({ entry }: { entry: Entry }) {
@@ -135,6 +155,7 @@ function Record({ entry }: { entry: Entry }) {
               </Fact>
             </>
           ) : null}
+          <KennitalaFact slug={entry.slug} />
         </dl>
       </CardContent>
     </Card>

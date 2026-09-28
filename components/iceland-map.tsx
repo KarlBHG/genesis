@@ -393,7 +393,7 @@ export function IcelandMap({
           Iceland, only where a page names the place.
         </h1>
         <p className="text-sm leading-6 text-(--geo-ink-muted)">
-          Pins are real places. Reykjavík is one cluster, not a door for each office. Ownership, investments, money flows, careers, spending, authority, and trade partners are the typed edges already on file. Family is a separate channel, and it is empty. Trade-partner countries are listed, not pinned.
+          Pins are real places. Reykjavík is one cluster, not a door for each office. Ownership, investments, authorisations, contracts, careers, invoices, authority, and trade partners are the typed edges already on file. Family is a separate channel, and it is empty. Trade-partner countries are listed, not pinned.
         </p>
       </header>
 

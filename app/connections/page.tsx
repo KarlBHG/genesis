@@ -2,16 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ConnectionGroupedPanels, edgeKey } from "@/components/connection-graph";
-import { Badge } from "@/components/ui/badge";
+import { HashScroll } from "@/components/hash-scroll";
+import { EdgeRow } from "@/components/viz";
 import { getCatalog, getContradictions, getEdges, hrefFor, resolveSlug } from "@/lib/content";
 import { GROUP_BY_VIEW } from "@/lib/connection-groups";
 import { compareAsOf } from "@/lib/as-of";
-import { AsOfChip } from "@/components/as-of-chip";
-import { kindLabel, labelize } from "@/lib/format";
+import { kindLabel } from "@/lib/format";
 import { MAP_VIEWS, viewOf } from "@/lib/geo-map";
-import { officeLabel, ownsRowNote, tradeValueNote } from "@/lib/notes";
+import { ownsRowNote, tradeValueNote } from "@/lib/notes";
 import type { Edge, Kind } from "@/lib/types";
-import { icelandicLang } from "@/lib/lang";
 
 export const metadata: Metadata = {
   title: "Connections",
@@ -19,53 +18,6 @@ export const metadata: Metadata = {
 };
 
 const KIND_ORDER: Kind[] = ["treaty", "institution", "event", "sector", "flow", "player"];
-
-function EdgeLine({ edge, note }: { edge: Edge; note: string | null }) {
-  const from = resolveSlug(edge.from);
-  const to = resolveSlug(edge.to);
-  const org = resolveSlug(edge.organization ?? "");
-  const targetTitle = officeLabel(edge);
-  return (
-    <li className="flex min-w-0 flex-col gap-1 border-b py-3">
-      <p className="break-words">
-        {from ? (
-          <Link className="font-medium underline underline-offset-4" href={from.href}>
-            {edge.fromTitle}
-          </Link>
-        ) : (
-          edge.fromTitle
-        )}{" "}
-        <Badge variant="secondary">{labelize(edge.relationship)}</Badge>{" "}
-        {to ? (
-          <Link className="font-medium underline underline-offset-4" href={to.href}>
-            {edge.relationship === "holds-office" ? edge.toTitle : targetTitle}
-          </Link>
-        ) : (
-          edge.toTitle
-        )}
-        {edge.relationship === "holds-office" && edge.organizationTitle ? (
-          <>
-            {" · "}
-            {org ? (
-              <Link className="underline underline-offset-4" href={org.href}>
-                {edge.organizationTitle}
-              </Link>
-            ) : (
-              edge.organizationTitle
-            )}
-          </>
-        ) : null}{" "}
-        <span className="text-sm">
-          · <AsOfChip asOf={edge.asOf} />
-        </span>
-      </p>
-      <p className="break-words text-sm leading-6" lang={icelandicLang(edge.quotation)}>
-        {edge.quotation}
-      </p>
-      {note ? <p className="break-words text-sm leading-6 text-muted-foreground">{note}</p> : null}
-    </li>
-  );
-}
 
 function ViewBody({
   viewId,
@@ -77,12 +29,19 @@ function ViewBody({
   noteFor: (edge: Edge) => string | null;
 }) {
   const by = GROUP_BY_VIEW[viewId] ?? "none";
+  const renderEdge = (edge: Edge) => (
+    <EdgeRow
+      edge={edge}
+      key={edgeKey(edge)}
+      note={noteFor(edge)}
+      program="chip"
+      showSource
+    />
+  );
   if (by === "none") {
     return (
       <ul className="flex min-w-0 flex-col">
-        {edges.map((edge) => (
-          <EdgeLine edge={edge} key={edgeKey(edge)} note={noteFor(edge)} />
-        ))}
+        {edges.map((edge) => renderEdge(edge))}
       </ul>
     );
   }
@@ -90,9 +49,7 @@ function ViewBody({
     <ConnectionGroupedPanels
       edges={edges}
       groupBy={by}
-      renderEdge={(edge) => (
-        <EdgeLine edge={edge} key={edgeKey(edge)} note={noteFor(edge)} />
-      )}
+      renderEdge={renderEdge}
     />
   );
 }
@@ -148,10 +105,15 @@ export default async function ConnectionsPage({
 
   return (
     <main className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-8 sm:px-6">
+      <HashScroll />
       <header className="flex max-w-reading flex-col gap-2">
         <h1 className="text-3xl font-medium tracking-tight">Connections</h1>
         <p className="text-muted-foreground">
-          Seven views, the same buckets as the map. Each line is one typed relationship. Full names wrap. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
+          The same buckets as the map. Authorisations, invoices, and contracts are
+          separate money phases — a permission to spend is not a payment, and a
+          power-purchase line is not an invoice. Each line is one typed
+          relationship with its own page. Full names wrap. The budget drawing is on{" "}
+          <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
         </p>
         {focusSlug ? (
           <p className="text-sm text-muted-foreground">
@@ -189,12 +151,27 @@ export default async function ConnectionsPage({
         ))}
       </nav>
       {byView.map((view) => (
-        <section className="flex min-w-0 flex-col gap-2" id={view.id} key={view.id}>
+        <section className="flex min-w-0 scroll-mt-24 flex-col gap-2" id={view.id} key={view.id}>
           <h2 className="text-xl font-medium">
             {view.label} · {view.edges.length}
           </h2>
+          {view.id === "authorisations" ? (
+            <p className="text-sm text-muted-foreground">
+              Article 4 ceilings. A permission to spend, not a payment.
+            </p>
+          ) : null}
           {view.id === "spending" ? (
-            <p className="text-sm text-muted-foreground">Each line is one invoice. Amounts are not added together.</p>
+            <p className="text-sm text-muted-foreground">
+              Each line is one Opnir reikningar invoice. Salaries, foreign-currency
+              payments, and grants are not on that ledger. Amounts are not added
+              together.
+            </p>
+          ) : null}
+          {view.id === "contracts" ? (
+            <p className="text-sm text-muted-foreground">
+              Power-purchase agreements and Hagstofa import/export commodity rows.
+              Not invoices.
+            </p>
           ) : null}
           {view.id === "ownership" ? (
             <p className="text-sm text-muted-foreground">Owns only. Stakes are under Investments.</p>
@@ -215,11 +192,11 @@ export default async function ConnectionsPage({
         <section className="flex min-w-0 flex-col gap-2" id="leftover">
           <h2 className="text-xl font-medium">Leftover · {leftover.length}</h2>
           <p className="text-sm text-muted-foreground">
-            These typed lines are outside the seven views.
+            These typed lines are outside the map views.
           </p>
           <ul className="flex min-w-0 flex-col">
             {leftover.map((edge) => (
-              <EdgeLine edge={edge} key={edgeKey(edge)} note={null} />
+              <EdgeRow edge={edge} key={edgeKey(edge)} note={null} showSource />
             ))}
           </ul>
         </section>

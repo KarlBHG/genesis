@@ -153,6 +153,15 @@ export default function MethodologyPage() {
                 rendered:
               </p>
               <ProvenanceEdgeCard as="div" edge={sampleEdge} />
+              <p className="text-sm leading-6 text-muted-foreground">
+                Every typed line also has its own address, the way LittleSis treats a
+                relationship as a page. Open{" "}
+                <Link className="underline underline-offset-4" href="/connections">
+                  Connections
+                </Link>{" "}
+                and follow “Open this connection” for the quotation, the as-of
+                bucket, and the program join or the reason the join failed.
+              </p>
             </div>
           ) : null}
         </Section>
@@ -355,7 +364,10 @@ export default function MethodologyPage() {
               Three different things get called “spending” in Icelandic public
               records, and conflating them is how a reader ends up with a number
               nobody printed. They are kept apart in the data and labelled apart
-              in the interface.
+              in the interface — authorisations, invoices, and contracts are
+              separate map views, following the Fiscal Data Package split of
+              budget packages from spending packages. Power-purchase and Hagstofa
+              commodity rows sit with contracts, not with invoices.
             </p>
           }
           title="Authorisation, expenditure, invoice"
@@ -601,6 +613,11 @@ export default function MethodologyPage() {
                 title: "No inferred relationships",
                 body:
                   "Reading suggestions between entries are labelled as reading suggestions. They are not drawn as connections, and family, club, or school ties are not collected at all.",
+              },
+              {
+                title: "No unsourced identifiers",
+                body:
+                  "A kennitala appears on a record only when a cited page prints it. The public checksum is used to refuse a mistyped stored id, not to mint one.",
               },
               {
                 title: "No Wikidata edges",
