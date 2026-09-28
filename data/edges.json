@@ -2169,6 +2169,407 @@
     "quotation": "Umhverfis- og orkustofnun; 2026-08-20; Orka náttúrunnar ohf.; 20260938117; 18764"
   },
   {
+    "from": "prime-ministers-office",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Forsætisráðuneyti, aðalskrifstofa; 2026-01-30; Síminn hf.; 0614637312; 7200"
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjármála- og efnahagsráðuneyti, aðalskrifstofa; 2026-01-30; Síminn hf.; 0614641929; 7500"
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Utanríkisráðuneyti, aðalskrifstofa; 2026-01-30; Síminn hf.; 0614692095; 6675"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-01-30; Síminn hf.; 0614666463; 7500"
+  },
+  {
+    "from": "ministry-of-health",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Heilbrigðisráðuneytið; 2026-01-30; Síminn hf.; 0614660568; 8943",
+    "year": "2026",
+    "program": null,
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints this invoice row without a málaflok or policy-area heading on the returned page."
+  },
+  {
+    "from": "landspitali",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landspítali; 2026-01-30; Síminn hf.; 0614657687; 136424",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+  },
+  {
+    "from": "fjarskiptastofa",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjarskiptastofa; 2026-01-30; Síminn hf.; 0614640830; 6850"
+  },
+  {
+    "from": "vinnumalastofnun",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Vinnumálastofnun; 2026-01-30; Síminn hf.; 0614656390; 78921"
+  },
+  {
+    "from": "natturuverndarstofnun",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Náttúruverndarstofnun; 2026-01-30; Síminn hf.; 0614695414; 37035"
+  },
+  {
+    "from": "personuvernd",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Persónuvernd; 2026-01-30; Síminn hf.; 0614666842; 100683"
+  },
+  {
+    "from": "courts",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Hæstiréttur; 2026-01-30; Síminn hf.; 0614676760; 139722"
+  },
+  {
+    "from": "embaetti-landlaeknis",
+    "to": "siminn",
+    "type": "pays",
+    "asOf": "2026-01-20",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landlæknir; 2026-01-20; Síminn hf.; 100000109557; 620000"
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "syn",
+    "type": "pays",
+    "asOf": "2026-01-05",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjármála- og efnahagsráðuneyti, aðalskrifstofa; 2026-01-05; Sýn hf.; R25013787; 139930"
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "syn",
+    "type": "pays",
+    "asOf": "2026-01-13",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Utanríkisráðuneyti, aðalskrifstofa; 2026-01-13; Sýn hf.; R25012792; 46847"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "syn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-01-30; Sýn hf.; R25014768; 8250"
+  },
+  {
+    "from": "landspitali",
+    "to": "syn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landspítali; 2026-01-30; Sýn hf.; PB14458005; 734562",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+  },
+  {
+    "from": "fjarskiptastofa",
+    "to": "syn",
+    "type": "pays",
+    "asOf": "2026-01-05",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjarskiptastofa; 2026-01-05; Sýn hf.; R25013757; 39980"
+  },
+  {
+    "from": "natturuverndarstofnun",
+    "to": "syn",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Náttúruverndarstofnun; 2026-01-30; Sýn hf.; SB0628165; 216612"
+  },
+  {
+    "from": "embaetti-landlaeknis",
+    "to": "syn",
+    "type": "pays",
+    "asOf": "2026-01-02",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landlæknir; 2026-01-02; Sýn hf.; PB14442138; 230463"
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "nova",
+    "type": "pays",
+    "asOf": "2026-01-19",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Utanríkisráðuneyti, aðalskrifstofa; 2026-01-19; Nova hf.; BR2512-8624676; 1949971"
+  },
+  {
+    "from": "landspitali",
+    "to": "nova",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landspítali; 2026-01-30; Nova hf.; BR2512-6968644; 1249060",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+  },
+  {
+    "from": "fjarskiptastofa",
+    "to": "nova",
+    "type": "pays",
+    "asOf": "2026-01-05",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjarskiptastofa; 2026-01-05; Nova hf.; BR2511-1433679; 11688"
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "landsbankinn",
+    "type": "pays",
+    "asOf": "2026-01-06",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Utanríkisráðuneyti, aðalskrifstofa; 2026-01-06; Landsbankinn hf.; 17137; 6483600"
+  },
+  {
+    "from": "umhverfis-og-orkustofnun",
+    "to": "landsbankinn",
+    "type": "pays",
+    "asOf": "2026-01-14",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Umhverfis- og orkustofnun; 2026-01-14; Landsbankinn hf.; VISA_17577; 3791"
+  },
+  {
+    "from": "landspitali",
+    "to": "islandsbanki",
+    "type": "pays",
+    "asOf": "2026-01-26",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landspítali; 2026-01-26; Íslandsbanki hf.; 1775476; 96424",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
+  },
+  {
+    "from": "prime-ministers-office",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Forsætisráðuneyti, aðalskrifstofa; 2026-01-30; Advania Ísland ehf.; INV793009; 68200"
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjármála- og efnahagsráðuneyti, aðalskrifstofa; 2026-01-30; Advania Ísland ehf.; INV793010; 272800"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-21",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-01-21; Advania Ísland ehf.; INV791082; 15732"
+  },
+  {
+    "from": "ministry-of-health",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Heilbrigðisráðuneytið; 2026-01-30; Advania Ísland ehf.; INV793002; 109120",
+    "year": "2026",
+    "program": null,
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints this invoice row without a málaflok or policy-area heading on the returned page."
+  },
+  {
+    "from": "fjarskiptastofa",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjarskiptastofa; 2026-01-30; Advania Ísland ehf.; INV793017; 55800"
+  },
+  {
+    "from": "vinnumalastofnun",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Vinnumálastofnun; 2026-01-30; Advania Ísland ehf.; INV792921; 279601"
+  },
+  {
+    "from": "natturuverndarstofnun",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-27",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Náttúruverndarstofnun; 2026-01-27; Advania Ísland ehf.; INV791808; 24386"
+  },
+  {
+    "from": "personuvernd",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Persónuvernd; 2026-01-30; Advania Ísland ehf.; INV793013; 43400"
+  },
+  {
+    "from": "umhverfis-og-orkustofnun",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Umhverfis- og orkustofnun; 2026-01-30; Advania Ísland ehf.; INV793051; 109330"
+  },
+  {
+    "from": "courts",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Hæstiréttur; 2026-01-30; Advania Ísland ehf.; INV793029; 43400"
+  },
+  {
+    "from": "embaetti-landlaeknis",
+    "to": "advania-island",
+    "type": "pays",
+    "asOf": "2026-01-30",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landlæknir; 2026-01-30; Advania Ísland ehf.; INV793046; 43400"
+  },
+  {
+    "from": "vinnumalastofnun",
+    "to": "bilaleiga-flugleida",
+    "type": "pays",
+    "asOf": "2026-01-19",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Vinnumálastofnun; 2026-01-19; Bílaleiga Flugleiða ehf.; 00010761; 14275"
+  },
+  {
+    "from": "prime-ministers-office",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-02",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Forsætisráðuneyti, aðalskrifstofa; 2026-01-02; Hreyfill svf.; 471634; 82363"
+  },
+  {
+    "from": "ministry-of-finance",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-02",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Fjármála- og efnahagsráðuneyti, aðalskrifstofa; 2026-01-02; Hreyfill svf.; 471614 2512; 18110"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-02",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Dómsmálaráðuneyti, aðalskrifstofa; 2026-01-02; Hreyfill svf.; 471721; 6450"
+  },
+  {
+    "from": "ministry-of-health",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-02",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Heilbrigðisráðuneytið; 2026-01-02; Hreyfill svf.; 471759 2512; 62002",
+    "year": "2026",
+    "program": null,
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints this invoice row without a málaflok or policy-area heading on the returned page."
+  },
+  {
+    "from": "vinnumalastofnun",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-15",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Vinnumálastofnun; 2026-01-15; Hreyfill svf.; 473992; 25268"
+  },
+  {
+    "from": "natturuverndarstofnun",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-20",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Náttúruverndarstofnun; 2026-01-20; Hreyfill svf.; 471626 2512; 5350"
+  },
+  {
+    "from": "personuvernd",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-02",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Persónuvernd; 2026-01-02; Hreyfill svf.; 471778; 13046"
+  },
+  {
+    "from": "umhverfis-og-orkustofnun",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-06",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Umhverfis- og orkustofnun; 2026-01-06; Hreyfill svf.; 471628; 7680"
+  },
+  {
+    "from": "courts",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-02",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Hæstiréttur; 2026-01-02; Hreyfill svf.; 471676; 3279"
+  },
+  {
+    "from": "embaetti-landlaeknis",
+    "to": "hreyfill",
+    "type": "pays",
+    "asOf": "2026-01-02",
+    "source": "https://opnirreikningar.is/",
+    "quotation": "Landlæknir; 2026-01-02; Hreyfill svf.; 471690; 41991"
+  },
+  {
     "from": "republic-of-iceland",
     "to": "ruv",
     "type": "owns",
