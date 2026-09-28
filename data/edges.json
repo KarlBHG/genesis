@@ -4019,6 +4019,14 @@
   },
   {
     "from": "ministry-of-infrastructure",
+    "to": "reykjanesbær",
+    "type": "regulates",
+    "asOf": "undated on the English page",
+    "source": "https://www.government.is/ministries/ministry-of-infrastructure/about-the-ministry/",
+    "quotation": "The English page says the responsibilities cover transport, local government, regional policy, telecommunications, and postal matters."
+  },
+  {
+    "from": "ministry-of-infrastructure",
     "to": "akureyrarbær",
     "type": "regulates",
     "asOf": "undated on the English page",

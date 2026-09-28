@@ -17,6 +17,7 @@ export type PlaceId =
   | "grundartangi"
   | "reydarfjordur"
   | "keflavik"
+  | "reykjanesbaer"
   | "blonduos"
   | "kopavogur"
   | "hafnarfjordur"
@@ -146,6 +147,7 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "reykjavikurborg", layer: "state", place: "reykjavik" },
   { slug: "kopavogsbær", layer: "state", place: "kopavogur" },
   { slug: "hafnarfjordurbær", layer: "state", place: "hafnarfjordur" },
+  { slug: "reykjanesbær", layer: "state", place: "reykjanesbaer" },
   { slug: "akureyrarbær", layer: "state", place: "akureyri" },
   { slug: "gardabær", layer: "state", place: "gardabaer" },
   { slug: "mosfellsbær", layer: "state", place: "mosfellsbaer" },

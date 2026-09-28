@@ -867,6 +867,7 @@ function assertRecords(entries: Entry[], offices: OfficeRecord[]): void {
     "grundartangi",
     "reydarfjordur",
     "keflavik",
+    "reykjanesbaer",
     "blonduos",
     "kopavogur",
     "hafnarfjordur",

@@ -4,6 +4,7 @@
   { "id": "grundartangi", "name": "Grundartangi", "lat": 64.3601585, "lon": -21.7841266 },
   { "id": "reydarfjordur", "name": "Reyðarfjörður", "lat": 65.0340671, "lon": -14.2084678 },
   { "id": "keflavik", "name": "Keflavík", "lat": 63.9850119, "lon": -22.6266959 },
+  { "id": "reykjanesbaer", "name": "Reykjanesbær", "lat": 63.9832697, "lon": -22.5561494 },
   { "id": "blonduos", "name": "Blönduós", "lat": 65.6601344, "lon": -20.280998 },
   { "id": "kopavogur", "name": "Kópavogur", "lat": 64.1113504, "lon": -21.9048106 },
   { "id": "hafnarfjordur", "name": "Hafnarfjörður", "lat": 64.0695354, "lon": -21.9575664 },
