@@ -227,6 +227,43 @@ describe("invoice program bridge", () => {
   });
 });
 
+const HAGSTOFA_GOODS_2024 =
+  "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/";
+
+const TRADE_VALUE_RELATIONSHIPS = new Set([
+  "export-of",
+  "import-line-of",
+  "imported-from",
+  "exported-to",
+]);
+
+function tradeEdgeHasValueOrExplicitNone(quotation: string): boolean {
+  const hasBillionIsk = /\d[\d,.]*\s*billion\s*ISK/i.test(quotation);
+  const hasShare = /\d+\.?\d*\s*%/.test(quotation);
+  const explicitNone =
+    /prints no separate (import|export) value|does not break aluminium out in billion ISK|records the printed share only/i.test(
+      quotation,
+    );
+  return hasBillionIsk || (hasShare && !explicitNone) || explicitNone;
+}
+
+describe("Hagstofa goods trade edges (P1.3)", () => {
+  it("keeps eleven Hagstofa 2024 goods edges with value or explicit none", () => {
+    const edges = getEdges().filter(
+      (edge) =>
+        TRADE_VALUE_RELATIONSHIPS.has(edge.relationship) &&
+        edge.source === HAGSTOFA_GOODS_2024,
+    );
+    expect(edges).toHaveLength(11);
+    for (const edge of edges) {
+      expect(
+        tradeEdgeHasValueOrExplicitNone(edge.quotation),
+        `${edge.from} ${edge.relationship} ${edge.to}`,
+      ).toBe(true);
+    }
+  });
+});
+
 describe("budget programs", () => {
   it("funds all 35 policy areas through Article 4 rows", () => {
     const areas = getFlows().filter((flow) =>

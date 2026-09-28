@@ -109,7 +109,7 @@
     "type": "export-of",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "The 2024 goods table lists agricultural products as an export row: 8.8 billion ISK fob, 0.9% of goods exports."
+    "quotation": "Table “The value of exports and imports in 2023 and 2024” (billion ISK) lists agricultural products exports in 2024 at 8.8 billion ISK fob, 0.9% of goods exports."
   },
   {
     "from": "aluminium-exports-2024",
@@ -117,7 +117,7 @@
     "type": "export-of",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "The export of aluminium and aluminium products contributed the most to the exports of Industrial products in 2024 or 33% of the total export value."
+    "quotation": "The 14 May 2025 release text says aluminium and aluminium products were 33% of total goods-export value in 2024. The cited table does not break aluminium out in billion ISK; this edge records the printed share only."
   },
   {
     "from": "food-and-beverages-imports-2024",
@@ -125,7 +125,7 @@
     "type": "import-line-of",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "The 2024 goods table lists food and beverages imports at 121.7 billion ISK cif, 9.0% of goods imports."
+    "quotation": "Table “The value of exports and imports in 2023 and 2024” (billion ISK) lists food and beverages imports in 2024 at 121.7 billion ISK cif, 9.0% of goods imports (1,356.7 billion ISK cif total)."
   },
   {
     "from": "marine-products-exports-2024",
@@ -133,7 +133,7 @@
     "type": "export-of",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "Statistics Iceland’s 2024 goods table lists marine products as their own export row: 346.5 billion ISK fob, 36.1% of goods exports. Farmed fish is a separate row."
+    "quotation": "Table “The value of exports and imports in 2023 and 2024” (billion ISK) lists marine products exports in 2024 at 346.5 billion ISK fob, 36.1% of goods exports. Farmed fish is a separate row in the same table."
   },
   {
     "from": "treasury-budget-2026",
@@ -1236,7 +1236,7 @@
     "type": "imported-from",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "The largest trading countries in imports of goods in 2024 were Norway, Germany, the United States and China."
+    "quotation": "The 14 May 2025 release names Norway among the largest import partners in 2024 and prints no separate import value for Norway. The same release prints imports from EEA countries at 60% of all imports."
   },
   {
     "from": "goods-imports-2024",
@@ -1244,7 +1244,7 @@
     "type": "imported-from",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "The largest trading countries in imports of goods in 2024 were Norway, Germany, the United States and China."
+    "quotation": "The 14 May 2025 release names Germany among the largest import partners in 2024 and prints no separate import value for Germany. The same release prints imports from EEA countries at 60% of all imports."
   },
   {
     "from": "goods-imports-2024",
@@ -1252,7 +1252,7 @@
     "type": "imported-from",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "The largest trading countries in imports of goods in 2024 were Norway, Germany, the United States and China."
+    "quotation": "The 14 May 2025 release names the United States among the largest import partners in 2024 and prints no separate import value for the United States. The same release prints imports from EEA countries at 60% of all imports."
   },
   {
     "from": "goods-imports-2024",
@@ -1260,7 +1260,7 @@
     "type": "imported-from",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "The largest trading countries in imports of goods in 2024 were Norway, Germany, the United States and China."
+    "quotation": "The 14 May 2025 release names China among the largest import partners in 2024 and prints no separate import value for China. The same release prints imports from EEA countries at 60% of all imports."
   },
   {
     "from": "goods-exports-2024",
@@ -1268,7 +1268,7 @@
     "type": "exported-to",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "Largest trading countries in export of goods were the Netherlands, the United States and the United Kingdom while 77% of all exports went to EEA countries."
+    "quotation": "The 14 May 2025 release names the Netherlands among the largest export partners in 2024 and prints no separate export value for the Netherlands. The same release prints 77% of all exports to EEA countries."
   },
   {
     "from": "goods-exports-2024",
@@ -1276,7 +1276,7 @@
     "type": "exported-to",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "Largest trading countries in export of goods were the Netherlands, the United States and the United Kingdom while 77% of all exports went to EEA countries."
+    "quotation": "The 14 May 2025 release names the United States among the largest export partners in 2024 and prints no separate export value for the United States. The same release prints 77% of all exports to EEA countries."
   },
   {
     "from": "goods-exports-2024",
@@ -1284,7 +1284,7 @@
     "type": "exported-to",
     "asOf": "2024",
     "source": "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/",
-    "quotation": "Largest trading countries in export of goods were the Netherlands, the United States and the United Kingdom while 77% of all exports went to EEA countries."
+    "quotation": "The 14 May 2025 release names the United Kingdom among the largest export partners in 2024 and prints no separate export value for the United Kingdom. The same release prints 77% of all exports to EEA countries."
   },
   {
     "from": "republic-of-iceland",
