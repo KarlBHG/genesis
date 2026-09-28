@@ -3,6 +3,7 @@ import path from "path";
 import { describe, expect, it } from "vitest";
 
 import { edgeKey } from "@/components/connection-graph";
+import { navLeafCount } from "@/components/site-header";
 import {
   getAudits,
   getCatalog,
@@ -72,6 +73,10 @@ describe("catalog loads", () => {
     expect(getContradictions().length).toBeGreaterThan(0);
     expect(Array.isArray(getChanges())).toBe(true);
     expect(getAudits().length).toBeGreaterThan(0);
+  });
+
+  it("keeps primary nav at ten leaf destinations or fewer", () => {
+    expect(navLeafCount()).toBeLessThanOrEqual(10);
   });
 });
 

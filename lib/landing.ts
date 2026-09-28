@@ -29,7 +29,7 @@ export const LANDING_CHAINS: LandingChain[] = [
     id: "budget",
     title: "The budget funds the ministries",
     blurb: "Alþingi passes the budget as law. The budget authorises each policy area.",
-    href: "/programs",
+    href: "/money#government-programs",
     steps: [
       { from: "althingi", relationship: "funds", to: "treasury-budget-2026" },
       {
@@ -72,7 +72,7 @@ export const LANDING_CHAINS: LandingChain[] = [
     id: "hospital-money",
     title: "Hospital money and responsibility",
     blurb: "Budget authorisation, the health policy area, and who runs Landspítali.",
-    href: "/programs",
+    href: "/money#government-programs",
     steps: [
       {
         from: "treasury-budget-2026",

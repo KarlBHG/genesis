@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
         destination: "/anomalies#contradictions",
         permanent: false,
       },
+      {
+        source: "/programs",
+        destination: "/money#government-programs",
+        permanent: false,
+      },
+      {
+        source: "/evidence",
+        destination: "/anomalies",
+        permanent: false,
+      },
     ];
   },
 };

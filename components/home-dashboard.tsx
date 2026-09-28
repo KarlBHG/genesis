@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   ArrowUpRightIcon,
-  BookOpenIcon,
   Globe2Icon,
   LandmarkIcon,
   MapIcon,
@@ -52,18 +51,11 @@ const PORTALS = [
     accent: "from-amber-500/12 to-transparent",
   },
   {
-    href: "/programs",
-    title: "Programs",
-    description: "35 budget policy areas for 2026.",
+    href: "/money#government-programs",
+    title: "Budget",
+    description: "2026 policy areas, Article 4 rows, trade, and Treasury totals.",
     icon: LandmarkIcon,
     accent: "from-emerald-500/12 to-transparent",
-  },
-  {
-    href: "/money",
-    title: "Money",
-    description: "Treasury, trade, pensions, and flows.",
-    icon: BookOpenIcon,
-    accent: "from-orange-500/10 to-transparent",
   },
   {
     href: "/events",

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
+import { BudgetProgramsSection } from "@/components/budget-programs-section";
 import { EntryIndex } from "@/components/entry-index";
+import { HashScroll } from "@/components/hash-scroll";
 import { PageHero } from "@/components/page-hero";
-import { Badge } from "@/components/ui/badge";
 import { getOtherFlows, getPolicyAreas, hrefFor } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Money",
+  title: "Budget & money",
   description:
-    "Trade, pensions, power sales, and Treasury totals. The 2026 budget policy areas live under Programs.",
+    "2026 policy areas, Article 4 authorisations, trade, pensions, power sales, and Treasury totals.",
 };
 
 export default function MoneyPage() {
@@ -23,25 +23,14 @@ export default function MoneyPage() {
 
   return (
     <main className="dashboard-canvas min-w-0">
+      <HashScroll />
       <PageHero
-        description="Trade, pensions, power sales, and Treasury totals. Published aggregates only. Each entry names the year on the source."
-        eyebrow="Flows and aggregates"
-        title="Money"
+        description={`Trade, pensions, power sales, and Treasury totals sit below. The ${areas.length} ministry policy areas and Article 4 rows are on this page too. Published aggregates only; each entry names the year on the source.`}
+        eyebrow="Budget · flows · 2026"
+        title="Budget & money"
       />
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6">
-        <Link
-          className="glass-panel block rounded-2xl p-6 transition-all hover:-translate-y-0.5 hover:shadow-md"
-          href="/programs"
-        >
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 className="font-serif text-xl font-medium">Government programs, 2026</h2>
-            <Badge variant="outline">{areas.length} policy areas</Badge>
-          </div>
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Ministry reports, spending lines, and Article 4 authorisation rows.
-            Rows are not added together.
-          </p>
-        </Link>
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6">
+        <BudgetProgramsSection />
         <section className="flex min-w-0 flex-col gap-4">
           <h2 className="text-xl font-medium tracking-tight">Other money flows</h2>
           <EntryIndex items={items} />

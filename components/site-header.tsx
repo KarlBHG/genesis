@@ -22,35 +22,41 @@ type NavEntry =
   | NavLink
   | { label: string; items: NavLink[] };
 
-const NAV: NavEntry[] = [
+/** Nav leaf destinations (dropdown items count individually). Keep ≤10. */
+export const NAV: NavEntry[] = [
   { href: "/system", label: "System" },
   { href: "/map", label: "Map" },
+  { href: "/institutions", label: "Institutions" },
+  { href: "/money", label: "Budget" },
+  { href: "/players", label: "People" },
   {
-    label: "Records",
+    label: "Treaties & events",
     items: [
-      { href: "/overview", label: "Overview" },
-      { href: "/obligations", label: "Obligations" },
       { href: "/treaties", label: "Treaties" },
-      { href: "/institutions", label: "Institutions" },
       { href: "/events", label: "Events" },
-      { href: "/business", label: "Business" },
-      { href: "/money", label: "Money" },
-      { href: "/programs", label: "Programs" },
-      { href: "/players", label: "Players" },
     ],
   },
-  {
-    label: "Evidence",
-    items: [
-      { href: "/connections", label: "Connections" },
-      { href: "/anomalies", label: "Anomalies" },
-    ],
-  },
-  { href: "/compare", label: "Compare" },
+  { href: "/business", label: "Business" },
+  { href: "/anomalies", label: "Evidence" },
 ];
+
+export function navLeafCount(entries: NavEntry[] = NAV): number {
+  return entries.reduce(
+    (count, entry) => count + ("href" in entry ? 1 : entry.items.length),
+    0,
+  );
+}
 
 function isCurrent(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
+  if (href === "/money") {
+    return (
+      pathname === "/money" ||
+      pathname.startsWith("/money/") ||
+      pathname === "/programs" ||
+      pathname.startsWith("/programs/")
+    );
+  }
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 

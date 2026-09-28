@@ -234,7 +234,7 @@ export const OBLIGATION_SECTIONS: ObligationSection[] = [
     items: [
       {
         label: "2026 government programs",
-        href: "/programs",
+        href: "/money#government-programs",
         note: "35 policy areas and Article 4 authorisations from the budget bill.",
       },
       {

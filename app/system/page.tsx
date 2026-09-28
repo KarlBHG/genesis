@@ -127,8 +127,8 @@ export default function SystemPage() {
         <h2 className="text-xl font-medium">Budget programs</h2>
         <p className="break-words">
           The 2026 ministry reports cover 35 policy areas and 105 subcategories. What each report says the area does, the spending change it prints, and the Article 4 authorisation rows are on{" "}
-          <Link className="underline underline-offset-4" href="/programs">
-            Programs
+          <Link className="underline underline-offset-4" href="/money#government-programs">
+            Budget
           </Link>
           . The rows are listed and not added together.
         </p>
