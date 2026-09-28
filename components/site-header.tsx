@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MenuIcon } from "lucide-react";
 
+import { CommandPalette } from "@/components/command-palette";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -46,6 +47,9 @@ export function SiteHeader() {
         <Link className="text-lg font-medium tracking-tight" href="/">
           AlltÍkerfi
         </Link>
+        <div className="ml-auto md:ml-0">
+          <CommandPalette />
+        </div>
         <nav className="ml-auto hidden max-w-[42rem] flex-wrap items-center justify-end gap-1 md:flex">
           {NAV.map((item) => (
             <Button

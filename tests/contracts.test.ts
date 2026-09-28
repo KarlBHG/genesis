@@ -201,6 +201,26 @@ describe("landing chains", () => {
   });
 });
 
+describe("search api", () => {
+  it("serves every record with a title, kind, and link", async () => {
+    const { GET } = await import("@/app/api/search/route");
+    const response = GET();
+    const docs = (await response.json()) as {
+      title: string;
+      slug: string;
+      kind: string;
+      href: string;
+      summary: string;
+    }[];
+    expect(docs.length).toBeGreaterThan(0);
+    for (const doc of docs) {
+      expect(doc.title.trim() !== "").toBe(true);
+      expect(doc.href.startsWith("/")).toBe(true);
+    }
+    expect(docs.some((doc) => doc.slug === "althingi")).toBe(true);
+  });
+});
+
 describe("search", () => {
   it("folds Icelandic characters when highlighting", () => {
     const parts = highlightParts("Alþingi", "althingi");
