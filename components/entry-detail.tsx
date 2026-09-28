@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { edgeKey } from "@/components/connection-graph";
 import { EdgeRow, EgoNetwork, egoLayout, type EdgeRowSide } from "@/components/viz";
 import {
   edgesFor,
@@ -227,7 +228,7 @@ function EdgeSection({
             {group.edges.map((edge) => (
               <EdgeRow
                 edge={edge}
-                key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
+                key={edgeKey(edge)}
                 program="chip"
                 showSource
                 side={side}

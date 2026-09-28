@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { edgeKey } from "@/components/connection-graph";
 import { getBySlug, getChanges, getEdges, hrefFor } from "@/lib/content";
 import { formatDate, labelize } from "@/lib/format";
 import { tradeValueNote } from "@/lib/notes";
@@ -71,7 +72,7 @@ export default function SystemPage() {
           {edges
             .filter((edge) => edge.to === "sedlabanki")
             .map((edge) => (
-              <li className="min-w-0 rounded-lg border p-4" key={`${edge.relationship}-${edge.from}`}>
+              <li className="min-w-0 rounded-lg border p-4" key={edgeKey(edge)}>
                 <p className="break-words font-medium">
                   {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
                 </p>
@@ -92,7 +93,7 @@ export default function SystemPage() {
           {edges
             .filter((edge) => edge.relationship === "incorporates")
             .map((edge) => (
-              <li className="min-w-0 rounded-lg border p-4" key={edge.relationship}>
+              <li className="min-w-0 rounded-lg border p-4" key={edgeKey(edge)}>
                 <p className="break-words font-medium">
                   {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
                 </p>
@@ -118,7 +119,7 @@ export default function SystemPage() {
           {edges
             .filter((edge) => edge.relationship === "imported-from" || edge.relationship === "exported-to")
             .map((edge) => (
-              <li className="min-w-0 break-words text-sm leading-6" key={`${edge.relationship}-${edge.to}`}>
+              <li className="min-w-0 break-words text-sm leading-6" key={edgeKey(edge)}>
                 {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {edge.toTitle}
                 {tradeValueNote(edge.relationship) ? (
                   <span className="mt-0.5 block text-muted-foreground">{tradeValueNote(edge.relationship)}</span>

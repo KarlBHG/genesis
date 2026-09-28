@@ -30,6 +30,14 @@ for (const route of ROUTES) {
   });
 }
 
+test("command palette opens with Ctrl+K", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("dialog", { name: "Search the records" })).toHaveCount(0);
+  await page.keyboard.press("Control+k");
+  await expect(page.getByRole("dialog", { name: "Search the records" })).toBeVisible();
+  await expect(page.locator('input[aria-label="Search the records"]')).toBeFocused();
+});
+
 test.describe("visual baselines", () => {
   test("home and money — desktop 1440", async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== "desktop", "Desktop baselines only");

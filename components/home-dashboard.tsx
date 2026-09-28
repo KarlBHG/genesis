@@ -77,6 +77,9 @@ const PORTALS = [
 
 function ChainCard({ chain }: { chain: LandingChain }) {
   const steps = resolveChain(chain);
+  const stepKeys = chain.steps.map(
+    (step, index) => `${chain.id}-${index}-${step.from}-${step.relationship}-${step.to}`,
+  );
   return (
     <article
       className="glass-panel group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg"
@@ -98,7 +101,7 @@ function ChainCard({ chain }: { chain: LandingChain }) {
       </header>
       <ol className="relative m-0 flex flex-col gap-0 p-0 list-none">
         {steps.map((step, index) => (
-          <li className="relative flex gap-3 pb-4 last:pb-0" key={`${step.fromTitle}-${index}`}>
+          <li className="relative flex gap-3 pb-4 last:pb-0" key={stepKeys[index]}>
             {index < steps.length - 1 ? (
               <span
                 aria-hidden

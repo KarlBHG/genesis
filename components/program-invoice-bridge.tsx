@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { edgeKey } from "@/components/connection-graph";
 import { ProvenanceEdgeCard } from "@/components/provenance-edge";
 import {
   Card,
@@ -37,7 +38,7 @@ export function ProgramInvoiceBridge({ programSlug }: { programSlug: string }) {
             {invoices.map((edge) => (
               <ProvenanceEdgeCard
                 edge={edge}
-                key={`${edge.from}-${edge.to}-${edge.asOf}-${edge.quotation}`}
+                key={edgeKey(edge)}
                 showProgramQuotation
                 showRelationship={false}
               />

@@ -25,19 +25,34 @@ export function CommandPalette() {
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+      const isPaletteKey =
+        event.code === "KeyK" || event.key === "k" || event.key === "K";
+      if (isPaletteKey && (event.metaKey || event.ctrlKey)) {
+        const target = event.target;
+        if (
+          target instanceof HTMLElement &&
+          !open &&
+          (target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT")
+        ) {
+          return;
+        }
         event.preventDefault();
+        event.stopPropagation();
         setOpen((current) => !current);
         return;
       }
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && open) {
+        event.preventDefault();
         setOpen(false);
         setQuery("");
       }
     }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+    document.addEventListener("keydown", onKey, true);
+    return () => document.removeEventListener("keydown", onKey, true);
+  }, [open]);
 
   useEffect(() => {
     close();

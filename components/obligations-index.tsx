@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { AsOfFilterBar } from "@/components/provenance-as-of-filter";
+import { edgeKey } from "@/components/connection-graph";
 import { ProvenanceEdgeCard } from "@/components/provenance-edge";
 import {
   emptyAsOfFilter,
@@ -61,7 +62,7 @@ function ThemeEvidence({
             {shown.map((edge) => (
               <ProvenanceEdgeCard
                 edge={edge}
-                key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
+                key={edgeKey(edge)}
                 note={tradeValueNote(edge.relationship)}
               />
             ))}
