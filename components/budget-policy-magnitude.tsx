@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Magnitude } from "@/components/viz";
+import { Magnitude, PolicyTreemap } from "@/components/viz";
 import { policyAreaMagnitudeRows } from "@/lib/budget-magnitude";
 
 export function BudgetPolicyMagnitude() {
@@ -18,6 +18,14 @@ export function BudgetPolicyMagnitude() {
           here; the area page lists every line. These figures are not added together.
         </p>
       </div>
+      <PolicyTreemap
+        cells={rows.map((row) => ({
+          id: row.id,
+          label: row.label,
+          href: row.href,
+          amount: row.amount,
+        }))}
+      />
       <Magnitude
         caption="Authorisations in m.kr. from the 2026 budget law."
         rows={rows.map((row) => ({

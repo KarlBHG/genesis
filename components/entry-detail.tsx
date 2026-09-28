@@ -18,11 +18,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { EdgeRow, type EdgeRowSide } from "@/components/viz";
+import { EdgeRow, EgoNetwork, egoLayout, type EdgeRowSide } from "@/components/viz";
 import {
   edgesFor,
   getAudits,
   getContradictions,
+  getEdges,
   resolveSlug,
 } from "@/lib/content";
 import { groupEdges } from "@/lib/connection-groups";
@@ -317,6 +318,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
   const section = kindLabel(entry.kind);
   const { out, inn } = edgesFor(entry.slug);
   const mapHref = mapFocusHref(entry.slug);
+  const ego = egoLayout(entry.slug, getEdges());
 
   return (
     <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-8 px-4 py-8 sm:px-6">
@@ -394,6 +396,16 @@ export function EntryDetail({ entry }: { entry: Entry }) {
       <PaysProgramNullNotice slug={entry.slug} />
       <MarkdownBody source={entry.body} />
       <Record entry={entry} />
+      {ego.nodes.length > 1 ? (
+        <section className="flex flex-col gap-3 print:hidden">
+          <h2 className="text-xl font-medium">Typed network (one hop)</h2>
+          <p className="text-sm text-muted-foreground">
+            Neighbours on the graph only. Untyped reading suggestions are not
+            drawn here.
+          </p>
+          <EgoNetwork label={entry.title} layout={ego} />
+        </section>
+      ) : null}
       {out.length > 0 || inn.length > 0 ? (
         <>
           <Separator />

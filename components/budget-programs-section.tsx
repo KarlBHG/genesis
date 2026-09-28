@@ -54,7 +54,12 @@ export function BudgetProgramsSection() {
           {ARTICLE_FOUR}
         </blockquote>
         <p className="text-sm text-muted-foreground">
-          Article 4’s <span lang="is">Samtals</span> row prints{" "}
+          Compare two policy areas side by side on{" "}
+          <Link className="underline underline-offset-4" href="/compare">
+            Compare
+          </Link>{" "}
+          (pick any two <span lang="is">málefnasvið</span> entries). Article 4’s{" "}
+          <span lang="is">Samtals</span> row prints{" "}
           <span lang="is">Heildar-fjárheimild</span> 1.672.186,3. The row{" "}
           <span lang="is">“Samtals skv. GFS staðli”</span> prints 1.606.582,9. Article 1 prints that same
           1.606.582,9 as total expenditure. Area rows are not added together. Ledger

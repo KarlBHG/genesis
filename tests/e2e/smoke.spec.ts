@@ -29,3 +29,16 @@ for (const route of ROUTES) {
     expect(serious, JSON.stringify(serious, null, 2)).toHaveLength(0);
   });
 }
+
+test.describe("visual baselines", () => {
+  test("home and money at 390 and 1440", async ({ page }, testInfo) => {
+    for (const route of ["/", "/money"]) {
+      await page.goto(route);
+      const slug = route === "/" ? "home" : "money";
+      await expect(page).toHaveScreenshot(`${slug}-${testInfo.project.name}.png`, {
+        fullPage: true,
+        maxDiffPixelRatio: 0.03,
+      });
+    }
+  });
+});

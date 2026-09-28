@@ -13,6 +13,7 @@ export {
   type EgoNode,
 } from "@/components/viz/ego-layout";
 export { Magnitude } from "@/components/viz/magnitude";
+export { PolicyTreemap, type TreemapCell } from "@/components/viz/policy-treemap";
 export {
   basisLabel,
   comparable,
