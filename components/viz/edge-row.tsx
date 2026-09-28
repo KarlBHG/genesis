@@ -156,7 +156,7 @@ export function EdgeRow({
 
       {showSource ? (
         <a
-          className="break-all text-sm text-muted-foreground underline underline-offset-4"
+          className="print-literal-url break-all text-sm text-muted-foreground underline underline-offset-4"
           href={edge.source}
           rel="noreferrer"
           target="_blank"

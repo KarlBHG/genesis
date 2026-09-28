@@ -452,11 +452,13 @@
 
   /* Muted greys wash out on paper; sources and quotations must stay legible. */
   .text-muted-foreground,
-  .entry-quotation {
+  blockquote,
+  [lang="is"] {
     color: #333 !important;
   }
 
-  .entry-quotation {
+  /* Every sourced quotation in this app is Icelandic prose in an English page. */
+  p[lang="is"] {
     font-style: italic;
   }
 

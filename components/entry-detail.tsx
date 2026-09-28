@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { EdgeRow, type EdgeRowSide } from "@/components/viz";
 import {
   edgesFor,
   getAudits,
@@ -27,7 +28,6 @@ import {
 import { groupEdges } from "@/lib/connection-groups";
 import { uniqueProgramNullReasons } from "@/lib/invoice-budget";
 import { compareAsOf } from "@/lib/as-of";
-import { AsOfChip } from "@/components/as-of-chip";
 import { factStrip } from "@/lib/entry-facts";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
 import type { Edge, Entry } from "@/lib/types";
@@ -165,66 +165,6 @@ function Related({ slugs }: { slugs: string[] }) {
   );
 }
 
-function EdgeRow({ edge, slug }: { edge: Edge; slug: string }) {
-  const outward = edge.from === slug;
-  const other = outward ? edge.to : edge.from;
-  const otherTitle = outward ? edge.toTitle : edge.fromTitle;
-  const target = resolveSlug(other);
-  return (
-    <li
-      key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}-${edge.source}`}
-      className="flex flex-col gap-1"
-    >
-      <p>
-        <Badge variant="outline">{labelize(edge.relationship)}</Badge>{" "}
-        {target ? (
-          <Link className="underline underline-offset-4" href={target.href}>
-            {otherTitle}
-          </Link>
-        ) : (
-          otherTitle
-        )}
-        {edge.relationship === "holds-office" && edge.organizationTitle ? (
-          <span> · {edge.organizationTitle}</span>
-        ) : null}
-        {edge.asOf ? (
-          <span className="text-muted-foreground">
-            {" "}
-            · <AsOfChip asOf={edge.asOf} />
-          </span>
-        ) : null}
-        {edge.relationship === "pays" && edge.program ? (
-          <span className="text-muted-foreground">
-            {" "}
-            · Program{" "}
-            {resolveSlug(edge.program) ? (
-              <Link
-                className="underline underline-offset-4"
-                href={resolveSlug(edge.program)!.href}
-              >
-                {edge.programTitle ?? edge.program}
-              </Link>
-            ) : (
-              edge.programTitle ?? edge.program
-            )}
-          </span>
-        ) : null}
-      </p>
-      <p className="entry-quotation text-sm text-muted-foreground">
-        {edge.quotation}
-      </p>
-      <a
-        className="print-literal-url text-sm break-all"
-        href={edge.source}
-        rel="noreferrer"
-        target="_blank"
-      >
-        {edge.source}
-      </a>
-    </li>
-  );
-}
-
 /** The counterparties in a group, so a closed row still says who is inside. */
 function groupPreview(edges: Edge[], slug: string): string {
   const names: string[] = [];
@@ -247,10 +187,12 @@ function EdgeSection({
   title,
   edges,
   slug,
+  side,
 }: {
   title: string;
   edges: Edge[];
   slug: string;
+  side: EdgeRowSide;
 }) {
   if (edges.length === 0) return null;
   const sorted = edges.slice().sort((a, b) => compareAsOf(a.asOf, b.asOf));
@@ -278,12 +220,14 @@ function EdgeSection({
               </span>
             </span>
           </summary>
-          <ul className="flex flex-col gap-3 pb-3">
+          <ul className="flex flex-col pb-3">
             {group.edges.map((edge) => (
               <EdgeRow
                 edge={edge}
                 key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
-                slug={slug}
+                program="chip"
+                showSource
+                side={side}
               />
             ))}
           </ul>
@@ -451,8 +395,18 @@ export function EntryDetail({ entry }: { entry: Entry }) {
               </Link>
             </div>
             <div className="flex flex-col gap-4">
-              <EdgeSection edges={out} slug={entry.slug} title="Outgoing" />
-              <EdgeSection edges={inn} slug={entry.slug} title="Incoming" />
+              <EdgeSection
+                edges={out}
+                side="outward"
+                slug={entry.slug}
+                title="Outgoing"
+              />
+              <EdgeSection
+                edges={inn}
+                side="inward"
+                slug={entry.slug}
+                title="Incoming"
+              />
             </div>
           </section>
         </>
