@@ -5,7 +5,7 @@ type: "institution"
 founded: ""
 role: "Ministry"
 parent: ""
-related: ["althingi", "treasury-budget-2026"]
+related: ["althingi", "treasury-budget-2026", "haskoli-islands", "haskolinn-a-akureyri", "landbunadarhaskoli-islands", "policy-area-21-haskolastig"]
 website: "https://www.government.is/ministries/ministry-of-culture-innovation-and-higher-education/about-the-ministry/"
 lede: "Menningar-, nýsköpunar- og háskólaráðuneytið oversees culture, media, innovation, science, research, and higher education, under Logi Einarsson since 21 December 2024."
 ---
@@ -18,6 +18,8 @@ The English about page calls this the Ministry of Culture, Innovation and Higher
 The English page says the ministry oversees culture, media, innovation, science, research, higher education, language preservation, and cultural heritage.
 
 Article 4 of the 2026 budget law prints a total authorisation of 137.418,4 m.kr. for Menningar-, nýsköpunar- og háskólaráðuneyti → [[treasury-budget-2026]].
+
+The consolidated Act on public universities, No. 85/2008, says a bare reference to the minister in that act means this minister, that the four public universities are run as public universities under the minister’s overall direction, and that the minister appoints each university rector for five years on the nomination of the university council → [[haskoli-islands]] → [[haskolinn-a-akureyri]] → [[landbunadarhaskoli-islands]] → [[policy-area-21-haskolastig]].
 
 ## Sources
 - [Government of Iceland: Current government](https://www.government.is/government/current-government/)

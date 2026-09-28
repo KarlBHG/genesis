@@ -3350,5 +3350,157 @@
     "start": "not printed",
     "end": "not printed",
     "channel": "business"
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "haestirettur",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "00 Æðsta stjórn ríkisins; 02.10 Hæstiréttur; Heildar-fjárheimild 296,7; Framlag úr ríkissjóði 296,7"
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "haestirettur",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "06 Dómsmálaráðuneyti; 02.10 Hæstiréttur; Heildar-fjárheimild 305,6; Framlag úr ríkissjóði 305,6"
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "heradsdomstolar",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "06 Dómsmálaráðuneyti; 02.20 Héraðsdómstólar; Heildar-fjárheimild 2.513,3; Framlag úr ríkissjóði 2.511,6"
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "landsrettur",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "06 Dómsmálaráðuneyti; 02.30 Landsréttur; Heildar-fjárheimild 1.022,2; Framlag úr ríkissjóði 1.022,2"
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "domstolasyslan",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/",
+    "quotation": "06 Dómsmálaráðuneyti; 02.40 Dómstólasýslan; Heildar-fjárheimild 464,5; Framlag úr ríkissjóði 464,5"
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "domstolasyslan",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2016050.html",
+    "quotation": "Ef í lögum þessum er getið um ráðherra eða ráðuneyti án þess að málefnasvið sé tilgreint sérstaklega eða til þess vísað, er átt við dómsmálaráðherra eða dómsmálaráðuneyti sem fer með lög þessi. 6. gr. Stjórn dómstólasýslunnar. Ráðherra skipar fimm menn sem mynda stjórn dómstólasýslunnar."
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "heradsdomstolar",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2016050.html",
+    "quotation": "Ef í lögum þessum er getið um ráðherra eða ráðuneyti án þess að málefnasvið sé tilgreint sérstaklega eða til þess vísað, er átt við dómsmálaráðherra eða dómsmálaráðuneyti sem fer með lög þessi. 29. gr. Almenn hæfisskilyrði. Dómarar í héraði eru 42 að tölu og skipaðir ótímabundið í embætti héraðsdómara af ráðherra."
+  },
+  {
+    "from": "domstolasyslan",
+    "to": "heradsdomstolar",
+    "type": "funds",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2016050.html",
+    "quotation": "Í fjárlögum skal kveðið sundurliðað á um fjárveitingar til Hæstaréttar Íslands, Landsréttar, héraðsdómstólanna sameiginlega og dómstólasýslunnar. Stjórn dómstólasýslunnar skiptir á milli héraðsdómstólanna fé sem skal veitt þeim í einu lagi með fjárlögum."
+  },
+  {
+    "from": "domstolasyslan",
+    "to": "heradsdomstolar",
+    "type": "regulates",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2016050.html",
+    "quotation": "Stjórn dómstólasýslunnar ákveður fjölda héraðsdómara og annarra starfsmanna við hvern héraðsdómstól og setur almennar reglur um flutning dómara á milli þeirra."
+  },
+  {
+    "from": "domstolasyslan",
+    "to": "haestirettur",
+    "type": "regulates",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2016050.html",
+    "quotation": "5. gr. Dómstólasýslan. Dómstólasýslan er sjálfstæð stjórnsýslustofnun sem annast sameiginlega stjórnsýslu dómstólanna. 1. gr. Hæstiréttur Íslands. Hæstiréttur Íslands er æðsti dómstóll ríkisins og hefur aðsetur í Reykjavík."
+  },
+  {
+    "from": "domstolasyslan",
+    "to": "landsrettur",
+    "type": "regulates",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2016050.html",
+    "quotation": "5. gr. Dómstólasýslan. Dómstólasýslan er sjálfstæð stjórnsýslustofnun sem annast sameiginlega stjórnsýslu dómstólanna. 2. gr. Landsréttur. Landsréttur er áfrýjunardómstóll og hefur aðsetur í Reykjavík."
+  },
+  {
+    "from": "ministry-of-culture-innovation-and-higher-education",
+    "to": "haskoli-islands",
+    "type": "regulates",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2008085.html",
+    "quotation": "Lög þessi gilda um Háskóla Íslands, Háskóla Íslands á Hólum sem aðildarháskóla háskólasamstæðu Háskóla Íslands, Háskólann á Akureyri og Landbúnaðarháskóla Íslands sem reknir eru sem opinberir háskólar og lúta yfirstjórn ráðherra. Ef í lögum þessum er getið um ráðherra eða ráðuneyti án þess að málefnasvið sé tilgreint sérstaklega eða til þess vísað, er átt við menningar-, nýsköpunar- og háskólaráðherra eða menningar-, nýsköpunar- og háskólaráðuneyti sem fer með lög þessi."
+  },
+  {
+    "from": "ministry-of-culture-innovation-and-higher-education",
+    "to": "haskolinn-a-akureyri",
+    "type": "regulates",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2008085.html",
+    "quotation": "Lög þessi gilda um Háskóla Íslands, Háskóla Íslands á Hólum sem aðildarháskóla háskólasamstæðu Háskóla Íslands, Háskólann á Akureyri og Landbúnaðarháskóla Íslands sem reknir eru sem opinberir háskólar og lúta yfirstjórn ráðherra. Ef í lögum þessum er getið um ráðherra eða ráðuneyti án þess að málefnasvið sé tilgreint sérstaklega eða til þess vísað, er átt við menningar-, nýsköpunar- og háskólaráðherra eða menningar-, nýsköpunar- og háskólaráðuneyti sem fer með lög þessi."
+  },
+  {
+    "from": "ministry-of-culture-innovation-and-higher-education",
+    "to": "landbunadarhaskoli-islands",
+    "type": "regulates",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2008085.html",
+    "quotation": "Lög þessi gilda um Háskóla Íslands, Háskóla Íslands á Hólum sem aðildarháskóla háskólasamstæðu Háskóla Íslands, Háskólann á Akureyri og Landbúnaðarháskóla Íslands sem reknir eru sem opinberir háskólar og lúta yfirstjórn ráðherra. Ef í lögum þessum er getið um ráðherra eða ráðuneyti án þess að málefnasvið sé tilgreint sérstaklega eða til þess vísað, er átt við menningar-, nýsköpunar- og háskólaráðherra eða menningar-, nýsköpunar- og háskólaráðuneyti sem fer með lög þessi."
+  },
+  {
+    "from": "ministry-of-culture-innovation-and-higher-education",
+    "to": "haskoli-islands",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2008085.html",
+    "quotation": "8. gr. Háskólarektor. [Ráðherra] skipar háskólarektor til fimm ára samkvæmt tilnefningu háskólaráðs. Lög þessi gilda um Háskóla Íslands, Háskóla Íslands á Hólum sem aðildarháskóla háskólasamstæðu Háskóla Íslands, Háskólann á Akureyri og Landbúnaðarháskóla Íslands."
+  },
+  {
+    "from": "ministry-of-culture-innovation-and-higher-education",
+    "to": "haskolinn-a-akureyri",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2008085.html",
+    "quotation": "8. gr. Háskólarektor. [Ráðherra] skipar háskólarektor til fimm ára samkvæmt tilnefningu háskólaráðs. Lög þessi gilda um Háskóla Íslands, Háskóla Íslands á Hólum sem aðildarháskóla háskólasamstæðu Háskóla Íslands, Háskólann á Akureyri og Landbúnaðarháskóla Íslands."
+  },
+  {
+    "from": "ministry-of-culture-innovation-and-higher-education",
+    "to": "landbunadarhaskoli-islands",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2008085.html",
+    "quotation": "8. gr. Háskólarektor. [Ráðherra] skipar háskólarektor til fimm ára samkvæmt tilnefningu háskólaráðs. Lög þessi gilda um Háskóla Íslands, Háskóla Íslands á Hólum sem aðildarháskóla háskólasamstæðu Háskóla Íslands, Háskólann á Akureyri og Landbúnaðarháskóla Íslands."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "landbunadarhaskoli-islands",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/21-haskolastig/",
+    "quotation": "Bygging jarðræktarmiðstöðvar við Landbúnaðarháskóla Íslands á Hvanneyri. Menningar-, nýsköpunar- og háskólaráðuneyti og atvinnuvegaráðuneyti. 100 m.kr. Fjárheimild málaflokksins er aukin um 100 m.kr. vegna byggingar jarðræktarmiðstöðvar á Hvanneyri, sbr. markmið nr. 2."
+  },
+  {
+    "from": "treasury-budget-2026",
+    "to": "haskoli-islands",
+    "type": "funds",
+    "asOf": "2026",
+    "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/21-haskolastig/",
+    "quotation": "Uppbygging húss Heilbrigðisvísindasviðs HÍ með áherslu á betri innviði og umgjörð rannsókna og náms. Menningar-, nýsköpunar- og háskólaráðuneyti. Innan ramma."
   }
 ]
