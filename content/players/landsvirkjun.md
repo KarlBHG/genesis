@@ -6,6 +6,7 @@ role: "National power company"
 asOf: "2025"
 website: "https://www.landsvirkjun.com"
 related: ["power-and-aluminium", "ministry-of-finance", "hordur-arnarson", "brynja-baldursdottir", "landsvirkjun-power-sales", "borealis-data-center", "nordural", "isal", "alcoa-fjardaal", "landsnet"]
+lede: "Landsvirkjun is the state-owned National Power Company of Iceland, producing and selling renewable electricity per its annual reporting."
 ---
 
 # Landsvirkjun

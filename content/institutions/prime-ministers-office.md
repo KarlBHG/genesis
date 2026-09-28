@@ -7,6 +7,7 @@ role: "Ministry"
 parent: ""
 related: ["kristrun-frostadottir", "althingi", "treasury-budget-2026", "sedlabanki", "republic-of-iceland"]
 website: "https://www.government.is/ministries/prime-ministers-office/"
+lede: "Forsætisráðuneytið supports the Prime Minister; Kristrún Frostadóttir has held that office since 21 December 2024."
 ---
 
 # Forsætisráðuneytið

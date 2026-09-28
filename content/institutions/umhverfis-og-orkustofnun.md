@@ -7,6 +7,7 @@ role: "supervision"
 parent: "ministry-of-the-environment-energy-and-climate"
 related: ["ministry-of-the-environment-energy-and-climate", "natturuverndarstofnun"]
 website: "https://uos.is/"
+lede: "Umhverfis- og orkustofnun is the environmental and energy agency listed under the climate ministry on the government institutions register."
 ---
 
 # Umhverfis- og orkustofnun

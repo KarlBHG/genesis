@@ -6,6 +6,7 @@ role: "Telecommunications and media"
 asOf: "2024"
 website: "https://www.syn.is"
 related: ["telecoms", "fjarskiptastofa", "ruv", "competition-authority", "siminn", "nova", "arion-banki", "islandsbanki", "birta", "lsr"]
+lede: "Sýn hf. runs Iceland’s Vodafone telecom brand and Stöð 2 media properties according to its 2024 consolidated financial statements."
 ---
 
 # Sýn hf.

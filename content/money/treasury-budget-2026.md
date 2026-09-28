@@ -3,6 +3,7 @@ title: "Treasury budget for 2026"
 slug: "treasury-budget-2026"
 year: "2026"
 related: ["ministry-of-finance", "althingi", "healthcare", "treasury-debt"]
+lede: "The 2026 budget law’s Treasury Part A1 tables record authorised revenue and expenditure for the state, not later outturn figures."
 ---
 
 # Treasury budget for 2026

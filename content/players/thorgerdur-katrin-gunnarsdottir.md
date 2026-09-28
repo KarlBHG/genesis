@@ -6,6 +6,7 @@ role: "Minister for Foreign Affairs"
 asOf: "2024-12-21"
 website: "https://www.althingi.is/altext/cv/is/?nfaerslunr=632"
 related: ["ministry-for-foreign-affairs", "althingi", "vidreisn", "vinnumalastofnun", "lanasjodur-islenskra-namsmanna", "leikfelag-reykjavikur", "throskahjalp", "golfsamband-islands"]
+lede: "Þorgerður Katrín Gunnarsdóttir has been Minister for Foreign Affairs and Viðreisn chair since December 2024, per her Alþingi CV."
 ---
 
 # Þorgerður Katrín Gunnarsdóttir

@@ -6,6 +6,7 @@ role: "Ministry"
 asOf: "2024-12-21"
 website: "https://www.government.is/ministries/ministry-of-health/"
 related: ["healthcare", "alma-d-moller", "landspitali", "althingi", "embaetti-landlaeknis"]
+lede: "Heilbrigðisráðuneytið is led by Minister Alma D. Möller from 21 December 2024 according to the ministry’s official pages."
 ---
 
 # Ministry of Health

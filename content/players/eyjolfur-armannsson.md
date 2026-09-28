@@ -6,6 +6,7 @@ role: "Minister of Infrastructure"
 asOf: "2025-03-15"
 website: "https://www.government.is/ministries/ministry-of-infrastructure/minister-of-infrastructure/"
 related: ["ministry-of-infrastructure", "althingi", "flokkur-folksins", "islandsbanki", "handknattleiksdeild-vikings", "orkan-okkar"]
+lede: "Eyjólfur Ármannsson became Minister of Infrastructure on 15 March 2025 after serving as transport minister from December 2024, per government pages."
 ---
 
 # Eyjólfur Ármannsson

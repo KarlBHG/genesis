@@ -7,6 +7,7 @@ role: "supervision"
 parent: "ministry-of-the-environment-energy-and-climate"
 related: ["ministry-of-the-environment-energy-and-climate", "umhverfis-og-orkustofnun"]
 website: "https://www.nattura.is/"
+lede: "Nattúruverndarstofnun took over nature protection and national-park operations from Umhverfisstofnun on 1 January 2025."
 ---
 
 # Náttúruverndarstofnun

@@ -7,6 +7,7 @@ role: "legislature"
 parent: ""
 related: ["sedlabanki", "ministry-of-health", "landspitali", "healthcare", "treasury-budget-2026", "treasury-debt", "930-althingi", "1874-constitution", "1944-republic", "2009-eu-application", "2024-parliamentary-election"]
 website: "https://www.althingi.is/"
+lede: "Alþingi is Iceland’s 63-seat parliament, elected by secret ballot on a four-year cycle as described on government.is."
 ---
 
 # Alþingi

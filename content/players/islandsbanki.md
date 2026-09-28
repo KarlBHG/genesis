@@ -6,6 +6,7 @@ role: "Commercial bank"
 asOf: "2025"
 website: "https://www.islandsbanki.is"
 related: ["banking-after-2008", "jon-gudni-omarsson", "heidar-gudjonsson", "syn", "nova"]
+lede: "Íslandsbanki completed transition to private ownership in 2025 when the Icelandic State sold its remaining shareholding, per the bank’s annual report."
 ---
 
 # Íslandsbanki

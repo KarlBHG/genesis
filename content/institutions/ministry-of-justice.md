@@ -7,6 +7,7 @@ role: "Ministry"
 parent: ""
 related: ["althingi", "courts", "personuvernd", "treasury-budget-2026"]
 website: "https://www.government.is/ministries/ministry-of-justice/about-the-ministry/"
+lede: "Dómsmálaráðuneytið leads justice policy and court administration under Minister Þorbjörg Sigríður Gunnlaugsdóttir from 21 December 2024."
 ---
 
 # Dómsmálaráðuneytið

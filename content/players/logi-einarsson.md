@@ -6,6 +6,7 @@ role: "Minister of Culture, Innovation and Higher Education"
 asOf: "2024-12-21"
 website: "https://www.althingi.is/altext/cv/is/?nfaerslunr=1128"
 related: ["ministry-of-culture-innovation-and-higher-education", "althingi", "samfylkingin", "arkitektafelag-islands"]
+lede: "Logi Einarsson has been culture and innovation minister since 21 December 2024 and Nordic co-operation minister from 23 December 2024, per his Alþingi CV."
 ---
 
 # Logi Einarsson

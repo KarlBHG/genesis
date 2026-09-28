@@ -1,3 +1,4 @@
+import { compareAsOf } from "@/lib/as-of";
 import type { Edge } from "@/lib/types";
 
 /** Opnir reikningar buyers tagged in the invoice→budget pilot. */
@@ -18,7 +19,7 @@ export function paysEdgesForProgram(programSlug: string, edges: Edge[]): Edge[] 
     )
     .sort(
       (a, b) =>
-        b.asOf.localeCompare(a.asOf) ||
+        compareAsOf(b.asOf, a.asOf) ||
         a.fromTitle.localeCompare(b.fromTitle, "en") ||
         a.toTitle.localeCompare(b.toTitle, "en"),
     );

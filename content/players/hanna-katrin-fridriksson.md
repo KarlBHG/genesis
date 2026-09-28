@@ -6,6 +6,7 @@ role: "Minister of Industries"
 asOf: "2024-12-21"
 website: "https://www.althingi.is/altext/cv/is/?nfaerslunr=1276"
 related: ["ministry-of-industries", "althingi", "vidreisn", "sjalfstaedir-evropumenn", "mp-banki", "hlidarendi-ses"]
+lede: "Hanna Katrín Friðriksson has been Minister of Industries and Viðreisn parliament group chair since December 2024, per her Alþingi CV."
 ---
 
 # Hanna Katrín Friðriksson

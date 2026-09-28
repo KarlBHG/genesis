@@ -7,6 +7,7 @@ role: "monetary-policy"
 parent: "independent"
 related: ["ministry-of-finance", "financial-supervisory-authority", "althingi", "arion-banki", "treasury-debt", "2008-capital-controls", "2017-capital-controls", "republic-of-iceland", "rikissjodur", "prime-ministers-office"]
 website: "https://www.sedlabanki.is"
+lede: "Act 92/2019 makes Seðlabanki Íslands an independent state-owned central bank tasked with price stability, financial stability, and hosting Fjármálaeftirlitið."
 ---
 
 # Seðlabanki Íslands

@@ -7,8 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { AsOfChip } from "@/components/as-of-chip";
 import { getEdges, resolveSlug } from "@/lib/content";
-import { formatDate } from "@/lib/format";
 import { paysEdgesForProgram } from "@/lib/invoice-budget";
 import type { Edge } from "@/lib/types";
 
@@ -33,7 +33,10 @@ function InvoiceRow({ edge }: { edge: Edge }) {
         ) : (
           edge.toTitle
         )}
-        <span className="text-muted-foreground"> · {formatDate(edge.asOf)}</span>
+        <span className="text-muted-foreground">
+          {" "}
+          · <AsOfChip asOf={edge.asOf} />
+        </span>
         {edge.year ? (
           <Badge className="ml-2" variant="outline">
             Fiscal {edge.year}

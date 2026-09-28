@@ -26,6 +26,8 @@ import {
 } from "@/lib/content";
 import { groupEdges } from "@/lib/connection-groups";
 import { uniqueProgramNullReasons } from "@/lib/invoice-budget";
+import { compareAsOf } from "@/lib/as-of";
+import { AsOfChip } from "@/components/as-of-chip";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
 import type { Edge, Entry } from "@/lib/types";
 
@@ -185,7 +187,10 @@ function EdgeRow({ edge, slug }: { edge: Edge; slug: string }) {
           <span> · {edge.organizationTitle}</span>
         ) : null}
         {edge.asOf ? (
-          <span className="text-muted-foreground"> · {formatDate(edge.asOf)}</span>
+          <span className="text-muted-foreground">
+            {" "}
+            · <AsOfChip asOf={edge.asOf} />
+          </span>
         ) : null}
         {edge.relationship === "pays" && edge.program ? (
           <span className="text-muted-foreground">
@@ -222,7 +227,8 @@ function EdgeSection({
   slug: string;
 }) {
   if (edges.length === 0) return null;
-  const groups = groupEdges(edges, "relationship");
+  const sorted = edges.slice().sort((a, b) => compareAsOf(a.asOf, b.asOf));
+  const groups = groupEdges(sorted, "relationship");
   return (
     <div className="flex flex-col gap-2">
       <h3 className="text-base font-medium">
@@ -230,7 +236,7 @@ function EdgeSection({
       </h3>
       {groups.length === 1 ? (
         <ul className="flex flex-col gap-3">
-          {edges.map((edge) => (
+          {sorted.map((edge) => (
             <EdgeRow
               edge={edge}
               key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}`}
@@ -384,6 +390,9 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           </p>
         ) : null}
       </header>
+      {entry.lede ? (
+        <p className="max-w-2xl text-lg leading-8">{entry.lede}</p>
+      ) : null}
       <EvidenceNotice slug={entry.slug} />
       <PaysProgramNullNotice slug={entry.slug} />
       <MarkdownBody source={entry.body} />

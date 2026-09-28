@@ -6,6 +6,7 @@ role: "Telecommunications"
 asOf: "2024"
 website: "https://www.siminn.is"
 related: ["telecoms", "fjarskiptastofa"]
+lede: "Síminn hf. is a long-established Icelandic telecom operator whose 2024 consolidated statements describe its services and reported revenue."
 ---
 
 # Síminn

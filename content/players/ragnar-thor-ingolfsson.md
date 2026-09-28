@@ -6,6 +6,7 @@ role: "Minister of Social Affairs and Housing"
 asOf: "2026-01-11"
 website: "https://www.althingi.is/altext/cv/is/?nfaerslunr=1524"
 related: ["ministry-of-social-affairs-and-housing", "althingi", "flokkur-folksins", "vr", "landssamband-verslunarmanna", "asi", "virk-starfsendurhaefing", "bjarg-ibudafelag"]
+lede: "Ragnar Þór Ingólfsson has been Minister of Social Affairs and Housing since 11 January 2026 and chairs Flokkur fólksins, per his Alþingi CV."
 ---
 
 # Ragnar Þór Ingólfsson

@@ -5,7 +5,9 @@ import { edgeKey } from "@/components/connection-graph";
 import { Badge } from "@/components/ui/badge";
 import { getCatalog, getContradictions, getEdges, hrefFor, resolveSlug } from "@/lib/content";
 import { GROUP_BY_VIEW, groupEdges } from "@/lib/connection-groups";
-import { formatDate, kindLabel, labelize } from "@/lib/format";
+import { compareAsOf } from "@/lib/as-of";
+import { AsOfChip } from "@/components/as-of-chip";
+import { kindLabel, labelize } from "@/lib/format";
 import { MAP_VIEWS, viewOf } from "@/lib/geo-map";
 import { officeLabel, ownsRowNote, tradeValueNote } from "@/lib/notes";
 import type { Edge, Kind } from "@/lib/types";
@@ -51,8 +53,10 @@ function EdgeLine({ edge, note }: { edge: Edge; note: string | null }) {
               edge.organizationTitle
             )}
           </>
-        ) : null}
-        <span className="text-sm text-muted-foreground"> · {formatDate(edge.asOf)}</span>
+        ) : null}{" "}
+        <span className="text-sm">
+          · <AsOfChip asOf={edge.asOf} />
+        </span>
       </p>
       <p className="break-words text-sm leading-6">{edge.quotation}</p>
       {note ? <p className="break-words text-sm leading-6 text-muted-foreground">{note}</p> : null}
@@ -152,7 +156,13 @@ export default async function ConnectionsPage({
   const sortEdges = (list: Edge[]) =>
     list
       .slice()
-      .sort((a, b) => a.fromTitle.localeCompare(b.fromTitle, "en") || a.toTitle.localeCompare(b.toTitle, "en") || a.asOf.localeCompare(b.asOf) || a.quotation.localeCompare(b.quotation));
+      .sort(
+        (a, b) =>
+          a.fromTitle.localeCompare(b.fromTitle, "en") ||
+          a.toTitle.localeCompare(b.toTitle, "en") ||
+          compareAsOf(a.asOf, b.asOf) ||
+          a.quotation.localeCompare(b.quotation),
+      );
   const holdings = edges.filter((edge) => edge.relationship === "invests-in" && edge.channel != null);
   const byView = MAP_VIEWS.map((view) => ({
     ...view,

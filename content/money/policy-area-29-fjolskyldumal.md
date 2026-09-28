@@ -3,6 +3,7 @@ title: "29 Fjölskyldumál"
 slug: "policy-area-29-fjolskyldumal"
 year: "2026"
 related: ["treasury-budget-2026", "rikissjodur", "prime-ministers-office", "ministry-of-education-and-children", "ministry-of-justice", "ministry-of-social-affairs-and-housing", "ministry-of-health", "ministry-of-finance"]
+lede: "Policy area 29 covers family-affairs spending authorisations in the 2026 budget law, as described in the Ministry of Social Affairs report."
 ---
 
 # 29 Fjölskyldumál

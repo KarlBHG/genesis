@@ -6,6 +6,7 @@ role: "Vendor on the state ledger"
 asOf: "2026-07-03"
 website: ""
 related: ["ministry-of-justice"]
+lede: "Hreyfill svf. is recorded on Opnir reikningar as a taxi vendor to public-sector buyers, line by line without summed totals."
 ---
 
 # Hreyfill svf.

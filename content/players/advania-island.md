@@ -6,6 +6,7 @@ role: "Vendor on the state ledger"
 asOf: "2026-08-20"
 website: ""
 related: ["fjarskiptastofa"]
+lede: "Advania Ísland ehf. appears on Opnir reikningar as an IT vendor to public buyers, with one invoice line per published payment."
 ---
 
 # Advania Ísland ehf.

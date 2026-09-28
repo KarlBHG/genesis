@@ -7,6 +7,7 @@ role: "fiscal-policy"
 parent: ""
 related: ["sedlabanki", "landsvirkjun", "landsbankinn", "dadi-mar-kristofersson", "treasury-budget-2026", "treasury-debt", "2008-capital-controls", "2017-capital-controls", "2010-icesave-referendum", "isavia", "landsnet", "il-sjodur"]
 website: "https://www.government.is/ministries/ministry-of-finance-and-economic-affairs/"
+lede: "The Ministry of Finance and Economic Affairs handles the state’s financial policy, budget preparation, and central-government assets and operations."
 ---
 
 # Ministry of Finance and Economic Affairs

@@ -151,6 +151,7 @@ function readEntry(filePath: string, kind: Kind): Entry {
     body: split.body,
     sources: split.sources,
     summary,
+    lede: optionalString(data, "lede"),
   };
 
   if (kind === "treaty") {

@@ -6,6 +6,7 @@ role: "Registered company"
 asOf: "2019-10-01"
 website: ""
 related: ["on-power", "orkuveita-reykjavikur", "landspitali", "umhverfis-og-orkustofnun", "helga-jonsdottir"]
+lede: "Orka náttúrunnar ohf. and related ON Power entities appear on company registries and vendor lookups tied to geothermal power operations."
 ---
 
 # Orka náttúrunnar ohf.

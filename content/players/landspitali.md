@@ -6,6 +6,7 @@ role: "University hospital"
 asOf: "2024"
 website: "https://www.landspitali.is/"
 related: ["healthcare", "ministry-of-health", "althingi"]
+lede: "Landspítali is Iceland’s university hospital, financed largely through health-ministry budget authorisations rather than as a stand-alone commercial account."
 ---
 
 # Landspítali

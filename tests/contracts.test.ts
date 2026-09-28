@@ -33,6 +33,7 @@ import {
   serializeMapQuery,
 } from "@/lib/map-query";
 import { GROUP_BY_VIEW, groupEdges } from "@/lib/connection-groups";
+import { asOfMeta, classifyAsOfBucket, compareAsOf } from "@/lib/as-of";
 import {
   INVOICE_PROGRAM_PILOT_BUYERS,
   paysEdgesForProgram,
@@ -451,6 +452,47 @@ describe("money partition", () => {
     expect(new Set(slugs).size).toBe(slugs.length);
     expect(slugs.length).toBe(getFlows().length);
     expect(others.length).toBeGreaterThan(0);
+  });
+});
+
+describe("asOf buckets", () => {
+  it("classifies ISO, year, undated, and statute edge dates", () => {
+    expect(classifyAsOfBucket("2026-08-28")).toBe("iso");
+    expect(classifyAsOfBucket("2026-08")).toBe("iso");
+    expect(classifyAsOfBucket("2026")).toBe("year");
+    expect(classifyAsOfBucket("2021-2024")).toBe("year");
+    expect(classifyAsOfBucket("undated on the CV")).toBe("undated");
+    expect(classifyAsOfBucket("consolidated statute")).toBe("statute");
+    expect(classifyAsOfBucket("consolidated statute, lagasafn 157c, 1 September 2026")).toBe(
+      "statute",
+    );
+    expect(classifyAsOfBucket("institutions list")).toBe("undated");
+  });
+
+  it("sorts phrase and year dates without treating them as ISO", () => {
+    expect(compareAsOf("2026-08-28", "2026")).toBeGreaterThan(0);
+    expect(compareAsOf("consolidated statute", "2026-08-01")).toBeGreaterThan(0);
+    expect(asOfMeta("2026").bucketLabel).toBe("year");
+    expect(asOfMeta("2026-08-28").bucketLabel).toBe("ISO");
+  });
+
+  it("gives the top thirty graph hubs an authored lede", () => {
+    const edges = getEdges();
+    const degree = new Map<string, number>();
+    for (const edge of edges) {
+      degree.set(edge.from, (degree.get(edge.from) ?? 0) + 1);
+      degree.set(edge.to, (degree.get(edge.to) ?? 0) + 1);
+    }
+    const top = [...degree.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 30)
+      .map(([slug]) => slug);
+    const bySlug = new Map(getCatalog().map((entry) => [entry.slug, entry]));
+    for (const slug of top) {
+      const entry = bySlug.get(slug);
+      expect(entry, `${slug} missing from catalog`).toBeDefined();
+      expect(entry!.lede.trim().length, `${slug} lede`).toBeGreaterThan(0);
+    }
   });
 });
 

@@ -40,6 +40,7 @@ export type Treaty = {
   body: string;
   sources: string;
   summary: string;
+  lede: string;
 };
 
 export type Institution = {
@@ -55,6 +56,7 @@ export type Institution = {
   body: string;
   sources: string;
   summary: string;
+  lede: string;
 };
 
 export type MapEvent = {
@@ -67,6 +69,7 @@ export type MapEvent = {
   body: string;
   sources: string;
   summary: string;
+  lede: string;
 };
 
 export type Sector = {
@@ -78,6 +81,7 @@ export type Sector = {
   body: string;
   sources: string;
   summary: string;
+  lede: string;
 };
 
 export type Flow = {
@@ -89,6 +93,7 @@ export type Flow = {
   body: string;
   sources: string;
   summary: string;
+  lede: string;
 };
 
 export type Player = {
@@ -103,6 +108,7 @@ export type Player = {
   body: string;
   sources: string;
   summary: string;
+  lede: string;
 };
 
 export type Entry = Treaty | Institution | MapEvent | Sector | Flow | Player;

@@ -6,6 +6,7 @@ role: "Organization named on a public CV or interests page"
 asOf: "1997-2001"
 website: "https://www.althingi.is/altext/cv/is/?nfaerslunr=632"
 related: ["thorgerdur-katrin-gunnarsdottir"]
+lede: "Vinnumálastofnun is Iceland’s public employment and labour-market agency referenced on ministerial CVs for board service in 1997–2001."
 ---
 
 # Vinnumálastofnun

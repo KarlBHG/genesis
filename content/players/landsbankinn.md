@@ -6,6 +6,7 @@ role: "Commercial bank"
 asOf: "2025-12-31"
 website: "https://www.landsbankinn.is"
 related: ["banking-after-2008", "landsbankinn-state-holding", "ministry-of-finance", "lilja-bjork-einarsdottir", "jon-thorvardur-sigurgeirsson", "2008-financial-crisis", "2010-icesave-referendum", "2011-icesave-referendum", "2013-icesave-judgment"]
+lede: "Landsbankinn hf. is Iceland’s largest bank, re-established in October 2008 and reporting under private ownership after the state sold its remaining stake in 2025."
 ---
 
 # Landsbankinn

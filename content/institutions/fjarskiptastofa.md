@@ -7,6 +7,7 @@ role: "supervision"
 parent: "ministry-of-infrastructure"
 related: ["ministry-of-infrastructure", "telecoms", "siminn", "syn", "nova"]
 website: "https://www.fjarskiptastofa.is/english/about-ecoi/"
+lede: "Fjarskiptastofa administers electronic communications and network security as Iceland’s Electronic Communications Office."
 ---
 
 # Fjarskiptastofa

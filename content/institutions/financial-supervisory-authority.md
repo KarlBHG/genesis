@@ -7,6 +7,7 @@ role: "supervision"
 parent: "sedlabanki"
 related: ["sedlabanki", "pension-savings-2025", "lsr", "bru", "birta", "stapi"]
 website: "https://english.sedlabanki.is/um-sedlabankann/"
+lede: "Fjármálaeftirlitið supervises Icelandic financial markets as a division operating within Seðlabanki under Act No. 92/2019."
 ---
 
 # Fjármálaeftirlitið

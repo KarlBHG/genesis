@@ -9,6 +9,7 @@ status: "active"
 topics: ["trade", "regulation", "single-market"]
 related: ["schengen", "efta", "eu-fish-protocol-1972", "iceland-eu-agriculture-2018", "fisheries-and-quotas", "agriculture", "2009-eu-application", "2015-eu-candidate-letter", "2013-icesave-judgment", "multilateral-trade-system"]
 source: "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/"
+lede: "The EEA Agreement extends the EU single market to Iceland, Norway, and Liechtenstein with free movement of goods, services, capital, and people."
 ---
 
 # EEA Agreement

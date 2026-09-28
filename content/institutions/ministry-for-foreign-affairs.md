@@ -7,6 +7,7 @@ role: "Ministry"
 parent: ""
 related: ["althingi", "treasury-budget-2026", "international-development-cooperation", "air-services-agreements", "investment-protection-agreements", "2009-eu-application", "2015-eu-candidate-letter", "1951-defense-agreement"]
 website: "https://www.government.is/ministries/ministry-for-foreign-affairs/about-the-ministry/"
+lede: "Utanríkisráðuneytið conducts Iceland’s foreign relations, trade promotion, and development cooperation under Minister Þorgerður Katrín Gunnarsdóttir since 21 December 2024."
 ---
 
 # Utanríkisráðuneytið
