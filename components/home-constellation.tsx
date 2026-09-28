@@ -3,11 +3,11 @@ import Link from "next/link";
 import { obligationVisual } from "@/lib/obligation-visual";
 import { OBLIGATION_SECTIONS } from "@/lib/obligations";
 
-const SIZE = 480;
+const SIZE = 520;
 const CX = SIZE / 2;
 const CY = SIZE / 2;
-const R = 148;
-const LABEL_GAP = 46;
+const R = 158;
+const LABEL_GAP = 60;
 
 function polar(angleDeg: number, radius: number) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
@@ -40,7 +40,7 @@ export function HomeConstellation() {
   });
 
   return (
-    <div className="relative mx-auto hidden w-full max-w-[31rem] sm:block">
+    <div className="relative mx-auto hidden w-full max-w-[33rem] sm:block">
       <svg
         aria-labelledby="constellation-title"
         className="h-auto w-full drop-shadow-sm"
@@ -151,7 +151,7 @@ export function HomeConstellation() {
 
           return (
             <li
-              className="absolute max-w-[6.75rem] text-[0.68rem] leading-snug sm:max-w-[7.5rem] sm:text-[0.72rem]"
+              className="absolute max-w-[6.25rem] text-[0.66rem] leading-tight sm:max-w-[6.75rem] sm:text-[0.7rem]"
               key={section.id}
               style={{ top: `${topPct}%`, left: `${leftPct}%`, transform, textAlign }}
             >
