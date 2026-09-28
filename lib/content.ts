@@ -861,7 +861,24 @@ function assertRecords(entries: Entry[], offices: OfficeRecord[]): void {
     }
     placeIds.add(row.id as string);
   }
-  for (const id of ["reykjavik", "straumsvik", "grundartangi", "reydarfjordur", "keflavik", "blonduos"]) {
+  for (const id of [
+    "reykjavik",
+    "straumsvik",
+    "grundartangi",
+    "reydarfjordur",
+    "keflavik",
+    "blonduos",
+    "kopavogur",
+    "hafnarfjordur",
+    "akureyri",
+    "gardabaer",
+    "mosfellsbaer",
+    "arborg",
+    "akranes",
+    "fjardabyggd",
+    "vestmannaeyjar",
+    "seltjarnarnes",
+  ]) {
     if (!placeIds.has(id)) throw new Error(`data/places.json is missing ${id}`);
   }
   for (const [index, office] of offices.entries()) {

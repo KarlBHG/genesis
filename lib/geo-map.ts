@@ -17,7 +17,17 @@ export type PlaceId =
   | "grundartangi"
   | "reydarfjordur"
   | "keflavik"
-  | "blonduos";
+  | "blonduos"
+  | "kopavogur"
+  | "hafnarfjordur"
+  | "akureyri"
+  | "gardabaer"
+  | "mosfellsbaer"
+  | "arborg"
+  | "akranes"
+  | "fjardabyggd"
+  | "vestmannaeyjar"
+  | "seltjarnarnes";
 
 export type Place = {
   id: PlaceId;
@@ -134,6 +144,16 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "embaetti-landlaeknis", layer: "state", place: "reykjavik" },
   { slug: "samband-islenskra-sveitarfelaga", layer: "state", place: "reykjavik" },
   { slug: "reykjavikurborg", layer: "state", place: "reykjavik" },
+  { slug: "kopavogsbær", layer: "state", place: "kopavogur" },
+  { slug: "hafnarfjordurbær", layer: "state", place: "hafnarfjordur" },
+  { slug: "akureyrarbær", layer: "state", place: "akureyri" },
+  { slug: "gardabær", layer: "state", place: "gardabaer" },
+  { slug: "mosfellsbær", layer: "state", place: "mosfellsbaer" },
+  { slug: "sveitarfelagid-arborg", layer: "state", place: "arborg" },
+  { slug: "akraneskaupstaður", layer: "state", place: "akranes" },
+  { slug: "fjardabyggd", layer: "state", place: "fjardabyggd" },
+  { slug: "vestmannaeyjabær", layer: "state", place: "vestmannaeyjar" },
+  { slug: "seltjarnarnesbær", layer: "state", place: "seltjarnarnes" },
   { slug: "samfylkingin", layer: "state", place: "reykjavik" },
   { slug: "vidreisn", layer: "state", place: "reykjavik" },
   { slug: "flokkur-folksins", layer: "state", place: "reykjavik" },
