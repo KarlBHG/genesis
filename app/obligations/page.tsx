@@ -34,7 +34,11 @@ export default function ObligationsPage() {
       </header>
 
       {OBLIGATION_SECTIONS.map((section) => (
-        <section className="flex max-w-3xl flex-col gap-4" key={section.id}>
+        <section
+          className="flex max-w-3xl flex-col gap-4 scroll-mt-20"
+          id={section.id}
+          key={section.id}
+        >
           <div className="flex flex-col gap-1">
             <h2 className="text-xl font-medium">{section.title}</h2>
             <p className="text-sm leading-6 text-muted-foreground">{section.lead}</p>
