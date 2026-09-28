@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { EntryDetail } from "@/components/entry-detail";
+import { ProgramInvoiceBridge } from "@/components/program-invoice-bridge";
 import { getFlows } from "@/lib/content";
 
 type Params = { slug: string };
@@ -31,5 +32,15 @@ export default async function FlowPage({
   const { slug } = await params;
   const flow = getFlows().find((entry) => entry.slug === slug);
   if (!flow) notFound();
-  return <EntryDetail entry={flow} />;
+  const isPolicyArea = flow.slug.startsWith("policy-area-");
+  return (
+    <>
+      <EntryDetail entry={flow} />
+      {isPolicyArea ? (
+        <div className="mx-auto -mt-4 mb-8 flex w-full max-w-3xl flex-col gap-4 px-4 sm:px-6">
+          <ProgramInvoiceBridge programSlug={flow.slug} />
+        </div>
+      ) : null}
+    </>
+  );
 }

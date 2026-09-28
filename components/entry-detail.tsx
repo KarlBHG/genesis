@@ -25,6 +25,7 @@ import {
   resolveSlug,
 } from "@/lib/content";
 import { groupEdges } from "@/lib/connection-groups";
+import { uniqueProgramNullReasons } from "@/lib/invoice-budget";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
 import type { Edge, Entry } from "@/lib/types";
 
@@ -186,6 +187,22 @@ function EdgeRow({ edge, slug }: { edge: Edge; slug: string }) {
         {edge.asOf ? (
           <span className="text-muted-foreground"> · {formatDate(edge.asOf)}</span>
         ) : null}
+        {edge.relationship === "pays" && edge.program ? (
+          <span className="text-muted-foreground">
+            {" "}
+            · Program{" "}
+            {resolveSlug(edge.program) ? (
+              <Link
+                className="underline underline-offset-4"
+                href={resolveSlug(edge.program)!.href}
+              >
+                {edge.programTitle ?? edge.program}
+              </Link>
+            ) : (
+              edge.programTitle ?? edge.program
+            )}
+          </span>
+        ) : null}
       </p>
       <p className="text-sm text-muted-foreground">{edge.quotation}</p>
       <a className="text-sm break-all" href={edge.source} rel="noreferrer" target="_blank">
@@ -295,6 +312,24 @@ function EvidenceNotice({ slug }: { slug: string }) {
   );
 }
 
+function PaysProgramNullNotice({ slug }: { slug: string }) {
+  const { out, inn } = edgesFor(slug);
+  const reasons = uniqueProgramNullReasons([...out, ...inn]);
+  if (reasons.length === 0) return null;
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">Ledger prints no program</CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2 text-sm text-muted-foreground">
+        {reasons.map((reason) => (
+          <p key={reason}>{reason}</p>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+
 export function EntryDetail({ entry }: { entry: Entry }) {
   const section = kindLabel(entry.kind);
   const { out, inn } = edgesFor(entry.slug);
@@ -350,6 +385,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         ) : null}
       </header>
       <EvidenceNotice slug={entry.slug} />
+      <PaysProgramNullNotice slug={entry.slug} />
       <MarkdownBody source={entry.body} />
       <Record entry={entry} />
       {out.length > 0 || inn.length > 0 ? (

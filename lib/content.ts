@@ -3,6 +3,7 @@ import path from "path";
 import { cache } from "react";
 import matter from "gray-matter";
 
+import { isInvoiceProgramPilotBuyer } from "@/lib/invoice-budget";
 import { kindPath, labelize } from "@/lib/format";
 import type {
   AuditFinding,
@@ -360,6 +361,110 @@ function buildEdges(entries: Entry[]): Edge[] {
         `data/edges.json edge ${index + 1} office "${to}" organization does not exist`,
       );
     }
+    let year: string | null = null;
+    let program: string | null = null;
+    let programTitle: string | null = null;
+    let programNullReason: string | null = null;
+    let programSource: string | null = null;
+    let programQuotation: string | null = null;
+    if (relationship === "pays") {
+      if ("year" in row) {
+        if (row.year === null) {
+          year = null;
+        } else if (typeof row.year === "string" && row.year.trim()) {
+          year = row.year.trim();
+        } else if (typeof row.year === "number" && Number.isInteger(row.year)) {
+          year = String(row.year);
+        } else {
+          throw new Error(`data/edges.json edge ${index + 1} year must be a string or integer`);
+        }
+      }
+      if ("program" in row) {
+        if (row.program === null) {
+          program = null;
+        } else if (typeof row.program === "string" && row.program.trim()) {
+          program = row.program.trim();
+          const programEntry = bySlug.get(program);
+          if (!programEntry || programEntry.kind !== "flow") {
+            throw new Error(
+              `data/edges.json edge ${index + 1} program "${program}" is not a money flow`,
+            );
+          }
+          if (!program.startsWith("policy-area-")) {
+            throw new Error(
+              `data/edges.json edge ${index + 1} program must be a policy-area slug`,
+            );
+          }
+          programTitle = programEntry.title;
+        } else {
+          throw new Error(`data/edges.json edge ${index + 1} program must be a slug or null`);
+        }
+      }
+      if ("programNullReason" in row) {
+        if (row.programNullReason === null) {
+          programNullReason = null;
+        } else if (
+          typeof row.programNullReason === "string" &&
+          row.programNullReason.trim()
+        ) {
+          programNullReason = row.programNullReason.trim();
+        } else {
+          throw new Error(
+            `data/edges.json edge ${index + 1} programNullReason must be a string or null`,
+          );
+        }
+      }
+      if ("programSource" in row) {
+        if (row.programSource === null) {
+          programSource = null;
+        } else if (typeof row.programSource === "string" && row.programSource.trim()) {
+          programSource = row.programSource.trim();
+        } else {
+          throw new Error(
+            `data/edges.json edge ${index + 1} programSource must be a string or null`,
+          );
+        }
+      }
+      if ("programQuotation" in row) {
+        if (row.programQuotation === null) {
+          programQuotation = null;
+        } else if (
+          typeof row.programQuotation === "string" &&
+          row.programQuotation.trim()
+        ) {
+          programQuotation = row.programQuotation.trim();
+        } else {
+          throw new Error(
+            `data/edges.json edge ${index + 1} programQuotation must be a string or null`,
+          );
+        }
+      }
+      if (program != null) {
+        if (programNullReason) {
+          throw new Error(
+            `data/edges.json edge ${index + 1} cannot set programNullReason when program is set`,
+          );
+        }
+        if (!programSource || !programQuotation) {
+          throw new Error(
+            `data/edges.json edge ${index + 1} joined program needs programSource and programQuotation`,
+          );
+        }
+      }
+      if (program === null && "program" in row && !programNullReason) {
+        throw new Error(
+          `data/edges.json edge ${index + 1} program null needs programNullReason`,
+        );
+      }
+      if (isInvoiceProgramPilotBuyer(from)) {
+        if (!year) {
+          throw new Error(`data/edges.json edge ${index + 1} pilot pays row is missing year`);
+        }
+        if (!("program" in row)) {
+          throw new Error(`data/edges.json edge ${index + 1} pilot pays row is missing program`);
+        }
+      }
+    }
     return {
       from,
       fromTitle: titleOf(from, index, "from"),
@@ -374,6 +479,12 @@ function buildEdges(entries: Entry[]): Edge[] {
       channel,
       organization: office?.organization ?? null,
       organizationTitle: organizationEntry?.title ?? null,
+      year,
+      program,
+      programTitle,
+      programNullReason,
+      programSource,
+      programQuotation,
     };
   });
 }

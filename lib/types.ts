@@ -135,6 +135,15 @@ export type Edge = {
   channel: CareerChannel | null;
   organization: string | null;
   organizationTitle: string | null;
+  /** Fiscal year for Opnir reikningar `pays` rows when tagged. */
+  year: string | null;
+  /** Policy-area flow slug when the buyer ledger prints a program heading. */
+  program: string | null;
+  programTitle: string | null;
+  /** When `program` is null on a tagged invoice, why the ledger did not join. */
+  programNullReason: string | null;
+  programSource: string | null;
+  programQuotation: string | null;
 };
 
 export type ChangeRecord = {

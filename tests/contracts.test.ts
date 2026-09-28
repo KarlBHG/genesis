@@ -32,6 +32,10 @@ import {
   serializeMapQuery,
 } from "@/lib/map-query";
 import { GROUP_BY_VIEW, groupEdges } from "@/lib/connection-groups";
+import {
+  INVOICE_PROGRAM_PILOT_BUYERS,
+  paysEdgesForProgram,
+} from "@/lib/invoice-budget";
 import type { Edge } from "@/lib/types";
 
 const ROOT = process.cwd();
@@ -173,6 +177,47 @@ describe("map membership", () => {
       (slug) => !mapSlugs.has(slug) && !officeIds.has(slug),
     );
     expect(unmapped.length).toBeLessThanOrEqual(108);
+  });
+});
+
+describe("invoice program bridge", () => {
+  it("tags every pilot pays row with year and program or null reason", () => {
+    const edges = getEdges().filter((edge) => edge.relationship === "pays");
+    const pilot = edges.filter((edge) =>
+      INVOICE_PROGRAM_PILOT_BUYERS.has(edge.from),
+    );
+    expect(pilot.length).toBeGreaterThanOrEqual(10);
+    for (const edge of pilot) {
+      expect(edge.year, `${edge.from} → ${edge.to}`).toBe("2026");
+      if (edge.program) {
+        expect(edge.program.startsWith("policy-area-")).toBe(true);
+        expect(edge.programNullReason).toBeNull();
+        expect(edge.programSource?.trim()).toBeTruthy();
+        expect(edge.programQuotation?.trim()).toBeTruthy();
+      } else {
+        expect(edge.programNullReason?.trim()).toBeTruthy();
+      }
+    }
+  });
+
+  it("joins Landspítali invoices to hospital services policy area 23", () => {
+    const joined = paysEdgesForProgram(
+      "policy-area-23-sjukrahusthjonusta",
+      getEdges(),
+    );
+    expect(joined.length).toBeGreaterThanOrEqual(8);
+    expect(joined.every((edge) => edge.from === "landspitali")).toBe(true);
+  });
+
+  it("rejects unknown program slugs at load time", () => {
+    const edges = getEdges();
+    for (const edge of edges) {
+      if (!edge.program) continue;
+      expect(
+        getFlows().some((flow) => flow.slug === edge.program),
+        edge.program,
+      ).toBe(true);
+    }
   });
 });
 
@@ -322,6 +367,12 @@ describe("connection groups", () => {
       channel: null,
       organization: null,
       organizationTitle: null,
+      year: null,
+      program: null,
+      programTitle: null,
+      programNullReason: null,
+      programSource: null,
+      programQuotation: null,
     };
   }
 

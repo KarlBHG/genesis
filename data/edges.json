@@ -929,7 +929,11 @@
     "type": "pays",
     "asOf": "2026-08-25",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Landspítali; 2026-08-25; Íslandsbanki hf.; 3546720; 245"
+    "quotation": "Landspítali; 2026-08-25; Íslandsbanki hf.; 3546720; 245",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
   },
   {
     "from": "landspitali",
@@ -937,7 +941,11 @@
     "type": "pays",
     "asOf": "2026-08-28",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Landspítali; 2026-08-28; Sýn hf.; SB0629049; 3592"
+    "quotation": "Landspítali; 2026-08-28; Sýn hf.; SB0629049; 3592",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
   },
   {
     "from": "landspitali",
@@ -945,7 +953,11 @@
     "type": "pays",
     "asOf": "2026-08-28",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Landspítali; 2026-08-28; Nova hf.; BR2607-6741095; 1249060"
+    "quotation": "Landspítali; 2026-08-28; Nova hf.; BR2607-6741095; 1249060",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
   },
   {
     "from": "ministry-of-justice",
@@ -1456,7 +1468,10 @@
     "type": "pays",
     "asOf": "2026-08-28",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2123992; 51750"
+    "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2123992; 51750",
+    "year": "2026",
+    "program": null,
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints these Rekstrarfélag Stjórnarráðsins invoice rows without a málaflok or policy-area heading on the returned page."
   },
   {
     "from": "ministry-of-health",
@@ -1464,7 +1479,10 @@
     "type": "pays",
     "asOf": "2026-08-28",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2124032; 283200"
+    "quotation": "Heilbrigðisráðuneytið; 2026-08-28; Rekstrarfélag Stjórnarráðsins; 2124032; 283200",
+    "year": "2026",
+    "program": null,
+    "programNullReason": "The Heilbrigðisráðuneytið buyer ledger on Opnir reikningar prints these Rekstrarfélag Stjórnarráðsins invoice rows without a málaflok or policy-area heading on the returned page."
   },
   {
     "from": "vinnumalastofnun",
@@ -1488,7 +1506,11 @@
     "type": "pays",
     "asOf": "2026-08-31",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Landspítali; 2026-08-31; Trackwell hf.; SR26-11815; 4955"
+    "quotation": "Landspítali; 2026-08-31; Trackwell hf.; SR26-11815; 4955",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
   },
   {
     "from": "landspitali",
@@ -1496,7 +1518,11 @@
     "type": "pays",
     "asOf": "2026-08-31",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Landspítali; 2026-08-31; Trackwell hf.; SR26-11816; 4886"
+    "quotation": "Landspítali; 2026-08-31; Trackwell hf.; SR26-11816; 4886",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
   },
   {
     "from": "landspitali",
@@ -1504,7 +1530,11 @@
     "type": "pays",
     "asOf": "2026-07-31",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Landspítali; 2026-07-31; Verifone á Íslandi ehf.; R633054; 15214"
+    "quotation": "Landspítali; 2026-07-31; Verifone á Íslandi ehf.; R633054; 15214",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
   },
   {
     "from": "landspitali",
@@ -1512,7 +1542,11 @@
     "type": "pays",
     "asOf": "2026-07-31",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Landspítali; 2026-07-31; Verifone á Íslandi ehf.; R633055; 15214"
+    "quotation": "Landspítali; 2026-07-31; Verifone á Íslandi ehf.; R633055; 15214",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
   },
   {
     "from": "ministry-for-foreign-affairs",
@@ -2072,7 +2106,11 @@
     "type": "pays",
     "asOf": "2026-08-21",
     "source": "https://opnirreikningar.is/",
-    "quotation": "Landspítali; 2026-08-21; Orka náttúrunnar ohf.; 20251402752; -227728"
+    "quotation": "Landspítali; 2026-08-21; Orka náttúrunnar ohf.; 20251402752; -227728",
+    "year": "2026",
+    "program": "policy-area-23-sjukrahusthjonusta",
+    "programSource": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/23-sjukrahusthjonusta/",
+    "programQuotation": "Landspítalinn og Sjúkrahúsið á Akureyri veita annars stigs sjúkrahúsþjónustu fyrir íbúa sem búa í heilbrigðisumdæmum höfuðborgarsvæðisins og á Norðausturlandi en allar fjárveitingar til þessara tveggja stofnana eru undir málaflokki 23.1."
   },
   {
     "from": "umhverfis-og-orkustofnun",
