@@ -13,6 +13,7 @@
   { "slug": "ministry-of-social-affairs-and-housing", "category": "state", "mapMode": "mapped" },
   { "slug": "ministry-of-the-environment-energy-and-climate", "category": "state", "mapMode": "mapped" },
   { "slug": "ministry-of-industries", "category": "state", "mapMode": "mapped" },
+  { "slug": "landspitali", "category": "state", "mapMode": "mapped" },
 
   { "slug": "sedlabanki", "category": "agencies-regulators", "mapMode": "mapped" },
   { "slug": "financial-supervisory-authority", "category": "agencies-regulators", "mapMode": "mapped" },
@@ -59,6 +60,7 @@
   { "slug": "ruv", "category": "public-companies-funds", "mapMode": "mapped" },
   { "slug": "landsnet", "category": "public-companies-funds", "mapMode": "mapped" },
   { "slug": "il-sjodur", "category": "public-companies-funds", "mapMode": "mapped" },
+  { "slug": "lsr", "category": "public-companies-funds", "mapMode": "mapped" },
   { "slug": "orkuveita-reykjavikur", "category": "public-companies-funds", "mapMode": "mapped" },
   { "slug": "on-power", "category": "public-companies-funds", "mapMode": "mapped" },
   { "slug": "orka-natturunnar", "category": "public-companies-funds", "mapMode": "mapped" },

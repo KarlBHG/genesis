@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { IcelandMap, type MapEdgeView, type MapEntryView } from "@/components/iceland-map";
+import {
+  IcelandMap,
+  type MapEdgeView,
+  type MapEntryView,
+  type MapOffMapEndpointLink,
+} from "@/components/iceland-map";
 import { getCatalog, getContradictions, getEdges, getOffices, hrefFor } from "@/lib/content";
-import { MAP_ENTRIES, viewOf, type PlaceId } from "@/lib/geo-map";
+import { MAP_ENTRIES, MAP_VIEWS, viewOf, type PlaceId, type ViewId } from "@/lib/geo-map";
 import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
 import { ownsRowNote, tradeValueNote } from "@/lib/notes";
 
@@ -60,22 +65,37 @@ export default function MapPage() {
 
   const contradictions = getContradictions();
   const mappedSlugs = new Set(MAP_ENTRIES.map((item) => item.slug));
-  const tradeRelationships = new Set(["imported-from", "exported-to", "tariff-terms"]);
-  const tradePartnerSlugs = new Set<string>();
+  const officeIds = new Set(offices.map((office) => office.id));
+  const offMapByViewMaps = Object.fromEntries(
+    MAP_VIEWS.map((view) => [view.id, new Map<string, number>()]),
+  ) as Record<ViewId, Map<string, number>>;
   for (const edge of graphEdges) {
-    if (!tradeRelationships.has(edge.relationship)) continue;
-    if (!mappedSlugs.has(edge.from)) tradePartnerSlugs.add(edge.from);
-    if (!mappedSlugs.has(edge.to)) tradePartnerSlugs.add(edge.to);
+    const view = viewOf(edge.relationship);
+    if (!view) continue;
+    for (const slug of [edge.from, edge.to]) {
+      if (mappedSlugs.has(slug) || officeIds.has(slug)) continue;
+      const current = offMapByViewMaps[view].get(slug) ?? 0;
+      offMapByViewMaps[view].set(slug, current + 1);
+    }
   }
-  const tradePartners = [...tradePartnerSlugs]
-    .map((slug) => {
-      const entry = bySlug.get(slug);
-      if (!entry) {
-        throw new Error(`Trade partner ${slug} is not in the catalog`);
-      }
-      return { slug, title: entry.title, href: hrefFor(entry) };
-    })
-    .sort((left, right) => left.title.localeCompare(right.title, "en"));
+  const offMapByView = Object.fromEntries(
+    MAP_VIEWS.map((view) => {
+      const rows: MapOffMapEndpointLink[] = [...offMapByViewMaps[view.id].entries()]
+        .map(([slug, count]) => {
+          const entry = bySlug.get(slug);
+          if (!entry) {
+            throw new Error(`Off-map endpoint ${slug} is not in the catalog`);
+          }
+          return { slug, title: entry.title, href: hrefFor(entry), count };
+        })
+        .sort(
+          (left, right) =>
+            right.count - left.count ||
+            left.title.localeCompare(right.title, "en"),
+        );
+      return [view.id, rows];
+    }),
+  ) as Record<ViewId, MapOffMapEndpointLink[]>;
 
   const edges: MapEdgeView[] = graphEdges.map((edge) => ({
     from: edge.from,
@@ -98,7 +118,7 @@ export default function MapPage() {
   return (
     <main className="geo-room min-h-full">
       <Suspense>
-        <IcelandMap entries={entries} edges={edges} tradePartners={tradePartners} />
+        <IcelandMap entries={entries} edges={edges} offMapByView={offMapByView} />
       </Suspense>
     </main>
   );

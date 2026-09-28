@@ -198,7 +198,7 @@ describe("map membership", () => {
 describe("public-entity inventory (phase 1)", () => {
   it("keeps the canonical list in the catalog with unique slugs", () => {
     const rows = getPublicEntityCoverage();
-    expect(rows.length).toBeGreaterThanOrEqual(61);
+    expect(rows.length).toBeGreaterThanOrEqual(63);
     const slugs = rows.map((row) => row.slug);
     expect(new Set(slugs).size).toBe(rows.length);
     for (const row of rows) {
@@ -222,12 +222,12 @@ describe("public-entity inventory (phase 1)", () => {
     const summary = summarizePublicEntityCoverage();
     expect(summary.map((row) => row.category)).toEqual(PUBLIC_ENTITY_CATEGORIES);
     const floorByCategory = {
-      state: 14,
+      state: 15,
       "agencies-regulators": 14,
       courts: 5,
       universities: 3,
       municipalities: 12,
-      "public-companies-funds": 10,
+      "public-companies-funds": 11,
       "political-parties": 3,
     } as const;
     for (const row of summary) {

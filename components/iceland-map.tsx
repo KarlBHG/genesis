@@ -26,10 +26,11 @@ export type MapFlowLink = {
   href: string;
 };
 
-export type MapTradePartnerLink = {
+export type MapOffMapEndpointLink = {
   slug: string;
   title: string;
   href: string;
+  count: number;
 };
 
 export type MapEntryView = {
@@ -196,11 +197,11 @@ function careerSpan(edge: MapEdgeView): string {
 export function IcelandMap({
   entries,
   edges,
-  tradePartners,
+  offMapByView,
 }: {
   entries: MapEntryView[];
   edges: MapEdgeView[];
-  tradePartners: MapTradePartnerLink[];
+  offMapByView: Record<ViewId, MapOffMapEndpointLink[]>;
 }) {
   const scene = useMemo(() => projectCoast(), []);
   const router = useRouter();
@@ -805,6 +806,9 @@ export function IcelandMap({
             view.id === "careers"
               ? shown.filter((edge) => edge.view === "careers" || careerHolding(edge))
               : shown.filter((edge) => edge.view === view.id);
+          const offMap = offMapByView[view.id] ?? [];
+          const visibleOffMap = offMap.slice(0, 12);
+          const hiddenOffMapCount = offMap.length - visibleOffMap.length;
           return (
             <section key={view.id} className="min-w-0">
               <h2 className="text-sm font-medium text-(--geo-ink)">
@@ -828,26 +832,37 @@ export function IcelandMap({
                   ))}
                 </ul>
               )}
-              {view.id === "trade" && tradePartners.length > 0 ? (
+              {offMap.length > 0 ? (
                 <div className="mt-3 rounded-xl border border-(--geo-line) bg-(--geo-panel) p-3">
                   <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">
-                    Trade partners · not on the map
+                    Off-map endpoints · {offMap.length}
                   </p>
                   <p className="mt-1 text-sm leading-6 text-(--geo-ink-dim)">
-                    Countries named on trade edges have no Icelandic place on file, so they are listed here instead of pinned in Reykjavík.
+                    {view.id === "trade"
+                      ? "Countries named on trade edges have no Icelandic place on file, so they are listed here instead of pinned in Reykjavík."
+                      : "These records appear on typed edges in this view but have no place pin yet, so the lines stay visible in text while geography remains honest."}
                   </p>
                   <ul className="mt-2 flex flex-col gap-1">
-                    {tradePartners.map((partner) => (
-                      <li key={partner.slug}>
+                    {visibleOffMap.map((endpoint) => (
+                      <li key={endpoint.slug}>
                         <a
                           className="text-sm text-(--geo-accent) underline underline-offset-4"
-                          href={partner.href}
+                          href={endpoint.href}
                         >
-                          {partner.title}
+                          {endpoint.title}
                         </a>
+                        <span className="ml-2 text-xs text-(--geo-ink-dim)">
+                          {endpoint.count} line{endpoint.count === 1 ? "" : "s"}
+                        </span>
                       </li>
                     ))}
                   </ul>
+                  {hiddenOffMapCount > 0 ? (
+                    <p className="mt-2 text-xs text-(--geo-ink-dim)">
+                      + {hiddenOffMapCount} more off-map endpoint
+                      {hiddenOffMapCount === 1 ? "" : "s"} in this view.
+                    </p>
+                  ) : null}
                 </div>
               ) : null}
             </section>
