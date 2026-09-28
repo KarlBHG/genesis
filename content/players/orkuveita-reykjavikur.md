@@ -5,7 +5,7 @@ playerType: "organization"
 role: "Utility"
 asOf: "2024"
 website: "https://www.orkuveitan.is"
-related: ["reykjavikurborg", "landsnet", "orka-natturunnar", "on-power"]
+related: ["reykjavikurborg", "landsnet", "orka-natturunnar", "on-power", "gylfi-magnusson"]
 ---
 
 # Orkuveita Reykjavíkur
@@ -16,6 +16,8 @@ Orkuveita Reykjavíkur, which the English statements call Reykjavík Energy, is 
 The consolidated statements for 2024 say amounts are in ISK millions at each year’s prices. Revenues that year are printed as 66,782. The group named in the company’s 7 March 2025 release is the parent company, Veitur, Orka náttúrunnar, Ljósleiðarinn, and Carbfix.
 
 Landsnet’s 2023 financial statements say Reykjavík Energy continues to hold 6.78% of Landsnet after the state’s acquisition of the other 93.22% → [[landsnet]].
+
+The consolidated annual financial statements for 2024 name [[gylfi-magnusson]] as Chair of the Board in the board photograph caption and on the signed board line.
 
 The state ledger’s vendor lookup prints the display name Orka náttúrunnar ohf. for two kennitölur. The company registry headings for those numbers are [[on-power]] and [[orka-natturunnar]].
 

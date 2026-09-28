@@ -2683,9 +2683,9 @@
     "from": "brynja-baldursdottir",
     "to": "landsvirkjun",
     "type": "sits-on-board",
-    "asOf": "undated on the registry page",
-    "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4202691299",
-    "quotation": "Brynja Baldursdóttir - stjórnarformaður",
+    "asOf": "2025",
+    "source": "https://www.landsvirkjun.com/api/get-pdf?id=aZcoA8FoBIGEgkAJ_FinancialstatementsLV2025.pdf&name=Financial+statements+Landsvirkjun+2025.pdf",
+    "quotation": "Brynja Baldursdóttir, Chairman of the Board",
     "start": "not printed",
     "end": "not printed",
     "channel": "business"
@@ -2865,9 +2865,9 @@
     "from": "jon-thorvardur-sigurgeirsson",
     "to": "landsbankinn",
     "type": "sits-on-board",
-    "asOf": "undated on the registry page",
-    "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4710080280",
-    "quotation": "Jón Þorvarður Sigurgeirsson - stjórnarformaður",
+    "asOf": "2025",
+    "source": "https://www.landsbankinn.is/uploads/documents/arsskyrsluroguppgjor/consolidated-financial-report-2025-en.pdf",
+    "quotation": "Jón Thorvarður Sigurgeirsson, Chairman",
     "start": "not printed",
     "end": "not printed",
     "channel": "business"
@@ -3177,5 +3177,16 @@
     "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
     "source": "https://www.althingi.is/lagas/nuna/2019092.html",
     "quotation": "Ríkissjóður ber ábyrgð á öllum skuldbindingum Seðlabankans."
+  },
+  {
+    "from": "gylfi-magnusson",
+    "to": "orkuveita-reykjavikur",
+    "type": "sits-on-board",
+    "asOf": "2024",
+    "source": "https://orkuveitan.overcastcdn.com/documents/Reykjav%C3%ADk_Energy_Consolidated_Annual_Financial_Statement_2024.pdf",
+    "quotation": "Gylfi Magnússon Chair of the Board",
+    "start": "not printed",
+    "end": "not printed",
+    "channel": "business"
   }
 ]

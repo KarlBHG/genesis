@@ -2,16 +2,16 @@
 title: "Brynja Baldursdóttir"
 slug: "brynja-baldursdottir"
 playerType: "person"
-role: "Chair of the board of Landsvirkjun"
-asOf: ""
-website: "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4202691299"
+role: "Chair of the board"
+asOf: "2025"
+website: "https://www.landsvirkjun.com/api/get-pdf?id=aZcoA8FoBIGEgkAJ_FinancialstatementsLV2025.pdf&name=Financial+statements+Landsvirkjun+2025.pdf"
 related: ["landsvirkjun"]
 ---
 
 # Brynja Baldursdóttir
 
 ## Summary
-The company registry prints “Brynja Baldursdóttir - stjórnarformaður” on the record for Landsvirkjun, kennitala 4202691299 → [[landsvirkjun]]. The registry prints no term dates, so no start or end is recorded.
+Landsvirkjun’s 2025 financial statements name Brynja Baldursdóttir as Chairman of the Board in the governance section → [[landsvirkjun]]. The statements do not print separate start or end dates for the chairmanship on the signature lines reviewed for this entry.
 
 ## Sources
-- [Skatturinn: Landsvirkjun (4202691299)](https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4202691299)
+- [Landsvirkjun: Financial statements 2025](https://www.landsvirkjun.com/api/get-pdf?id=aZcoA8FoBIGEgkAJ_FinancialstatementsLV2025.pdf&name=Financial+statements+Landsvirkjun+2025.pdf)

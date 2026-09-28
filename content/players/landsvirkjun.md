@@ -16,7 +16,7 @@ Landsvirkjun calls itself the National Power Company of Iceland. The 2025 annual
 
 Act No. 42/1983, as amended by Act No. 154/2006 and published on Alþingi’s statute collection, says Landsvirkjun is a partnership of the Treasury and a 0.1% holder. The Treasury’s share is stated as 99.9%. The act prints the minority holder as “Eignarhluta ehf.” in the opening sentence and as “Eignarhlutir ehf.” in the percentage sentence. Article 5 says the Minister appoints the board at the annual general meeting, to be held before the end of April. The English board page says that minister is the Minister of Finance → [[ministry-of-finance]].
 
-The CEO named on the board page is [[hordur-arnarson]]. Power-sales categories and the smelter contracts are on [[landsvirkjun-power-sales]]. The smelters named in those contracts are [[nordural]], [[isal]], and [[alcoa-fjardaal]].
+The CEO named on the board page is [[hordur-arnarson]]. The 2025 financial statements name [[brynja-baldursdottir]] as Chairman of the Board. Power-sales categories and the smelter contracts are on [[landsvirkjun-power-sales]]. The smelters named in those contracts are [[nordural]], [[isal]], and [[alcoa-fjardaal]].
 
 ## Sources
 - [Landsvirkjun: Annual Report 2025](https://www.landsvirkjun.com/annualreports/2025)
