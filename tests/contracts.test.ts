@@ -849,13 +849,13 @@ function tradeEdgeHasValueOrExplicitNone(quotation: string): boolean {
 }
 
 describe("Hagstofa goods trade edges (P1.3)", () => {
-  it("keeps eleven Hagstofa 2024 goods edges with value or explicit none", () => {
+  it("keeps Hagstofa 2024 goods edges with value or explicit none", () => {
     const edges = getEdges().filter(
       (edge) =>
         TRADE_VALUE_RELATIONSHIPS.has(edge.relationship) &&
         edge.source === HAGSTOFA_GOODS_2024,
     );
-    expect(edges).toHaveLength(11);
+    expect(edges).toHaveLength(13);
     for (const edge of edges) {
       expect(
         tradeEdgeHasValueOrExplicitNone(edge.quotation),
