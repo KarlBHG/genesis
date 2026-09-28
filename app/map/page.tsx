@@ -59,6 +59,24 @@ export default function MapPage() {
   });
 
   const contradictions = getContradictions();
+  const mappedSlugs = new Set(MAP_ENTRIES.map((item) => item.slug));
+  const tradeRelationships = new Set(["imported-from", "exported-to", "tariff-terms"]);
+  const tradePartnerSlugs = new Set<string>();
+  for (const edge of graphEdges) {
+    if (!tradeRelationships.has(edge.relationship)) continue;
+    if (!mappedSlugs.has(edge.from)) tradePartnerSlugs.add(edge.from);
+    if (!mappedSlugs.has(edge.to)) tradePartnerSlugs.add(edge.to);
+  }
+  const tradePartners = [...tradePartnerSlugs]
+    .map((slug) => {
+      const entry = bySlug.get(slug);
+      if (!entry) {
+        throw new Error(`Trade partner ${slug} is not in the catalog`);
+      }
+      return { slug, title: entry.title, href: hrefFor(entry) };
+    })
+    .sort((left, right) => left.title.localeCompare(right.title, "en"));
+
   const edges: MapEdgeView[] = graphEdges.map((edge) => ({
     from: edge.from,
     to: edge.to,
@@ -80,7 +98,7 @@ export default function MapPage() {
   return (
     <main className="min-h-full bg-[#0e100c]">
       <Suspense>
-        <IcelandMap entries={entries} edges={edges} />
+        <IcelandMap entries={entries} edges={edges} tradePartners={tradePartners} />
       </Suspense>
     </main>
   );

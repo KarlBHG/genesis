@@ -1,5 +1,6 @@
 import {
   LAYERS,
+  MAP_LAYERS,
   MAP_VIEWS,
   PLACES,
   type LayerId,
@@ -7,7 +8,7 @@ import {
   type ViewId,
 } from "@/lib/geo-map";
 
-export const DEFAULT_LAYERS: readonly LayerId[] = LAYERS.map(
+export const DEFAULT_LAYERS: readonly LayerId[] = MAP_LAYERS.map(
   (layer) => layer.id,
 );
 

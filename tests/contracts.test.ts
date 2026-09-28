@@ -169,7 +169,7 @@ describe("map membership", () => {
     }
   });
 
-  it("ratchets edge endpoints missing from the map (baseline 108)", () => {
+  it("ratchets edge endpoints missing from the map (baseline 70)", () => {
     // New edges should bring their endpoints onto the map, or bump this
     // baseline deliberately with map entries added in the same change.
     const mapSlugs = new Set(MAP_ENTRIES.map((ref) => ref.slug));
@@ -182,7 +182,7 @@ describe("map membership", () => {
     const unmapped = [...endpoints].filter(
       (slug) => !mapSlugs.has(slug) && !officeIds.has(slug),
     );
-    expect(unmapped.length).toBeLessThanOrEqual(108);
+    expect(unmapped.length).toBeLessThanOrEqual(70);
   });
 });
 

@@ -7,6 +7,7 @@ import coast from "@/data/iceland-coast.json";
 import { labelize, yearOf } from "@/lib/format";
 import {
   LAYERS,
+  MAP_LAYERS,
   MAP_VIEWS,
   PLACES,
   type LayerId,
@@ -20,6 +21,12 @@ import {
 } from "@/lib/map-query";
 
 export type MapFlowLink = {
+  title: string;
+  href: string;
+};
+
+export type MapTradePartnerLink = {
+  slug: string;
   title: string;
   href: string;
 };
@@ -174,9 +181,11 @@ function careerSpan(edge: MapEdgeView): string {
 export function IcelandMap({
   entries,
   edges,
+  tradePartners,
 }: {
   entries: MapEntryView[];
   edges: MapEdgeView[];
+  tradePartners: MapTradePartnerLink[];
 }) {
   const scene = useMemo(() => projectCoast(), []);
   const router = useRouter();
@@ -191,7 +200,7 @@ export function IcelandMap({
     slugSet,
   );
   const enabled = Object.fromEntries(
-    LAYERS.map((layer) => [layer.id, query.layers.includes(layer.id)]),
+    MAP_LAYERS.map((layer) => [layer.id, query.layers.includes(layer.id)]),
   ) as Record<LayerId, boolean>;
   const viewsOn = Object.fromEntries(
     MAP_VIEWS.map((view) => [view.id, query.views.includes(view.id)]),
@@ -262,7 +271,7 @@ export function IcelandMap({
       : [];
   const panelLines = focus?.person === true ? lit.filter((edge) => edge.channel == null) : lit;
   const placeName = PLACES.find((place) => place.id === selectedPlace)?.name;
-  const grouped = LAYERS.map((layer) => ({
+  const grouped = MAP_LAYERS.map((layer) => ({
     layer,
     entries: placeEntries.filter((entry) => entry.layer === layer.id),
   })).filter((group) => group.entries.length > 0);
@@ -351,7 +360,7 @@ export function IcelandMap({
       </header>
 
       <div className="flex flex-wrap gap-2" role="group" aria-label="Layers">
-        {LAYERS.map((layer) => (
+        {MAP_LAYERS.map((layer) => (
           <button
             key={layer.id}
             type="button"
@@ -393,7 +402,7 @@ export function IcelandMap({
 
       <div className="flex min-w-0 flex-col gap-4 lg:grid lg:grid-cols-[5.5rem_minmax(0,1fr)_18rem] lg:items-start">
         <div className="flex flex-row flex-wrap gap-2 lg:flex-col" aria-label="Figures">
-          {LAYERS.map((layer) => {
+          {MAP_LAYERS.map((layer) => {
             const selected = selectedLayer === layer.id;
             return (
               <button
@@ -766,6 +775,28 @@ export function IcelandMap({
                   ))}
                 </ul>
               )}
+              {view.id === "trade" && tradePartners.length > 0 ? (
+                <div className="mt-3 rounded-xl border border-[#34392f] bg-[#141710] p-3">
+                  <p className="text-xs tracking-wide text-[#9a917f] uppercase">
+                    Trade partners · not on the map
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-[#9a917f]">
+                    Countries named on trade edges have no Icelandic place on file, so they are listed here instead of pinned in Reykjavík.
+                  </p>
+                  <ul className="mt-2 flex flex-col gap-1">
+                    {tradePartners.map((partner) => (
+                      <li key={partner.slug}>
+                        <a
+                          className="text-sm text-[#e6d3a4] underline underline-offset-4"
+                          href={partner.href}
+                        >
+                          {partner.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </section>
           );
         })}
