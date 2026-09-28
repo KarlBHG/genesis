@@ -362,6 +362,134 @@ describe("edge amounts are source-bound", () => {
   });
 });
 
+describe("visualisation primitives", () => {
+  it("ships the five primitives and no generic chart library", () => {
+    for (const file of [
+      "bar.tsx",
+      "magnitude.tsx",
+      "time-ruler.tsx",
+      "ego-network.tsx",
+      "ego-layout.ts",
+      "edge-row.tsx",
+      "index.ts",
+      "money.ts",
+    ]) {
+      expect(
+        fs.existsSync(path.join(ROOT, "components", "viz", file)),
+        `components/viz/${file}`,
+      ).toBe(true);
+    }
+    const manifest = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "package.json"), "utf8"),
+    ) as { dependencies: Record<string, string>; devDependencies: Record<string, string> };
+    const installed = Object.keys({
+      ...manifest.dependencies,
+      ...manifest.devDependencies,
+    });
+    for (const banned of [
+      "recharts",
+      "chart.js",
+      "react-chartjs-2",
+      "victory",
+      "nivo",
+      "@nivo/core",
+      "apexcharts",
+      "echarts",
+      "visx",
+      "@visx/visx",
+      "plotly.js",
+    ]) {
+      expect(installed, `${banned} would replace the bespoke look`).not.toContain(
+        banned,
+      );
+    }
+    for (const needed of ["d3-scale", "d3-shape", "d3-force"]) {
+      expect(installed).toContain(needed);
+      expect(installed).toContain(`@types/${needed}`);
+    }
+  });
+
+  it("keeps everything but the interactive network server-renderable", () => {
+    const dir = path.join(ROOT, "components", "viz");
+    const client = fs
+      .readdirSync(dir)
+      .filter((name) =>
+        fs.readFileSync(path.join(dir, name), "utf8").startsWith('"use client"'),
+      );
+    expect(client).toEqual(["ego-network.tsx"]);
+  });
+
+  it("lays out an ego network from typed edges, the same way every time", async () => {
+    const { egoLayout } = await import("@/components/viz/ego-layout");
+    const edges = getEdges().filter(
+      (edge) => edge.from === "treasury-budget-2026" && edge.relationship === "funds",
+    );
+    expect(edges.length).toBeGreaterThan(0);
+    const layout = egoLayout("treasury-budget-2026", edges);
+    expect(layout.links).toHaveLength(edges.length);
+    expect(layout.nodes.length).toBe(
+      new Set(edges.flatMap((edge) => [edge.from, edge.to])).size,
+    );
+    const centre = layout.nodes.find((node) => node.isCentre);
+    expect(centre?.slug).toBe("treasury-budget-2026");
+    for (const node of layout.nodes) {
+      expect(Number.isFinite(node.x) && Number.isFinite(node.y), node.slug).toBe(true);
+      expect(node.x).toBeGreaterThanOrEqual(0);
+      expect(node.x).toBeLessThanOrEqual(layout.width);
+      expect(node.y).toBeLessThanOrEqual(layout.height);
+    }
+    const again = egoLayout("treasury-budget-2026", edges);
+    expect(again.nodes).toEqual(layout.nodes);
+  });
+
+  it("prints a figure the way its own source printed it", async () => {
+    const { comparable, printedFigure, widestFigure } = await import(
+      "@/components/viz/money"
+    );
+    const authorisation = getEdges().find(
+      (edge) => edge.to === "prime-ministers-office" && edge.amount,
+    );
+    expect(printedFigure(authorisation!.amount!)).toBe("5.448,3 m.kr.");
+    const justice = getEdges().find(
+      (edge) => edge.to === "ministry-of-justice" && edge.amount,
+    );
+    expect(printedFigure(justice!.amount!)).toBe("77.252 m.kr.");
+
+    const authorisations = getEdges()
+      .filter((edge) => edge.amount?.basis === "authorisation")
+      .map((edge) => edge.amount!);
+    expect(comparable(authorisations)).toBe(true);
+    // The widest printed figure, not their total.
+    expect(widestFigure(authorisations)).toBe(393868.7);
+    const mixed = getEdges()
+      .filter((edge) => edge.amount)
+      .map((edge) => edge.amount!);
+    expect(comparable(mixed)).toBe(false);
+  });
+
+  it("keeps EdgeRow the only place an edge row is spelled out", () => {
+    const row = fs.readFileSync(
+      path.join(ROOT, "components", "viz", "edge-row.tsx"),
+      "utf8",
+    );
+    // The four surfaces named in the plan adopt this renderer, so it has to
+    // cover every part they draw today.
+    for (const part of [
+      "AsOfChip",
+      "labelize(edge.relationship)",
+      "edge.quotation",
+      "edge.organizationTitle",
+      "edge.programQuotation",
+      "edge.source",
+      "edge.year",
+      "printedFigure",
+      'lang="is"',
+    ]) {
+      expect(row, `EdgeRow is missing ${part}`).toContain(part);
+    }
+  });
+});
+
 const HAGSTOFA_GOODS_2024 =
   "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/";
 
