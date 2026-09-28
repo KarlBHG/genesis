@@ -7,7 +7,7 @@ effective: "1970"
 parties: ["Iceland", "Liechtenstein", "Norway", "Switzerland"]
 status: "active"
 topics: ["trade"]
-related: ["eea-agreement", "2013-icesave-judgment"]
+related: ["eea-agreement", "efta-third-country-ftas", "investment-protection-agreements", "2013-icesave-judgment"]
 source: "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/"
 ---
 

@@ -2521,5 +2521,45 @@
     "asOf": "undated on the trade page",
     "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
     "quotation": "Iceland is a strong proponent of a strong, rules-based multilateral trading system and actively supports efforts to advance the role of the WTO."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "efta-third-country-ftas",
+    "type": "represents",
+    "asOf": "undated on the trade page",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/free-trade-agreements/",
+    "quotation": "The EFTA States have also developed a worldwide network of free trade agreements with countries outside the European Union (EU), with a view to ensuring competitive and predictable conditions for its companies and trade partners."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "air-services-agreements",
+    "type": "represents",
+    "asOf": "undated on the ASA page",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/air-services-agreements/",
+    "quotation": "Iceland has concluded agreements that allow flights to over 120 countries."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "investment-protection-agreements",
+    "type": "represents",
+    "asOf": "2025-06",
+    "source": "https://www.government.is/topics/foreign-affairs/external-trade/investment-agreements/",
+    "quotation": "Investment Agreements with investment protection in force"
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "un-2030-agenda",
+    "type": "represents",
+    "asOf": "2015",
+    "source": "https://www.government.is/topics/foreign-affairs/global-goals/",
+    "quotation": "The 2030 Agenda for Sustainable Development, adopted by all United Nations Member States in 2015, provides a shared blueprint for peace and prosperity for people and the planet, now and into the future."
+  },
+  {
+    "from": "ministry-for-foreign-affairs",
+    "to": "international-development-cooperation",
+    "type": "represents",
+    "asOf": "2024-2028 policy",
+    "source": "https://www.government.is/topics/foreign-affairs/international-development-cooperation/",
+    "quotation": "Iceland’s international development cooperation has a long history and remains one of the main pillars of Iceland’s foreign policy."
   }
 ]

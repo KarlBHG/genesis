@@ -132,10 +132,71 @@ export const OBLIGATION_SECTIONS: ObligationSection[] = [
       },
       {
         label: "EFTA third-country FTAs",
-        href: "/treaties/efta",
-        note: "EFTA States’ worldwide FTA network is described on the same government page; individual partner agreements are not all separate map entries.",
+        href: "/treaties/efta-third-country-ftas",
+        note: "Government lists EFTA partner FTAs by status; Chile, Colombia, Singapore, Malaysia, and others on the investment page.",
       },
     ],
+  },
+  {
+    id: "aviation",
+    title: "Aviation and air services",
+    lead:
+      "Bilateral and multilateral air services agreements authorise scheduled flights; Iceland reports access to over 120 countries.",
+    items: [
+      {
+        label: "Air services agreements",
+        href: "/treaties/air-services-agreements",
+        note: "ASA framework; US and EU/ECAA multilateral agreements named on the MFA page.",
+      },
+      {
+        label: "Isavia",
+        href: "/players/isavia",
+        note: "State-owned airport operator; Keflavík and domestic network.",
+      },
+      {
+        label: "Icelandair",
+        href: "/players/icelandair",
+        note: "Carrier connectivity described in annual reporting.",
+      },
+    ],
+  },
+  {
+    id: "investment",
+    title: "Investment protection",
+    lead:
+      "EEA, EFTA, Singapore FTA, bilateral BITs, and selected multilateral investment treaties listed by the MFA (June 2025).",
+    items: [
+      {
+        label: "Investment agreements index",
+        href: "/treaties/investment-protection-agreements",
+        note: "BITs with China, Chile, Mexico, and others; MIGA, ICSID, TRIMs, Energy Charter named on the page.",
+      },
+      {
+        label: "EFTA third-country FTAs",
+        href: "/treaties/efta-third-country-ftas",
+        note: "Overlap with trade network where FTAs carry investment chapters.",
+      },
+    ],
+  },
+  {
+    id: "development",
+    title: "Development cooperation and SDGs",
+    lead:
+      "ODA policy 2024–2028, bilateral partners, and multilateral agencies — framed by the 2030 Agenda.",
+    items: [
+      {
+        label: "Development cooperation policy",
+        href: "/institutions/international-development-cooperation",
+        note: "ODA path from 0.35% of GNI (2024) toward 0.46% (2028); Malawi, Sierra Leone, Uganda partners.",
+      },
+      {
+        label: "2030 Agenda (SDGs)",
+        href: "/treaties/un-2030-agenda",
+        note: "UN framework adopted 2015; Iceland VNRs in 2019 and 2023.",
+      },
+    ],
+    footnote:
+      "Line-by-line ODA disbursements by agency are on the ministry open database linked from the cooperation page; this map does not import that database.",
   },
   {
     id: "financial",
