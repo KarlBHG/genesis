@@ -26,6 +26,8 @@ import {
   parseMapQuery,
   serializeMapQuery,
 } from "@/lib/map-query";
+import { GROUP_BY_VIEW, groupEdges } from "@/lib/connection-groups";
+import type { Edge } from "@/lib/types";
 
 const ROOT = process.cwd();
 
@@ -278,6 +280,69 @@ describe("map query", () => {
     expect(
       parseMapQuery(params.get.bind(params), new Set()).focus,
     ).toBeNull();
+  });
+});
+
+describe("connection groups", () => {
+  function edge(from: string, relationship: string, to: string): Edge {
+    return {
+      from,
+      fromTitle: from,
+      to,
+      toTitle: to,
+      relationship: relationship as Edge["relationship"],
+      source: "https://example.is/",
+      quotation: `${from} ${relationship} ${to}`,
+      asOf: "2026",
+      start: null,
+      end: null,
+      channel: null,
+      organization: null,
+      organizationTitle: null,
+    };
+  }
+
+  it("covers every view with a grouping rule", () => {
+    const views = ["ownership", "investments", "money", "careers", "spending", "authority", "trade"];
+    for (const view of views) {
+      expect(["from", "relationship", "none"]).toContain(GROUP_BY_VIEW[view]);
+    }
+  });
+
+  it("groups money and spending lines by their source", () => {
+    const edges = [
+      edge("treasury-budget-2026", "funds", "a"),
+      edge("landsvirkjun", "sells-power-to", "b"),
+      edge("treasury-budget-2026", "funds", "c"),
+    ];
+    const groups = groupEdges(edges, "from");
+    expect(groups.map((group) => group.key)).toEqual([
+      "treasury-budget-2026",
+      "landsvirkjun",
+    ]);
+    expect(groups[0]?.edges).toHaveLength(2);
+  });
+
+  it("groups authority lines by relationship", () => {
+    const edges = [
+      edge("a", "regulates", "b"),
+      edge("c", "appoints", "d"),
+      edge("e", "regulates", "f"),
+    ];
+    const groups = groupEdges(edges, "relationship");
+    expect(groups.map((group) => group.key)).toEqual([
+      "regulates",
+      "appoints",
+    ]);
+  });
+
+  it("keeps every edge of the live graph inside a group", () => {
+    const edges = getEdges();
+    for (const [view, by] of Object.entries(GROUP_BY_VIEW)) {
+      void view;
+      const groups = groupEdges(edges, by);
+      expect(groups.flatMap((group) => group.edges)).toHaveLength(edges.length);
+    }
   });
 });
 

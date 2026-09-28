@@ -4,6 +4,7 @@ import Link from "next/link";
 import { edgeKey } from "@/components/connection-graph";
 import { Badge } from "@/components/ui/badge";
 import { getCatalog, getContradictions, getEdges, hrefFor, resolveSlug } from "@/lib/content";
+import { GROUP_BY_VIEW, groupEdges } from "@/lib/connection-groups";
 import { formatDate, kindLabel, labelize } from "@/lib/format";
 import { MAP_VIEWS, viewOf } from "@/lib/geo-map";
 import { officeLabel, ownsRowNote, tradeValueNote } from "@/lib/notes";
@@ -59,6 +60,70 @@ function EdgeLine({ edge, note }: { edge: Edge; note: string | null }) {
   );
 }
 
+function ViewBody({
+  viewId,
+  edges,
+  noteFor,
+}: {
+  viewId: string;
+  edges: Edge[];
+  noteFor: (edge: Edge) => string | null;
+}) {
+  const by = GROUP_BY_VIEW[viewId] ?? "none";
+  if (by === "none") {
+    return (
+      <ul className="flex min-w-0 flex-col">
+        {edges.map((edge) => (
+          <EdgeLine edge={edge} key={edgeKey(edge)} note={noteFor(edge)} />
+        ))}
+      </ul>
+    );
+  }
+  return (
+    <div className="flex min-w-0 flex-col gap-2">
+      {groupEdges(edges, by).map((group) => {
+        const first = group.edges[0];
+        if (!first) return null;
+        const target = by === "from" ? resolveSlug(first.from) : null;
+        const title =
+          by === "from" ? first.fromTitle : labelize(first.relationship);
+        return (
+          <details
+            className="min-w-0 rounded-lg border px-4"
+            key={group.key}
+            open
+          >
+            <summary className="cursor-pointer list-none py-3 [&::-webkit-details-marker]:hidden">
+              <span className="flex flex-wrap items-baseline gap-x-2">
+                {target ? (
+                  <Link
+                    className="font-medium underline underline-offset-4"
+                    href={target.href}
+                  >
+                    {title}
+                  </Link>
+                ) : (
+                  <span className="font-medium">{title}</span>
+                )}
+                <Badge variant="outline">{group.edges.length}</Badge>
+              </span>
+            </summary>
+            <ul className="flex min-w-0 flex-col pb-2">
+              {group.edges.map((edge) => (
+                <EdgeLine
+                  edge={edge}
+                  key={edgeKey(edge)}
+                  note={noteFor(edge)}
+                />
+              ))}
+            </ul>
+          </details>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function ConnectionsPage() {
   const entries = getCatalog();
   const edges = getEdges();
@@ -97,6 +162,17 @@ export default function ConnectionsPage() {
           Seven views, the same buckets as the map. Each line is one typed relationship. Full names wrap. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
         </p>
       </header>
+      <nav aria-label="Connection views" className="flex flex-wrap gap-2">
+        {byView.map((view) => (
+          <a
+            className="rounded-full border px-3 py-1.5 text-sm underline-offset-4 hover:underline"
+            href={`#${view.id}`}
+            key={view.id}
+          >
+            {view.label} · {view.edges.length}
+          </a>
+        ))}
+      </nav>
       {byView.map((view) => (
         <section className="flex min-w-0 flex-col gap-2" id={view.id} key={view.id}>
           <h2 className="text-xl font-medium">
@@ -111,15 +187,13 @@ export default function ConnectionsPage() {
           {view.id === "careers" ? (
             <p className="text-sm text-muted-foreground">Dated personal holdings are listed here as well as under Investments. Ásgeir Jónsson has no dated appointment, so he is not on a line.</p>
           ) : null}
-          <ul className="flex min-w-0 flex-col">
-            {view.edges.map((edge) => (
-              <EdgeLine
-                edge={edge}
-                key={edgeKey(edge)}
-                note={[tradeValueNote(edge.relationship), ownsRowNote(edge, contradictions)].filter(Boolean).join(" ") || null}
-              />
-            ))}
-          </ul>
+          <ViewBody
+            edges={view.edges}
+            noteFor={(edge) =>
+              [tradeValueNote(edge.relationship), ownsRowNote(edge, contradictions)].filter(Boolean).join(" ") || null
+            }
+            viewId={view.id}
+          />
         </section>
       ))}
       {leftover.length > 0 ? (
