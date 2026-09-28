@@ -3502,5 +3502,125 @@
     "asOf": "2026",
     "source": "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/21-haskolastig/",
     "quotation": "Uppbygging húss Heilbrigðisvísindasviðs HÍ með áherslu á betri innviði og umgjörð rannsókna og náms. Menningar-, nýsköpunar- og háskólaráðuneyti. Innan ramma."
+  },
+  {
+    "from": "asi",
+    "to": "landssamband-verslunarmanna",
+    "type": "represents",
+    "asOf": "undated on the about page",
+    "source": "https://www.landssamband.is/um-liv/",
+    "quotation": "LÍV er aðili að: ASÍ - www.asi.is Alþýðusamband Íslands og er annað stærsta landssambandið innan ASÍ. ASÍ sem stofnað var 1916, er stærsta fjöldahreyfing launafólks í landinu. Aðild að ASÍ eiga 7 landssambönd stéttarfélaga með u.þ.b. 70 þúsund félagsmenn."
+  },
+  {
+    "from": "landssamband-verslunarmanna",
+    "to": "vr",
+    "type": "represents",
+    "asOf": "2025",
+    "source": "https://www.vr.is/media/tkyluy3m/arsreikningur-vr-arid-2025.pdf",
+    "quotation": "VR er aðili Landssambandi íslenzkra verzlunarmanna (LÍV) en það er aðili að ASÍ sem er stærsta fjöldahreyfing launafólks á Íslandi. VR rekur samkvæmt samningi Landsamband Íslenzkra verzlunarmanna (LÍV). Allar tekjur og gjöld LÍV eru hluti af rekstri VR."
+  },
+  {
+    "from": "asi",
+    "to": "efling",
+    "type": "represents",
+    "asOf": "undated on the member list",
+    "source": "https://www.asi.is/adildarfelog/",
+    "quotation": "ASÍ’s member list prints Efling, stéttarfélag among the unions under Starfsgreinasamband Íslands, Guðrúnartúni 1, 105 Reykjavík."
+  },
+  {
+    "from": "asi",
+    "to": "bjarg-ibudafelag",
+    "type": "funds",
+    "asOf": "undated on the cited page",
+    "source": "https://www.bsrb.is/is/bsrb/bjarg-ibudafelag",
+    "quotation": "Bjarg íbúðafélag er húsnæðissjálfseignastofnun stofnuð af BSRB og Alþýðusambandi Íslands. BSRB og ASÍ hafa lagt fram stofnfé til þessa almenna íbúðafélags. Þá hafa aðildarfélög BSRB og ASÍ veitt íbúðafélaginu víkjandi lán til að tryggja félaginu rekstrarfjármögnun fyrstu árin."
+  },
+  {
+    "from": "bsrb",
+    "to": "bjarg-ibudafelag",
+    "type": "funds",
+    "asOf": "undated on the cited page",
+    "source": "https://www.bsrb.is/is/bsrb/bjarg-ibudafelag",
+    "quotation": "Bjarg íbúðafélag er húsnæðissjálfseignastofnun stofnuð af BSRB og Alþýðusambandi Íslands. BSRB og ASÍ hafa lagt fram stofnfé til þessa almenna íbúðafélags. Þá hafa aðildarfélög BSRB og ASÍ veitt íbúðafélaginu víkjandi lán til að tryggja félaginu rekstrarfjármögnun fyrstu árin."
+  },
+  {
+    "from": "asi",
+    "to": "virk-starfsendurhaefing",
+    "type": "appoints",
+    "asOf": "undated on the charter page",
+    "source": "https://www.virk.is/is/um-virk/stefna/skipulagsskra",
+    "quotation": "Stjórn VIRK - Starfsendurhæfingarsjóðs er skipuð sjö fulltrúum og sjö fulltrúum til vara. Nánar tiltekið tveimur frá ASÍ, einum frá BSRB, KÍ og BHM sameiginlega, tveimur frá SA, einum frá fjármála- og efnahagsráðuneyti, Sambandi íslenskra sveitarfélaga og Reykjavíkurborg sameiginlega, og framkvæmdastjóra Landssamtaka lífeyrissjóða fyrir hönd lífeyrissjóða."
+  },
+  {
+    "from": "sa-confederation",
+    "to": "virk-starfsendurhaefing",
+    "type": "appoints",
+    "asOf": "undated on the charter page",
+    "source": "https://www.virk.is/is/um-virk/stefna/skipulagsskra",
+    "quotation": "Stjórn VIRK - Starfsendurhæfingarsjóðs er skipuð sjö fulltrúum og sjö fulltrúum til vara. Nánar tiltekið tveimur frá ASÍ, einum frá BSRB, KÍ og BHM sameiginlega, tveimur frá SA, einum frá fjármála- og efnahagsráðuneyti, Sambandi íslenskra sveitarfélaga og Reykjavíkurborg sameiginlega, og framkvæmdastjóra Landssamtaka lífeyrissjóða fyrir hönd lífeyrissjóða."
+  },
+  {
+    "from": "bsrb",
+    "to": "virk-starfsendurhaefing",
+    "type": "appoints",
+    "asOf": "undated on the charter page",
+    "source": "https://www.virk.is/is/um-virk/stefna/skipulagsskra",
+    "quotation": "Nánar tiltekið tveimur frá ASÍ, einum frá BSRB, KÍ og BHM sameiginlega, tveimur frá SA. Stofnendur eru Alþýðusamband Íslands, kt. 420169-6209 og Samtök atvinnulífsins, kt. 680699-2919, BSRB, kt. 440169-0159, Kennarasamband Íslands, kt. 501299-3329, Bandalag háskólamanna, kt. 630387-2569."
+  },
+  {
+    "from": "bhm",
+    "to": "virk-starfsendurhaefing",
+    "type": "appoints",
+    "asOf": "undated on the charter page",
+    "source": "https://www.virk.is/is/um-virk/stefna/skipulagsskra",
+    "quotation": "Nánar tiltekið tveimur frá ASÍ, einum frá BSRB, KÍ og BHM sameiginlega, tveimur frá SA. Stofnendur eru Alþýðusamband Íslands, kt. 420169-6209 og Samtök atvinnulífsins, kt. 680699-2919, BSRB, kt. 440169-0159, Kennarasamband Íslands, kt. 501299-3329, Bandalag háskólamanna, kt. 630387-2569."
+  },
+  {
+    "from": "asi",
+    "to": "vinnumalastofnun",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2006055.html",
+    "quotation": "Ráðherra skipar níu manna stjórn Vinnumálastofnunar til fjögurra ára í senn að fengnum tilnefningum. Tveir fulltrúar í stjórn Vinnumálastofnunar skulu tilnefndir af Alþýðusambandi Íslands, einn af Bandalagi háskólamanna, einn af BSRB, einn af því ráðuneyti er fer með starfsmannamál ríkisins, einn af Sambandi íslenskra sveitarfélaga og tveir af Samtökum atvinnulífsins."
+  },
+  {
+    "from": "bhm",
+    "to": "vinnumalastofnun",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2006055.html",
+    "quotation": "Ráðherra skipar níu manna stjórn Vinnumálastofnunar til fjögurra ára í senn að fengnum tilnefningum. Tveir fulltrúar í stjórn Vinnumálastofnunar skulu tilnefndir af Alþýðusambandi Íslands, einn af Bandalagi háskólamanna, einn af BSRB, einn af því ráðuneyti er fer með starfsmannamál ríkisins, einn af Sambandi íslenskra sveitarfélaga og tveir af Samtökum atvinnulífsins."
+  },
+  {
+    "from": "bsrb",
+    "to": "vinnumalastofnun",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2006055.html",
+    "quotation": "Ráðherra skipar níu manna stjórn Vinnumálastofnunar til fjögurra ára í senn að fengnum tilnefningum. Tveir fulltrúar í stjórn Vinnumálastofnunar skulu tilnefndir af Alþýðusambandi Íslands, einn af Bandalagi háskólamanna, einn af BSRB, einn af því ráðuneyti er fer með starfsmannamál ríkisins, einn af Sambandi íslenskra sveitarfélaga og tveir af Samtökum atvinnulífsins."
+  },
+  {
+    "from": "sa-confederation",
+    "to": "vinnumalastofnun",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/2006055.html",
+    "quotation": "Ráðherra skipar níu manna stjórn Vinnumálastofnunar til fjögurra ára í senn að fengnum tilnefningum. Tveir fulltrúar í stjórn Vinnumálastofnunar skulu tilnefndir af Alþýðusambandi Íslands, einn af Bandalagi háskólamanna, einn af BSRB, einn af því ráðuneyti er fer með starfsmannamál ríkisins, einn af Sambandi íslenskra sveitarfélaga og tveir af Samtökum atvinnulífsins."
+  },
+  {
+    "from": "bsrb",
+    "to": "lsr",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/1997001.html",
+    "quotation": "6. gr. Stjórn sjóðsins skal skipuð átta mönnum. [Ráðherra] skipar fjóra stjórnarmenn, stjórn Bandalags starfsmanna ríkis og bæja skipar tvo stjórnarmenn, stjórn Bandalags háskólamanna skipar einn stjórnarmann og stjórn Kennarasambands Íslands skipar einn stjórnarmann."
+  },
+  {
+    "from": "bhm",
+    "to": "lsr",
+    "type": "appoints",
+    "asOf": "consolidated statute, lagasafn 157c, 1 September 2026",
+    "source": "https://www.althingi.is/lagas/nuna/1997001.html",
+    "quotation": "6. gr. Stjórn sjóðsins skal skipuð átta mönnum. [Ráðherra] skipar fjóra stjórnarmenn, stjórn Bandalags starfsmanna ríkis og bæja skipar tvo stjórnarmenn, stjórn Bandalags háskólamanna skipar einn stjórnarmann og stjórn Kennarasambands Íslands skipar einn stjórnarmann."
   }
 ]

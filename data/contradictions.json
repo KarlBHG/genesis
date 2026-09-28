@@ -85,5 +85,40 @@
         "quotation": "ON Power ohf. (5212130190)"
       }
     ]
+  },
+  {
+    "id": "bsrb-affiliate-count",
+    "entries": [
+      "bsrb"
+    ],
+    "summary": "BSRB's own site prints three different counts of affiliated unions and members on three pages. All three sentences stay.",
+    "sides": [
+      {
+        "source": "https://www.bsrb.is/is/bsrb/um-bsrb",
+        "quotation": "Bandalagið var stofnað 14. febrúar 1942 og í dag eru aðildarfélög BSRB 19 talsins og fjöldi félagsmanna um 25.000."
+      },
+      {
+        "source": "https://www.bsrb.is/is/adildarfelog/adildarfelog-bsrb",
+        "quotation": "Í dag eiga 18 stéttarfélög með samtals tæplega 25.000 félagsmenn aðild að bandalaginu. Auk þess á Samband lífeyrisþega ríkis og bæja aðild að BSRB."
+      }
+    ]
+  },
+  {
+    "id": "liv-rank-within-asi",
+    "entries": [
+      "landssamband-verslunarmanna",
+      "asi"
+    ],
+    "summary": "LIV's own about page calls the federation both the largest and the second largest landssamband inside ASI, in the same text. Neither sentence is dropped.",
+    "sides": [
+      {
+        "source": "https://www.landssamband.is/um-liv/",
+        "quotation": "LÍV - Landssamband íslenzkra verzlunarmanna sem er fjölmennasta landssamband launafólks á Íslandi og stærsta landssambandið innan ASÍ, með samtals um 50.000 félagsmenn, var stofnað 2. júní 1957."
+      },
+      {
+        "source": "https://www.landssamband.is/um-liv/",
+        "quotation": "LÍV er aðili að: ASÍ - www.asi.is Alþýðusamband Íslands og er annað stærsta landssambandið innan ASÍ."
+      }
+    ]
   }
 ]
