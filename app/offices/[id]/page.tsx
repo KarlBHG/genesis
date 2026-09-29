@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { MarkdownBody } from "@/components/markdown-body";
+import { OfficeMismatchCallout } from "@/components/office-holder-mismatch-checklist";
+import {
+  OfficeBoardSeatTable,
+  OfficeMembershipTable,
+} from "@/components/office-membership-table";
 import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
@@ -12,14 +16,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import {
-  edgesFor,
-  getOfficeById,
-  getOffices,
-  resolveSlug,
-} from "@/lib/content";
-import { formatDate, labelize } from "@/lib/format";
-import { icelandicLang } from "@/lib/lang";
+import { getOfficeById, getOffices } from "@/lib/content";
+import { officeMembershipView } from "@/lib/office-membership";
 
 type Params = { id: string };
 
@@ -37,7 +35,10 @@ export async function generateMetadata({
   const { id } = await params;
   const office = getOfficeById(id);
   if (!office) return { title: "Not found" };
-  return { title: office.title, description: `Holders of the office ${office.title}.` };
+  return {
+    title: office.title,
+    description: `Post and sourced membership of ${office.title}. Vacant stays vacant.`,
+  };
 }
 
 export default async function OfficePage({
@@ -49,16 +50,11 @@ export default async function OfficePage({
   const office = getOfficeById(id);
   if (!office) notFound();
 
-  const holder = resolveSlug(office.holder);
-  const organization = resolveSlug(office.organization);
-  const { out, inn } = edgesFor(office.id);
-  const touches = [...inn, ...out].sort((a, b) =>
-    a.asOf.localeCompare(b.asOf),
-  );
+  const view = officeMembershipView(office);
 
   return (
-    <article className="mx-auto flex w-full max-w-reading flex-col gap-8 px-4 py-8 sm:px-6">
-      <Breadcrumb>
+    <main className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
+      <Breadcrumb className="print:hidden">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink render={<Link href="/overview" />}>
@@ -67,7 +63,9 @@ export default async function OfficePage({
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink render={<Link href="/map" />}>Map</BreadcrumbLink>
+            <BreadcrumbLink render={<Link href="/offices" />}>
+              Offices
+            </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -76,102 +74,63 @@ export default async function OfficePage({
         </BreadcrumbList>
       </Breadcrumb>
 
-      <header className="flex flex-col gap-3">
-        <p className="text-sm text-muted-foreground">Office</p>
-        <h1 className="text-3xl font-medium tracking-tight sm:text-4xl">
-          {office.title}
-        </h1>
-        <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <header className="glass-panel atlas-page-header entry-masthead flex flex-col gap-4">
+        <p className="kicker fade-rise">Post</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <h1 className="display-title hero-display text-[2.05rem] leading-[1.02] text-balance sm:text-4xl lg:text-[2.85rem]">
+            {office.title}
+          </h1>
+          {view.vacant ? (
+            <Badge variant="outline">vacant</Badge>
+          ) : (
+            <Badge variant="secondary">current membership</Badge>
+          )}
+        </div>
+        <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-1">
-            <dt className="text-muted-foreground">Holder</dt>
+            <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+              Organization
+            </dt>
             <dd>
-              {holder ? (
+              {view.organizationHref ? (
                 <Link
                   className="font-medium underline underline-offset-4"
-                  href={holder.href}
+                  href={view.organizationHref}
                 >
-                  {holder.title}
+                  {view.organizationTitle}
                 </Link>
               ) : (
-                office.holder
+                view.organizationTitle
               )}
             </dd>
           </div>
           <div className="flex flex-col gap-1">
-            <dt className="text-muted-foreground">Organization</dt>
+            <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+              Current membership
+            </dt>
             <dd>
-              {organization ? (
-                <Link
-                  className="font-medium underline underline-offset-4"
-                  href={organization.href}
-                >
-                  {organization.title}
-                </Link>
+              {view.vacant ? (
+                <span>Vacant. Not filled from the holder field.</span>
               ) : (
-                office.organization
+                view.current
+                  .map((row) => row.personTitle)
+                  .filter((title, index, all) => all.indexOf(title) === index)
+                  .join(", ")
               )}
             </dd>
-          </div>
-          <div className="flex flex-col gap-1">
-            <dt className="text-muted-foreground">As of</dt>
-            <dd>{formatDate(office.asOf)}</dd>
           </div>
         </dl>
+        {view.vacant ? (
+          <p className="text-sm leading-6 text-muted-foreground">
+            A vacant post has no holds-office row whose end is empty and whose
+            as-of is cited. Ended memberships stay in the table below.
+          </p>
+        ) : null}
       </header>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-medium">
-          Recorded holders · {touches.length}
-        </h2>
-        {touches.length === 0 ? (
-          <MarkdownBody
-            source={
-              "No dated appointment edge points at this office. The act prints the appointment rule, but the opened pages do not print when the current holder was appointed."
-            }
-          />
-        ) : (
-          <ul className="flex flex-col gap-3">
-            {touches.map((edge) => {
-              const person =
-                edge.from === office.id
-                  ? resolveSlug(edge.to)
-                  : resolveSlug(edge.from);
-              const personTitle =
-                edge.from === office.id ? edge.toTitle : edge.fromTitle;
-              return (
-                <li
-                  className="rounded-lg border p-4"
-                  key={`${edge.from}-${edge.relationship}-${edge.to}-${edge.asOf}-${edge.start ?? ""}`}
-                >
-                  <p className="break-words font-medium">
-                    {person ? (
-                      <Link
-                        className="underline underline-offset-4"
-                        href={person.href}
-                      >
-                        {personTitle}
-                      </Link>
-                    ) : (
-                      personTitle
-                    )}{" "}
-                    <Badge variant="secondary">
-                      {labelize(edge.relationship)}
-                    </Badge>{" "}
-                    <span className="text-sm font-normal text-muted-foreground">
-                      {edge.start ?? "start not printed"} –{" "}
-                      {edge.end ?? "end not printed"} ·{" "}
-                      {formatDate(edge.asOf)}
-                    </span>
-                  </p>
-                  <p className="mt-1 break-words text-sm leading-6">
-                    <span lang={icelandicLang(edge.quotation)}>{edge.quotation}</span>
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </section>
-    </article>
+      <OfficeMismatchCallout view={view} />
+      <OfficeMembershipTable view={view} />
+      <OfficeBoardSeatTable view={view} />
+    </main>
   );
 }

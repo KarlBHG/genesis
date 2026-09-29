@@ -18,6 +18,7 @@ const ROUTES = [
   "/players",
   "/events",
   "/business",
+  "/offices",
 ];
 
 for (const route of ROUTES) {
@@ -186,6 +187,82 @@ test("ownership statements are dated and holes sit on public entities", async ({
 
   await page.goto("/players/landsvirkjun");
   await expect(page.getByText("sourced statement")).toBeVisible();
+});
+
+test("office pages keep the post and list time-bounded membership", async ({
+  page,
+}) => {
+  await page.goto("/offices");
+  await expect(page.getByRole("heading", { name: "Offices" })).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Offices",
+    }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("navigation", { name: "Footer" }).getByRole("link", {
+      name: "Offices",
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Holder field vs typed membership" }),
+  ).toBeVisible();
+  await expect(
+    page.locator("#holder-mismatch").getByText(
+      "holder field vs typed membership: mismatch",
+    ),
+  ).toHaveCount(6);
+  await expect(page.locator("#posts").getByText("vacant", { exact: true })).toHaveCount(
+    6,
+  );
+  await expect(
+    page.locator("#holder-mismatch").getByRole("link", {
+      name: "Director of Health",
+    }),
+  ).toBeVisible();
+
+  await page.goto("/offices/prime-minister");
+  await expect(page.getByRole("heading", { name: "Prime Minister" })).toBeVisible();
+  await expect(page.getByText("Post", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("vacant")).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Membership" })).toBeVisible();
+  const membership = page.locator("#membership");
+  await expect(membership.getByRole("link", { name: "Kristrún Frostadóttir" })).toBeVisible();
+  await expect(membership.getByText("21 December 2024")).toHaveCount(2);
+  await expect(membership.getByText("not printed")).toBeVisible();
+  await expect(membership.getByRole("link", { name: "permalink" })).toHaveAttribute(
+    "href",
+    /\/connections\//,
+  );
+  await expect(page.getByText("Holder", { exact: true })).toHaveCount(0);
+
+  await page.goto("/offices/director-of-health");
+  await expect(page.getByRole("heading", { name: "Director of Health" })).toBeVisible();
+  await expect(page.getByText("vacant").first()).toBeVisible();
+  await expect(page.getByText("Vacant. Not filled from the holder field.")).toBeVisible();
+  await expect(
+    page.getByText("holder field vs typed membership: mismatch"),
+  ).toBeVisible();
+  const directorMembership = page.locator("#membership");
+  await expect(directorMembership.getByRole("link", { name: "Alma D. Möller" })).toBeVisible();
+  await expect(directorMembership.getByText("ended", { exact: true })).toBeVisible();
+  await expect(directorMembership.getByText("current", { exact: true })).toHaveCount(0);
+
+  await page.goto("/offices/ceo-of-landsvirkjun");
+  const ceoMembership = page.locator("#membership");
+  await expect(ceoMembership.getByRole("link", { name: "Hörður Arnarson" })).toBeVisible();
+  await expect(ceoMembership.getByText("not printed")).toHaveCount(2);
+  await expect(ceoMembership).not.toContainText("21 April 2026");
+  const board = page.locator("#board-seats");
+  await expect(board.getByRole("heading", { name: "Board seats" })).toBeVisible();
+  await expect(board.getByRole("link", { name: "Brynja Baldursdóttir" })).toBeVisible();
+
+  await page.goto("/offices/minister-of-social-affairs-and-housing");
+  const social = page.locator("#membership");
+  await expect(social.getByText("current", { exact: true })).toBeVisible();
+  await expect(social.getByText("ended", { exact: true })).toBeVisible();
+  await expect(social.getByRole("link", { name: "Ragnar Þór Ingólfsson" })).toBeVisible();
+  await expect(social.getByRole("link", { name: "Inga Sæland" })).toBeVisible();
 });
 
 test("Opnir review feed needs a human program decision and does not sum amounts", async ({

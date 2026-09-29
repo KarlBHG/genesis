@@ -863,7 +863,6 @@ describe("Icelandic quotations are marked up as Icelandic", () => {
       "app/connections/page.tsx",
       "app/connections/[id]/page.tsx",
       "app/system/page.tsx",
-      "app/offices/[id]/page.tsx",
       "components/entry-detail.tsx",
       "components/evidence-room.tsx",
       "components/iceland-map.tsx",
