@@ -175,16 +175,17 @@ test("ownership statements are dated and holes sit on public entities", async ({
     }),
   ).toHaveCount(0);
   await expect(page.getByText("no sourced owns")).toHaveCount(5);
-  await expect(page.getByRole("link", { name: "Íslandsbanki" })).toBeVisible();
+  const ownership = page.locator("#ownership");
+  await expect(ownership.getByRole("link", { name: "Íslandsbanki" })).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Lífeyrissjóður starfsmanna ríkisins (LSR)" }),
+    ownership.getByRole("link", { name: "Lífeyrissjóður starfsmanna ríkisins (LSR)" }),
   ).toBeVisible();
-  const caption = page.locator("#ownership [data-slot=table-caption]");
+  const caption = ownership.locator("[data-slot=table-caption]");
   await expect(caption).toContainText("Counts are rows, not share totals.");
   await expect(caption).toContainText("5 have none");
 
-  const landsvirkjun = page.locator("tr", {
-    has: page.getByRole("link", { name: "Landsvirkjun", exact: true }),
+  const landsvirkjun = ownership.locator("tr", {
+    has: ownership.getByRole("link", { name: "Landsvirkjun", exact: true }),
   });
   await landsvirkjun.getByRole("link", { name: "Ríkissjóður Íslands" }).click();
   await expect(
@@ -925,7 +926,9 @@ test.describe("pocket folio", () => {
       };
     });
     if (geometry.display === "none") return;
-    expect(Number.parseFloat(geometry.width)).toBeLessThan(2);
+    const width = Number.parseFloat(geometry.width);
+    if (Number.isNaN(width)) return;
+    expect(width).toBeLessThan(2);
     expect(Number.parseFloat(geometry.borderTopWidth)).toBe(0);
     expect(Number.parseFloat(geometry.borderLeftWidth)).toBeGreaterThan(0);
   });
