@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -143,6 +143,7 @@ export function PasteIntakeForm({
     null,
   );
   const [pending, setPending] = useState<"check" | "queue" | null>(null);
+  const liveRef = useRef<HTMLDivElement>(null);
 
   const fromOption = optionById(endpoints, form.from);
   const career = isCareerEdge(
@@ -181,6 +182,11 @@ export function PasteIntakeForm({
   }
 
   const preview = useMemo(() => formToRawEdge(form), [form]);
+
+  useEffect(() => {
+    if (errors.length === 0) return;
+    liveRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [errors]);
 
   return (
     <form
@@ -493,9 +499,16 @@ export function PasteIntakeForm({
         </p>
       )}
 
-      <div aria-live="polite" className="flex min-w-0 flex-col gap-3">
+      <div
+        aria-live="polite"
+        className="flex min-w-0 flex-col gap-3"
+        ref={liveRef}
+      >
         {errors.length > 0 ? (
-          <FieldError errors={errors.map((message) => ({ message }))} />
+          <div className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">
+            <p className="text-sm font-medium">The contract refuses this row.</p>
+            <FieldError errors={errors.map((message) => ({ message }))} />
+          </div>
         ) : null}
         {result?.ok && !result.queued ? (
           <div className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">

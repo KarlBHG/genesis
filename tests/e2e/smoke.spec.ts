@@ -114,6 +114,7 @@ test("Opnir review feed needs a human program decision and does not sum amounts"
   await expect(page.locator("#intake-to")).toHaveValue("islandsbanki");
 
   await page.getByRole("button", { name: "Check against the contract" }).click();
+  await expect(page.getByText("The contract refuses this row.")).toBeVisible();
   await expect(page.locator("[data-slot=field-error]")).toContainText("program");
 
   await page.locator("#intake-program").selectOption("__none__");
