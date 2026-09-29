@@ -8,6 +8,7 @@ import {
   type MapOffMapEndpointLink,
 } from "@/components/iceland-map";
 import { getCatalog, getContradictions, getEdges, getOffices, hrefFor } from "@/lib/content";
+import { entryAsOfValue } from "@/lib/entry-facts";
 import { MAP_ENTRIES, MAP_VIEWS, viewOf, type PlaceId, type ViewId } from "@/lib/geo-map";
 import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
 import { ownsRowNote, tradeValueNote } from "@/lib/notes";
@@ -56,6 +57,7 @@ export default function MapPage() {
       title: entry.title,
       href: hrefFor(entry),
       fact: factFor(entry.slug, entry.summary),
+      asOf: entryAsOfValue(entry),
       layer: item.layer,
       place: item.place,
       person: entry.kind === "player" && entry.playerType === "person",
@@ -106,6 +108,7 @@ export default function MapPage() {
     relationship: edge.relationship,
     asOf: edge.asOf,
     quotation: edge.quotation,
+    source: edge.source,
     start: edge.start,
     end: edge.end,
     channel: edge.channel,

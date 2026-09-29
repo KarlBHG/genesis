@@ -314,6 +314,58 @@ test("command palette opens with Ctrl+K", async ({ page }) => {
   await expect(page.getByRole("dialog", { name: "Search the records" })).toHaveCount(0);
 });
 
+test("print plate is a citable folio", async ({ page }) => {
+  await page.goto("/institutions/sedlabanki");
+  const connectionHref = await page
+    .getByRole("link", { name: "Open this connection" })
+    .first()
+    .getAttribute("href");
+  expect(connectionHref).toMatch(/^\/connections\//);
+
+  await page.emulateMedia({ media: "print" });
+
+  await expect(page.locator("[data-print-running-head]")).toHaveText(
+    "Institution · sedlabanki · undated",
+  );
+  await expect(page.locator("[data-print-folio]")).toHaveText("03");
+  await expect(page.locator("[data-print-colophon]")).toContainText(
+    "Rows are not added together",
+  );
+  await expect(page.locator("[data-print-colophon]")).toContainText("/methodology");
+  await expect(page.locator("[data-print-colophon]")).not.toContainText(/retrieved/i);
+  await expect(page.getByRole("navigation", { name: "Primary" })).toBeHidden();
+  await expect(page.locator(".home-constellation")).toHaveCount(0);
+  await expect(
+    page.getByText("the capital ratio and CET1 ratio are well above the requirements made by the Financial Supervisory Authority of the Central Bank of Iceland and Icelandic law."),
+  ).toBeVisible();
+
+  await page.goto(connectionHref!);
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator("[data-print-folio]")).toHaveText("09");
+  await expect(page.locator("[data-print-running-head]")).toHaveText(
+    /^Connection · .+ · /,
+  );
+  await expect(page.locator("[data-print-colophon]")).toContainText(
+    "Rows are not added together",
+  );
+  await expect(page.locator("blockquote.hang-quote").first()).toBeVisible();
+
+  await page.goto("/map?focus=althingi");
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator("[data-print-running-head]")).toHaveText(
+    "Map · althingi · year",
+  );
+  await expect(page.locator("[data-print-folio]")).toHaveText("02");
+  await expect(page.getByRole("region", { name: "Plate caption" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Alþingi" })).toBeVisible();
+  await expect(page.getByText("Not on this plate").first()).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Primary" })).toBeHidden();
+  const canvas = await page.locator(".geo-room").evaluate((el) => {
+    return getComputedStyle(el).backgroundColor;
+  });
+  expect(canvas).not.toBe("rgb(255, 255, 255)");
+});
+
 test("night plate caption reads as a legend, not a GIS inspector", async ({
   page,
 }) => {

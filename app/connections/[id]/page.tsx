@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { PrintPlateColophon, PrintPlateHead } from "@/components/print-plate";
 import { ProvenanceEdgeCard } from "@/components/provenance-edge";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -77,7 +78,13 @@ export default async function ConnectionPermalinkPage({
 
   return (
     <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
-      <Breadcrumb>
+      <PrintPlateHead
+        asOf={edge.asOf}
+        kind="Connection"
+        pathname="/connections"
+        slug={id}
+      />
+      <Breadcrumb className="print:hidden">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink render={<Link href="/overview" />}>
@@ -222,6 +229,7 @@ export default async function ConnectionPermalinkPage({
           </div>
         ) : null}
       </dl>
+      <PrintPlateColophon />
     </article>
   );
 }

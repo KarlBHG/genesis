@@ -1885,10 +1885,29 @@ body:has(.geo-room) .site-footer-glow::before {
 
   .print-only {
     display: block;
+  }
+
+  .print-plate-running {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 10pt;
+    border-bottom: 0.4pt solid #000;
+    padding-bottom: 4pt;
     font-size: 8pt;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: #444;
+  }
+
+  .print-colophon {
+    margin-top: 16pt;
+    border-top: 0.4pt solid #000;
+    padding-top: 8pt;
+    font-size: 8pt;
+    letter-spacing: 0.02em;
+    color: #333;
   }
 
   /* Muted greys wash out on paper; sources and quotations must stay legible. */
@@ -1899,8 +1918,25 @@ body:has(.geo-room) .site-footer-glow::before {
   }
 
   /* Every sourced quotation in this app is Icelandic prose in an English page. */
-  p[lang="is"] {
+  p[lang="is"],
+  .hang-quote {
     font-style: italic;
+  }
+
+  /* Icelandic hang-quotes: low-9 / high-9 marks, hanging into the gutter. */
+  .hang-quote[lang="is"] {
+    padding-left: 0.7em;
+    text-indent: -0.55em;
+    hyphens: auto;
+    quotes: "„" "“" "‚" "‘";
+  }
+
+  .hang-quote[lang="is"]::before {
+    content: open-quote;
+  }
+
+  .hang-quote[lang="is"]::after {
+    content: close-quote;
   }
 
   /* Every collapsed group opens: a printed record hides nothing. */
@@ -1966,5 +2002,109 @@ body:has(.geo-room) .site-footer-glow::before {
   main {
     max-width: none !important;
     padding: 0 !important;
+  }
+
+  /* Night map is a high-contrast plate, not a white sanitised page. */
+  html:has(.geo-room),
+  body:has(.geo-room),
+  .geo-room {
+    background: var(--geo-canvas) !important;
+    color: var(--geo-ink) !important;
+  }
+
+  html:has(.geo-room) .print-plate-running,
+  html:has(.geo-room) .print-colophon {
+    border-color: var(--geo-coast);
+    color: var(--geo-accent-dim) !important;
+  }
+
+  html:has(.geo-room) .text-muted-foreground,
+  html:has(.geo-room) blockquote,
+  html:has(.geo-room) [lang="is"] {
+    color: var(--geo-ink-soft) !important;
+  }
+
+  html:has(.geo-room) a {
+    color: var(--geo-accent) !important;
+  }
+
+  .geo-room .geo-theater {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0;
+    gap: 1rem;
+  }
+
+  .geo-room .geo-mast,
+  .geo-room .geo-chips,
+  .geo-room .geo-rail,
+  .geo-room .geo-pins,
+  .geo-room .geo-share,
+  .geo-room .geo-leader,
+  .geo-room .geo-aurora-band,
+  .geo-room .geo-pulse-ring,
+  .geo-print-ornament {
+    display: none !important;
+  }
+
+  .geo-room .geo-stage {
+    min-height: 0;
+    overflow: visible;
+    background: var(--geo-sea-deep) !important;
+    border-color: var(--geo-coast) !important;
+    box-shadow: none !important;
+  }
+
+  .geo-room .geo-inspector {
+    max-height: none;
+    overflow: visible;
+    background: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .geo-room .geo-caption-quote {
+    overflow: visible;
+    white-space: normal;
+    text-overflow: unset;
+  }
+
+  .geo-room .geo-caption-line {
+    display: block;
+  }
+
+  .geo-room [data-print-pin="rest"] {
+    opacity: 0.35 !important;
+  }
+
+  .geo-room [data-print-pin="selected"] {
+    opacity: 1 !important;
+  }
+
+  .geo-room .geo-folio-panel:not(:has([data-print-off-plate])) {
+    display: none !important;
+  }
+
+  .geo-room .geo-folio-panel > h2,
+  .geo-room .geo-folio-panel > p,
+  .geo-room .geo-folio-panel > ul:not([data-print-off-plate]) {
+    display: none !important;
+  }
+
+  .print-off-plate-kicker {
+    font-size: 8pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--geo-accent-dim);
+  }
+
+  .geo-caption-source {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 8pt;
+    letter-spacing: 0;
+    text-transform: none;
+    word-break: break-all;
   }
 }

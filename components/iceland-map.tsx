@@ -9,6 +9,7 @@ import {
   type KeyboardEvent,
 } from "react";
 
+import { PrintPlateColophon, PrintPlateHead } from "@/components/print-plate";
 import { Button } from "@/components/ui/button";
 import coast from "@/data/iceland-coast.json";
 import { edgeHref } from "@/lib/edge-id";
@@ -47,6 +48,7 @@ export type MapEntryView = {
   title: string;
   href: string;
   fact: string;
+  asOf: string;
   layer: LayerId;
   place: PlaceId;
   person: boolean;
@@ -62,6 +64,7 @@ export type MapEdgeView = {
   relationship: Relationship;
   asOf: string;
   quotation: string;
+  source: string;
   start: string | null;
   end: string | null;
   channel: "political" | "business" | null;
@@ -311,7 +314,7 @@ function PlateCaption({
                   ·
                 </span>
                 <span
-                  className="geo-caption-quote"
+                  className="hang-quote geo-caption-quote"
                   lang={icelandicLang(edge.quotation)}
                   title={edge.quotation}
                 >
@@ -324,6 +327,14 @@ function PlateCaption({
                   permalink
                 </a>
               </span>
+              {edge.source ? (
+                <a
+                  className="print-only print-literal-url geo-caption-source"
+                  href={edge.source}
+                >
+                  {edge.source}
+                </a>
+              ) : null}
               {edge.note ? (
                 <span className="geo-caption-note">{edge.note}</span>
               ) : null}
@@ -557,6 +568,12 @@ export function IcelandMap({
 
   return (
     <div>
+      <PrintPlateHead
+        asOf={focus?.asOf ?? ""}
+        kind="Map"
+        pathname="/map"
+        slug={focus?.slug ?? "map"}
+      />
       <div className="geo-theater">
         <header className="geo-mast">
           <div className="min-w-0">
@@ -698,51 +715,54 @@ export function IcelandMap({
               </clipPath>
             </defs>
             <rect width={scene.width} height={scene.height} fill="url(#geo-sea-wash)" />
-            {stars.map((star) => (
-              <circle
-                key={`${star.x}-${star.y}`}
-                cx={star.x}
-                cy={star.y}
-                r={star.r}
-                fill="var(--geo-star)"
+            <g className="geo-print-ornament">
+              {stars.map((star) => (
+                <circle
+                  key={`${star.x}-${star.y}`}
+                  cx={star.x}
+                  cy={star.y}
+                  r={star.r}
+                  fill="var(--geo-star)"
+                  opacity="0.28"
+                />
+              ))}
+              <ellipse
+                className="geo-aurora-band"
+                cx={scene.origin.x}
+                cy={scene.origin.y - 70}
+                rx={scene.width * 0.42}
+                ry={70}
+                fill="url(#geo-aurora-wash)"
+              />
+              <g opacity="0.12" stroke="var(--geo-grid)" strokeWidth="0.4" fill="none">
+                {meridians.map((line) => (
+                  <path key={line} d={line} />
+                ))}
+              </g>
+              <path
+                d={scene.d}
+                fill="none"
+                stroke="var(--geo-coast)"
+                strokeWidth="14"
+                opacity="0.22"
+                filter="url(#geo-glow-soft)"
+              />
+              <path d={scene.d} fill="url(#geo-land-wash)" stroke="none" />
+              <rect
+                width={scene.width}
+                height={scene.height}
+                clipPath="url(#geo-land-clip)"
+                filter="url(#geo-relief)"
                 opacity="0.28"
               />
-            ))}
-            <ellipse
-              className="geo-aurora-band"
-              cx={scene.origin.x}
-              cy={scene.origin.y - 70}
-              rx={scene.width * 0.42}
-              ry={70}
-              fill="url(#geo-aurora-wash)"
-            />
-            <g opacity="0.12" stroke="var(--geo-grid)" strokeWidth="0.4" fill="none">
-              {meridians.map((line) => (
-                <path key={line} d={line} />
-              ))}
             </g>
-            <path
-              d={scene.d}
-              fill="none"
-              stroke="var(--geo-coast)"
-              strokeWidth="14"
-              opacity="0.22"
-              filter="url(#geo-glow-soft)"
-            />
-            <path d={scene.d} fill="url(#geo-land-wash)" stroke="none" />
-            <rect
-              width={scene.width}
-              height={scene.height}
-              clipPath="url(#geo-land-clip)"
-              filter="url(#geo-relief)"
-              opacity="0.28"
-            />
             <path
               d={scene.d}
               fill="none"
               stroke="var(--geo-coast)"
               strokeWidth="1.7"
             />
+            <g className="geo-print-ornament">
             {strings.map(({ edge, bend, year }) => {
               const drawn = curve(points[edge.fromPlace!], points[edge.toPlace!], bend);
               const active = !selectedSlug || litKeys.has(edgeKey(edge));
@@ -778,6 +798,7 @@ export function IcelandMap({
                 </g>
               );
             })}
+            </g>
             {PLACES.map((place) => {
               const atPlace = visible.filter((entry) => entry.place === place.id);
               if (atPlace.length === 0) return null;
@@ -798,7 +819,11 @@ export function IcelandMap({
               const label = LABEL_AT[place.id];
               const gap = (2 * Math.PI) / Math.max(mix.length, 1);
               return (
-                <g key={place.id} style={{ opacity: involved ? 1 : 0.32, transition: motionTransition }}>
+                <g
+                  key={place.id}
+                  data-print-pin={selected ? "selected" : "rest"}
+                  style={{ opacity: involved ? 1 : 0.32, transition: motionTransition }}
+                >
                   {selected && !reduceMotion ? (
                     <circle
                       className="geo-pulse-ring"
@@ -1100,17 +1125,21 @@ export function IcelandMap({
               )}
               {offMap.length > 0 ? (
                 <div className="mt-3 rounded-md border border-(--geo-line) bg-(--geo-panel-sunken) p-3">
-                  <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">
+                  <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase print:hidden">
                     Off-map endpoints · {offMap.length}
                   </p>
-                  <p className="mt-1 text-sm leading-6 text-(--geo-ink-dim)">
+                  <p className="print-only print-off-plate-kicker">Not on this plate</p>
+                  <p className="mt-1 text-sm leading-6 text-(--geo-ink-dim) print:hidden">
                     {view.id === "trade"
                       ? "Countries named on trade edges have no Icelandic place on file, so they are listed here instead of pinned in Reykjavík."
                       : "These records appear on typed edges in this view but have no place pin yet, so the lines stay visible in text while geography remains honest."}
                   </p>
-                  <ul className="mt-2 flex flex-col gap-1">
-                    {visibleOffMap.map((endpoint) => (
-                      <li key={endpoint.slug}>
+                  <ul className="mt-2 flex flex-col gap-1" data-print-off-plate="">
+                    {offMap.map((endpoint, index) => (
+                      <li
+                        key={endpoint.slug}
+                        className={index >= 12 ? "print-only" : undefined}
+                      >
                         <a
                           className="text-sm text-(--geo-accent) underline underline-offset-4"
                           href={endpoint.href}
@@ -1124,7 +1153,7 @@ export function IcelandMap({
                     ))}
                   </ul>
                   {hiddenOffMapCount > 0 ? (
-                    <p className="mt-2 text-xs text-(--geo-ink-dim)">
+                    <p className="mt-2 text-xs text-(--geo-ink-dim) print:hidden">
                       + {hiddenOffMapCount} more off-map endpoint
                       {hiddenOffMapCount === 1 ? "" : "s"} in this view.
                     </p>
@@ -1141,6 +1170,7 @@ export function IcelandMap({
         pinned towns. A number on a pin is how many catalog pages share that point, not a total
         and not a score.
       </p>
+      <PrintPlateColophon />
     </div>
   );
 }

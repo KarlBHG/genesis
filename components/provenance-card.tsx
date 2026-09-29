@@ -119,7 +119,7 @@ export function ProvenanceCard({
       ) : null}
 
       <blockquote
-        className="border-l-2 border-primary/25 pl-3 text-sm leading-6 break-words"
+        className="hang-quote border-l-2 border-primary/25 pl-3 text-sm leading-6 break-words"
         lang={icelandicLang(quotation)}
       >
         {quotation}
@@ -131,7 +131,7 @@ export function ProvenanceCard({
             {secondary.label}
           </p>
           <blockquote
-            className="text-sm leading-6 break-words"
+            className="hang-quote text-sm leading-6 break-words"
             lang={icelandicLang(secondary.quotation)}
           >
             {secondary.quotation}

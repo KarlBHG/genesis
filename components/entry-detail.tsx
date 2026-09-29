@@ -32,7 +32,8 @@ import { groupEdges } from "@/lib/connection-groups";
 import { kennitalaFor } from "@/lib/identifiers";
 import { uniqueProgramNullReasons } from "@/lib/invoice-budget";
 import { compareAsOf } from "@/lib/as-of";
-import { factStrip } from "@/lib/entry-facts";
+import { PrintPlateColophon, PrintPlateHead } from "@/components/print-plate";
+import { entryAsOfValue, factStrip, kindNoun } from "@/lib/entry-facts";
 import { mapFocusHref } from "@/lib/map-focus";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
 import type { Edge, Entry } from "@/lib/types";
@@ -341,9 +342,12 @@ export function EntryDetail({ entry }: { entry: Entry }) {
 
   return (
     <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
-      <p className="print-only">
-        AlltÍkerfi · {kindPath(entry.kind)}/{entry.slug}
-      </p>
+      <PrintPlateHead
+        asOf={entryAsOfValue(entry)}
+        kind={kindNoun(entry.kind)}
+        pathname={kindPath(entry.kind)}
+        slug={entry.slug}
+      />
       <Breadcrumb className="print:hidden">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -500,6 +504,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           </p>
         ) : null}
       </section>
+      <PrintPlateColophon />
     </article>
   );
 }

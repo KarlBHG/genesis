@@ -16,69 +16,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  NAV,
+  padFolio,
+  pathMatchesHref,
+  withNavIndex,
+  type IndexedEntry,
+} from "@/lib/nav";
 
-type NavLink = { href: string; label: string };
-type NavEntry =
-  | NavLink
-  | { label: string; items: NavLink[] };
-
-type IndexedLink = NavLink & { index: number };
-type IndexedEntry =
-  | (NavLink & { index: number })
-  | { label: string; index: number; items: IndexedLink[] };
-
-/** Nav leaf destinations (dropdown items count individually). Keep ≤10. */
-export const NAV: NavEntry[] = [
-  { href: "/system", label: "System" },
-  { href: "/map", label: "Map" },
-  { href: "/institutions", label: "Institutions" },
-  { href: "/money", label: "Budget" },
-  { href: "/players", label: "People" },
-  {
-    label: "Treaties & events",
-    items: [
-      { href: "/treaties", label: "Treaties" },
-      { href: "/events", label: "Events" },
-    ],
-  },
-  { href: "/business", label: "Business" },
-  { href: "/connections", label: "Connections" },
-  { href: "/anomalies", label: "Evidence" },
-];
-
-export function navLeafCount(entries: NavEntry[] = NAV): number {
-  return entries.reduce(
-    (count, entry) => count + ("href" in entry ? 1 : entry.items.length),
-    0,
-  );
-}
-
-function padIndex(n: number) {
-  return String(n).padStart(2, "0");
-}
-
-function withIndex(entries: NavEntry[] = NAV): IndexedEntry[] {
-  let n = 1;
-  return entries.map((entry) => {
-    if ("href" in entry) {
-      return { ...entry, index: n++ };
-    }
-    const items = entry.items.map((item) => ({ ...item, index: n++ }));
-    return { ...entry, items, index: items[0]?.index ?? n };
-  });
-}
+export { NAV, navLeafCount } from "@/lib/nav";
 
 function isCurrent(pathname: string, href: string) {
-  if (href === "/") return pathname === "/";
-  if (href === "/money") {
-    return (
-      pathname === "/money" ||
-      pathname.startsWith("/money/") ||
-      pathname === "/programs" ||
-      pathname.startsWith("/programs/")
-    );
-  }
-  return pathname === href || pathname.startsWith(`${href}/`);
+  return pathMatchesHref(pathname, href);
 }
 
 function entryActive(pathname: string, entry: IndexedEntry): boolean {
@@ -88,7 +37,7 @@ function entryActive(pathname: string, entry: IndexedEntry): boolean {
 
 function FolioNum({ n, end }: { n: number; end?: number }) {
   const label =
-    end && end !== n ? `${padIndex(n)}–${padIndex(end)}` : padIndex(n);
+    end && end !== n ? `${padFolio(n)}–${padFolio(end)}` : padFolio(n);
   return (
     <span aria-hidden className="masthead-link-index">
       {label}
@@ -99,7 +48,7 @@ function FolioNum({ n, end }: { n: number; end?: number }) {
 export function SiteHeader() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const indexed = withIndex();
+  const indexed = withNavIndex();
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {

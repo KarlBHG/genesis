@@ -18,6 +18,27 @@ export function kindNoun(kind: Kind): string {
   return KIND_NOUN[kind];
 }
 
+/**
+ * Stored date used for the print running-head bucket. Empty when the record
+ * has no dated field — that classifies as undated, never “retrieved today”.
+ */
+export function entryAsOfValue(entry: Entry): string {
+  switch (entry.kind) {
+    case "treaty":
+      return entry.signed;
+    case "institution":
+      return entry.founded;
+    case "event":
+      return entry.date;
+    case "flow":
+      return entry.year;
+    case "player":
+      return entry.asOf;
+    default:
+      return "";
+  }
+}
+
 export type EntryFact = { term: string; value: string };
 
 /**

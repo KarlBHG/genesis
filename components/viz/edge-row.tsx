@@ -131,7 +131,7 @@ export function EdgeRow({
       ) : null}
 
       <p
-        className="break-words text-sm leading-6 text-muted-foreground"
+        className="hang-quote break-words text-sm leading-6 text-muted-foreground"
         lang={icelandicLang(edge.quotation)}
       >
         {edge.quotation}
