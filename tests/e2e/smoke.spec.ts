@@ -129,19 +129,25 @@ test("Opnir review feed needs a human program decision and does not sum amounts"
 test("invoice coverage ledger counts rows, not krónur, and keeps Hæstiréttur on Courts", async ({
   page,
 }) => {
-  await page.goto("/money#invoice-coverage");
+  await page.goto("/money");
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Invoice coverage",
+    }),
+  ).toHaveCount(0);
+  await page.getByRole("tab", { name: "Invoice coverage" }).click();
   await expect(
     page.getByRole("heading", { name: "Invoice coverage" }),
   ).toBeVisible();
   const coverage = page.locator("#invoice-coverage");
-  await expect(coverage.getByText("100 invoice rows")).toBeVisible();
-  await expect(coverage.getByText("36 joined to a program")).toBeVisible();
-  await expect(coverage.getByText("64 with an explicit null reason")).toBeVisible();
-  await expect(coverage.getByText("0 unreviewed")).toBeVisible();
-  await expect(coverage.getByText("Counts are rows, not krónur.")).toBeVisible();
+  const caption = coverage.locator("[data-slot=table-caption]");
+  await expect(caption).toContainText("100 invoice rows");
+  await expect(caption).toContainText("36 joined to a program");
+  await expect(caption).toContainText("64 with an explicit null reason");
+  await expect(caption).toContainText("0 unreviewed");
+  await expect(caption).toContainText("Counts are rows, not krónur.");
   await expect(coverage.getByText(/\bISK\b/)).toHaveCount(0);
 
-  await page.goto("/money#printed-headings");
   const headings = page.locator("#printed-headings");
   await expect(
     headings.getByRole("heading", { name: "Printed heading = endpoint" }),

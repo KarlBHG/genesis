@@ -6,6 +6,7 @@ import { EntryIndex } from "@/components/entry-index";
 import { FiscalPhasesNav } from "@/components/fiscal-phases";
 import { HashScroll } from "@/components/hash-scroll";
 import { InvoiceCoverageLedgerTable } from "@/components/invoice-coverage-ledger";
+import { MoneyRoomTabs } from "@/components/money-room-tabs";
 import { PageHero } from "@/components/page-hero";
 import { PrintedHeadingIdentityTable } from "@/components/printed-heading-identities";
 import {
@@ -85,68 +86,77 @@ export default function MoneyPage() {
       <div className="mx-auto flex w-full max-w-shell flex-col gap-14 px-4 py-12 sm:px-6 sm:py-16">
         <FiscalPhasesNav />
 
-        <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="authorisations">
-          <BudgetProgramsSection />
-        </section>
-
-        <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="invoices">
-          <header className="reading-section-head">
-            <span className="section-index">02</span>
-            <h2 className="reading-head">Invoices</h2>
-          </header>
-          <div className="glass-panel flex max-w-reading flex-col gap-3 p-6">
-            <p className="text-base leading-7 text-muted-foreground">
-              {pays.length} stored Opnir reikningar {pays.length === 1 ? "row" : "rows"}{" "}
-              from {buyers.length} {buyers.length === 1 ? "buyer" : "buyers"}.
-              Each line is one payment a named buyer made to a named vendor on a named
-              day. Salaries, foreign-currency payments, and grants are not on that
-              ledger. Amounts are not added together, and the stored sample is a
-              sample — not the year.
-            </p>
-            <p className="text-base leading-7 text-muted-foreground">
-              Coverage of those rows — joined, explicit null, or unreviewed — is the
-              table below. Typed lines are also under{" "}
-              <Link className="underline underline-offset-4" href="/connections#spending">
-                Connections · Invoices
-              </Link>
-              .
-            </p>
-          </div>
-          <InvoiceCoverageLedgerTable ledger={coverage} />
-          <PrintedHeadingIdentityTable identities={identities} names={identityNames} />
-        </section>
-
-        <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="contracts">
-          <header className="reading-section-head">
-            <span className="section-index">03</span>
-            <h2 className="reading-head">Contracts and commodity lines</h2>
-          </header>
-          <p className="max-w-reading text-base leading-7 text-muted-foreground">
-            Power-purchase agreements and Hagstofa import/export commodity rows.
-            These are not invoices and not Article 4 ceilings. Typed lines are under{" "}
-            <Link className="underline underline-offset-4" href="/connections#contracts">
-              Connections · Contracts
-            </Link>
-            .
-          </p>
-          {contractItems.length === 0 ? (
-            <p className="text-muted-foreground">No contract or commodity flows are on file.</p>
-          ) : (
-            <EntryIndex items={contractItems} />
-          )}
-        </section>
-
-        <section className="flex min-w-0 flex-col gap-5">
-          <header className="reading-section-head">
-            <span className="section-index">04</span>
-            <h2 className="reading-head">Other money flows</h2>
-          </header>
-          <p className="max-w-reading text-base leading-7 text-muted-foreground">
-            Treasury totals, pensions, and holdings that are not an authorisation,
-            an invoice, or a contract line.
-          </p>
-          <EntryIndex items={otherItems} />
-        </section>
+        <MoneyRoomTabs
+          authorisations={
+            <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="authorisations">
+              <BudgetProgramsSection />
+            </section>
+          }
+          contracts={
+            <>
+              <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="contracts">
+                <header className="reading-section-head">
+                  <span className="section-index">03</span>
+                  <h2 className="reading-head">Contracts and commodity lines</h2>
+                </header>
+                <p className="max-w-reading text-base leading-7 text-muted-foreground">
+                  Power-purchase agreements and Hagstofa import/export commodity rows.
+                  These are not invoices and not Article 4 ceilings. Typed lines are under{" "}
+                  <Link className="underline underline-offset-4" href="/connections#contracts">
+                    Connections · Contracts
+                  </Link>
+                  .
+                </p>
+                {contractItems.length === 0 ? (
+                  <p className="text-muted-foreground">
+                    No contract or commodity flows are on file.
+                  </p>
+                ) : (
+                  <EntryIndex items={contractItems} />
+                )}
+              </section>
+              <section className="flex min-w-0 flex-col gap-5">
+                <header className="reading-section-head">
+                  <span className="section-index">04</span>
+                  <h2 className="reading-head">Other money flows</h2>
+                </header>
+                <p className="max-w-reading text-base leading-7 text-muted-foreground">
+                  Treasury totals, pensions, and holdings that are not an authorisation,
+                  an invoice, or a contract line.
+                </p>
+                <EntryIndex items={otherItems} />
+              </section>
+            </>
+          }
+          invoices={
+            <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="invoices">
+              <header className="reading-section-head">
+                <span className="section-index">02</span>
+                <h2 className="reading-head">Invoices</h2>
+              </header>
+              <div className="glass-panel flex max-w-reading flex-col gap-3 p-6">
+                <p className="text-base leading-7 text-muted-foreground">
+                  {pays.length} stored Opnir reikningar {pays.length === 1 ? "row" : "rows"}{" "}
+                  from {buyers.length} {buyers.length === 1 ? "buyer" : "buyers"}.
+                  Each line is one payment a named buyer made to a named vendor on a named
+                  day. Salaries, foreign-currency payments, and grants are not on that
+                  ledger. Amounts are not added together, and the stored sample is a
+                  sample — not the year.
+                </p>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Coverage of those rows — joined, explicit null, or unreviewed — is the
+                  table below. Typed lines are also under{" "}
+                  <Link className="underline underline-offset-4" href="/connections#spending">
+                    Connections · Invoices
+                  </Link>
+                  .
+                </p>
+              </div>
+              <InvoiceCoverageLedgerTable ledger={coverage} />
+              <PrintedHeadingIdentityTable identities={identities} names={identityNames} />
+            </section>
+          }
+        />
       </div>
     </main>
   );
