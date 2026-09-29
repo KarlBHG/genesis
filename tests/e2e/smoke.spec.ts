@@ -1360,7 +1360,9 @@ test.describe("pocket folio", () => {
   }, testInfo) => {
     test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
     await page.goto("/");
-    await page.getByRole("button", { name: "Search the records" }).click();
+    const search = page.getByRole("button", { name: "Search the records" });
+    await expect(search).toBeVisible();
+    await search.click();
     const dialog = page.getByRole("dialog", { name: "Search the records" });
     await expect(dialog).toBeVisible();
     await expect(dialog.getByRole("heading", { name: "Search the records" })).toBeVisible();
