@@ -5,7 +5,7 @@ export function scrollPastMasthead(target: Element) {
     (header instanceof HTMLElement ? header.getBoundingClientRect().height : 0) +
     12;
   const top = window.scrollY + target.getBoundingClientRect().top - offset;
-  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
 }
 
 export function scrollHashPastMasthead() {
@@ -16,4 +16,19 @@ export function scrollHashPastMasthead() {
   if (getComputedStyle(target).display === "none") return false;
   scrollPastMasthead(target);
   return true;
+}
+
+/** Retry until the hash target is displayed (tab panels hydrate closed). */
+export function scheduleScrollHashPastMasthead() {
+  if (typeof window === "undefined" || !window.location.hash) {
+    return () => {};
+  }
+  let attempts = 0;
+  let frame = 0;
+  function go() {
+    if (scrollHashPastMasthead()) return;
+    if (attempts++ < 30) frame = requestAnimationFrame(go);
+  }
+  frame = requestAnimationFrame(go);
+  return () => cancelAnimationFrame(frame);
 }

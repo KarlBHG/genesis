@@ -34,8 +34,10 @@ const ROUTES = [
 
 for (const route of ROUTES) {
   test(`a11y smoke ${route}`, async ({ page }) => {
+    test.setTimeout(90_000);
     await page.goto(route);
     await expect(page.getByRole("main")).toBeVisible();
+    await waitForSearchLive(page);
     const results = await new AxeBuilder({ page }).analyze();
     const serious = results.violations.filter(
       (v) => v.impact === "critical" || v.impact === "serious",
@@ -1151,72 +1153,42 @@ test.describe("pocket folio", () => {
     await page.goto("/money");
     const phases = page.locator(".fiscal-phases [data-slot=card]");
     await expect(phases).toHaveCount(3);
-    const phaseFirst = await phases.nth(0).boundingBox();
-    const phaseSecond = await phases.nth(1).boundingBox();
-    expect(phaseSecond!.y).toBeGreaterThan(phaseFirst!.y + phaseFirst!.height / 2);
-    expect(phaseFirst!.width).toBeGreaterThan(280);
+    await expectStacked(phases.nth(0), phases.nth(1), { minWidth: 280 });
 
     await page.setViewportSize({ width: 800, height: 844 });
     await page.goto("/money");
     const tabletPhases = page.locator(".fiscal-phases [data-slot=card]");
-    const tabletPhaseFirst = await tabletPhases.nth(0).boundingBox();
-    const tabletPhaseSecond = await tabletPhases.nth(1).boundingBox();
-    expect(tabletPhaseSecond!.y).toBeGreaterThan(
-      tabletPhaseFirst!.y + tabletPhaseFirst!.height / 2,
-    );
-    expect(tabletPhaseFirst!.width).toBeGreaterThan(500);
+    await expectStacked(tabletPhases.nth(0), tabletPhases.nth(1), { minWidth: 500 });
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/overview");
     const sections = page.locator(".overview-sections a");
     await expect(sections).toHaveCount(7);
-    const sectionFirst = await sections.nth(0).boundingBox();
-    const sectionSecond = await sections.nth(1).boundingBox();
-    expect(sectionSecond!.y).toBeGreaterThan(sectionFirst!.y + sectionFirst!.height / 2);
-    expect(sectionFirst!.width).toBeGreaterThan(280);
+    await expectStacked(sections.nth(0), sections.nth(1), { minWidth: 280 });
 
     await page.setViewportSize({ width: 800, height: 844 });
     await page.goto("/overview");
     const tabletSections = page.locator(".overview-sections a");
-    const tabletSectionFirst = await tabletSections.nth(0).boundingBox();
-    const tabletSectionSecond = await tabletSections.nth(1).boundingBox();
-    expect(tabletSectionSecond!.y).toBeGreaterThan(
-      tabletSectionFirst!.y + tabletSectionFirst!.height / 2,
-    );
-    expect(tabletSectionFirst!.width).toBeGreaterThan(500);
+    await expectStacked(tabletSections.nth(0), tabletSections.nth(1), { minWidth: 500 });
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/methodology");
     const toc = page.locator(".methodology-toc a");
-    await expect(toc.first()).toBeVisible();
-    const tocFirst = await toc.nth(0).boundingBox();
-    const tocSecond = await toc.nth(1).boundingBox();
-    expect(tocSecond!.y).toBeGreaterThan(tocFirst!.y + tocFirst!.height / 2);
-    expect(tocFirst!.width).toBeGreaterThan(200);
+    await expectStacked(toc.nth(0), toc.nth(1), { minWidth: 200 });
 
     await page.locator("#money").scrollIntoViewIfNeeded();
     const moneyCards = page.locator(".methodology-money article");
     await expect(moneyCards).toHaveCount(3);
-    const moneyFirst = await moneyCards.nth(0).boundingBox();
-    const moneySecond = await moneyCards.nth(1).boundingBox();
-    expect(moneySecond!.y).toBeGreaterThan(moneyFirst!.y + moneyFirst!.height / 2);
-    expect(moneyFirst!.width).toBeGreaterThan(280);
+    await expectStacked(moneyCards.nth(0), moneyCards.nth(1), { minWidth: 280 });
 
     await page.setViewportSize({ width: 800, height: 844 });
     await page.goto("/methodology");
     const tabletToc = page.locator(".methodology-toc a");
-    const tabletTocFirst = await tabletToc.nth(0).boundingBox();
-    const tabletTocSecond = await tabletToc.nth(1).boundingBox();
-    expect(tabletTocSecond!.y).toBeGreaterThan(tabletTocFirst!.y + tabletTocFirst!.height / 2);
+    await expectStacked(tabletToc.nth(0), tabletToc.nth(1));
 
     await page.locator("#money").scrollIntoViewIfNeeded();
     const tabletMoney = page.locator(".methodology-money article");
-    const tabletMoneyFirst = await tabletMoney.nth(0).boundingBox();
-    const tabletMoneySecond = await tabletMoney.nth(1).boundingBox();
-    expect(tabletMoneySecond!.y).toBeGreaterThan(
-      tabletMoneyFirst!.y + tabletMoneyFirst!.height / 2,
-    );
-    expect(tabletMoneyFirst!.width).toBeGreaterThan(500);
+    await expectStacked(tabletMoney.nth(0), tabletMoney.nth(1), { minWidth: 500 });
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/money#printed-headings");

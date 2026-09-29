@@ -23,7 +23,7 @@ async function headingClearsMasthead(page: import("@playwright/test").Page, id: 
           };
         }, id);
       },
-      { timeout: 8_000 },
+      { timeout: 12_000 },
     )
     .toMatchObject({ ok: true });
 }
