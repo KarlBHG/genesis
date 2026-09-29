@@ -6,11 +6,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 function tabFromHash(
   hash: string,
-): "inventory" | "checklist" | "quoted-names" | "ownership" {
+): "inventory" | "checklist" | "quoted-names" | "ownership" | "parent-ministry" {
   const id = hash.replace(/^#/, "");
   if (id === "quoted-names") return "quoted-names";
   if (id === "checklist" || id === "open-checklists") return "checklist";
   if (id === "ownership") return "ownership";
+  if (id === "parent-ministry" || id === "parent") return "parent-ministry";
   return "inventory";
 }
 
@@ -19,14 +20,20 @@ export function PublicEntityTabs({
   checklist,
   quotedNames,
   ownership,
+  parentMinistry,
 }: {
   inventory: ReactNode;
   checklist: ReactNode;
   quotedNames: ReactNode;
   ownership: ReactNode;
+  parentMinistry: ReactNode;
 }) {
   const [tab, setTab] = useState<
-    "inventory" | "checklist" | "quoted-names" | "ownership"
+    | "inventory"
+    | "checklist"
+    | "quoted-names"
+    | "ownership"
+    | "parent-ministry"
   >("inventory");
 
   useEffect(() => {
@@ -56,6 +63,7 @@ export function PublicEntityTabs({
       >
         <TabsTrigger value="inventory">In-scope inventory</TabsTrigger>
         <TabsTrigger value="ownership">Ownership statements</TabsTrigger>
+        <TabsTrigger value="parent-ministry">Parent ministry</TabsTrigger>
         <TabsTrigger value="checklist">Govdirectory checklist</TabsTrigger>
         <TabsTrigger value="quoted-names">Quoted names</TabsTrigger>
       </TabsList>
@@ -68,6 +76,13 @@ export function PublicEntityTabs({
         value="ownership"
       >
         {ownership}
+      </TabsContent>
+      <TabsContent
+        className="flex scroll-mt-24 flex-col gap-4 outline-none"
+        id="parent-ministry"
+        value="parent-ministry"
+      >
+        {parentMinistry}
       </TabsContent>
       <TabsContent className="flex flex-col gap-4 outline-none" value="checklist">
         {checklist}

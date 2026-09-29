@@ -265,6 +265,37 @@ test("office pages keep the post and list time-bounded membership", async ({
   await expect(social.getByRole("link", { name: "Inga Sæland" })).toBeVisible();
 });
 
+test("parent-ministry checklist labels empty parents and stays off the nav", async ({
+  page,
+}) => {
+  await page.goto("/public-entities#parent-ministry");
+  await expect(page.getByRole("tab", { name: "Parent ministry" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Parent ministry" })).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Parent ministry",
+    }),
+  ).toHaveCount(0);
+  await expect(page.getByText("empty parent", { exact: true })).toHaveCount(6);
+  await expect(
+    page.locator("#parent-ministry").getByRole("link", {
+      name: "Samkeppniseftirlitið (Competition Authority)",
+    }),
+  ).toBeVisible();
+  const caption = page.locator("#parent-ministry [data-slot=table-caption]");
+  await expect(caption).toContainText("Counts are rows, not totals.");
+  await expect(caption).toContainText("6 have an empty parent");
+
+  await page.goto("/institutions/samband-islenskra-sveitarfelaga");
+  await expect(page.getByText("empty parent", { exact: true }).first()).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Parent-ministry checklist" }),
+  ).toHaveAttribute("href", "/public-entities#parent-ministry");
+
+  await page.goto("/institutions/personuvernd");
+  await expect(page.getByText("sourced parent")).toBeVisible();
+});
+
 test("Opnir review feed needs a human program decision and does not sum amounts", async ({
   page,
 }) => {

@@ -4979,5 +4979,53 @@
     "asOf": "2025",
     "source": "https://eu-assets.contentstack.com/v3/assets/bltde8e98ee10782d85/blt0adda88abbe83d4c/6a044373f2b294f4a7927b05/Isavia_Consolidated_FinancialStatements_2025.pdf",
     "quotation": "The Icelandic State is the sole owner of Isavia ohf. at the end of 2025, as at the end of 2024. The Minister of Finance and Economic Affairs carries the voting rights on behalf of the Icelandic Treasury."
+  },
+  {
+    "from": "ministry-of-industries",
+    "to": "competition-authority",
+    "type": "regulates",
+    "asOf": "institutions list",
+    "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
+    "quotation": "The government’s institutions list names Samkeppniseftirlitið, places it under Atvinnuvegaráðuneytið, and gives the website samkeppni.is."
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "personuvernd",
+    "type": "regulates",
+    "asOf": "undated on the ministry page",
+    "source": "https://www.stjornarradid.is/verkefni/personurettur/personuvernd/",
+    "quotation": "The Ministry of Justice page on data protection says Persónuvernd is an independent institution that supervises the data-protection laws and rules made under them. The same page says Dómsmálaráðuneytið oversees data-protection policy, implementation, and the regulatory framework."
+  },
+  {
+    "from": "ministry-of-the-environment-energy-and-climate",
+    "to": "umhverfis-og-orkustofnun",
+    "type": "regulates",
+    "asOf": "institutions list",
+    "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
+    "quotation": "The government’s institutions list places Umhverfis- og orkustofnun under Umhverfis-, orku- og loftslagsráðuneytið and gives the website uos.is."
+  },
+  {
+    "from": "ministry-of-the-environment-energy-and-climate",
+    "to": "natturuverndarstofnun",
+    "type": "regulates",
+    "asOf": "institutions list",
+    "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
+    "quotation": "The government’s institutions list places Náttúruverndarstofnun under Umhverfis-, orku- og loftslagsráðuneytið and gives the website nattura.is."
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "haestirettur",
+    "type": "regulates",
+    "asOf": "institutions list",
+    "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
+    "quotation": "The government’s institutions list places these courts under Dómsmálaráðuneytið: Hæstiréttur Íslands, haestirettur.is."
+  },
+  {
+    "from": "ministry-of-justice",
+    "to": "landsrettur",
+    "type": "regulates",
+    "asOf": "institutions list",
+    "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
+    "quotation": "The government’s institutions list places these courts under Dómsmálaráðuneytið: Landsréttur, landsrettur.is."
   }
 ]

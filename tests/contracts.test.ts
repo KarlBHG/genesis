@@ -400,9 +400,10 @@ describe("public-entity inventory (phase 1)", () => {
     }
   });
 
-  it("does not treat Wikidata or Govdirectory as an owns source", () => {
-    const owns = getEdges().filter((edge) => edge.relationship === "owns");
-    for (const edge of owns) {
+  it("does not treat Wikidata or Govdirectory as an owns or parent-ministry source", () => {
+    const parentTypes = new Set(["owns", "regulates", "appoints"]);
+    const edges = getEdges().filter((edge) => parentTypes.has(edge.relationship));
+    for (const edge of edges) {
       expect(edge.source, `${edge.from} → ${edge.to}`).not.toMatch(/wikidata/i);
       expect(edge.source, `${edge.from} → ${edge.to}`).not.toMatch(
         /govdirectory/i,

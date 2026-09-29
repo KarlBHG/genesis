@@ -41,6 +41,11 @@ import {
   isInventoryPublicCompanyOrFund,
   soeOwnershipFor,
 } from "@/lib/ownership";
+import {
+  PARENT_MINISTRY_STATUS_LABELS,
+  isParentMinistryScope,
+  parentMinistryFor,
+} from "@/lib/parent-ministry";
 import type { Edge, Entry } from "@/lib/types";
 import { icelandicLang } from "@/lib/lang";
 
@@ -59,9 +64,15 @@ function Fact({
   );
 }
 
-function ParentValue({ parent }: { parent: string }) {
-  if (!parent || parent === "none" || parent === "independent") {
+function ParentValue({ parent, inScope }: { parent: string; inScope: boolean }) {
+  if (!parent || parent === "none") {
+    if (inScope) {
+      return <Badge variant="outline">empty parent</Badge>;
+    }
     return <span>{labelize(parent || "none")}</span>;
+  }
+  if (parent === "independent") {
+    return <span>{labelize(parent)}</span>;
   }
   const target = resolveSlug(parent);
   if (!target) {
@@ -83,6 +94,47 @@ function KennitalaFact({ slug }: { slug: string }) {
       >
         {record.source}
       </ExternalLink>
+    </Fact>
+  );
+}
+
+function ParentMinistryFact({ slug }: { slug: string }) {
+  if (!isParentMinistryScope(slug)) return null;
+  const row = parentMinistryFor(slug);
+  if (!row) return null;
+  return (
+    <Fact term="Parent ministry">
+      <Badge variant={row.status === "sourced" ? "secondary" : "outline"}>
+        {PARENT_MINISTRY_STATUS_LABELS[row.status]}
+      </Badge>
+      {row.statements.length > 0 ? (
+        <ul className="flex flex-col gap-1 text-sm leading-6">
+          {row.statements.map((statement) => (
+            <li key={statement.href}>
+              <Link className="underline underline-offset-4" href={statement.href}>
+                {statement.fromTitle}
+              </Link>
+              <span className="text-muted-foreground">
+                {" "}
+                · {labelize(statement.relationship)} · {statement.asOf}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-sm leading-6 text-muted-foreground">
+          Empty parent. No cited ministry, statute, or about page prints a
+          regulates, appoints, or owns parent. MFA represents does not fill
+          this.{" "}
+          <Link
+            className="underline underline-offset-4"
+            href="/public-entities#parent-ministry"
+          >
+            Parent-ministry checklist
+          </Link>
+          .
+        </p>
+      )}
     </Fact>
   );
 }
@@ -162,7 +214,10 @@ function Record({ entry }: { entry: Entry }) {
               <Fact term="Founded">{formatDate(entry.founded)}</Fact>
               <Fact term="Role">{labelize(entry.role)}</Fact>
               <Fact term="Parent">
-                <ParentValue parent={entry.parent} />
+                <ParentValue
+                  inScope={isParentMinistryScope(entry.slug)}
+                  parent={entry.parent}
+                />
               </Fact>
               <Fact term="Website">
                 {entry.website ? (
@@ -207,6 +262,7 @@ function Record({ entry }: { entry: Entry }) {
           ) : null}
           <KennitalaFact slug={entry.slug} />
           <OwnershipFact slug={entry.slug} />
+          <ParentMinistryFact slug={entry.slug} />
         </dl>
       </CardContent>
     </Card>
