@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MenuIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { CommandPalette } from "@/components/command-palette";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,11 @@ type NavLink = { href: string; label: string };
 type NavEntry =
   | NavLink
   | { label: string; items: NavLink[] };
+
+type IndexedLink = NavLink & { index: number };
+type IndexedEntry =
+  | (NavLink & { index: number })
+  | { label: string; index: number; items: IndexedLink[] };
 
 /** Nav leaf destinations (dropdown items count individually). Keep ≤10. */
 export const NAV: NavEntry[] = [
@@ -48,6 +53,21 @@ export function navLeafCount(entries: NavEntry[] = NAV): number {
   );
 }
 
+function padIndex(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+function withIndex(entries: NavEntry[] = NAV): IndexedEntry[] {
+  let n = 1;
+  return entries.map((entry) => {
+    if ("href" in entry) {
+      return { ...entry, index: n++ };
+    }
+    const items = entry.items.map((item) => ({ ...item, index: n++ }));
+    return { ...entry, items, index: items[0]?.index ?? n };
+  });
+}
+
 function isCurrent(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   if (href === "/money") {
@@ -61,70 +81,156 @@ function isCurrent(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-function entryActive(pathname: string, entry: NavEntry): boolean {
+function entryActive(pathname: string, entry: IndexedEntry): boolean {
   if ("href" in entry) return isCurrent(pathname, entry.href);
   return entry.items.some((item) => isCurrent(pathname, item.href));
+}
+
+function FolioNum({ n, end }: { n: number; end?: number }) {
+  const label =
+    end && end !== n ? `${padIndex(n)}–${padIndex(end)}` : padIndex(n);
+  return (
+    <span aria-hidden className="masthead-link-index">
+      {label}
+    </span>
+  );
 }
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const indexed = withIndex();
+
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpenMenu(null);
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
-    <header className="site-masthead sticky top-0 z-40 border-b border-border/80 bg-background/75 shadow-sm shadow-primary/8 backdrop-blur-md supports-[backdrop-filter]:bg-background/58 print:hidden">
-      <div className="mx-auto flex w-full max-w-shell items-center gap-3 px-4 py-2.5 sm:px-6">
-        <Link
-          className="font-serif text-lg font-medium tracking-[0.04em] text-balance"
-          href="/"
-        >
-          AlltÍkerfi
-        </Link>
-        <div className="ml-auto md:ml-0">
-          <CommandPalette />
-        </div>
-        <nav className="ml-auto hidden items-center gap-1 md:flex">
-          {NAV.map((entry) =>
-            "href" in entry ? (
-              <Button
-                key={entry.href}
-                aria-current={isCurrent(pathname, entry.href) ? "page" : undefined}
-                nativeButton={false}
-                render={<Link href={entry.href} />}
-                size="sm"
-                variant={isCurrent(pathname, entry.href) ? "secondary" : "ghost"}
+    <header className="site-masthead sticky top-0 z-40 print:hidden">
+      <div className="mx-auto flex w-full max-w-shell flex-col px-4 sm:px-6">
+        <div className="flex items-end gap-3 py-3">
+          <Link className="masthead-wordmark" href="/">
+            <span className="masthead-folio">Iceland · public record</span>
+            <span className="masthead-wordmark-name">AlltÍkerfi</span>
+          </Link>
+          <div className="ml-auto flex items-center gap-2">
+            <CommandPalette />
+            <Sheet>
+              <SheetTrigger
+                className="lg:hidden"
+                render={
+                  <Button className="lg:hidden" size="icon" variant="outline" />
+                }
               >
+                <MenuIcon />
+                <span className="sr-only">Open menu</span>
+              </SheetTrigger>
+              <SheetContent side="left">
+                <SheetHeader>
+                  <SheetTitle>AlltÍkerfi</SheetTitle>
+                  <SheetDescription>Index of the atlas</SheetDescription>
+                </SheetHeader>
+                <nav className="flex flex-col gap-1 overflow-y-auto px-4 pb-4">
+                  {indexed.map((entry) =>
+                    "href" in entry ? (
+                      <SheetClose
+                        key={entry.href}
+                        render={
+                          <Link
+                            aria-current={
+                              isCurrent(pathname, entry.href) ? "page" : undefined
+                            }
+                            className="flex items-baseline gap-3 rounded-md px-3 py-2 text-sm hover:bg-muted"
+                            href={entry.href}
+                          />
+                        }
+                      >
+                        <FolioNum n={entry.index} />
+                        {entry.label}
+                      </SheetClose>
+                    ) : (
+                      <div className="flex flex-col gap-1" key={entry.label}>
+                        <p className="px-3 pt-2 text-xs tracking-wide text-muted-foreground uppercase">
+                          {entry.label}
+                        </p>
+                        {entry.items.map((item) => (
+                          <SheetClose
+                            key={item.href}
+                            render={
+                              <Link
+                                aria-current={
+                                  isCurrent(pathname, item.href)
+                                    ? "page"
+                                    : undefined
+                                }
+                                className="flex items-baseline gap-3 rounded-md px-3 py-2 text-sm hover:bg-muted"
+                                href={item.href}
+                              />
+                            }
+                          >
+                            <FolioNum n={item.index} />
+                            {item.label}
+                          </SheetClose>
+                        ))}
+                      </div>
+                    ),
+                  )}
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+        <nav aria-label="Primary" className="masthead-index">
+          {indexed.map((entry) =>
+            "href" in entry ? (
+              <Link
+                aria-current={isCurrent(pathname, entry.href) ? "page" : undefined}
+                className="masthead-link"
+                href={entry.href}
+                key={entry.href}
+              >
+                <FolioNum n={entry.index} />
                 {entry.label}
-              </Button>
+              </Link>
             ) : (
               <div
-                key={entry.label}
                 className="relative"
+                key={entry.label}
                 onMouseEnter={() => setOpenMenu(entry.label)}
                 onMouseLeave={() => setOpenMenu(null)}
               >
-                <Button
+                <button
                   aria-expanded={openMenu === entry.label}
                   aria-haspopup="true"
+                  className="masthead-link"
+                  data-active={entryActive(pathname, entry) ? "true" : undefined}
                   onClick={() =>
                     setOpenMenu(openMenu === entry.label ? null : entry.label)
                   }
-                  size="sm"
-                  variant={entryActive(pathname, entry) ? "secondary" : "ghost"}
+                  type="button"
                 >
+                  <FolioNum
+                    end={entry.items[entry.items.length - 1]?.index}
+                    n={entry.index}
+                  />
                   {entry.label}
-                </Button>
+                </button>
                 {openMenu === entry.label ? (
-                  <div className="absolute top-full right-0 z-50 w-52 rounded-md border bg-popover p-1 shadow-lg">
+                  <div className="masthead-dropdown">
                     {entry.items.map((item) => (
                       <Link
                         aria-current={
                           isCurrent(pathname, item.href) ? "page" : undefined
                         }
-                        className="block rounded-lg px-3 py-2 text-sm hover:bg-muted aria-[current=page]:bg-muted"
                         href={item.href}
                         key={item.href}
                         onClick={() => setOpenMenu(null)}
                       >
+                        <FolioNum n={item.index} />
                         {item.label}
                       </Link>
                     ))}
@@ -134,67 +240,6 @@ export function SiteHeader() {
             ),
           )}
         </nav>
-        <Sheet>
-          <SheetTrigger
-            className="ml-auto md:hidden"
-            render={
-              <Button className="md:hidden" size="icon" variant="outline" />
-            }
-          >
-            <MenuIcon />
-            <span className="sr-only">Open menu</span>
-          </SheetTrigger>
-          <SheetContent side="left">
-            <SheetHeader>
-              <SheetTitle>AlltÍkerfi</SheetTitle>
-              <SheetDescription>Sections of the map</SheetDescription>
-            </SheetHeader>
-            <nav className="flex flex-col gap-4 overflow-y-auto px-4 pb-4">
-              {NAV.map((entry) =>
-                "href" in entry ? (
-                  <SheetClose
-                    key={entry.href}
-                    render={
-                      <Link
-                        aria-current={
-                          isCurrent(pathname, entry.href) ? "page" : undefined
-                        }
-                        className="rounded-lg px-3 py-2 text-sm hover:bg-muted"
-                        href={entry.href}
-                      />
-                    }
-                  >
-                    {entry.label}
-                  </SheetClose>
-                ) : (
-                  <div className="flex flex-col gap-1" key={entry.label}>
-                    <p className="px-3 text-xs tracking-wide text-muted-foreground uppercase">
-                      {entry.label}
-                    </p>
-                    {entry.items.map((item) => (
-                      <SheetClose
-                        key={item.href}
-                        render={
-                          <Link
-                            aria-current={
-                              isCurrent(pathname, item.href)
-                                ? "page"
-                                : undefined
-                            }
-                            className="rounded-lg px-3 py-2 text-sm hover:bg-muted"
-                            href={item.href}
-                          />
-                        }
-                      >
-                        {item.label}
-                      </SheetClose>
-                    ))}
-                  </div>
-                ),
-              )}
-            </nav>
-          </SheetContent>
-        </Sheet>
       </div>
     </header>
   );

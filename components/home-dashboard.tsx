@@ -75,10 +75,15 @@ const PORTALS = [
   },
 ] as const;
 
-function ChainCard({ chain }: { chain: LandingChain }) {
+function padIndex(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+function ChainCard({ chain, index }: { chain: LandingChain; index: number }) {
   const steps = resolveChain(chain);
   const stepKeys = chain.steps.map(
-    (step, index) => `${chain.id}-${index}-${step.from}-${step.relationship}-${step.to}`,
+    (step, stepIndex) =>
+      `${chain.id}-${stepIndex}-${step.from}-${step.relationship}-${step.to}`,
   );
   return (
     <article className="glass-panel ink-card group relative flex flex-col gap-4 overflow-hidden p-5">
@@ -87,6 +92,7 @@ function ChainCard({ chain }: { chain: LandingChain }) {
         className="pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full bg-primary/5 blur-2xl transition-opacity group-hover:opacity-100"
       />
       <header className="flex flex-col gap-1">
+        <p className="toc-num">{padIndex(index)}</p>
         <Link
           className="font-serif text-lg font-medium tracking-tight underline-offset-4 hover:underline"
           href={chain.href}
@@ -97,10 +103,10 @@ function ChainCard({ chain }: { chain: LandingChain }) {
           {chain.blurb}
         </p>
       </header>
-      <ol className="relative m-0 flex flex-col gap-0 p-0 list-none">
-        {steps.map((step, index) => (
-          <li className="relative flex gap-3 pb-4 last:pb-0" key={stepKeys[index]}>
-            {index < steps.length - 1 ? (
+      <ol className="relative m-0 flex list-none flex-col gap-0 p-0">
+        {steps.map((step, stepIndex) => (
+          <li className="relative flex gap-3 pb-4 last:pb-0" key={stepKeys[stepIndex]}>
+            {stepIndex < steps.length - 1 ? (
               <span
                 aria-hidden
                 className="absolute top-3 left-[0.4375rem] h-[calc(100%-0.25rem)] w-px bg-border"
@@ -155,20 +161,24 @@ export function HomeDashboard({
   const entryCount = entries.length;
   const slices = catalogSlices(entries);
   const total = slices.reduce((sum, s) => sum + s.count, 0);
+  const widest = Math.max(...slices.map((slice) => slice.count), 1);
 
   return (
     <div className="dashboard-canvas">
-      <section className="dashboard-hero relative border-b">
-        <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
-          <div className="fade-rise flex max-w-xl flex-col gap-6">
-            <p className="kicker">AlltÍkerfi · sourced atlas</p>
-            <h1 className="text-4xl font-medium text-balance sm:text-5xl lg:text-[3.55rem] lg:leading-[1.04]">
-              <span className="block">How Iceland</span>
-              <span className="mt-1 block font-serif italic text-foreground/80">
+      <section className="dashboard-hero relative">
+        <div className="mx-auto flex w-full max-w-shell flex-col gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
+          <div className="fade-rise flex max-w-xl flex-col gap-7">
+            <p className="kicker">Sourced atlas</p>
+            <h1 className="text-balance">
+              <span className="home-display-how block">How</span>
+              <span className="home-display-iceland mt-3 block font-serif">
+                Iceland
+              </span>
+              <span className="home-display-wired block font-serif">
                 is wired.
               </span>
             </h1>
-            <p className="text-lg leading-8 text-muted-foreground">
+            <p className="max-w-lede text-lg leading-8 text-muted-foreground">
               Public records, not influence scores. Each connection quotes its
               source — budget law, treaty, registry, or report.{" "}
               <Link
@@ -201,32 +211,32 @@ export function HomeDashboard({
                 Obligations
               </Button>
             </div>
-            <dl className="grid grid-cols-2 gap-3 pt-2 sm:grid-cols-4">
+            <dl className="folio-rail">
               {[
                 { label: "Entries", value: entryCount },
                 { label: "Connections", value: edgeCount },
                 { label: "Treaties", value: treatyCount },
                 { label: "Map pins", value: mapPinCount },
               ].map((stat) => (
-                <div className="stat-cell" key={stat.label}>
-                  <dt className="text-[0.65rem] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+                <div className="folio-cell" key={stat.label}>
+                  <dt className="text-[0.62rem] font-semibold tracking-[0.22em] text-muted-foreground uppercase">
                     {stat.label}
                   </dt>
-                  <dd className="font-serif text-2xl font-medium tabular-nums">
+                  <dd className="mt-1 font-serif text-3xl font-medium tabular-nums tracking-tight">
                     {stat.value}
                   </dd>
                 </div>
               ))}
             </dl>
           </div>
-          <div className="fade-rise-delayed flex w-full min-w-0 flex-col items-center gap-3 sm:gap-4 lg:max-w-md lg:flex-1">
-            <p className="text-center text-sm text-muted-foreground">
-              {obligationThemeCount} themes ·{" "}
+          <div className="fade-rise-delayed flex w-full min-w-0 flex-col items-center gap-4 sm:gap-5 lg:max-w-md lg:flex-1">
+            <p className="text-center text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase">
+              {padIndex(obligationThemeCount)} themes ·{" "}
               <Link className="underline underline-offset-4" href="/obligations">
                 full index
               </Link>
             </p>
-            <div className="hidden w-full sm:block">
+            <div className="w-full">
               <HomeConstellation />
             </div>
             <ConstellationLegend />
@@ -234,30 +244,33 @@ export function HomeDashboard({
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-shell px-4 py-12 sm:px-6">
+      <section className="mx-auto w-full max-w-shell px-4 py-14 sm:px-6">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex flex-col gap-2">
-            <p className="kicker">Doors</p>
+            <p className="kicker">Contents</p>
             <h2 className="text-2xl font-medium">Enter anywhere</h2>
             <p className="text-sm text-muted-foreground">
               Six doors into the graph — map, law, money, and time.
             </p>
           </div>
-          <p className="text-sm text-muted-foreground">{officeCount} public offices tracked</p>
+          <p className="text-sm text-muted-foreground">
+            {officeCount} public offices tracked
+          </p>
         </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {PORTALS.map((portal) => (
+          {PORTALS.map((portal, index) => (
             <Link
-              className="glass-panel ink-card group relative flex flex-col gap-3 overflow-hidden p-5"
+              className="glass-panel ink-card group relative flex flex-col gap-4 overflow-hidden p-5"
               href={portal.href}
               key={portal.href}
             >
               <div aria-hidden className={`pointer-events-none absolute inset-0 ${portal.tint}`} />
               <div className="relative flex items-start justify-between gap-2">
-                <portal.icon className="size-5 text-primary/80" strokeWidth={1.5} />
-                <ArrowUpRightIcon
-                  className="size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                />
+                <span className="toc-num">{padIndex(index + 1)}</span>
+                <div className="flex items-center gap-2">
+                  <portal.icon className="size-4 text-primary/70" strokeWidth={1.5} />
+                  <ArrowUpRightIcon className="size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                </div>
               </div>
               <div className="relative">
                 <h3 className="font-serif text-lg font-medium">{portal.title}</h3>
@@ -271,48 +284,38 @@ export function HomeDashboard({
       </section>
 
       <section className="border-y border-border/60 bg-muted/20 backdrop-blur-sm">
-        <div className="mx-auto w-full max-w-shell px-4 py-12 sm:px-6">
+        <div className="mx-auto w-full max-w-shell px-4 py-14 sm:px-6">
           <p className="kicker">Width of the atlas</p>
           <h2 className="mb-2 text-2xl font-medium">Catalog shape</h2>
-          <p className="mb-6 max-w-lede text-sm text-muted-foreground">
+          <p className="mb-8 max-w-lede text-sm text-muted-foreground">
             {total} indexed records across six kinds — width of the atlas, not a
             ranking.
           </p>
-          <div
-            className="flex h-2.5 w-full overflow-hidden border bg-background"
-            role="img"
-            aria-label="Catalog distribution by kind"
-          >
-            {slices.map((slice) =>
-              slice.count > 0 ? (
-                <div
-                  key={slice.kind}
-                  className="h-full min-w-px transition-[flex-grow]"
-                  style={{
-                    flexGrow: slice.count,
-                    backgroundColor: slice.swatch,
-                  }}
-                  title={`${slice.label}: ${slice.count}`}
-                />
-              ) : null,
-            )}
-          </div>
-          <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          <ul className="flex flex-col gap-4">
             {slices.map((slice) => (
-              <li className="flex items-center gap-2" key={slice.kind}>
-                <span
-                  className="size-2 rounded-full"
-                  style={{ backgroundColor: slice.swatch }}
-                />
-                <span className="text-muted-foreground">{slice.label}</span>
-                <span className="font-medium tabular-nums">{slice.count}</span>
+              <li className="flex flex-col gap-1.5" key={slice.kind}>
+                <div className="flex items-baseline justify-between gap-4 text-sm">
+                  <span className="font-medium">{slice.label}</span>
+                  <span className="font-serif text-lg tabular-nums">
+                    {slice.count}
+                  </span>
+                </div>
+                <div className="catalog-track" aria-hidden>
+                  <div
+                    className="catalog-fill"
+                    style={{
+                      width: `${(slice.count / widest) * 100}%`,
+                      backgroundColor: slice.swatch,
+                    }}
+                  />
+                </div>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-shell px-4 py-12 sm:px-6">
+      <section className="mx-auto w-full max-w-shell px-4 py-14 sm:px-6">
         <div className="mb-8 flex flex-col gap-2">
           <p className="kicker">Evidence paths</p>
           <h2 className="text-2xl font-medium">
@@ -324,15 +327,16 @@ export function HomeDashboard({
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {LANDING_CHAINS.map((chain) => (
-            <ChainCard chain={chain} key={chain.id} />
+          {LANDING_CHAINS.map((chain, index) => (
+            <ChainCard chain={chain} index={index + 1} key={chain.id} />
           ))}
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-shell px-4 pb-16 sm:px-6">
+      <section className="mx-auto w-full max-w-shell px-4 pb-20 sm:px-6">
         <div className="glass-panel p-6 sm:p-8">
-          <div className="mb-4 flex items-center gap-2">
+          <div className="mb-4 flex items-center gap-3">
+            <p className="toc-num">07</p>
             <SearchIcon className="size-5 text-muted-foreground" strokeWidth={1.5} />
             <h2 className="text-xl font-medium">Search the records</h2>
           </div>

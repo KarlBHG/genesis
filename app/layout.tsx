@@ -39,10 +39,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
     >
       <body className="flex min-h-full flex-col">
+        <a className="skip-to-records" href="#records">
+          Skip to records
+        </a>
         <Atmosphere />
         <div className="relative z-10 flex min-h-full flex-col">
           <SiteHeader />
-          <div className="flex-1">{children}</div>
+          <div className="paper-sheet flex-1" id="records" tabIndex={-1}>
+            {children}
+          </div>
           <SiteFooter />
         </div>
       </body>
