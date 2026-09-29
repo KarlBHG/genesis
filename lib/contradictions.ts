@@ -1,6 +1,6 @@
 import { classifyAsOfBucket, compareAsOf } from "@/lib/as-of";
 import { matchesAsOfFilter, type AsOfFilter } from "@/lib/as-of-filter";
-import type { Contradiction } from "@/lib/types";
+import type { Contradiction, ContradictionSide } from "@/lib/types";
 
 /**
  * Every contradiction on file is unresolved by design. The project stores both
@@ -15,6 +15,16 @@ export const CONTRADICTION_STATE = {
 
 export function contradictionAsOfValues(record: Contradiction): string[] {
   return record.sides.map((side) => side.asOf);
+}
+
+/**
+ * Verso then recto, in the order the file stores them. Never sorted by later
+ * as-of — that would weight a column.
+ */
+export function variorumLeaves(
+  record: Contradiction,
+): [ContradictionSide, ContradictionSide] {
+  return record.sides;
 }
 
 /** A contradiction is in scope when either of its sides is. */

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { EvidenceRoom } from "@/components/evidence-room";
 import { PageHero } from "@/components/page-hero";
+import { PrintPlateColophon, PrintPlateHead } from "@/components/print-plate";
 import { compareAsOf } from "@/lib/as-of";
 import {
   parseAsOfFilter,
@@ -83,6 +84,12 @@ export default async function AnomaliesPage({
 
   return (
     <main className="dashboard-canvas min-w-0">
+      <PrintPlateHead
+        asOf=""
+        kind="Evidence"
+        pathname="/anomalies"
+        slug="anomalies"
+      />
       <PageHero
         description={
           <>
@@ -116,6 +123,7 @@ export default async function AnomaliesPage({
           repeats={repeats}
         />
       </div>
+      <PrintPlateColophon />
     </main>
   );
 }

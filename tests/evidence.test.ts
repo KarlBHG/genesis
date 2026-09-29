@@ -23,6 +23,7 @@ import {
   latestSideAsOf,
   matchesContradiction,
   sortContradictions,
+  variorumLeaves,
 } from "@/lib/contradictions";
 import { getContradictions, getEdges } from "@/lib/content";
 import { EVIDENCE_FACETS, parseEvidenceFacet } from "@/lib/evidence";
@@ -197,6 +198,23 @@ describe("contradictions are the first-class evidence unit", () => {
     expect(
       contradictionDateNote(bySlug.get("landsvirkjun-form-and-holding")!),
     ).toMatch(/consolidated statute/);
+  });
+
+  it("keeps verso and recto in stored order, not later-as-of first", () => {
+    const landsbankinn = getContradictions().find(
+      (row) => row.id === "landsbankinn-shareholder-count",
+    )!;
+    const [verso, recto] = variorumLeaves(landsbankinn);
+    expect(verso.quotation).toMatch(/around 800/);
+    expect(recto.quotation).toMatch(/approximately 819/);
+    expect(compareAsOf(recto.asOf, verso.asOf)).toBeGreaterThan(0);
+  });
+
+  it("does not invent a third BSRB sentence the file does not store", () => {
+    const bsrb = getContradictions().find((row) => row.id === "bsrb-affiliate-count")!;
+    expect(bsrb.summary).toMatch(/three different counts/);
+    expect(bsrb.sides).toHaveLength(2);
+    expect(variorumLeaves(bsrb)).toHaveLength(2);
   });
 
   it("stays in scope when either side matches the filter", () => {

@@ -1880,12 +1880,6 @@ body:has(.geo-room) footer {
     color: var(--foreground);
   }
 
-  .variorum-spread {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
   [data-slot="dialog-content"].command-folio {
     top: auto;
     right: 0.45rem;
@@ -1963,15 +1957,6 @@ body:has(.geo-room) footer {
   .folio-tabs {
     flex-wrap: nowrap;
     overflow-x: auto;
-  }
-
-  .variorum-spread > :first-child {
-    padding-right: 1.25rem;
-    border-right: 1px solid var(--border);
-  }
-
-  .variorum-spread > :last-child {
-    padding-left: 1.25rem;
   }
 }
 
@@ -2136,6 +2121,53 @@ body:has(.geo-room) footer {
 .citation-plate > .citation-gutter {
   border-top: 0;
   padding-top: 0;
+}
+
+/* Facing variorum: two stored sentences, equal weight, hairline spine.
+   One column until lg — same pocket contract as the leftover phone plates. */
+.variorum-spread {
+  min-width: 0;
+}
+
+.variorum-spread-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: start;
+  min-width: 0;
+}
+
+.variorum-leaf {
+  min-width: 0;
+}
+
+.variorum-leaf .citation-gutter {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.variorum-spine {
+  height: 0;
+  border-top: 1px solid var(--border);
+}
+
+.variorum-ruling {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .variorum-spread-grid {
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    gap: 0 1.35rem;
+  }
+
+  .variorum-spine {
+    height: auto;
+    align-self: stretch;
+    border-top: 0;
+    border-left: 1px solid var(--border);
+    width: 1px;
+  }
 }
 
 @container citation-claim (min-width: 56rem) {
@@ -2564,6 +2596,36 @@ body:has(.geo-room) .site-footer-glow::before {
   .citation-plate > .citation-gutter {
     border-top: 0 !important;
     padding-top: 0 !important;
+  }
+
+  .variorum {
+    break-inside: avoid;
+  }
+
+  .variorum-list > li {
+    break-after: page;
+  }
+
+  .variorum-list > li:last-child {
+    break-after: auto;
+  }
+
+  .variorum-spread-grid {
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr) !important;
+    gap: 0 12pt !important;
+  }
+
+  .variorum-spine {
+    height: auto !important;
+    align-self: stretch !important;
+    border-top: 0 !important;
+    border-left: 0.4pt solid #000 !important;
+    width: 1px !important;
+  }
+
+  .variorum-leaf .citation-gutter {
+    border: 0 !important;
+    padding: 0 !important;
   }
 
   /* Every sourced quotation in this app is Icelandic prose in an English page. */

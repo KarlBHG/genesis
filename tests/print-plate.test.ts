@@ -24,6 +24,7 @@ describe("print plates match the nav folio", () => {
     expect(printFolio("/programs/something")).toBe("04");
     expect(printFolio("/institutions/sedlabanki")).toBe("03");
     expect(printFolio("/connections/abc")).toBe("09");
+    expect(printFolio("/anomalies")).toBe("10");
     expect(folioForPath("/map")?.label).toBe("Map");
     expect(folioForPath("/money")?.label).toBe("Budget");
     expect(padFolio(2)).toBe("02");
@@ -77,6 +78,7 @@ describe("print CSS keeps the plate honest", () => {
     expect(css).toMatch(/\.geo-print-ornament/);
     expect(css).toMatch(/hang-quote\[lang="is"\]/);
     expect(css).toContain(".citation-gutter");
+    expect(css).toContain(".variorum-spread");
     expect(css).toContain(".print-off-plate-kicker");
     expect(css).toContain("html:has(.geo-room)");
   });

@@ -550,7 +550,7 @@ test("command palette opens with Ctrl+K", async ({ page }) => {
   await expect(page.getByRole("dialog", { name: "Search the records" })).toHaveCount(0);
 });
 
-test("print plate is a citable folio", async ({ page }) => {
+test("print plate is a citable folio", async ({ page }, testInfo) => {
   await page.goto("/institutions/sedlabanki");
   const connectionHref = await page
     .getByRole("link", { name: "Open this connection" })
@@ -604,6 +604,27 @@ test("print plate is a citable folio", async ({ page }) => {
     return getComputedStyle(el).backgroundColor;
   });
   expect(canvas).not.toBe("rgb(255, 255, 255)");
+
+  await page.goto("/anomalies#contradictions");
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator("[data-print-running-head]")).toHaveText(
+    "Evidence · anomalies · undated",
+  );
+  await expect(page.locator("[data-print-folio]")).toHaveText("10");
+  const printed = page.locator("[data-variorum]").first();
+  await expect(printed.locator("blockquote.hang-quote")).toHaveCount(2);
+  await expect(printed).toContainText("Unresolved");
+  if (testInfo.project.name === "desktop") {
+    const printVerso = await printed
+      .locator("[data-variorum-leaf=verso]")
+      .boundingBox();
+    const printRecto = await printed
+      .locator("[data-variorum-leaf=recto]")
+      .boundingBox();
+    expect(printVerso).toBeTruthy();
+    expect(printRecto).toBeTruthy();
+    expect(printRecto!.x).toBeGreaterThan(printVerso!.x + printVerso!.width - 8);
+  }
 });
 
 test("citation gutter cites the proving sentence, not a card", async ({
@@ -637,20 +658,43 @@ test("citation gutter cites the proving sentence, not a card", async ({
   await expect(page.locator("#audits [data-citation-gutter]").first()).toBeVisible();
 
   await page.goto("/anomalies#contradictions");
-  const pair = page.locator("#contradictions article").first();
+  const pair = page.locator("#contradictions [data-variorum]").first();
   await expect(pair.locator("[data-citation-gutter]")).toHaveCount(2);
   await expect(pair.locator("blockquote.hang-quote")).toHaveCount(2);
+  await expect(pair.locator("[data-variorum-leaf=verso]")).toBeVisible();
+  await expect(pair.locator("[data-variorum-leaf=recto]")).toBeVisible();
   await expect(pair).toContainText("Unresolved");
+  await expect(pair).toContainText("Nothing here picks a winner");
   await expect(pair).not.toHaveClass(/rounded-2xl/);
   await expect(
     page.locator("#contradictions [data-slot=card] [data-citation-gutter]"),
   ).toHaveCount(0);
+
   if (testInfo.project.name === "desktop") {
-    const spreadSides = pair.locator(".variorum-spread [data-citation-gutter]");
-    const verso = await spreadSides.nth(0).boundingBox();
-    const recto = await spreadSides.nth(1).boundingBox();
-    expect(recto!.x).toBeGreaterThan(verso!.x + verso!.width / 2);
+    const verso = await pair.locator("[data-variorum-leaf=verso]").boundingBox();
+    const recto = await pair.locator("[data-variorum-leaf=recto]").boundingBox();
+    expect(verso).toBeTruthy();
+    expect(recto).toBeTruthy();
+    expect(recto!.x).toBeGreaterThan(verso!.x + verso!.width - 8);
+    expect(Math.abs(verso!.y - recto!.y)).toBeLessThan(48);
+    expect(Math.abs(verso!.width - recto!.width)).toBeLessThan(40);
   }
+
+  await page.goto("/players/landsbankinn");
+  const onRecord = page.locator("[data-variorum]");
+  await expect(onRecord).toHaveCount(1);
+  await expect(onRecord.locator("blockquote.hang-quote")).toHaveCount(2);
+  await expect(onRecord).toContainText("around 800");
+  await expect(onRecord).toContainText("approximately 819");
+
+  await page.goto("/anomalies?asOf=2025#contradictions");
+  const filtered = page.locator("#contradiction-landsbankinn-shareholder-count");
+  await expect(filtered.locator("blockquote.hang-quote")).toHaveCount(2);
+  await expect(filtered).toContainText("around 800");
+  await expect(filtered).toContainText("approximately 819");
+  await expect(filtered.locator("[data-variorum-leaf=verso]")).not.toHaveClass(
+    /opacity|line-through/,
+  );
 
   await page.goto("/money");
   const intro = page.locator("#government-programs .citation-claim").first();

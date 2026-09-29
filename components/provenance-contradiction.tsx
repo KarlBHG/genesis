@@ -1,10 +1,11 @@
 import Link from "next/link";
 
-import { ProvenanceCard } from "@/components/provenance-card";
+import { CitationGutter } from "@/components/citation-gutter";
 import { Badge } from "@/components/ui/badge";
 import {
   CONTRADICTION_STATE,
   contradictionDateNote,
+  variorumLeaves,
 } from "@/lib/contradictions";
 import type { Contradiction } from "@/lib/types";
 
@@ -19,11 +20,11 @@ export function contradictionAnchor(id: string): string {
 }
 
 /**
- * One contradiction as the first-class unit: the disagreement, both sourced
- * sentences in the citation gutter with their own as-of values, an explicit
- * unresolved state, and links into the entries the disagreement lands on.
- * Variorum facing-pages start at `lg`. Before that the two stored sentences
- * stack. Layout only — both quotations stay as filed. Stacking is not a ruling.
+ * One contradiction as a facing variorum: verso and recto are the two stored
+ * sentences, in file order, each typeset with the citation-gutter grammar.
+ * Facing-pages start at `lg`. Before that the two stored sentences stack.
+ * Layout only — both quotations stay as filed. Stacking is not a ruling.
+ * Nothing here sorts, greys, or weights a later as-of into a winner.
  */
 export function ContradictionCard({
   record,
@@ -33,11 +34,12 @@ export function ContradictionCard({
   entries: ContradictionEntryLink[];
 }) {
   const anchor = contradictionAnchor(record.id);
-  const [first, second] = record.sides;
+  const [verso, recto] = variorumLeaves(record);
 
   return (
     <article
-      className="flex min-w-0 scroll-mt-24 flex-col gap-4 py-5"
+      className="variorum flex min-w-0 scroll-mt-24 flex-col gap-5 py-5"
+      data-variorum=""
       id={anchor}
     >
       <header className="flex min-w-0 max-w-reading flex-col gap-3">
@@ -53,33 +55,43 @@ export function ContradictionCard({
           </Link>
         </div>
         <p className="min-w-0 break-words text-base leading-7">{record.summary}</p>
-        <p className="text-sm leading-6 text-muted-foreground">
-          {contradictionDateNote(record)} {CONTRADICTION_STATE.explanation}
-        </p>
       </header>
 
-      <div className="variorum-spread grid min-w-0 grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-0">
-        {[first, second].map((side, index) => (
-          <ProvenanceCard
-            asOf={side.asOf}
-            as="div"
-            key={`${side.source}-${side.quotation.slice(0, 24)}`}
-            quotation={side.quotation}
-            source={side.source}
-            title={
-              <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                Side {index + 1}
-              </span>
-            }
-          />
-        ))}
+      <div className="variorum-spread">
+        <div className="variorum-spread-grid">
+          <section
+            aria-label="Verso"
+            className="variorum-leaf"
+            data-variorum-leaf="verso"
+          >
+            <CitationGutter
+              asOf={verso.asOf}
+              quotation={verso.quotation}
+              source={verso.source}
+            />
+          </section>
+          <div aria-hidden className="variorum-spine" data-variorum-spine="" />
+          <section
+            aria-label="Recto"
+            className="variorum-leaf"
+            data-variorum-leaf="recto"
+          >
+            <CitationGutter
+              asOf={recto.asOf}
+              quotation={recto.quotation}
+              source={recto.source}
+            />
+          </section>
+        </div>
       </div>
 
+      <p className="variorum-ruling max-w-reading text-sm leading-6 text-muted-foreground">
+        {contradictionDateNote(record)} {CONTRADICTION_STATE.explanation}
+      </p>
+
       {entries.length > 0 ? (
-        <footer className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1 text-sm">
-          <span className="text-muted-foreground">
-            {entries.length === 1 ? "Lands on" : "Lands on"}
-          </span>
+        <footer className="flex min-w-0 max-w-reading flex-wrap items-baseline gap-x-2 gap-y-1 text-sm">
+          <span className="text-muted-foreground">Lands on</span>
           {entries.map((entry) => (
             <Link
               className="underline underline-offset-4"

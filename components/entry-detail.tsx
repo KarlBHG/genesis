@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ContradictionCard } from "@/components/provenance-contradiction";
 import { CitationClaim, CitationGutter } from "@/components/citation-gutter";
 import { ExternalLink } from "@/components/external-link";
 import { MarkdownBody } from "@/components/markdown-body";
@@ -25,8 +26,10 @@ import { EdgeRow, EgoNetwork, egoLayout, type EdgeRowSide } from "@/components/v
 import {
   edgesFor,
   getAudits,
+  getCatalog,
   getContradictions,
   getEdges,
+  hrefFor,
   resolveSlug,
 } from "@/lib/content";
 import { groupEdges } from "@/lib/connection-groups";
@@ -378,20 +381,28 @@ function EvidenceNotice({ slug }: { slug: string }) {
     record.entries.includes(slug),
   );
   if (contradictions.length === 0 && audits.length === 0) return null;
+  const catalogBySlug = new Map(getCatalog().map((entry) => [entry.slug, entry]));
   return (
     <section className="flex flex-col gap-3">
       <h2 className="reading-head text-lg">Disputed or audited</h2>
-      {contradictions.length > 0 ? (
-        <p className="text-sm leading-6">
-          {contradictions.length}{" "}
-          {contradictions.length === 1 ? "contradiction" : "contradictions"}{" "}
-          on file: two sourced sentences that disagree.{" "}
-          <Link className="underline underline-offset-4" href="/anomalies#contradictions">
-            Read both sides
-          </Link>
-          .
-        </p>
-      ) : null}
+      {contradictions.map((record) => (
+        <ContradictionCard
+          entries={record.entries.flatMap((entrySlug) => {
+            const entry = catalogBySlug.get(entrySlug);
+            return entry
+              ? [
+                  {
+                    slug: entrySlug,
+                    title: entry.title,
+                    href: hrefFor(entry),
+                  },
+                ]
+              : [];
+          })}
+          key={record.id}
+          record={record}
+        />
+      ))}
       {audits.map((audit) => (
         <CitationClaim
           key={audit.id}

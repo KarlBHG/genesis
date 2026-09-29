@@ -82,12 +82,16 @@ describe("citation gutter", () => {
       path.join(ROOT, "components", "provenance-contradiction.tsx"),
       "utf8",
     );
-    expect(pair).toContain("ProvenanceCard");
+    expect(pair).toContain("CitationGutter");
+    expect(pair).toContain("data-variorum");
+    expect(pair).toContain("variorumLeaves");
     expect(pair).toContain("CONTRADICTION_STATE");
     expect(pair).toContain("variorum-spread");
-    expect(pair).toContain("lg:grid-cols-2");
+    expect(pair).not.toContain("ProvenanceCard");
     expect(pair).not.toContain("rounded-2xl");
     expect(pair).not.toContain("md:grid-cols-2");
+    expect(pair).not.toContain("lg:grid-cols-2");
+    expect(pair).not.toContain("Side 1");
   });
 
   it("cites the same budget pages the policy-area records already cite", () => {

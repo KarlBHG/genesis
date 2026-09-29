@@ -167,13 +167,15 @@ export function EvidenceRoom({
       </nav>
 
       {scopedAsOfValues.length > 0 ? (
-        <AsOfFilterBar
-          basePath={BASE_PATH}
-          filter={asOfFilter}
-          params={facet === "all" ? {} : { [EVIDENCE_PARAM]: facet }}
-          unit="stored dates"
-          values={scopedAsOfValues}
-        />
+        <div data-print-hide="">
+          <AsOfFilterBar
+            basePath={BASE_PATH}
+            filter={asOfFilter}
+            params={facet === "all" ? {} : { [EVIDENCE_PARAM]: facet }}
+            unit="stored dates"
+            values={scopedAsOfValues}
+          />
+        </div>
       ) : null}
 
       {showContradictions ? (
@@ -183,10 +185,11 @@ export function EvidenceRoom({
           lede={
             <>
               A contradiction is the unit here: two sourced sentences about the
-              same records that cannot both be the whole story. Each pair prints
-              both quotations in the gutter, each side’s own as-of value, and
-              the records the disagreement lands on. None of them is resolved,
-              and none is averaged away.
+              same records that cannot both be the whole story. Each pair is a
+              facing variorum — verso and recto in the citation gutter grammar,
+              a hairline spine, each side’s own as-of value, and the records
+              the disagreement lands on. None of them is resolved, and none is
+              averaged away.
             </>
           }
           title="Contradictions"
@@ -209,7 +212,7 @@ export function EvidenceRoom({
                   </li>
                 ))}
               </ul>
-              <ul className="flex min-w-0 flex-col divide-y divide-border/60">
+              <ul className="variorum-list flex min-w-0 flex-col divide-y divide-border/60">
                 {visibleContradictions.map((record) => (
                   <li className="min-w-0" key={record.id}>
                     <ContradictionCard

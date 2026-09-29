@@ -76,13 +76,18 @@ describe("pocket folio leftover surfaces", () => {
   });
 
   it("keeps the variorum spread stacked until lg", () => {
+    const css = fs.readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8");
     const pair = fs.readFileSync(
       path.join(process.cwd(), "components", "provenance-contradiction.tsx"),
       "utf8",
     );
     expect(pair).toContain("variorum-spread");
-    expect(pair).toContain("lg:grid-cols-2");
     expect(pair).not.toContain("md:grid-cols-2");
+    expect(pair).not.toContain("lg:grid-cols-2");
+    expect(css).toContain(".variorum-spread-grid");
+    expect(css).toMatch(
+      /@media \(min-width: 1024px\)[\s\S]*\.variorum-spread-grid[\s\S]*minmax\(0, 1fr\) 1px minmax\(0, 1fr\)/,
+    );
   });
 
   it("stacks the public-entity tab strip instead of sideways scroll", () => {
