@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { AsOfChip } from "@/components/as-of-chip";
+import { ExternalLink } from "@/components/external-link";
 import { Badge } from "@/components/ui/badge";
 import { printedFigure } from "@/components/viz/money";
 import { resolveSlug } from "@/lib/content";
@@ -149,28 +150,24 @@ export function EdgeRow({
           {edge.programSource ? (
             <>
               {" "}
-              <a
+              <ExternalLink
                 className="break-all underline underline-offset-4"
                 href={edge.programSource}
-                rel="noreferrer"
-                target="_blank"
               >
                 Source
-              </a>
+              </ExternalLink>
             </>
           ) : null}
         </p>
       ) : null}
 
       {showSource ? (
-        <a
+        <ExternalLink
           className="print-literal-url break-all text-sm text-muted-foreground underline underline-offset-4"
           href={edge.source}
-          rel="noreferrer"
-          target="_blank"
         >
           {edge.source}
-        </a>
+        </ExternalLink>
       ) : null}
 
       <p className="print:hidden">

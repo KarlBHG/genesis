@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AsOfChip } from "@/components/as-of-chip";
+import { ExternalLink } from "@/components/external-link";
 import { Badge } from "@/components/ui/badge";
 import { basisLabel, printedFigure } from "@/components/viz/money";
 import { icelandicLang } from "@/lib/lang";
@@ -42,16 +43,14 @@ export function ProvenanceSourceLink({
   className?: string;
 }) {
   return (
-    <a
+    <ExternalLink
       className={`inline-flex max-w-full items-baseline gap-1.5 text-xs underline-offset-4 hover:underline ${className ?? ""}`}
       href={source}
-      rel="noreferrer"
-      target="_blank"
       title={source}
     >
       <span className="font-medium break-all">{sourceLabel(source)}</span>
       <span className="text-muted-foreground">↗</span>
-    </a>
+    </ExternalLink>
   );
 }
 

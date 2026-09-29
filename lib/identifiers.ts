@@ -1,5 +1,6 @@
 import identifiersJson from "@/data/identifiers.json";
 import { digitsOfKennitala, kennitalaChecksumOk } from "@/lib/kennitala";
+import { isHttpUrl } from "@/lib/safe-href";
 
 export type KennitalaRecord = {
   slug: string;
@@ -26,6 +27,9 @@ export function assertKennitalaRecord(row: KennitalaRecord): void {
   }
   if (!row.quotation.includes(row.kennitala) && !row.quotation.includes(digits)) {
     throw new Error(`${row.slug} quotation does not print the kennitala`);
+  }
+  if (!isHttpUrl(row.source)) {
+    throw new Error(`${row.slug} source must be an http(s) address`);
   }
   if (!kennitalaChecksumOk(digits)) {
     throw new Error(`${row.slug} kennitala fails the public checksum`);

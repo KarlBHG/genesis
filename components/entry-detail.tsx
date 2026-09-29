@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ExternalLink } from "@/components/external-link";
 import { MarkdownBody } from "@/components/markdown-body";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -70,14 +71,12 @@ function KennitalaFact({ slug }: { slug: string }) {
     <Fact term="Kennitala">
       <span className="font-mono tabular-nums">{record.kennitala}</span>
       <p className="text-sm leading-6 text-muted-foreground">{record.quotation}</p>
-      <a
+      <ExternalLink
         className="break-all text-sm underline underline-offset-4"
         href={record.source}
-        rel="noreferrer"
-        target="_blank"
       >
         {record.source}
-      </a>
+      </ExternalLink>
     </Fact>
   );
 }
@@ -116,9 +115,9 @@ function Record({ entry }: { entry: Entry }) {
               </Fact>
               <Fact term="Website">
                 {entry.website ? (
-                  <a href={entry.website} rel="noreferrer" target="_blank">
+                  <ExternalLink href={entry.website}>
                     {entry.website.replace(/^https:\/\//, "")}
-                  </a>
+                  </ExternalLink>
                 ) : (
                   "Not stated"
                 )}
@@ -146,9 +145,9 @@ function Record({ entry }: { entry: Entry }) {
               </Fact>
               <Fact term="Website">
                 {entry.website ? (
-                  <a href={entry.website} rel="noreferrer" target="_blank">
+                  <ExternalLink href={entry.website}>
                     {entry.website.replace(/^https:\/\//, "")}
-                  </a>
+                  </ExternalLink>
                 ) : (
                   "Not stated"
                 )}
@@ -290,14 +289,12 @@ function EvidenceNotice({ slug }: { slug: string }) {
         {audits.map((audit) => (
           <p className="text-muted-foreground" key={audit.id}>
             Ríkisendurskoðun, {formatDate(audit.published)}: <span lang={icelandicLang(audit.quotation)}>“{audit.quotation}”</span>{" "}
-            <a
+            <ExternalLink
               className="break-all underline underline-offset-4"
               href={audit.source}
-              rel="noreferrer"
-              target="_blank"
             >
               Source
-            </a>
+            </ExternalLink>
           </p>
         ))}
       </CardContent>
@@ -497,14 +494,9 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         )}
         {entry.kind === "treaty" && !entry.sources.includes(entry.source) ? (
           <p>
-            <a
-              className="print-literal-url"
-              href={entry.source}
-              rel="noreferrer"
-              target="_blank"
-            >
+            <ExternalLink className="print-literal-url" href={entry.source}>
               {entry.source}
-            </a>
+            </ExternalLink>
           </p>
         ) : null}
       </section>

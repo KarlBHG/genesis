@@ -5,6 +5,7 @@ import matter from "gray-matter";
 
 import { kindPath, labelize } from "@/lib/format";
 import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
+import { isHttpUrl } from "@/lib/safe-href";
 import type {
   AuditFinding,
   CareerChannel,
@@ -80,6 +81,13 @@ function requireString(
   return value.trim();
 }
 
+function requireHttpUrl(value: string, where: string): string {
+  if (!isHttpUrl(value)) {
+    throw new Error(`${where} must be an http(s) address`);
+  }
+  return value;
+}
+
 function optionalString(data: Record<string, unknown>, key: string): string {
   const value = data[key];
   if (value == null) return "";
@@ -87,6 +95,16 @@ function optionalString(data: Record<string, unknown>, key: string): string {
     throw new Error(`Frontmatter "${key}" must be a string`);
   }
   return value.trim();
+}
+
+function optionalHttpUrl(
+  data: Record<string, unknown>,
+  key: string,
+  file: string,
+): string {
+  const value = optionalString(data, key);
+  if (!value) return "";
+  return requireHttpUrl(value, `${file} ${key}`);
 }
 
 function optionalBoolean(
@@ -195,7 +213,7 @@ function readEntry(filePath: string, kind: Kind): Entry {
       parties: stringArray(data, "parties", file),
       status: requireString(data, "status", file),
       topics: stringArray(data, "topics", file),
-      source: requireString(data, "source", file),
+      source: requireHttpUrl(requireString(data, "source", file), `${file} source`),
     };
     return treaty;
   }
@@ -208,7 +226,7 @@ function readEntry(filePath: string, kind: Kind): Entry {
       founded: optionalString(data, "founded"),
       role: requireString(data, "role", file),
       parent: optionalString(data, "parent"),
-      website: optionalString(data, "website"),
+      website: optionalHttpUrl(data, "website", file),
     };
     return institution;
   }
@@ -251,7 +269,7 @@ function readEntry(filePath: string, kind: Kind): Entry {
     playerType,
     role: requireString(data, "role", file),
     asOf: optionalString(data, "asOf"),
-    website: optionalString(data, "website"),
+    website: optionalHttpUrl(data, "website", file),
   };
   return player;
 }
@@ -544,7 +562,10 @@ function buildEdges(entries: Entry[], officeRecords: OfficeRecord[]): Edge[] {
     const to = requireEdgeString(row, "to", index);
     const type = requireEdgeString(row, "type", index);
     const asOf = requireEdgeString(row, "asOf", index);
-    const source = requireEdgeString(row, "source", index);
+    const source = requireHttpUrl(
+      requireEdgeString(row, "source", index),
+      `data/edges.json edge ${index + 1} source`,
+    );
     const quotation = requireEdgeString(row, "quotation", index);
     if (!RELATIONSHIPS.has(type as Relationship)) {
       throw new Error(`data/edges.json edge ${index + 1} has unknown type "${type}"`);
@@ -640,7 +661,10 @@ function buildEdges(entries: Entry[], officeRecords: OfficeRecord[]): Edge[] {
         if (row.programSource === null) {
           programSource = null;
         } else if (typeof row.programSource === "string" && row.programSource.trim()) {
-          programSource = row.programSource.trim();
+          programSource = requireHttpUrl(
+            row.programSource.trim(),
+            `data/edges.json edge ${index + 1} programSource`,
+          );
         } else {
           throw new Error(
             `data/edges.json edge ${index + 1} programSource must be a string or null`,
@@ -734,7 +758,10 @@ function buildChanges(): ChangeRecord[] {
       oldValue: requireRecordString(row, "oldValue", file, index),
       newValue: requireRecordString(row, "newValue", file, index),
       observed: requireRecordString(row, "observed", file, index),
-      source: requireRecordString(row, "source", file, index),
+      source: requireHttpUrl(
+        requireRecordString(row, "source", file, index),
+        `${file} record ${index + 1} source`,
+      ),
     };
   });
 }
@@ -760,7 +787,10 @@ function buildAudits(entries: Entry[]): AuditFinding[] {
       id: requireRecordString(row, "id", file, index),
       entries: listed.map((slug) => slug.trim()),
       published: requireRecordString(row, "published", file, index),
-      source: requireRecordString(row, "source", file, index),
+      source: requireHttpUrl(
+        requireRecordString(row, "source", file, index),
+        `${file} record ${index + 1} source`,
+      ),
       quotation: requireRecordString(row, "quotation", file, index),
     };
   });
@@ -835,7 +865,10 @@ function buildContradictions(entries: Entry[]): Contradiction[] {
         );
       }
       return {
-        source: (sideRow.source as string).trim(),
+        source: requireHttpUrl(
+          (sideRow.source as string).trim(),
+          `data/contradictions.json record ${index + 1} side ${sideIndex + 1} source`,
+        ),
         quotation: (sideRow.quotation as string).trim(),
         asOf: sideRow.asOf.trim(),
       };
