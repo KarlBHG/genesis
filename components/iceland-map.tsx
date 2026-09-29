@@ -1,8 +1,15 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+} from "react";
 
+import { Button } from "@/components/ui/button";
 import coast from "@/data/iceland-coast.json";
 import { labelize, yearOf } from "@/lib/format";
 import { icelandicLang } from "@/lib/lang";
@@ -70,6 +77,28 @@ const LAYER_LABEL = Object.fromEntries(LAYERS.map((layer) => [layer.id, layer.la
 
 const MAP_CONTROL = "map-control focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--geo-accent)";
 
+/** Label offsets keep neighbouring Nominatim pins readable without moving the dots. */
+const LABEL_AT: Record<PlaceId, { dx: number; dy: number; anchor: "start" | "end" | "middle" }> = {
+  reykjavik: { dx: -16, dy: -18, anchor: "end" },
+  straumsvik: { dx: 14, dy: 16, anchor: "start" },
+  grundartangi: { dx: 12, dy: -16, anchor: "start" },
+  reydarfjordur: { dx: 14, dy: -12, anchor: "start" },
+  keflavik: { dx: -16, dy: -8, anchor: "end" },
+  reykjanesbaer: { dx: 14, dy: 16, anchor: "start" },
+  blonduos: { dx: 4, dy: -16, anchor: "middle" },
+  kopavogur: { dx: 16, dy: 6, anchor: "start" },
+  hafnarfjordur: { dx: -14, dy: 18, anchor: "end" },
+  akureyri: { dx: 12, dy: -16, anchor: "start" },
+  gardabaer: { dx: 16, dy: 18, anchor: "start" },
+  mosfellsbaer: { dx: 16, dy: -10, anchor: "start" },
+  arborg: { dx: 8, dy: 16, anchor: "start" },
+  akranes: { dx: -16, dy: -8, anchor: "end" },
+  fjardabyggd: { dx: 10, dy: 16, anchor: "start" },
+  vestmannaeyjar: { dx: 10, dy: 16, anchor: "start" },
+  seltjarnarnes: { dx: -18, dy: 8, anchor: "end" },
+  hvanneyri: { dx: 14, dy: -12, anchor: "start" },
+};
+
 function usePrefersReducedMotion(): boolean {
   const [reduce, setReduce] = useState(false);
   useEffect(() => {
@@ -100,9 +129,10 @@ function projectCoast() {
   const minLat = Math.min(...lats);
   const maxLat = Math.max(...lats);
   const midLat = (minLat + maxLat) / 2;
+  const midLon = (minLon + maxLon) / 2;
   const cos = Math.cos((midLat * Math.PI) / 180);
-  const width = 800;
-  const pad = 36;
+  const width = 1000;
+  const pad = 52;
   const xSpan = (maxLon - minLon) * cos;
   const ySpan = maxLat - minLat;
   const innerW = width - pad * 2;
@@ -118,7 +148,38 @@ function projectCoast() {
       return `${index === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
     })
     .join(" ")} Z`;
-  return { d, project, width, height };
+  const origin = project(midLon, midLat);
+  return { d, project, width, height, minLon, maxLon, minLat, maxLat, origin };
+}
+
+function gridLines(scene: ReturnType<typeof projectCoast>) {
+  const lines: string[] = [];
+  for (let lon = Math.ceil(scene.minLon); lon <= Math.floor(scene.maxLon); lon += 1) {
+    const a = scene.project(lon, scene.minLat);
+    const b = scene.project(lon, scene.maxLat);
+    lines.push(`M ${a.x.toFixed(1)} ${a.y.toFixed(1)} L ${b.x.toFixed(1)} ${b.y.toFixed(1)}`);
+  }
+  for (let lat = Math.ceil(scene.minLat); lat <= Math.floor(scene.maxLat); lat += 1) {
+    const a = scene.project(scene.minLon, lat);
+    const b = scene.project(scene.maxLon, lat);
+    lines.push(`M ${a.x.toFixed(1)} ${a.y.toFixed(1)} L ${b.x.toFixed(1)} ${b.y.toFixed(1)}`);
+  }
+  return lines;
+}
+
+function nightStars(width: number, height: number, count: number) {
+  const stars: { x: number; y: number; r: number }[] = [];
+  let seed = 17;
+  for (let i = 0; i < count; i += 1) {
+    seed = (seed * 16807) % 2147483647;
+    const x = ((seed % 10000) / 10000) * width;
+    seed = (seed * 16807) % 2147483647;
+    const y = ((seed % 10000) / 10000) * height;
+    seed = (seed * 16807) % 2147483647;
+    const r = 0.35 + ((seed % 100) / 100) * 0.95;
+    stars.push({ x, y, r });
+  }
+  return stars;
 }
 
 function curve(
@@ -138,6 +199,27 @@ function curve(
   return { d: `M ${from.x} ${from.y} Q ${cx} ${cy} ${to.x} ${to.y}`, labelX, labelY };
 }
 
+function layerMix(entries: MapEntryView[]): LayerId[] {
+  return MAP_LAYERS.map((layer) => layer.id).filter((id) =>
+    entries.some((entry) => entry.layer === id),
+  );
+}
+
+function arcPath(
+  cx: number,
+  cy: number,
+  r: number,
+  start: number,
+  end: number,
+): string {
+  const x0 = cx + r * Math.cos(start);
+  const y0 = cy + r * Math.sin(start);
+  const x1 = cx + r * Math.cos(end);
+  const y1 = cy + r * Math.sin(end);
+  const large = end - start > Math.PI ? 1 : 0;
+  return `M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+}
+
 function RoleFigure({ layer }: { layer: LayerId }) {
   const mark =
     layer === "state" ? (
@@ -154,7 +236,7 @@ function RoleFigure({ layer }: { layer: LayerId }) {
       <path d="M16 40h16" strokeDasharray="3 3" />
     );
   return (
-    <svg aria-hidden viewBox="0 0 48 64" className="h-12 w-9">
+    <svg aria-hidden viewBox="0 0 48 64" className="h-11 w-8">
       <circle cx="24" cy="14" r="7" fill="none" stroke="currentColor" strokeWidth="1.6" />
       <path d="M14 30h20l-3 26H17z" fill="none" stroke="currentColor" strokeWidth="1.6" />
       <g fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -204,6 +286,11 @@ export function IcelandMap({
   offMapByView: Record<ViewId, MapOffMapEndpointLink[]>;
 }) {
   const scene = useMemo(() => projectCoast(), []);
+  const meridians = useMemo(() => gridLines(scene), [scene]);
+  const stars = useMemo(
+    () => nightStars(scene.width, scene.height, 86),
+    [scene.height, scene.width],
+  );
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -227,6 +314,8 @@ export function IcelandMap({
   const [copied, setCopied] = useState(false);
   const reduceMotion = usePrefersReducedMotion();
   const motionTransition = reduceMotion ? undefined : "opacity 200ms ease";
+  const shareQuery = serializeMapQuery(query);
+  const sharePath = shareQuery ? `${pathname}?${shareQuery}` : pathname;
 
   const visible = entries.filter((entry) => enabled[entry.layer]);
   const points = Object.fromEntries(
@@ -260,7 +349,7 @@ export function IcelandMap({
       const totalSoon = geographic.filter(
         (item) => item.fromPlace === edge.fromPlace && item.toPlace === edge.toPlace,
       ).length;
-      const bend = totalSoon === 1 ? 0 : index === 0 ? -14 : 14;
+      const bend = totalSoon === 1 ? 0 : index === 0 ? -18 : 18;
       const year = yearOf(edge.asOf);
       return { edge, bend, year: year === "Undated" ? "" : year };
     });
@@ -293,6 +382,9 @@ export function IcelandMap({
     layer,
     entries: placeEntries.filter((entry) => entry.layer === layer.id),
   })).filter((group) => group.entries.length > 0);
+  const visiblePlaces = PLACES.filter((place) =>
+    visible.some((entry) => entry.place === place.id),
+  );
 
   function go(next: MapQuery) {
     const qs = serializeMapQuery(next);
@@ -357,7 +449,7 @@ export function IcelandMap({
       .catch(() => setCopied(false));
   }
 
-  function lineStyle(edge: MapEdgeView): React.CSSProperties {
+  function lineStyle(edge: MapEdgeView): CSSProperties {
     const active = !selectedSlug || litKeys.has(edgeKey(edge));
     return {
       opacity: active ? 1 : 0.28,
@@ -365,7 +457,7 @@ export function IcelandMap({
     };
   }
 
-  function roamPinList(event: React.KeyboardEvent, slugs: string[]) {
+  function roamPinList(event: KeyboardEvent, slugs: string[]) {
     if (slugs.length === 0 || !selectedPlace) return;
     const idx = selectedSlug ? slugs.indexOf(selectedSlug) : -1;
     if (event.key === "ArrowDown" || event.key === "j") {
@@ -385,61 +477,83 @@ export function IcelandMap({
     }
   }
 
+  const emptyLayers = visible.length === 0;
+
   return (
-    <div className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-5 px-4 py-6 sm:px-6">
-      <header className="flex max-w-reading flex-col gap-3">
-        <p className="kicker">Geographic view</p>
-        <h1 className="text-3xl font-medium text-(--geo-ink) sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]" style={{ fontFamily: "var(--font-serif), serif" }}>
-          Iceland, only where a page names the place.
-        </h1>
-        <p className="text-sm leading-6 text-(--geo-ink-muted)">
-          Pins are real places. Reykjavík is one cluster, not a door for each office. Ownership, investments, authorisations, contracts, careers, invoices, authority, and trade partners are the typed edges already on file. Family is a separate channel, and it is empty. Trade-partner countries are listed, not pinned.
-        </p>
-      </header>
+    <div>
+      <div className="geo-theater">
+        <header className="geo-mast">
+          <div className="min-w-0">
+            <p className="kicker">Geographic view</p>
+            <h1>Iceland, only where a page names the place.</h1>
+            <p className="geo-lede">
+              One pin per named town. Reykjavík is a cluster, not a door for each office. Mixed
+              colours on a pin are the layers actually on file there. Trade-partner countries stay
+              off the island. The address bar holds this view.
+            </p>
+            <span className="geo-permalink" title={sharePath}>
+              {sharePath}
+            </span>
+          </div>
+          <div className="geo-share">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className={MAP_CONTROL}
+              onClick={copyLink}
+            >
+              {copied ? "Link copied" : "Copy this view"}
+            </Button>
+            <span className="sr-only" aria-live="polite">
+              {copied ? "Link copied" : ""}
+            </span>
+          </div>
+        </header>
 
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Layers">
-        {MAP_LAYERS.map((layer) => (
-          <button
-            key={layer.id}
-            type="button"
-            aria-pressed={enabled[layer.id]}
-            className={`rounded-md border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
-            style={{
-              borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
-              color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
-              background: enabled[layer.id] ? "var(--geo-chip-active)" : "transparent",
-            }}
-            onClick={() => toggle(layer.id)}
-          >
-            <span
-              className="mr-2 inline-block h-2 w-2 rounded-full"
-              style={{ background: layer.swatch }}
-            />
-            {layer.label}
-          </button>
-        ))}
-      </div>
+        <div className="geo-chips">
+          <div className="geo-chip-row" role="group" aria-label="Layers">
+            {MAP_LAYERS.map((layer) => (
+              <button
+                key={layer.id}
+                type="button"
+                aria-pressed={enabled[layer.id]}
+                className={`rounded-md border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
+                style={{
+                  borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
+                  color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+                  background: enabled[layer.id] ? "var(--geo-chip-active)" : "transparent",
+                }}
+                onClick={() => toggle(layer.id)}
+              >
+                <span
+                  className="mr-2 inline-block h-2 w-2 rounded-full"
+                  style={{ background: layer.swatch }}
+                />
+                {layer.label}
+              </button>
+            ))}
+          </div>
+          <div className="geo-chip-row" role="group" aria-label="Views">
+            {MAP_VIEWS.map((view) => (
+              <button
+                key={view.id}
+                type="button"
+                aria-pressed={viewsOn[view.id]}
+                className={`rounded-md border border-(--geo-line) px-3 py-1.5 text-sm ${MAP_CONTROL}`}
+                style={{
+                  color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+                  background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
+                }}
+                onClick={() => toggleView(view.id)}
+              >
+                {view.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Views">
-        {MAP_VIEWS.map((view) => (
-          <button
-            key={view.id}
-            type="button"
-            aria-pressed={viewsOn[view.id]}
-            className={`rounded-md border border-(--geo-line) px-3 py-1.5 text-sm ${MAP_CONTROL}`}
-            style={{
-              color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
-              background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
-            }}
-            onClick={() => toggleView(view.id)}
-          >
-            {view.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="flex min-w-0 flex-col gap-4 lg:grid lg:grid-cols-[5.5rem_minmax(0,1fr)_18rem] lg:items-start">
-        <div className="flex flex-row flex-wrap gap-2 lg:flex-col" aria-label="Figures">
+        <div className="geo-rail" aria-label="Figures">
           {MAP_LAYERS.map((layer) => {
             const selected = selectedLayer === layer.id;
             return (
@@ -447,7 +561,7 @@ export function IcelandMap({
                 key={layer.id}
                 type="button"
                 aria-pressed={selected}
-                className={`flex w-[5.25rem] flex-col items-center gap-1 rounded-lg border px-1 py-2 text-center text-[11px] leading-tight ${MAP_CONTROL}`}
+                className={`flex w-[5.1rem] flex-col items-center gap-1 rounded-md border px-1 py-2 text-center text-[11px] leading-tight ${MAP_CONTROL}`}
                 style={{
                   borderColor: selected ? layer.swatch : "var(--geo-line)",
                   color: selected ? layer.swatch : "var(--geo-ink-dim)",
@@ -462,120 +576,263 @@ export function IcelandMap({
           })}
         </div>
 
-        <div className="min-w-0 rounded-md border border-(--geo-line-strong) bg-(--geo-frame) p-2 shadow-(--geo-glow) sm:p-3">
-          <div className="relative min-w-0">
-            <svg
-              viewBox={`0 0 ${scene.width} ${scene.height}`}
-              className="h-auto w-full"
-              role="img"
-              aria-label="Outline of Iceland with sourced pins"
-            >
-              <rect width={scene.width} height={scene.height} fill="var(--geo-plate)" rx="4" />
-              <path d={scene.d} fill="var(--geo-land)" stroke="var(--geo-ink-muted)" strokeWidth="1.4" />
-              {strings.map(({ edge, bend, year }) => {
-                const drawn = curve(points[edge.fromPlace!], points[edge.toPlace!], bend);
-                const active = !selectedSlug || litKeys.has(edgeKey(edge));
-                return (
-                  <g key={edgeKey(edge)} style={{ opacity: active ? 1 : 0.22, transition: motionTransition }}>
-                    <path
-                      d={drawn.d}
-                      fill="none"
-                      stroke={STROKE[edge.relationship] ?? "var(--geo-accent)"}
-                      strokeWidth="1.4"
-                    />
-                    {year ? (
-                      <text
-                        x={drawn.labelX}
-                        y={drawn.labelY}
-                        textAnchor="middle"
-                        fill="var(--geo-accent-soft)"
-                        fontSize="12"
-                        stroke="var(--geo-frame)"
-                        strokeWidth="3"
-                        paintOrder="stroke"
-                      >
-                        {year}
-                      </text>
-                    ) : null}
-                  </g>
-                );
-              })}
-              {PLACES.map((place) => {
-                const atPlace = visible.filter((entry) => entry.place === place.id);
-                if (atPlace.length === 0) return null;
-                const point = points[place.id];
-                const swatch = LAYERS.find((layer) => layer.id === atPlace[0]?.layer)?.swatch ?? "var(--layer-state)";
-                const selected = selectedPlace === place.id;
-                const cluster = atPlace.length > 1;
-                const involved =
-                  !selectedSlug ||
-                  atPlace.some((entry) => entry.slug === selectedSlug) ||
-                  lit.some(
-                    (edge) =>
-                      (edge.fromPlace === place.id || edge.toPlace === place.id) &&
-                      (edge.from === selectedSlug || edge.to === selectedSlug),
-                  );
-                return (
-                  <g key={place.id} style={{ opacity: involved ? 1 : 0.35, transition: motionTransition }}>
-                    <circle
-                      cx={point.x}
-                      cy={point.y}
-                      r={selected ? 9 : cluster ? 8 : 6}
-                      fill={swatch}
-                      stroke="var(--geo-ink)"
-                      strokeWidth={selected ? 2 : 1}
-                    />
-                    {cluster ? (
-                      <text
-                        x={point.x}
-                        y={point.y}
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        fill="var(--geo-canvas)"
-                        fontSize="9"
-                        fontWeight="600"
-                        pointerEvents="none"
-                      >
-                        {atPlace.length}
-                      </text>
-                    ) : null}
+        <div className="geo-stage">
+          <svg
+            viewBox={`0 0 ${scene.width} ${scene.height}`}
+            preserveAspectRatio="xMidYMid meet"
+            className="h-full w-full"
+            role="img"
+            aria-label="Outline of Iceland with sourced pins. One pin per named place; a number is how many records share that pin."
+          >
+            <defs>
+              <radialGradient id="geo-sea-wash" cx="48%" cy="42%" r="68%">
+                <stop offset="0%" stopColor="var(--geo-sea)" />
+                <stop offset="70%" stopColor="var(--geo-sea-deep)" />
+                <stop offset="100%" stopColor="var(--geo-canvas)" />
+              </radialGradient>
+              <linearGradient id="geo-land-wash" x1="20%" y1="0%" x2="80%" y2="100%">
+                <stop offset="0%" stopColor="var(--geo-land-lit)" />
+                <stop offset="55%" stopColor="var(--geo-land)" />
+                <stop offset="100%" stopColor="var(--geo-highland)" />
+              </linearGradient>
+              <radialGradient id="geo-aurora-wash" cx="50%" cy="18%" r="42%">
+                <stop offset="0%" stopColor="var(--geo-aurora)" stopOpacity="0.55" />
+                <stop offset="45%" stopColor="var(--geo-aurora-mid)" stopOpacity="0.22" />
+                <stop offset="100%" stopColor="var(--geo-canvas)" stopOpacity="0" />
+              </radialGradient>
+              <filter id="geo-glow-soft" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="7" />
+              </filter>
+              <filter id="geo-relief" x="-5%" y="-5%" width="110%" height="110%">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency="0.035"
+                  numOctaves="3"
+                  result="noise"
+                />
+                <feColorMatrix
+                  in="noise"
+                  type="matrix"
+                  values="0 0 0 0 0.12  0 0 0 0 0.16  0 0 0 0 0.1  0 0 0 0.55 0"
+                />
+              </filter>
+              <clipPath id="geo-land-clip">
+                <path d={scene.d} />
+              </clipPath>
+            </defs>
+            <rect width={scene.width} height={scene.height} fill="url(#geo-sea-wash)" />
+            {stars.map((star) => (
+              <circle
+                key={`${star.x}-${star.y}`}
+                cx={star.x}
+                cy={star.y}
+                r={star.r}
+                fill="var(--geo-star)"
+                opacity="0.28"
+              />
+            ))}
+            <ellipse
+              className="geo-aurora-band"
+              cx={scene.origin.x}
+              cy={scene.origin.y - 70}
+              rx={scene.width * 0.42}
+              ry={70}
+              fill="url(#geo-aurora-wash)"
+            />
+            <g opacity="0.12" stroke="var(--geo-grid)" strokeWidth="0.4" fill="none">
+              {meridians.map((line) => (
+                <path key={line} d={line} />
+              ))}
+            </g>
+            <path
+              d={scene.d}
+              fill="none"
+              stroke="var(--geo-coast)"
+              strokeWidth="14"
+              opacity="0.22"
+              filter="url(#geo-glow-soft)"
+            />
+            <path d={scene.d} fill="url(#geo-land-wash)" stroke="none" />
+            <rect
+              width={scene.width}
+              height={scene.height}
+              clipPath="url(#geo-land-clip)"
+              filter="url(#geo-relief)"
+              opacity="0.28"
+            />
+            <path
+              d={scene.d}
+              fill="none"
+              stroke="var(--geo-coast)"
+              strokeWidth="1.7"
+            />
+            {strings.map(({ edge, bend, year }) => {
+              const drawn = curve(points[edge.fromPlace!], points[edge.toPlace!], bend);
+              const active = !selectedSlug || litKeys.has(edgeKey(edge));
+              return (
+                <g key={edgeKey(edge)} style={{ opacity: active ? 1 : 0.18, transition: motionTransition }}>
+                  <path
+                    d={drawn.d}
+                    fill="none"
+                    stroke={STROKE[edge.relationship] ?? "var(--geo-accent)"}
+                    strokeWidth="4.5"
+                    opacity="0.18"
+                  />
+                  <path
+                    d={drawn.d}
+                    fill="none"
+                    stroke={STROKE[edge.relationship] ?? "var(--geo-accent)"}
+                    strokeWidth="1.35"
+                  />
+                  {year ? (
                     <text
-                      x={point.x + 10}
-                      y={point.y - 10}
-                      fill="var(--geo-ink)"
-                      fontSize="13"
+                      x={drawn.labelX}
+                      y={drawn.labelY}
+                      textAnchor="middle"
+                      fill="var(--geo-accent-soft)"
+                      fontSize="11"
+                      stroke="var(--geo-sea-deep)"
+                      strokeWidth="3"
+                      paintOrder="stroke"
                     >
-                      {place.name}
-                      {cluster ? ` · ${atPlace.length} entries` : ""}
+                      {year}
                     </text>
-                  </g>
-                );
-              })}
-            </svg>
+                  ) : null}
+                </g>
+              );
+            })}
             {PLACES.map((place) => {
               const atPlace = visible.filter((entry) => entry.place === place.id);
               if (atPlace.length === 0) return null;
               const point = points[place.id];
+              const mix = layerMix(atPlace);
+              const cluster = atPlace.length > 1;
+              const selected = selectedPlace === place.id;
+              const involved =
+                !selectedSlug ||
+                atPlace.some((entry) => entry.slug === selectedSlug) ||
+                lit.some(
+                  (edge) =>
+                    (edge.fromPlace === place.id || edge.toPlace === place.id) &&
+                    (edge.from === selectedSlug || edge.to === selectedSlug),
+                );
+              const radius = selected ? 10 : cluster ? 8 : 5.5;
+              const label = LABEL_AT[place.id];
+              const gap = (2 * Math.PI) / Math.max(mix.length, 1);
               return (
-                <button
-                  key={place.id}
-                  type="button"
-                  className={`absolute h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full ${MAP_CONTROL}`}
-                  style={{ left: `${(point.x / scene.width) * 100}%`, top: `${(point.y / scene.height) * 100}%` }}
-                  aria-label={place.name}
-                  onClick={() => selectPlace(place.id)}
-                />
+                <g key={place.id} style={{ opacity: involved ? 1 : 0.32, transition: motionTransition }}>
+                  {selected && !reduceMotion ? (
+                    <circle
+                      className="geo-pulse-ring"
+                      cx={point.x}
+                      cy={point.y}
+                      r={radius + 3}
+                      fill="none"
+                      stroke="var(--geo-accent)"
+                      strokeWidth="1.2"
+                    />
+                  ) : null}
+                  {Math.hypot(label.dx, label.dy) > 14 ? (
+                    <path
+                      d={`M ${point.x} ${point.y} L ${point.x + label.dx * 0.55} ${point.y + label.dy * 0.55}`}
+                      fill="none"
+                      stroke="var(--geo-line-bright)"
+                      strokeWidth="0.7"
+                      opacity="0.7"
+                    />
+                  ) : null}
+                  <circle
+                    cx={point.x}
+                    cy={point.y}
+                    r={radius}
+                    fill={mix.length > 1 ? "var(--geo-chip)" : (LAYERS.find((layer) => layer.id === mix[0])?.swatch ?? "var(--layer-state)")}
+                    stroke="var(--geo-ink)"
+                    strokeWidth={selected ? 1.8 : 0.9}
+                  />
+                  {mix.length > 1
+                    ? mix.map((layerId, index) => {
+                        const start = -Math.PI / 2 + index * gap + 0.08;
+                        const end = -Math.PI / 2 + (index + 1) * gap - 0.08;
+                        return (
+                          <path
+                            key={layerId}
+                            d={arcPath(point.x, point.y, radius + 2.4, start, end)}
+                            fill="none"
+                            stroke={LAYERS.find((layer) => layer.id === layerId)?.swatch}
+                            strokeWidth="2.2"
+                            strokeLinecap="butt"
+                          />
+                        );
+                      })
+                    : null}
+                  {cluster ? (
+                    <text
+                      x={point.x}
+                      y={point.y}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fill={mix.length > 1 ? "var(--geo-ink)" : "var(--geo-canvas)"}
+                      fontSize="9"
+                      fontWeight="600"
+                      pointerEvents="none"
+                    >
+                      {atPlace.length}
+                    </text>
+                  ) : null}
+                  <text
+                    x={point.x + label.dx}
+                    y={point.y + label.dy}
+                    textAnchor={label.anchor}
+                    fill="var(--geo-ink)"
+                    fontSize="12"
+                    paintOrder="stroke"
+                    stroke="var(--geo-sea-deep)"
+                    strokeWidth="3.5"
+                  >
+                    {place.name}
+                    {cluster ? ` · ${atPlace.length} on one pin` : ""}
+                  </text>
+                </g>
               );
             })}
-          </div>
-          <nav className="mt-3" aria-label="Places on the map">
-            <p className="mb-2 text-xs tracking-wide text-(--geo-ink-dim) uppercase">Pins</p>
+          </svg>
+          {PLACES.map((place) => {
+            const atPlace = visible.filter((entry) => entry.place === place.id);
+            if (atPlace.length === 0) return null;
+            const point = points[place.id];
+            const cluster = atPlace.length > 1;
+            return (
+              <button
+                key={place.id}
+                type="button"
+                className={`absolute h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full ${MAP_CONTROL}`}
+                style={{ left: `${(point.x / scene.width) * 100}%`, top: `${(point.y / scene.height) * 100}%` }}
+                aria-label={
+                  cluster
+                    ? `${place.name}, ${atPlace.length} records on one pin`
+                    : place.name
+                }
+                onClick={() => selectPlace(place.id)}
+              />
+            );
+          })}
+        </div>
+
+        <nav className="geo-pins" aria-label="Places on the map">
+          <p className="mb-2 text-xs tracking-wide text-(--geo-ink-dim) uppercase">
+            Pins · one per named place
+          </p>
+          {emptyLayers ? (
+            <p className="text-sm leading-6 text-(--geo-ink-dim)">
+              Every layer is off. The coast is still Iceland; the pins wait.
+            </p>
+          ) : (
             <ul className="flex flex-wrap gap-2">
-              {PLACES.map((place) => {
+              {visiblePlaces.map((place) => {
                 const atPlace = visible.filter((entry) => entry.place === place.id);
-                if (atPlace.length === 0) return null;
                 const selected = selectedPlace === place.id;
                 const cluster = atPlace.length > 1;
+                const mix = layerMix(atPlace);
                 return (
                   <li key={place.id}>
                     <button
@@ -583,15 +840,26 @@ export function IcelandMap({
                       aria-pressed={selected}
                       className={`rounded-md border px-3 py-1 text-sm ${MAP_CONTROL}`}
                       style={{
-                        borderColor: selected ? "var(--layer-state)" : "var(--geo-line-strong)",
+                        borderColor: selected ? "var(--geo-accent)" : "var(--geo-line-strong)",
                         color: selected ? "var(--geo-ink)" : "var(--geo-ink-muted)",
                         background: selected ? "var(--geo-chip-active)" : "transparent",
                       }}
                       onClick={() => selectPlace(place.id)}
                     >
+                      <span className="mr-1.5 inline-flex items-center gap-0.5" aria-hidden>
+                        {mix.map((layerId) => (
+                          <span
+                            key={layerId}
+                            className="inline-block h-1.5 w-1.5 rounded-full"
+                            style={{
+                              background: LAYERS.find((layer) => layer.id === layerId)?.swatch,
+                            }}
+                          />
+                        ))}
+                      </span>
                       {place.name}
                       {cluster ? (
-                        <span className="ml-1.5 inline-flex min-w-[1.25rem] justify-center rounded-full bg-(--layer-state) px-1 text-[11px] font-medium text-(--geo-canvas)">
+                        <span className="ml-1.5 inline-flex min-w-[1.25rem] justify-center rounded-full bg-(--geo-chip-active) px-1 text-[11px] font-medium text-(--geo-ink)">
                           {atPlace.length}
                         </span>
                       ) : null}
@@ -600,59 +868,29 @@ export function IcelandMap({
                 );
               })}
             </ul>
-          </nav>
-          {selectedPlace && placeEntries.length > 1 ? (
-            <div
-              className="mt-3 rounded-xl border border-(--geo-line-strong) bg-(--geo-panel) p-3"
-              tabIndex={0}
-              role="region"
-              aria-label={`${placeName} entries`}
-              onKeyDown={(event) =>
-                roamPinList(
-                  event,
-                  placeEntries.map((entry) => entry.slug),
-                )
-              }
-            >
-              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">
-                {placeName} · spread list · ↑↓ or j/k
-              </p>
-              <ul className="mt-2 flex max-h-48 flex-col gap-1 overflow-y-auto">
-                {placeEntries.map((entry) => {
-                  const focused = selectedSlug === entry.slug;
-                  return (
-                    <li key={entry.slug}>
-                      <button
-                        type="button"
-                        aria-current={focused ? "true" : undefined}
-                        className={`flex w-full items-baseline justify-between gap-2 rounded-lg px-2 py-1.5 text-left text-sm ${MAP_CONTROL}`}
-                        style={{
-                          color: focused ? "var(--geo-ink)" : "var(--geo-ink-muted)",
-                          background: focused ? "var(--geo-chip-active)" : "transparent",
-                        }}
-                        onClick={() => selectSlug(entry.slug, selectedPlace)}
-                      >
-                        <span className="min-w-0 break-words">
-                          {entry.title}
-                          {entry.pinOnly ? (
-                            <span className="mt-0.5 block text-[10px] font-normal tracking-wide text-(--geo-ink-dim) normal-case">
-                              Pin only · no typed edge
-                            </span>
-                          ) : null}
-                        </span>
-                        <span className="shrink-0 text-[10px] tracking-wide text-(--geo-ink-dim) uppercase">
-                          {LAYER_LABEL[entry.layer]}
-                        </span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : null}
-        </div>
+          )}
+        </nav>
 
-        <aside className="min-w-0 rounded-md border border-(--geo-line) bg-(--geo-panel) p-4" aria-live="polite">
+        <aside
+          className="geo-inspector"
+          aria-live="polite"
+          role={placeEntries.length > 1 ? "region" : undefined}
+          aria-label={
+            placeEntries.length > 1
+              ? `${placeName} entries`
+              : undefined
+          }
+          tabIndex={placeEntries.length > 1 ? 0 : undefined}
+          onKeyDown={
+            placeEntries.length > 1
+              ? (event) =>
+                  roamPinList(
+                    event,
+                    placeEntries.map((entry) => entry.slug),
+                  )
+              : undefined
+          }
+        >
           {focus ? (
             <div className="flex flex-col gap-3">
               <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">{LAYER_LABEL[focus.layer]}</p>
@@ -669,13 +907,6 @@ export function IcelandMap({
               <a className="text-sm text-(--geo-accent) underline underline-offset-4" href={focus.href}>
                 Open the entry
               </a>
-              <button
-                type="button"
-                className={`w-fit text-left text-sm text-(--geo-ink-dim) underline underline-offset-4 ${MAP_CONTROL}`}
-                onClick={copyLink}
-              >
-                {copied ? "Link copied" : "Copy a link to this view"}
-              </button>
               {focus.person ? (
                 <div className="flex min-w-0 flex-col gap-2">
                   <h3 className="text-sm font-medium text-(--geo-ink)">Career</h3>
@@ -731,31 +962,36 @@ export function IcelandMap({
               {placeEntries.length > 1 ? (
                 <button
                   type="button"
-                  className="text-left text-sm text-(--geo-ink-dim) underline underline-offset-4"
+                  className={`text-left text-sm text-(--geo-ink-dim) underline underline-offset-4 ${MAP_CONTROL}`}
                   onClick={() => go({ ...query, focus: null })}
                 >
-                  Back to {placeName}
+                  Back to {placeName} · still one pin
                 </button>
               ) : null}
             </div>
           ) : selectedPlace ? (
             <div className="flex flex-col gap-3">
-              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">Place</p>
+              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">
+                Place · {placeEntries.length > 1 ? `${placeEntries.length} on one pin` : "one record"}
+              </p>
               <h2 className="text-xl font-medium text-(--geo-ink)">{placeName}</h2>
-              {selectedPlace === "reykjavik" ? (
+              {placeEntries.length > 1 ? (
                 <p className="text-sm leading-6 text-(--geo-ink-muted)">
-                  One pin for the capital. The list is grouped by layer. Offices are not given separate coordinates.
+                  {selectedPlace === "reykjavik"
+                    ? "One pin for the capital. The list is grouped by layer. Offices are not given separate coordinates. ↑↓ or j/k walks the cluster."
+                    : "Several records share this Nominatim point. The count is how many pages name this place, not a score. ↑↓ or j/k walks the cluster."}
                 </p>
               ) : null}
               {grouped.map((group) => (
                 <div key={group.layer.id} className="flex flex-col gap-2">
                   <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">{group.layer.label}</p>
-                  <ul className="flex flex-col gap-2">
+                  <ul className="geo-scroll">
                     {group.entries.map((entry) => (
                       <li key={entry.slug}>
                         <button
                           type="button"
-                          className="text-left text-sm text-(--geo-ink) underline underline-offset-4"
+                          aria-current={selectedSlug === entry.slug ? "true" : undefined}
+                          className={`w-full text-left text-sm text-(--geo-ink) underline underline-offset-4 ${MAP_CONTROL}`}
                           onClick={() => selectSlug(entry.slug, selectedPlace)}
                         >
                           {entry.title}
@@ -778,12 +1014,12 @@ export function IcelandMap({
               {layerEntries.length === 0 ? (
                 <p className="text-sm leading-6 text-(--geo-ink-muted)">Nothing sourced on this layer yet.</p>
               ) : (
-                <ul className="flex flex-col gap-2">
+                <ul className="geo-scroll">
                   {layerEntries.map((entry) => (
                     <li key={entry.slug}>
                         <button
                           type="button"
-                          className="text-left text-sm text-(--geo-ink) underline underline-offset-4"
+                          className={`text-left text-sm text-(--geo-ink) underline underline-offset-4 ${MAP_CONTROL}`}
                           onClick={() => selectSlug(entry.slug, entry.place)}
                         >
                         {entry.title}
@@ -794,12 +1030,14 @@ export function IcelandMap({
               )}
             </div>
           ) : (
-            <p className="text-sm leading-6 text-(--geo-ink-muted)">Select a pin or a figure.</p>
+            <p className="text-sm leading-6 text-(--geo-ink-muted)">
+              Touch a named place. The island stays dark where a page has not named it.
+            </p>
           )}
         </aside>
       </div>
 
-      <div className="flex min-w-0 flex-col gap-4">
+      <div className="geo-folio">
         {MAP_VIEWS.map((view) => {
           if (!viewsOn[view.id]) return null;
           const lines =
@@ -810,7 +1048,7 @@ export function IcelandMap({
           const visibleOffMap = offMap.slice(0, 12);
           const hiddenOffMapCount = offMap.length - visibleOffMap.length;
           return (
-            <section key={view.id} className="min-w-0">
+            <section key={view.id} className="geo-folio-panel">
               <h2 className="text-sm font-medium text-(--geo-ink)">
                 {view.label} · {lines.length}
               </h2>
@@ -833,7 +1071,7 @@ export function IcelandMap({
                 </ul>
               )}
               {offMap.length > 0 ? (
-                <div className="mt-3 rounded-xl border border-(--geo-line) bg-(--geo-panel) p-3">
+                <div className="mt-3 rounded-md border border-(--geo-line) bg-(--geo-panel-sunken) p-3">
                   <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">
                     Off-map endpoints · {offMap.length}
                   </p>
@@ -870,8 +1108,10 @@ export function IcelandMap({
         })}
       </div>
 
-      <p className="text-xs leading-5 text-(--geo-ink-dim)">
-        Coastline: Natural Earth 1:50m, public domain. Place points: Nominatim names for Reykjavík, Straumsvík, Grundartangi, Reyðarfjörður, Keflavík airport, and Blönduós.
+      <p className="geo-credit">
+        Coastline: Natural Earth 1:50m, public domain. Place points: Nominatim names for the
+        pinned towns. A number on a pin is how many catalog pages share that point, not a total
+        and not a score.
       </p>
     </div>
   );

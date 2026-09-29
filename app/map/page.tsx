@@ -14,7 +14,8 @@ import { ownsRowNote, tradeValueNote } from "@/lib/notes";
 
 export const metadata: Metadata = {
   title: "Map",
-  description: "A test geographic map of sourced places in Iceland.",
+  description:
+    "Iceland at night, only where a sourced page names the place. One pin per town, not a door for each office.",
 };
 
 function firstSentence(summary: string): string {
@@ -116,8 +117,14 @@ export default function MapPage() {
   }));
 
   return (
-    <main className="geo-room min-h-full">
-      <Suspense>
+    <main className="geo-room">
+      <Suspense
+        fallback={
+          <p className="px-4 py-10 text-sm text-(--geo-ink-dim)">
+            Drawing the island from sourced places.
+          </p>
+        }
+      >
         <IcelandMap entries={entries} edges={edges} offMapByView={offMapByView} />
       </Suspense>
     </main>
