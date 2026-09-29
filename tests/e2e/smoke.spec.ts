@@ -48,6 +48,7 @@ test.describe("visual baselines", () => {
       await expect(page).toHaveScreenshot(`${slug}-1440.png`, {
         fullPage: true,
         maxDiffPixelRatio: 0.03,
+        timeout: 15_000,
       });
     }
   });

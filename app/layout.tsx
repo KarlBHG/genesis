@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      className={`${sans.variable} ${serif.variable} h-full antialiased`}
+      className={`${sans.variable} ${serif.variable} min-h-full antialiased`}
       lang="en"
     >
       <body className="flex min-h-full flex-col">

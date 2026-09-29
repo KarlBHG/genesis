@@ -568,6 +568,8 @@ body:has(.geo-room) footer {
   }
   html {
     @apply font-sans;
+    height: auto;
+    min-height: 100%;
   }
   ::selection {
     background: var(--primary);
