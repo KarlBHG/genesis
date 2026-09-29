@@ -379,19 +379,26 @@ body:has(.geo-room) footer {
 .geo-room .geo-stage {
   grid-area: stage;
   position: relative;
+  display: flex;
   min-width: 0;
   min-height: 28rem;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   border: 1px solid var(--geo-line-strong);
   background: var(--geo-sea-deep);
   box-shadow: var(--geo-glow);
 }
 
-.geo-room .geo-stage svg {
+.geo-room .geo-stage-art {
+  position: relative;
+  width: 100%;
+}
+
+.geo-room .geo-stage-art svg {
   display: block;
   width: 100%;
-  height: 100%;
-  min-height: 28rem;
+  height: auto;
 }
 
 .geo-room .geo-pins {
@@ -488,11 +495,12 @@ body:has(.geo-room) footer {
   }
 
   .geo-room .geo-stage {
-    min-height: 62dvh;
+    min-height: 58dvh;
   }
 
-  .geo-room .geo-stage svg {
-    min-height: 62dvh;
+  .geo-room .geo-stage-art {
+    width: 128%;
+    max-width: none;
   }
 
   .geo-room .geo-inspector {

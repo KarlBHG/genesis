@@ -577,10 +577,11 @@ export function IcelandMap({
         </div>
 
         <div className="geo-stage">
+          <div className="geo-stage-art">
           <svg
             viewBox={`0 0 ${scene.width} ${scene.height}`}
             preserveAspectRatio="xMidYMid meet"
-            className="h-full w-full"
+            className="h-auto w-full"
             role="img"
             aria-label="Outline of Iceland with sourced pins. One pin per named place; a number is how many records share that pin."
           >
@@ -816,6 +817,7 @@ export function IcelandMap({
               />
             );
           })}
+          </div>
         </div>
 
         <nav className="geo-pins" aria-label="Places on the map">
