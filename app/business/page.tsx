@@ -33,7 +33,7 @@ export default function BusinessPage() {
         title="Business"
       />
       <div className="mx-auto w-full max-w-shell px-4 pb-16 pt-10 sm:px-6">
-        <Suspense fallback={<Skeleton className="h-64 w-full rounded-2xl" />}>
+        <Suspense fallback={<Skeleton className="h-64 w-full rounded-md" />}>
           <EntryIndexBrowser
             defaultSort="title"
             facets={areaFacet ? [areaFacet] : []}

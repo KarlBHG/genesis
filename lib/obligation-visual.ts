@@ -18,47 +18,47 @@ export type ObligationVisual = {
 
 export const OBLIGATION_VISUAL: Record<string, ObligationVisual> = {
   security: {
-    accent: "from-slate-600/8 via-indigo-500/4 to-transparent",
+    accent: "theme-wash-security",
     ring: "var(--theme-security)",
     icon: ShieldIcon,
   },
   europe: {
-    accent: "from-blue-600/7 via-violet-500/4 to-transparent",
+    accent: "theme-wash-europe",
     ring: "var(--theme-europe)",
     icon: Globe2Icon,
   },
   "bilateral-trade": {
-    accent: "from-amber-600/7 via-orange-500/4 to-transparent",
+    accent: "theme-wash-bilateral-trade",
     ring: "var(--theme-bilateral-trade)",
     icon: HandshakeIcon,
   },
   multilateral: {
-    accent: "from-teal-600/6 via-cyan-500/4 to-transparent",
+    accent: "theme-wash-multilateral",
     ring: "var(--theme-multilateral)",
     icon: Ship,
   },
   financial: {
-    accent: "from-rose-600/6 via-red-500/4 to-transparent",
+    accent: "theme-wash-financial",
     ring: "var(--theme-financial)",
     icon: TrendingUpIcon,
   },
   budget: {
-    accent: "from-emerald-600/6 via-green-500/4 to-transparent",
+    accent: "theme-wash-budget",
     ring: "var(--theme-budget)",
     icon: LandmarkIcon,
   },
   aviation: {
-    accent: "from-sky-600/7 via-blue-400/4 to-transparent",
+    accent: "theme-wash-aviation",
     ring: "var(--theme-aviation)",
     icon: PlaneIcon,
   },
   investment: {
-    accent: "from-violet-600/6 via-purple-500/4 to-transparent",
+    accent: "theme-wash-investment",
     ring: "var(--theme-investment)",
     icon: BanknoteIcon,
   },
   development: {
-    accent: "from-lime-600/5 via-emerald-500/4 to-transparent",
+    accent: "theme-wash-development",
     ring: "var(--theme-development)",
     icon: Globe2Icon,
   },
@@ -67,7 +67,7 @@ export const OBLIGATION_VISUAL: Record<string, ObligationVisual> = {
 export function obligationVisual(id: string): ObligationVisual {
   return (
     OBLIGATION_VISUAL[id] ?? {
-      accent: "from-primary/6 to-transparent",
+      accent: "theme-wash-fallback",
       ring: "var(--theme-fallback)",
       icon: Globe2Icon,
     }

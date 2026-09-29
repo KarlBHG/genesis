@@ -36,7 +36,7 @@ function ThemeEvidence({
 
   return (
     <details
-      className="relative mt-6 rounded-2xl border border-border/60 bg-background/60 p-4"
+      className="relative mt-6 rounded-md border border-border/60 bg-background/60 p-4"
       id={`${sectionId}-evidence`}
     >
       <summary className="flex cursor-pointer list-none flex-wrap items-baseline gap-2 text-sm font-medium">
@@ -99,9 +99,7 @@ export function ObligationsIndex({
           aria-label="Obligation themes"
           className="top-24 hidden h-fit lg:sticky lg:block"
         >
-          <p className="mb-4 text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
-            Themes
-          </p>
+          <p className="kicker mb-4">Themes</p>
           <ul className="flex flex-col gap-1 border-l border-border/80 pl-4">
             {OBLIGATION_SECTIONS.map((section) => {
               const visual = obligationVisual(section.id);
@@ -141,10 +139,10 @@ export function ObligationsIndex({
                 id={section.id}
                 key={section.id}
               >
-                <article className="glass-panel group relative overflow-hidden rounded-3xl p-6 sm:p-8">
+                <article className="glass-panel ink-card group relative overflow-hidden p-6 sm:p-8">
                   <div
                     aria-hidden
-                    className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${visual.accent}`}
+                    className={`pointer-events-none absolute inset-0 ${visual.accent}`}
                   />
                   <div
                     aria-hidden
@@ -154,7 +152,7 @@ export function ObligationsIndex({
                   <header className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="flex gap-4">
                       <div
-                        className="flex size-11 shrink-0 items-center justify-center rounded-2xl border border-border/60 bg-background/70 shadow-sm backdrop-blur-sm"
+                        className="flex size-11 shrink-0 items-center justify-center rounded-md border border-border/60 bg-background/70 shadow-sm backdrop-blur-sm"
                         style={{ color: visual.ring }}
                       >
                         <Icon className="size-5" strokeWidth={1.5} />
@@ -176,7 +174,7 @@ export function ObligationsIndex({
                     {section.items.map((item) => (
                       <li key={item.href}>
                         <Link
-                          className="block rounded-2xl border border-border/60 bg-background/80 p-4 backdrop-blur-sm transition-all hover:border-primary/25 hover:bg-background/95 hover:shadow-md"
+                          className="block rounded-md border border-border/60 bg-background/80 p-4 backdrop-blur-sm transition-colors hover:border-primary/25 hover:bg-background/95"
                           href={item.href}
                         >
                           <span className="font-medium underline-offset-4 group-hover:underline">
@@ -213,10 +211,8 @@ export function ObligationsIndex({
 
 export function ObligationsHeroAside() {
   return (
-    <div className="glass-panel flex flex-col gap-3 rounded-2xl p-5">
-      <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">
-        {OBLIGATION_SECTIONS.length} themes on this page
-      </p>
+    <div className="glass-panel flex flex-col gap-3 p-5">
+      <p className="kicker">{OBLIGATION_SECTIONS.length} themes on this page</p>
       <ul className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
         {OBLIGATION_SECTIONS.map((section) => {
           const visual = obligationVisual(section.id);

@@ -35,35 +35,35 @@ const PORTALS = [
     title: "Map",
     description: "Geography of state, companies, and multinationals.",
     icon: MapIcon,
-    accent: "from-sky-500/15 to-transparent",
+    tint: "portal-tint-map",
   },
   {
     href: "/obligations",
     title: "Obligations",
     description: "Security, Europe, trade, investment, and aid.",
     icon: ShieldIcon,
-    accent: "from-indigo-500/12 to-transparent",
+    tint: "portal-tint-obligations",
   },
   {
     href: "/treaties",
     title: "Treaties",
     description: "Every agreement record with source lines.",
     icon: ScaleIcon,
-    accent: "from-amber-500/12 to-transparent",
+    tint: "portal-tint-treaties",
   },
   {
     href: "/money#government-programs",
     title: "Budget",
     description: "2026 policy areas, Article 4 rows, trade, and Treasury totals.",
     icon: LandmarkIcon,
-    accent: "from-emerald-500/12 to-transparent",
+    tint: "portal-tint-budget",
   },
   {
     href: "/events",
     title: "Events",
     description: "Crises, accession, and turning points.",
     icon: SparklesIcon,
-    accent: "from-rose-500/10 to-transparent",
+    tint: "portal-tint-events",
   },
   {
     href: "/methodology",
@@ -71,7 +71,7 @@ const PORTALS = [
     description:
       "Six required fields, as-of buckets, and what this project refuses to publish.",
     icon: ScrollTextIcon,
-    accent: "from-slate-500/12 to-transparent",
+    tint: "portal-tint-method",
   },
 ] as const;
 
@@ -81,9 +81,7 @@ function ChainCard({ chain }: { chain: LandingChain }) {
     (step, index) => `${chain.id}-${index}-${step.from}-${step.relationship}-${step.to}`,
   );
   return (
-    <article
-      className="glass-panel group relative flex flex-col gap-4 overflow-hidden rounded-2xl p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg"
-    >
+    <article className="glass-panel ink-card group relative flex flex-col gap-4 overflow-hidden p-5">
       <div
         aria-hidden
         className="pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full bg-primary/5 blur-2xl transition-opacity group-hover:opacity-100"
@@ -162,13 +160,13 @@ export function HomeDashboard({
     <div className="dashboard-canvas">
       <section className="dashboard-hero relative border-b">
         <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
-          <div className="flex max-w-xl flex-col gap-6">
-            <p className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">
-              AlltÍkerfi · sourced atlas
-            </p>
-            <h1 className="text-4xl font-medium tracking-tight text-balance sm:text-5xl lg:text-[3.5rem] lg:leading-[1.06]">
+          <div className="fade-rise flex max-w-xl flex-col gap-6">
+            <p className="kicker">AlltÍkerfi · sourced atlas</p>
+            <h1 className="text-4xl font-medium text-balance sm:text-5xl lg:text-[3.55rem] lg:leading-[1.04]">
               <span className="block">How Iceland</span>
-              <span className="block text-foreground/90">is wired.</span>
+              <span className="mt-1 block font-serif italic text-foreground/80">
+                is wired.
+              </span>
             </h1>
             <p className="text-lg leading-8 text-muted-foreground">
               Public records, not influence scores. Each connection quotes its
@@ -210,11 +208,8 @@ export function HomeDashboard({
                 { label: "Treaties", value: treatyCount },
                 { label: "Map pins", value: mapPinCount },
               ].map((stat) => (
-                <div
-                  className="glass-panel rounded-xl px-3 py-2.5"
-                  key={stat.label}
-                >
-                  <dt className="text-[0.65rem] tracking-wide text-muted-foreground uppercase">
+                <div className="stat-cell" key={stat.label}>
+                  <dt className="text-[0.65rem] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
                     {stat.label}
                   </dt>
                   <dd className="font-serif text-2xl font-medium tabular-nums">
@@ -224,23 +219,26 @@ export function HomeDashboard({
               ))}
             </dl>
           </div>
-          <div className="flex w-full min-w-0 flex-col items-center gap-3 sm:gap-4 lg:max-w-md lg:flex-1">
+          <div className="fade-rise-delayed flex w-full min-w-0 flex-col items-center gap-3 sm:gap-4 lg:max-w-md lg:flex-1">
             <p className="text-center text-sm text-muted-foreground">
               {obligationThemeCount} themes ·{" "}
               <Link className="underline underline-offset-4" href="/obligations">
                 full index
               </Link>
             </p>
-            <HomeConstellation />
+            <div className="hidden w-full sm:block">
+              <HomeConstellation />
+            </div>
             <ConstellationLegend />
           </div>
         </div>
       </section>
 
       <section className="mx-auto w-full max-w-shell px-4 py-12 sm:px-6">
-        <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="text-2xl font-medium tracking-tight">Enter anywhere</h2>
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-2">
+            <p className="kicker">Doors</p>
+            <h2 className="text-2xl font-medium">Enter anywhere</h2>
             <p className="text-sm text-muted-foreground">
               Six doors into the graph — map, law, money, and time.
             </p>
@@ -250,18 +248,15 @@ export function HomeDashboard({
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {PORTALS.map((portal) => (
             <Link
-              className="glass-panel group relative flex flex-col gap-3 overflow-hidden rounded-2xl p-5 transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-lg"
+              className="glass-panel ink-card group relative flex flex-col gap-3 overflow-hidden p-5"
               href={portal.href}
               key={portal.href}
             >
-              <div
-                aria-hidden
-                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${portal.accent} opacity-80`}
-              />
+              <div aria-hidden className={`pointer-events-none absolute inset-0 ${portal.tint}`} />
               <div className="relative flex items-start justify-between gap-2">
                 <portal.icon className="size-5 text-primary/80" strokeWidth={1.5} />
                 <ArrowUpRightIcon
-                  className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
+                  className="size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100"
                 />
               </div>
               <div className="relative">
@@ -277,13 +272,14 @@ export function HomeDashboard({
 
       <section className="border-y border-border/60 bg-muted/20 backdrop-blur-sm">
         <div className="mx-auto w-full max-w-shell px-4 py-12 sm:px-6">
-          <h2 className="mb-2 text-2xl font-medium tracking-tight">Catalog shape</h2>
+          <p className="kicker">Width of the atlas</p>
+          <h2 className="mb-2 text-2xl font-medium">Catalog shape</h2>
           <p className="mb-6 max-w-lede text-sm text-muted-foreground">
             {total} indexed records across six kinds — width of the atlas, not a
             ranking.
           </p>
           <div
-            className="flex h-3 w-full overflow-hidden rounded-full border bg-background"
+            className="flex h-2.5 w-full overflow-hidden border bg-background"
             role="img"
             aria-label="Catalog distribution by kind"
           >
@@ -318,7 +314,8 @@ export function HomeDashboard({
 
       <section className="mx-auto w-full max-w-shell px-4 py-12 sm:px-6">
         <div className="mb-8 flex flex-col gap-2">
-          <h2 className="text-2xl font-medium tracking-tight">
+          <p className="kicker">Evidence paths</p>
+          <h2 className="text-2xl font-medium">
             {LANDING_CHAINS.length} chains to start from
           </h2>
           <p className="max-w-lede text-sm text-muted-foreground">
@@ -334,10 +331,10 @@ export function HomeDashboard({
       </section>
 
       <section className="mx-auto w-full max-w-shell px-4 pb-16 sm:px-6">
-        <div className="glass-panel rounded-2xl p-6 sm:p-8">
+        <div className="glass-panel p-6 sm:p-8">
           <div className="mb-4 flex items-center gap-2">
             <SearchIcon className="size-5 text-muted-foreground" strokeWidth={1.5} />
-            <h2 className="text-xl font-medium tracking-tight">Search the records</h2>
+            <h2 className="text-xl font-medium">Search the records</h2>
           </div>
           <SearchPanel docs={searchDocs} />
         </div>

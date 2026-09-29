@@ -387,9 +387,9 @@ export function IcelandMap({
 
   return (
     <div className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-5 px-4 py-6 sm:px-6">
-      <header className="flex max-w-reading flex-col gap-2">
-        <p className="text-xs tracking-[0.18em] text-(--geo-ink-dim) uppercase">Geographic view</p>
-        <h1 className="text-3xl font-medium tracking-tight text-(--geo-ink) sm:text-4xl" style={{ fontFamily: "var(--font-serif), serif" }}>
+      <header className="flex max-w-reading flex-col gap-3">
+        <p className="kicker">Geographic view</p>
+        <h1 className="text-3xl font-medium text-(--geo-ink) sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08]" style={{ fontFamily: "var(--font-serif), serif" }}>
           Iceland, only where a page names the place.
         </h1>
         <p className="text-sm leading-6 text-(--geo-ink-muted)">
@@ -403,7 +403,7 @@ export function IcelandMap({
             key={layer.id}
             type="button"
             aria-pressed={enabled[layer.id]}
-            className={`rounded-full border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
+            className={`rounded-md border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
             style={{
               borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
               color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
@@ -426,7 +426,7 @@ export function IcelandMap({
             key={view.id}
             type="button"
             aria-pressed={viewsOn[view.id]}
-            className={`rounded-full border border-(--geo-line) px-3 py-1.5 text-sm ${MAP_CONTROL}`}
+            className={`rounded-md border border-(--geo-line) px-3 py-1.5 text-sm ${MAP_CONTROL}`}
             style={{
               color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
               background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
@@ -462,7 +462,7 @@ export function IcelandMap({
           })}
         </div>
 
-        <div className="min-w-0 rounded-2xl border border-(--geo-line-strong) bg-(--geo-frame) p-2 shadow-(--geo-glow) sm:p-3">
+        <div className="min-w-0 rounded-md border border-(--geo-line-strong) bg-(--geo-frame) p-2 shadow-(--geo-glow) sm:p-3">
           <div className="relative min-w-0">
             <svg
               viewBox={`0 0 ${scene.width} ${scene.height}`}
@@ -470,7 +470,7 @@ export function IcelandMap({
               role="img"
               aria-label="Outline of Iceland with sourced pins"
             >
-              <rect width={scene.width} height={scene.height} fill="var(--geo-plate)" rx="12" />
+              <rect width={scene.width} height={scene.height} fill="var(--geo-plate)" rx="4" />
               <path d={scene.d} fill="var(--geo-land)" stroke="var(--geo-ink-muted)" strokeWidth="1.4" />
               {strings.map(({ edge, bend, year }) => {
                 const drawn = curve(points[edge.fromPlace!], points[edge.toPlace!], bend);
@@ -581,7 +581,7 @@ export function IcelandMap({
                     <button
                       type="button"
                       aria-pressed={selected}
-                      className={`rounded-full border px-3 py-1 text-sm ${MAP_CONTROL}`}
+                      className={`rounded-md border px-3 py-1 text-sm ${MAP_CONTROL}`}
                       style={{
                         borderColor: selected ? "var(--layer-state)" : "var(--geo-line-strong)",
                         color: selected ? "var(--geo-ink)" : "var(--geo-ink-muted)",
@@ -652,13 +652,13 @@ export function IcelandMap({
           ) : null}
         </div>
 
-        <aside className="min-w-0 rounded-2xl border border-(--geo-line) bg-(--geo-panel) p-4" aria-live="polite">
+        <aside className="min-w-0 rounded-md border border-(--geo-line) bg-(--geo-panel) p-4" aria-live="polite">
           {focus ? (
             <div className="flex flex-col gap-3">
               <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">{LAYER_LABEL[focus.layer]}</p>
               {focus.pinOnly ? (
                 <p
-                  className="w-fit rounded-full border border-(--geo-line-bright) bg-(--geo-chip) px-2.5 py-0.5 text-[11px] tracking-wide text-(--geo-accent-dim) uppercase"
+                  className="w-fit rounded-md border border-(--geo-line-bright) bg-(--geo-chip) px-2.5 py-0.5 text-[11px] tracking-wide text-(--geo-accent-dim) uppercase"
                   title="This pin is geographic only until a sourced typed edge exists."
                 >
                   Pin only · no typed edge

@@ -60,7 +60,7 @@ export function TreatyBrowser({ items }: { items: TreatyItem[] }) {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="glass-panel flex flex-col gap-5 rounded-2xl p-5 sm:p-6">
+      <div className="glass-panel flex flex-col gap-5 p-5 sm:p-6">
         <div className="flex flex-col gap-2">
           <p className="text-sm text-muted-foreground">Status</p>
           <ToggleGroup

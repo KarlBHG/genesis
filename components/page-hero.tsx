@@ -23,30 +23,28 @@ export function PageHero({
     >
       <div className="page-hero-glow" aria-hidden />
       <div className="relative z-10 mx-auto flex w-full max-w-shell flex-col gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:flex-row lg:items-end lg:justify-between">
-        <div className="flex max-w-lede flex-col gap-4">
-          {eyebrow ? (
-            <p className="text-xs font-medium tracking-[0.22em] text-muted-foreground uppercase">
-              {eyebrow}
-            </p>
-          ) : null}
+        <div className="fade-rise flex max-w-lede flex-col gap-4">
+          {eyebrow ? <p className="kicker">{eyebrow}</p> : null}
           <h1
-            className={`font-medium tracking-tight text-balance ${
+            className={`font-medium text-balance ${
               size === "dramatic"
-                ? "text-4xl sm:text-5xl lg:text-[3.5rem] lg:leading-[1.06]"
+                ? "text-4xl sm:text-5xl lg:text-[3.55rem] lg:leading-[1.04]"
                 : "text-3xl sm:text-4xl"
             }`}
           >
             {title}
           </h1>
           {description ? (
-            <div className="text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+            <div className="max-w-lede text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
               {description}
             </div>
           ) : null}
           {children}
         </div>
         {aside ? (
-          <div className="w-full shrink-0 lg:max-w-md lg:flex-1">{aside}</div>
+          <div className="fade-rise-delayed w-full shrink-0 lg:max-w-md lg:flex-1">
+            {aside}
+          </div>
         ) : null}
       </div>
     </header>

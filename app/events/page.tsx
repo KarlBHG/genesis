@@ -62,7 +62,7 @@ export default function EventsPage() {
           </EmptyHeader>
         </Empty>
       ) : (
-        <Suspense fallback={<Skeleton className="h-64 w-full rounded-2xl" />}>
+        <Suspense fallback={<Skeleton className="h-64 w-full rounded-md" />}>
           <EventTimeline events={events} />
         </Suspense>
       )}

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { ConnectionGroupedPanels, edgeKey } from "@/components/connection-graph";
 import { HashScroll } from "@/components/hash-scroll";
+import { PageHero } from "@/components/page-hero";
 import { EdgeRow } from "@/components/viz";
 import {
   Table,
@@ -113,19 +114,24 @@ export default async function ConnectionsPage({
     .sort((a, b) => a.relationship.localeCompare(b.relationship) || a.fromTitle.localeCompare(b.fromTitle, "en"));
 
   return (
-    <main className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-8 sm:px-6">
+    <main className="dashboard-canvas min-w-0">
       <HashScroll />
-      <header className="flex max-w-reading flex-col gap-2">
-        <h1 className="text-3xl font-medium tracking-tight">Connections</h1>
-        <p className="text-muted-foreground">
-          The same buckets as the map. Authorisations, invoices, and contracts are
-          separate money phases — a permission to spend is not a payment, and a
-          power-purchase line is not an invoice. Each line is one typed
-          relationship with its own page. Full names wrap. The budget drawing is on{" "}
-          <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
-        </p>
+      <PageHero
+        description={
+          <>
+            The same buckets as the map. Authorisations, invoices, and contracts are
+            separate money phases — a permission to spend is not a payment, and a
+            power-purchase line is not an invoice. Each line is one typed
+            relationship with its own page. Full names wrap. The budget drawing is on{" "}
+            <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
+          </>
+        }
+        eyebrow="Typed public record"
+        title="Connections"
+      />
+      <div className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-10 sm:px-6">
         {focusSlug ? (
-          <p className="text-sm text-muted-foreground">
+          <p className="max-w-reading text-sm text-muted-foreground">
             {focusEntry ? (
               <>
                 Showing {edges.length} line{edges.length === 1 ? "" : "s"} involving{" "}
@@ -147,11 +153,10 @@ export default async function ConnectionsPage({
             )}
           </p>
         ) : null}
-      </header>
       <nav aria-label="Connection views" className="flex flex-wrap gap-2">
         {byView.map((view) => (
           <a
-            className="rounded-full border px-3 py-1.5 text-sm underline-offset-4 hover:underline"
+            className="rounded-md border px-3 py-1.5 text-sm underline-offset-4 transition-colors hover:bg-muted hover:underline"
             href={`#${view.id}`}
             key={view.id}
           >
@@ -263,6 +268,7 @@ export default async function ConnectionsPage({
           Download connections CSV
         </a>
       </p>
+      </div>
     </main>
   );
 }

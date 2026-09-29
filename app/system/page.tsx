@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { edgeKey } from "@/components/connection-graph";
+import { PageHero } from "@/components/page-hero";
 import { getBySlug, getChanges, getEdges, hrefFor } from "@/lib/content";
 import { formatDate, labelize } from "@/lib/format";
 import { tradeValueNote } from "@/lib/notes";
@@ -30,17 +31,22 @@ export default function SystemPage() {
   );
 
   return (
-    <main className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-8 sm:px-6">
-      <header className="flex max-w-reading flex-col gap-2">
-        <h1 className="text-3xl font-medium tracking-tight">How the system operates</h1>
-        <p className="text-muted-foreground">
-          The records below are sentences from pages opened for this pass. A country named as a trade partner is not a company, and a legal form on the registry is not an influence score. The budget drawing is on <Link className="underline underline-offset-4" href="/overview">Overview</Link>. Public-entity coverage is tracked on{" "}
-          <Link className="underline underline-offset-4" href="/public-entities">
-            Public entities
-          </Link>
-          .
-        </p>
-      </header>
+    <main className="dashboard-canvas min-w-0">
+      <PageHero
+        description={
+          <>
+            The records below are sentences from pages opened for this pass. A country named as a trade partner is not a company, and a legal form on the registry is not an influence score. The budget drawing is on{" "}
+            <Link className="underline underline-offset-4" href="/overview">Overview</Link>. Public-entity coverage is tracked on{" "}
+            <Link className="underline underline-offset-4" href="/public-entities">
+              Public entities
+            </Link>
+            .
+          </>
+        }
+        eyebrow="How to read"
+        title="How the system operates"
+      />
+      <div className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-10 sm:px-6">
 
       <section className="flex min-w-0 flex-col gap-3">
         <h2 className="text-xl font-medium">The state</h2>
@@ -165,6 +171,7 @@ export default function SystemPage() {
           ))}
         </ul>
       </section>
+      </div>
     </main>
   );
 }

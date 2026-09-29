@@ -178,7 +178,7 @@ export function ConstellationLegend() {
         return (
           <li key={section.id}>
             <Link
-              className="flex items-center gap-2.5 rounded-xl border border-border/60 bg-card/70 px-3 py-2 text-sm transition-colors hover:border-primary/25"
+              className="flex items-center gap-2.5 rounded-md border border-border/60 bg-card/70 px-3 py-2 text-sm transition-colors hover:border-primary/25"
               href={`/obligations#${section.id}`}
             >
               <span

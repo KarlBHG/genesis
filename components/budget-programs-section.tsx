@@ -29,7 +29,7 @@ export function BudgetProgramsSection() {
       id="government-programs"
     >
       <BudgetPolicyMagnitude />
-      <div className="glass-panel flex max-w-reading flex-col gap-3 rounded-2xl p-6">
+      <div className="glass-panel flex max-w-reading flex-col gap-3 p-6">
         <h2 className="font-serif text-xl font-medium">Government programs, 2026</h2>
         <p className="text-sm leading-6 text-muted-foreground">
           {areas.length} policy areas. Each card quotes the spending line that area’s

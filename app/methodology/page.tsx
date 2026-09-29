@@ -103,11 +103,9 @@ export default function MethodologyPage() {
         aside={
           <nav
             aria-label="On this page"
-            className="glass-panel flex flex-col gap-2 rounded-2xl p-5"
+            className="glass-panel flex flex-col gap-2 p-5"
           >
-            <p className="text-xs font-medium tracking-[0.18em] text-muted-foreground uppercase">
-              On this page
-            </p>
+            <p className="kicker">On this page</p>
             <ul className="grid grid-cols-1 gap-1 sm:grid-cols-2">
               {SECTIONS.map((section) => (
                 <li key={section.id}>

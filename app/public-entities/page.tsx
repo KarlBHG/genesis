@@ -4,6 +4,12 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
 import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
   Table,
   TableBody,
   TableCaption,
@@ -56,24 +62,33 @@ export default function PublicEntitiesPage() {
       />
       <div className="mx-auto flex w-full max-w-shell flex-col gap-6 px-4 pb-16 pt-10 sm:px-6">
         <section className="grid gap-3 md:grid-cols-3">
-          <article className="rounded-xl border bg-card p-4">
-            <p className="text-sm text-muted-foreground">Mapped</p>
-            <p className="mt-1 text-2xl font-medium">
-              {totalMapped} / {rows.length}
-            </p>
-          </article>
-          <article className="rounded-xl border bg-card p-4">
-            <p className="text-sm text-muted-foreground">Typed links</p>
-            <p className="mt-1 text-2xl font-medium">
-              {totalTyped} / {rows.length}
-            </p>
-          </article>
-          <article className="rounded-xl border bg-card p-4">
-            <p className="text-sm text-muted-foreground">Office-linked</p>
-            <p className="mt-1 text-2xl font-medium">
-              {totalOffice} / {rows.length}
-            </p>
-          </article>
+          <Card>
+            <CardHeader>
+              <p className="kicker">Coverage</p>
+              <CardDescription>Mapped</CardDescription>
+              <CardTitle className="font-serif text-3xl tabular-nums">
+                {totalMapped} / {rows.length}
+              </CardTitle>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <p className="kicker">Graph</p>
+              <CardDescription>Typed links</CardDescription>
+              <CardTitle className="font-serif text-3xl tabular-nums">
+                {totalTyped} / {rows.length}
+              </CardTitle>
+            </CardHeader>
+          </Card>
+          <Card>
+            <CardHeader>
+              <p className="kicker">Offices</p>
+              <CardDescription>Office-linked</CardDescription>
+              <CardTitle className="font-serif text-3xl tabular-nums">
+                {totalOffice} / {rows.length}
+              </CardTitle>
+            </CardHeader>
+          </Card>
         </section>
 
         <Tabs className="gap-6" defaultValue="inventory">
@@ -201,16 +216,18 @@ export default function PublicEntitiesPage() {
             </div>
             <div className="grid gap-3 md:grid-cols-3">
               {ledger.map((group) => (
-                <article className="rounded-xl border p-4" key={group.id}>
-                  <p className="text-sm text-muted-foreground">{group.label}</p>
-                  <p className="mt-1 text-2xl font-medium">
-                    {group.matched} / {group.total}
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {group.unmatched} unmatched
-                    {group.grouped > 0 ? ` · ${group.grouped} grouped` : ""}
-                  </p>
-                </article>
+                <Card key={group.id}>
+                  <CardHeader>
+                    <CardDescription>{group.label}</CardDescription>
+                    <CardTitle className="font-serif text-3xl tabular-nums">
+                      {group.matched} / {group.total}
+                    </CardTitle>
+                    <p className="text-xs text-muted-foreground">
+                      {group.unmatched} unmatched
+                      {group.grouped > 0 ? ` · ${group.grouped} grouped` : ""}
+                    </p>
+                  </CardHeader>
+                </Card>
               ))}
             </div>
             {ledger.map((group) => {

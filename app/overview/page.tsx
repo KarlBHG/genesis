@@ -42,7 +42,7 @@ export default function OverviewPage() {
       />
       <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 py-10 sm:px-6">
         <ConnectionStrips edges={edges} only="budget" />
-        <div className="glass-panel rounded-2xl p-6 sm:p-8">
+        <div className="glass-panel p-6 sm:p-8">
           <SearchPanel docs={toSearchDocs(entries)} />
         </div>
         <nav
@@ -51,7 +51,7 @@ export default function OverviewPage() {
         >
           {counts.map((item) => (
             <Link
-              className="glass-panel rounded-xl px-4 py-3 transition-all hover:-translate-y-0.5 hover:shadow-md"
+              className="glass-panel ink-card px-4 py-3"
               href={item.href}
               key={item.href}
             >

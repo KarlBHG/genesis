@@ -325,7 +325,7 @@ function PaysProgramNullNotice({ slug }: { slug: string }) {
 
 function FactStrip({ entry }: { entry: Entry }) {
   return (
-    <dl className="entry-fact-strip flex flex-wrap gap-x-6 gap-y-2 text-sm">
+    <dl className="entry-fact-strip flex flex-wrap gap-x-6 gap-y-2 border-t border-border pt-3 text-sm">
       {factStrip(entry).map((fact) => (
         <div className="flex items-baseline gap-1.5" key={fact.term}>
           <dt className="text-muted-foreground">{fact.term}</dt>
@@ -364,9 +364,9 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <header className="glass-panel atlas-page-header flex flex-col gap-3">
-        <div className="flex flex-wrap items-center gap-3 print:hidden">
-          <p className="text-sm text-muted-foreground">{labelize(entry.kind)}</p>
+      <header className="glass-panel atlas-page-header flex flex-col gap-4">
+        <p className="kicker">{labelize(entry.kind)}</p>
+        <div className="flex flex-wrap items-center gap-2 print:hidden">
           <Button
             nativeButton={false}
             render={<Link href={kindPath(entry.kind)} />}
@@ -396,7 +396,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
             </Button>
           ) : null}
         </div>
-        <h1 className="text-3xl font-medium tracking-tight sm:text-4xl">
+        <h1 className="text-3xl font-medium sm:text-4xl">
           {entry.title}
         </h1>
         {entry.lede ? (

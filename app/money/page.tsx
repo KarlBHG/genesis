@@ -52,7 +52,7 @@ export default function MoneyPage() {
         </section>
 
         <section className="flex min-w-0 scroll-mt-24 flex-col gap-4" id="invoices">
-          <div className="glass-panel flex max-w-reading flex-col gap-3 rounded-2xl p-6">
+          <div className="glass-panel flex max-w-reading flex-col gap-3 p-6">
             <h2 className="font-serif text-xl font-medium">Invoices</h2>
             <p className="text-sm leading-6 text-muted-foreground">
               {pays.length} stored Opnir reikningar {pays.length === 1 ? "row" : "rows"}.

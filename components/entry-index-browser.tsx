@@ -237,7 +237,7 @@ export function EntryIndexBrowser({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="glass-panel flex flex-col gap-5 rounded-2xl p-5 sm:p-6 print:hidden">
+      <div className="glass-panel flex flex-col gap-5 p-5 sm:p-6 print:hidden">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <label className="flex w-full flex-col gap-1.5 sm:max-w-sm">
             <span className="text-sm text-muted-foreground">{searchLabel}</span>

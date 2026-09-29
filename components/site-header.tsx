@@ -71,9 +71,12 @@ export function SiteHeader() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/80 shadow-sm shadow-primary/5 backdrop-blur-md supports-[backdrop-filter]:bg-background/65 print:hidden">
-      <div className="mx-auto flex w-full max-w-shell items-center gap-3 px-4 py-3 sm:px-6">
-        <Link className="text-lg font-medium tracking-tight" href="/">
+    <header className="site-masthead sticky top-0 z-40 border-b border-border/80 bg-background/75 shadow-sm shadow-primary/8 backdrop-blur-md supports-[backdrop-filter]:bg-background/58 print:hidden">
+      <div className="mx-auto flex w-full max-w-shell items-center gap-3 px-4 py-2.5 sm:px-6">
+        <Link
+          className="font-serif text-lg font-medium tracking-[0.04em] text-balance"
+          href="/"
+        >
           AlltÍkerfi
         </Link>
         <div className="ml-auto md:ml-0">
@@ -111,7 +114,7 @@ export function SiteHeader() {
                   {entry.label}
                 </Button>
                 {openMenu === entry.label ? (
-                  <div className="absolute top-full right-0 z-50 w-52 rounded-xl border bg-popover p-1 shadow-lg">
+                  <div className="absolute top-full right-0 z-50 w-52 rounded-md border bg-popover p-1 shadow-lg">
                     {entry.items.map((item) => (
                       <Link
                         aria-current={

@@ -60,30 +60,30 @@
 }
 
 :root {
-  --background: oklch(0.97 0.012 95);
-  --foreground: oklch(0.2 0.028 258);
-  --card: oklch(0.995 0.004 90);
-  --card-foreground: oklch(0.22 0.02 255);
-  --popover: oklch(0.995 0.004 90);
-  --popover-foreground: oklch(0.22 0.02 255);
-  --primary: oklch(0.3 0.045 255);
-  --primary-foreground: oklch(0.98 0.005 90);
-  --secondary: oklch(0.94 0.012 90);
-  --secondary-foreground: oklch(0.28 0.03 255);
-  --muted: oklch(0.94 0.01 90);
-  --muted-foreground: oklch(0.46 0.02 255);
-  --accent: oklch(0.93 0.014 90);
-  --accent-foreground: oklch(0.28 0.03 255);
+  --background: oklch(0.962 0.014 92);
+  --foreground: oklch(0.145 0.034 258);
+  --card: oklch(0.99 0.006 90);
+  --card-foreground: oklch(0.16 0.03 255);
+  --popover: oklch(0.99 0.006 90);
+  --popover-foreground: oklch(0.16 0.03 255);
+  --primary: oklch(0.2 0.05 255);
+  --primary-foreground: oklch(0.98 0.008 90);
+  --secondary: oklch(0.93 0.014 90);
+  --secondary-foreground: oklch(0.2 0.035 255);
+  --muted: oklch(0.935 0.012 90);
+  --muted-foreground: oklch(0.34 0.028 255);
+  --accent: oklch(0.92 0.016 90);
+  --accent-foreground: oklch(0.2 0.035 255);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.86 0.014 90);
-  --input: oklch(0.86 0.014 90);
-  --ring: oklch(0.55 0.03 255);
+  --border: oklch(0.78 0.018 90);
+  --input: oklch(0.78 0.018 90);
+  --ring: oklch(0.42 0.05 255);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.2rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -94,12 +94,12 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* —— Visualisation primitives (components/viz) —— */
-  --viz-bar: oklch(0.45 0.06 255);
-  --viz-credit: oklch(0.55 0.13 30);
-  --viz-track: oklch(0.89 0.012 90);
-  --viz-axis: oklch(0.78 0.014 90);
-  --viz-link: oklch(0.6 0.04 255);
-  --viz-node: oklch(0.7 0.03 255);
+  --viz-bar: oklch(0.38 0.07 255);
+  --viz-credit: oklch(0.5 0.14 30);
+  --viz-track: oklch(0.88 0.012 90);
+  --viz-axis: oklch(0.72 0.016 90);
+  --viz-link: oklch(0.5 0.05 255);
+  --viz-node: oklch(0.62 0.04 255);
   --viz-node-ring: oklch(0.99 0.004 90);
 
   /*
@@ -107,30 +107,39 @@
    * Every ambient wash, orb, glass panel, and halo on the reading side of the
    * site resolves here. Components carry no colour literals of their own.
    */
-  --paper-wash-cool: oklch(0.88 0.04 255 / 0.22);
-  --paper-wash-warm: oklch(0.9 0.05 85 / 0.18);
-  --paper-orb-cool: oklch(0.78 0.09 255 / 0.35);
-  --paper-orb-warm: oklch(0.82 0.1 85 / 0.28);
-  --paper-orb-sea: oklch(0.8 0.08 175 / 0.22);
-  --paper-vignette: oklch(0.55 0.02 255 / 0.06);
-  --paper-hero-cool: oklch(0.8 0.08 220 / 0.14);
-  --paper-hero-warm: oklch(0.85 0.07 45 / 0.12);
-  --paper-glass: oklch(0.995 0.004 90 / 0.86);
-  --paper-glass-border: oklch(0.86 0.014 90 / 0.9);
-  --paper-glass-shadow: oklch(0.35 0.04 255 / 0.06);
-  --paper-glass-sheen: oklch(1 0 0 / 0.6);
-  --paper-halo: oklch(0.995 0.004 90 / 0.9);
-  --paper-halo-soft: oklch(0.995 0.004 90 / 0.85);
-  --paper-halo-faint: oklch(0.995 0.004 90 / 0.6);
-  --paper-footer-near: oklch(0.94 0.02 95 / 0.9);
-  --paper-footer-far: oklch(0.97 0.012 95 / 0.4);
+  --paper-wash-cool: oklch(0.82 0.06 255 / 0.28);
+  --paper-wash-warm: oklch(0.88 0.07 80 / 0.22);
+  --paper-orb-cool: oklch(0.72 0.11 255 / 0.38);
+  --paper-orb-warm: oklch(0.78 0.12 75 / 0.3);
+  --paper-orb-sea: oklch(0.76 0.09 175 / 0.24);
+  --paper-vignette: oklch(0.42 0.03 255 / 0.1);
+  --paper-hero-cool: oklch(0.74 0.1 230 / 0.18);
+  --paper-hero-warm: oklch(0.82 0.09 50 / 0.16);
+  --paper-glass: oklch(0.99 0.006 90 / 0.78);
+  --paper-glass-border: oklch(0.72 0.02 90 / 0.95);
+  --paper-glass-shadow: oklch(0.22 0.05 255 / 0.1);
+  --paper-glass-sheen: oklch(1 0 0 / 0.45);
+  --paper-halo: oklch(0.99 0.006 90 / 0.92);
+  --paper-halo-soft: oklch(0.99 0.006 90 / 0.86);
+  --paper-halo-faint: oklch(0.99 0.006 90 / 0.55);
+  --paper-footer-near: oklch(0.93 0.02 95 / 0.95);
+  --paper-footer-far: oklch(0.962 0.014 92 / 0.35);
+  --paper-ink-bar: oklch(0.2 0.05 255);
+
+  /* Landing portal washes — one token per door, no Tailwind palette names. */
+  --portal-map: oklch(0.7 0.09 230 / 0.18);
+  --portal-obligations: oklch(0.6 0.1 275 / 0.16);
+  --portal-treaties: oklch(0.76 0.11 75 / 0.18);
+  --portal-budget: oklch(0.68 0.09 155 / 0.16);
+  --portal-events: oklch(0.7 0.11 25 / 0.14);
+  --portal-method: oklch(0.5 0.03 255 / 0.12);
 
   /* The constellation on the landing page, drawn on paper. */
-  --constellation-core: oklch(0.72 0.08 255 / 0.4);
-  --constellation-core-mid: oklch(0.9 0.04 220 / 0.1);
-  --constellation-orbit-a: oklch(0.75 0.06 255 / 0.5);
-  --constellation-orbit-b: oklch(0.82 0.08 85 / 0.35);
-  --constellation-orbit-c: oklch(0.78 0.07 200 / 0.45);
+  --constellation-core: oklch(0.62 0.1 255 / 0.45);
+  --constellation-core-mid: oklch(0.86 0.05 220 / 0.14);
+  --constellation-orbit-a: oklch(0.62 0.08 255 / 0.55);
+  --constellation-orbit-b: oklch(0.76 0.1 75 / 0.4);
+  --constellation-orbit-c: oklch(0.7 0.08 200 / 0.5);
   --constellation-node-ring: oklch(0.99 0.005 90);
 
   /*
@@ -157,39 +166,41 @@
   --theme-fallback: oklch(0.5 0.06 255);
 
   /* The six entry kinds, for the catalogue swatches. */
-  --kind-treaty: oklch(0.62 0.08 255);
-  --kind-institution: oklch(0.55 0.06 255);
-  --kind-event: oklch(0.72 0.06 85);
-  --kind-sector: oklch(0.65 0.09 155);
-  --kind-flow: oklch(0.7 0.1 45);
-  --kind-player: oklch(0.68 0.05 320);
+  --kind-treaty: oklch(0.52 0.1 255);
+  --kind-institution: oklch(0.42 0.07 255);
+  --kind-event: oklch(0.62 0.08 75);
+  --kind-sector: oklch(0.52 0.1 155);
+  --kind-flow: oklch(0.58 0.12 45);
+  --kind-player: oklch(0.55 0.07 320);
 }
 
 /*
  * —— Room two: the dark geographic room ——
- * The map is the one place the site goes dark. These tokens are scoped to the
- * room so the palette cannot leak onto a reading page.
+ * Tokens live on the room itself and on the document when the map is open, so
+ * the masthead and footer can inherit the same night palette without a third
+ * theme. Paper pages never set these properties.
  */
-.geo-room {
-  --geo-canvas: #0e100c;
-  --geo-plate: #12160f;
-  --geo-panel: #141710;
-  --geo-panel-sunken: #161910;
-  --geo-frame: #1a1f16;
-  --geo-chip: #1f2319;
-  --geo-chip-active: #23281f;
-  --geo-land: #2a3124;
-  --geo-line: #34392f;
-  --geo-line-strong: #3d4336;
-  --geo-line-bright: #5c5345;
-  --geo-ink: #f3ecdf;
-  --geo-ink-soft: #e6e0d4;
-  --geo-ink-muted: #d5cdbf;
-  --geo-ink-dim: #9a917f;
-  --geo-accent: #e6d3a4;
-  --geo-accent-soft: #f0e2c4;
+.geo-room,
+body:has(.geo-room) {
+  --geo-canvas: #090b08;
+  --geo-plate: #10140d;
+  --geo-panel: #13170f;
+  --geo-panel-sunken: #171b12;
+  --geo-frame: #1c2218;
+  --geo-chip: #22271c;
+  --geo-chip-active: #2a3123;
+  --geo-land: #2e3627;
+  --geo-line: #3a4134;
+  --geo-line-strong: #4a5242;
+  --geo-line-bright: #6a6150;
+  --geo-ink: #f6efe2;
+  --geo-ink-soft: #ebe4d6;
+  --geo-ink-muted: #cfc6b6;
+  --geo-ink-dim: #8f8674;
+  --geo-accent: #eddaa8;
+  --geo-accent-soft: #f4e6c8;
   --geo-accent-dim: #c9b896;
-  --geo-glow: 0 0 60px rgb(214 196 150 / 0.08);
+  --geo-glow: 0 0 80px rgb(237 218 168 / 0.12);
 
   /* Relationship families, drawn from the same palette as the layer chips. */
   --edge-money: var(--layer-state);
@@ -197,9 +208,41 @@
   --edge-trade: var(--layer-multinationals);
   --edge-investment: var(--layer-societies);
   --edge-power: var(--geo-accent);
+}
 
+.geo-room {
   background: var(--geo-canvas);
   color: var(--geo-ink-soft);
+}
+
+body:has(.geo-room) {
+  --background: var(--geo-canvas);
+  --foreground: var(--geo-ink);
+  --card: var(--geo-panel);
+  --card-foreground: var(--geo-ink);
+  --popover: var(--geo-panel);
+  --popover-foreground: var(--geo-ink);
+  --primary: var(--geo-accent);
+  --primary-foreground: var(--geo-canvas);
+  --secondary: var(--geo-chip);
+  --secondary-foreground: var(--geo-ink);
+  --muted: var(--geo-chip);
+  --muted-foreground: var(--geo-ink-dim);
+  --accent: var(--geo-chip-active);
+  --accent-foreground: var(--geo-ink);
+  --border: var(--geo-line);
+  --input: var(--geo-line);
+  --ring: var(--geo-accent);
+  background: var(--geo-canvas);
+  color: var(--geo-ink-soft);
+}
+
+body:has(.geo-room) .atmosphere {
+  display: none;
+}
+
+body:has(.geo-room) .site-footer-glow {
+  background: none;
 }
 
 .geo-room .map-control:focus-visible {
@@ -218,10 +261,21 @@
   html {
     @apply font-sans;
   }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
   h1,
   h2,
   h3 {
     font-family: var(--font-serif), Georgia, serif;
+  }
+  h1 {
+    letter-spacing: -0.034em;
+    line-height: 1.08;
+  }
+  h2 {
+    letter-spacing: -0.022em;
   }
   .entry-prose {
     font-size: 1.0625rem;
@@ -347,7 +401,7 @@
 .atmosphere-grain {
   position: absolute;
   inset: 0;
-  opacity: 0.045;
+  opacity: 0.07;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: multiply;
 }
@@ -409,18 +463,170 @@
 @media (prefers-reduced-motion: reduce) {
   .atmosphere-orb,
   .constellation-orbit,
-  .constellation-node {
+  .constellation-node,
+  .fade-rise,
+  .fade-rise-delayed,
+  .ink-card::before {
     animation: none !important;
+    transition: none !important;
+  }
+
+  .fade-rise,
+  .fade-rise-delayed {
+    opacity: 1;
+    transform: none;
+  }
+
+  .ink-card:hover::before,
+  .ink-card:focus-visible::before {
+    transform: scaleY(1);
   }
 }
 
 .glass-panel {
   border: 1px solid var(--paper-glass-border);
   background: var(--paper-glass);
+  border-radius: var(--radius-lg);
   box-shadow:
     0 1px 0 var(--paper-glass-sheen) inset,
-    0 12px 40px var(--paper-glass-shadow);
-  backdrop-filter: blur(14px);
+    0 18px 44px var(--paper-glass-shadow);
+  backdrop-filter: blur(16px);
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+
+.kicker::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: min(7.5rem, 28vw);
+  background: var(--border);
+}
+
+.section-rule {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+}
+
+.stat-cell {
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 0.7rem 0.85rem;
+}
+
+.ink-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.ink-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--paper-ink-bar);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 280ms ease;
+  z-index: 1;
+}
+
+.ink-card:hover::before,
+.ink-card:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.portal-tint-map {
+  background: linear-gradient(135deg, var(--portal-map), transparent 68%);
+}
+
+.portal-tint-obligations {
+  background: linear-gradient(135deg, var(--portal-obligations), transparent 68%);
+}
+
+.portal-tint-treaties {
+  background: linear-gradient(135deg, var(--portal-treaties), transparent 68%);
+}
+
+.portal-tint-budget {
+  background: linear-gradient(135deg, var(--portal-budget), transparent 68%);
+}
+
+.portal-tint-events {
+  background: linear-gradient(135deg, var(--portal-events), transparent 68%);
+}
+
+.portal-tint-method {
+  background: linear-gradient(135deg, var(--portal-method), transparent 68%);
+}
+
+.theme-wash-security {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-security) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-europe {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-europe) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-bilateral-trade {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-bilateral-trade) 22%, transparent), transparent 70%);
+}
+
+.theme-wash-multilateral {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-multilateral) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-financial {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-financial) 18%, transparent), transparent 70%);
+}
+
+.theme-wash-budget {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-budget) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-aviation {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-aviation) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-investment {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-investment) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-development {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-development) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-fallback {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-fallback) 16%, transparent), transparent 70%);
+}
+
+.fade-rise {
+  animation: fade-rise 700ms ease both;
+}
+
+.fade-rise-delayed {
+  animation: fade-rise 800ms ease 80ms both;
+}
+
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .constellation-label {
@@ -456,9 +662,13 @@
 }
 
 .atlas-page-header {
-  border-radius: 1.25rem;
+  border-radius: var(--radius-lg);
   padding: 1.5rem 1.75rem;
   margin-bottom: 0.5rem;
+}
+
+.site-masthead {
+  border-top: 2px solid var(--primary);
 }
 
 .site-footer-glow {
@@ -507,6 +717,12 @@
     backdrop-filter: none !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+  }
+
+  .ink-card::before,
+  .kicker::after,
+  .page-hero-glow {
+    display: none !important;
   }
 
   /* Navigation and controls: nothing a reader can click on paper. */
