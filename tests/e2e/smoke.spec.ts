@@ -37,6 +37,8 @@ test("command palette opens with Ctrl+K", async ({ page }) => {
   await page.keyboard.press("Control+k");
   await expect(page.getByRole("dialog", { name: "Search the records" })).toBeVisible();
   await expect(page.locator('input[aria-label="Search the records"]')).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog", { name: "Search the records" })).toHaveCount(0);
 });
 
 test.describe("visual baselines", () => {

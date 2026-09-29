@@ -34,6 +34,12 @@ export function CommandPalette() {
     function onKey(event: KeyboardEvent) {
       const isPaletteKey =
         event.code === "KeyK" || event.key === "k" || event.key === "K";
+      if (event.key === "Escape" && open) {
+        event.preventDefault();
+        event.stopPropagation();
+        close();
+        return;
+      }
       if (isPaletteKey && (event.metaKey || event.ctrlKey)) {
         const target = event.target;
         if (
@@ -54,7 +60,7 @@ export function CommandPalette() {
     }
     document.addEventListener("keydown", onKey, true);
     return () => document.removeEventListener("keydown", onKey, true);
-  }, [open]);
+  }, [open, close]);
 
   useEffect(() => {
     close();

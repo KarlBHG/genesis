@@ -139,6 +139,7 @@ export function SiteHeader() {
                     "href" in entry ? (
                       <SheetClose
                         key={entry.href}
+                        nativeButton={false}
                         render={
                           <Link
                             aria-current={
@@ -160,6 +161,7 @@ export function SiteHeader() {
                         {entry.items.map((item) => (
                           <SheetClose
                             key={item.href}
+                            nativeButton={false}
                             render={
                               <Link
                                 aria-current={
