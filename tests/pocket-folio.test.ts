@@ -39,4 +39,15 @@ describe("pocket folio CSS", () => {
     expect(css).toMatch(/\.entry-fact-strip[\s\S]*grid-template-columns: 7\.25rem/);
     expect(css).toContain(".folio-gutter");
   });
+
+  it("turns leftover stacked-desktop surfaces into pocket grammar", () => {
+    expect(css).toContain(".folio-rail");
+    expect(css).toContain(".policy-treemap");
+    expect(css).toContain(".as-of-rail");
+    expect(css).toContain(".pocket-ledger");
+    expect(css).toContain(".command-folio");
+    expect(css).toContain(".intake-folio");
+    expect(css).toContain("[data-compare-column]");
+    expect(css).toContain("anchor(--geo-caption top)");
+  });
 });

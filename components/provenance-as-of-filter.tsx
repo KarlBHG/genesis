@@ -67,7 +67,7 @@ function Chip({
     <Link
       aria-label={label}
       aria-pressed={active}
-      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs transition-colors ${
+      className={`as-of-chip inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs transition-colors ${
         active
           ? "border-primary/40 bg-secondary text-secondary-foreground"
           : "border-border/70 text-muted-foreground hover:border-primary/25 hover:text-foreground"
@@ -118,7 +118,7 @@ export function AsOfFilterBar({
   return (
     <section
       aria-label="Filter by as-of date"
-      className="flex min-w-0 flex-col gap-3 rounded-2xl border border-border/70 bg-muted/20 p-4"
+      className="as-of-rail flex min-w-0 flex-col gap-3 rounded-2xl border border-border/70 bg-muted/20 p-4"
     >
       <div className="flex min-w-0 flex-wrap items-baseline justify-between gap-2">
         <h3 className="text-sm font-medium">As of</h3>
@@ -128,7 +128,7 @@ export function AsOfFilterBar({
       </div>
 
       {bucketsInUse.length > 0 ? (
-        <div className="flex min-w-0 flex-wrap gap-2">
+        <div className="as-of-chip-row flex min-w-0 flex-wrap gap-2">
           {bucketsInUse.map((bucket) => (
             <Chip
               active={hasAsOfBucket(filter, bucket)}
@@ -144,7 +144,7 @@ export function AsOfFilterBar({
       ) : null}
 
       {windows.length > 0 ? (
-        <div className="flex min-w-0 flex-wrap gap-2">
+        <div className="as-of-chip-row flex min-w-0 flex-wrap gap-2">
           {windows.map((window: AsOfWindow) => (
             <Chip
               active={hasAsOfWindow(filter, window)}

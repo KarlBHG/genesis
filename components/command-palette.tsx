@@ -105,6 +105,7 @@ export function CommandPalette() {
         </kbd>
       </Button>
       <CommandDialog
+        className="command-folio"
         description="Titles, summaries, and typed connections. Icelandic accents fold, so Sedlabanki finds Seðlabanki."
         onOpenChange={(next) => {
           if (next) setOpen(true);

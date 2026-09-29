@@ -48,7 +48,7 @@ export function InvoiceCoverageLedgerTable({
       {ledger.total === 0 ? (
         <p className="text-muted-foreground">No invoice rows are on file.</p>
       ) : (
-        <Table>
+        <Table className="pocket-ledger">
           <TableCaption>{coverageCaption(ledger)}</TableCaption>
           <TableHeader>
             <TableRow>
@@ -87,7 +87,7 @@ function BuyerGroupRows({
   const program = (slug: string | null) => (slug ? resolveSlug(slug) : null);
   return (
     <>
-      <TableRow className="bg-muted/40 hover:bg-muted/40">
+      <TableRow className="pocket-ledger-group bg-muted/40 hover:bg-muted/40">
         <TableCell className="whitespace-normal" colSpan={5}>
           <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-3">
             <span className="font-medium">
@@ -118,8 +118,8 @@ function BuyerGroupRows({
         const vendor = resolveSlug(row.vendorSlug);
         const joined = program(row.programSlug);
         return (
-          <TableRow key={edgeHref(row.edge)}>
-            <TableCell className="whitespace-normal">
+          <TableRow className="pocket-ledger-row" key={edgeHref(row.edge)}>
+            <TableCell className="whitespace-normal" data-label="Vendor">
               {vendor ? (
                 <Link className="underline underline-offset-4" href={vendor.href}>
                   {row.vendorTitle}
@@ -128,8 +128,8 @@ function BuyerGroupRows({
                 row.vendorTitle
               )}
             </TableCell>
-            <TableCell>{row.edge.asOf}</TableCell>
-            <TableCell>
+            <TableCell data-label="As of">{row.edge.asOf}</TableCell>
+            <TableCell data-label="Coverage">
               <Badge
                 className="font-normal"
                 variant={statusVariant(row.status)}
@@ -137,7 +137,10 @@ function BuyerGroupRows({
                 {COVERAGE_STATUS_LABELS[row.status]}
               </Badge>
             </TableCell>
-            <TableCell className="max-w-md whitespace-normal text-muted-foreground">
+            <TableCell
+              className="max-w-md whitespace-normal text-muted-foreground"
+              data-label="Program or reason"
+            >
               {row.status === "joined" && joined ? (
                 <Link className="text-foreground underline underline-offset-4" href={joined.href}>
                   {row.programTitle ?? joined.title}
@@ -148,7 +151,7 @@ function BuyerGroupRows({
                 "Not yet reviewed"
               )}
             </TableCell>
-            <TableCell className="text-right">
+            <TableCell className="text-right" data-label="Line">
               <Link className="underline underline-offset-4" href={edgeHref(row.edge)}>
                 Open
               </Link>

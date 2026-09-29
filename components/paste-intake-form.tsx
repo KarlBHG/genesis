@@ -190,7 +190,7 @@ export function PasteIntakeForm({
 
   return (
     <form
-      className="flex min-w-0 flex-col gap-8"
+      className="intake-folio flex min-w-0 flex-col gap-8"
       onSubmit={(event) => {
         event.preventDefault();
         void submit(false);
@@ -205,7 +205,7 @@ export function PasteIntakeForm({
             A pays row still needs you to confirm a program or store a null
             reason — nothing here invents a málaflok.
           </FieldDescription>
-          <div className="grid min-w-0 gap-4 md:grid-cols-2">
+          <div className="grid min-w-0 gap-4 lg:grid-cols-2">
             <EndpointSelect
               id="intake-from"
               label="From"
@@ -292,7 +292,7 @@ export function PasteIntakeForm({
               start, an end, and a channel. Use “not printed” when the page
               does not print one.
             </FieldDescription>
-            <div className="grid min-w-0 gap-4 md:grid-cols-3">
+            <div className="grid min-w-0 gap-4 lg:grid-cols-3">
               <Field>
                 <FieldLabel htmlFor="intake-start">Start</FieldLabel>
                 <Input
@@ -412,7 +412,7 @@ export function PasteIntakeForm({
             number must appear inside that citation. Two amounts are never
             added together.
           </FieldDescription>
-          <div className="grid min-w-0 gap-4 md:grid-cols-3">
+          <div className="grid min-w-0 gap-4 lg:grid-cols-3">
             <Field>
               <FieldLabel htmlFor="intake-amount-value">Value</FieldLabel>
               <Input
@@ -471,7 +471,7 @@ export function PasteIntakeForm({
         </FieldSet>
       </FieldGroup>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="intake-actions flex flex-wrap gap-2">
         <Button disabled={pending != null} type="submit">
           {pending === "check" ? "Checking…" : "Check against the contract"}
         </Button>

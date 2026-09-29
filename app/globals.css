@@ -883,6 +883,21 @@ body:has(.geo-room) footer {
     display: none;
   }
 
+  @supports (anchor-name: --geo-focus-pin) {
+    .geo-room .geo-leader {
+      display: block;
+      z-index: 5;
+      left: calc(anchor(--geo-focus-pin center) - 0.5px);
+      top: anchor(--geo-focus-pin bottom);
+      right: auto;
+      bottom: anchor(--geo-caption top);
+      width: 0;
+      height: auto;
+      border-top: none;
+      border-left: 1px solid color-mix(in srgb, var(--geo-accent) 62%, transparent);
+    }
+  }
+
   .geo-room .geo-stage-art {
     width: 128%;
     max-width: none;
@@ -1701,6 +1716,193 @@ body:has(.geo-room) footer {
     min-width: 0;
     font-size: 0.98rem;
     overflow-wrap: anywhere;
+  }
+
+  .folio-rail {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .folio-cell {
+    display: grid;
+    grid-template-columns: 7.25rem minmax(0, 1fr);
+    align-items: baseline;
+    flex: none;
+    min-width: 0;
+    width: 100%;
+    border-right: none;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .folio-cell:last-child {
+    border-bottom: none;
+    padding-right: 0;
+  }
+
+  .folio-cell dd {
+    font-size: 1.65rem;
+    text-align: right;
+  }
+
+  .policy-treemap {
+    display: none;
+  }
+
+  .as-of-rail {
+    gap: 0.75rem;
+    border-radius: 0;
+    background: transparent;
+    padding: 0.15rem 0 0.5rem;
+  }
+
+  .as-of-chip-row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .as-of-rail .as-of-chip {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) auto;
+    justify-content: space-between;
+    border-radius: 0;
+    border-color: transparent;
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 0;
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 1.02rem;
+    letter-spacing: -0.02em;
+  }
+
+  .as-of-rail .as-of-chip[aria-pressed="true"] {
+    background: transparent;
+    box-shadow: inset 2px 0 0 var(--paper-ink-bar);
+    color: var(--foreground);
+  }
+
+  [data-slot="table-container"]:has(> .pocket-ledger) {
+    overflow: visible;
+  }
+
+  .pocket-ledger thead {
+    display: none;
+  }
+
+  .pocket-ledger tbody,
+  .pocket-ledger tr,
+  .pocket-ledger td {
+    display: block;
+    width: 100%;
+  }
+
+  .pocket-ledger .pocket-ledger-group td {
+    padding: 1rem 0 0.35rem;
+    border-bottom: none;
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    white-space: normal;
+  }
+
+  .pocket-ledger .pocket-ledger-row {
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pocket-ledger .pocket-ledger-row td {
+    display: grid;
+    grid-template-columns: 7.25rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.3rem 0.85rem;
+    padding: 0.4rem 0;
+    border-bottom: none;
+    white-space: normal;
+    text-align: left;
+  }
+
+  .pocket-ledger .pocket-ledger-row td::before {
+    content: attr(data-label);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  [data-slot="dialog-content"].command-folio {
+    top: auto;
+    right: 0.45rem;
+    bottom: 0;
+    left: 0.45rem;
+    width: auto;
+    max-width: none;
+    max-height: min(88dvh, calc(100dvh - 5.25rem));
+    transform: none;
+    border-radius: 0.55rem 0.55rem 0 0;
+  }
+
+  .command-folio [data-slot="dialog-header"] {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+    border: 0;
+    padding: 0.85rem 0.95rem 0.3rem;
+  }
+
+  .command-folio [data-slot="dialog-title"] {
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .command-folio [data-slot="dialog-description"] {
+    display: none;
+  }
+
+  .command-folio [data-slot="command-list"] {
+    max-height: min(58dvh, 24rem);
+  }
+
+  .command-folio [data-slot="command-item"] {
+    align-items: flex-start;
+  }
+
+  .intake-folio .intake-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  [data-compare-column]::before {
+    content: attr(data-compare-side);
+    display: block;
+    padding: 0 1rem 0;
+    font-size: 0.625rem;
+    font-weight: 650;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  [data-compare-value]::before {
+    content: attr(data-compare-side);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.625rem;
+    font-weight: 650;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
   }
 }
 

@@ -42,10 +42,10 @@ function pick(entries: Entry[], slug: string | undefined, fallback: string): Ent
   return chosen ?? entries.find((entry) => entry.slug === fallback) ?? entries[0];
 }
 
-function Column({ entry }: { entry: Entry }) {
+function Column({ entry, side }: { entry: Entry; side: string }) {
   const facts = factsFor(entry);
   return (
-    <Card data-compare-column>
+    <Card data-compare-column="" data-compare-side={side}>
       <CardHeader>
         <CardTitle>
           <Link className="underline underline-offset-4" href={hrefFor(entry)}>
@@ -164,9 +164,9 @@ export default async function ComparePage({
         <p className="text-sm text-muted-foreground">Choose two different entries.</p>
       ) : (
         <>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <Column entry={left} />
-            <Column entry={right} />
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <Column entry={left} side="First entry" />
+            <Column entry={right} side="Second entry" />
           </div>
           <section className="flex flex-col gap-3">
             <h2 className="text-xl font-medium">Differences</h2>
@@ -179,9 +179,13 @@ export default async function ComparePage({
                       {row.same ? "Same" : "Different"}
                     </Badge>
                   </p>
-                  <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                    <p>{row.left}</p>
-                    <p>{row.right}</p>
+                  <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+                    <p data-compare-side="First" data-compare-value="">
+                      {row.left}
+                    </p>
+                    <p data-compare-side="Second" data-compare-value="">
+                      {row.right}
+                    </p>
                   </div>
                 </li>
               ))}
@@ -228,7 +232,7 @@ export default async function ComparePage({
               </ul>
             )}
           </section>
-          <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <div className="flex flex-col gap-2">
               <h2 className="text-xl font-medium">Only {left.title}</h2>
               <TouchList touches={leftOnly} />
@@ -243,7 +247,7 @@ export default async function ComparePage({
             <p className="text-sm text-muted-foreground">
               These are the related links on each page, separate from typed connections.
             </p>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
               <RelatedGroup slugs={sharedRelated} title="On both" />
               <RelatedGroup slugs={leftRelatedOnly} title={`Only ${left.title}`} />
               <RelatedGroup slugs={rightRelatedOnly} title={`Only ${right.title}`} />

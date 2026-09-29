@@ -223,7 +223,7 @@ export function QuotedNameForm({
       </header>
 
       <form
-        className="flex min-w-0 flex-col gap-8"
+        className="intake-folio flex min-w-0 flex-col gap-8"
         onSubmit={(event) => {
           event.preventDefault();
           void submit(false);
@@ -322,7 +322,7 @@ export function QuotedNameForm({
           </FieldSet>
         </FieldGroup>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="intake-actions flex flex-wrap gap-2">
           <Button disabled={pending != null} type="submit">
             {pending === "check" ? "Checking…" : "Check this quoted name"}
           </Button>

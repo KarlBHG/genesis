@@ -23,7 +23,7 @@ export function PolicyTreemap({ cells }: { cells: readonly TreemapCell[] }) {
     .clamp(true);
 
   return (
-    <figure className="m-0 flex min-w-0 flex-col gap-2">
+    <figure className="policy-treemap m-0 flex min-w-0 flex-col gap-2">
       <div
         className="flex min-h-16 w-full flex-wrap items-stretch gap-1"
         role="list"

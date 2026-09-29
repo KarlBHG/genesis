@@ -213,7 +213,7 @@ export function ObligationsHeroAside() {
   return (
     <div className="glass-panel flex flex-col gap-3 p-5">
       <p className="kicker">{OBLIGATION_SECTIONS.length} themes on this page</p>
-      <ul className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+      <ul className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
         {OBLIGATION_SECTIONS.map((section) => {
           const visual = obligationVisual(section.id);
           return (

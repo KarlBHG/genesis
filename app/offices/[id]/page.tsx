@@ -86,7 +86,7 @@ export default async function OfficePage({
             <Badge variant="secondary">current membership</Badge>
           )}
         </div>
-        <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <dl className="folio-gutter grid grid-cols-1 gap-0 lg:grid-cols-2 lg:gap-4">
           <div className="flex flex-col gap-1">
             <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
               Organization

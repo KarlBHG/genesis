@@ -731,6 +731,115 @@ test.describe("pocket folio", () => {
     expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
   });
 
+  test("home folio-rail, obligation index, and office record stack", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/");
+    const rail = page.locator(".folio-cell");
+    await expect(rail).toHaveCount(4);
+    const railFirst = await rail.nth(0).boundingBox();
+    const railSecond = await rail.nth(1).boundingBox();
+    expect(railSecond!.y).toBeGreaterThan(railFirst!.y + railFirst!.height / 2);
+
+    await page.goto("/obligations");
+    const themes = page.locator("header").getByRole("listitem").getByRole("link");
+    await expect(themes).toHaveCount(9);
+    const themeFirst = await themes.nth(0).boundingBox();
+    const themeSecond = await themes.nth(1).boundingBox();
+    expect(themeSecond!.y).toBeGreaterThan(themeFirst!.y + themeFirst!.height / 2);
+
+    await page.goto("/offices/prime-minister");
+    const record = page.locator(".folio-gutter > div");
+    await expect(record).toHaveCount(2);
+    const org = await record.nth(0).boundingBox();
+    const membership = await record.nth(1).boundingBox();
+    expect(membership!.y).toBeGreaterThan(org!.y + org!.height / 2);
+  });
+
+  test("budget treemap yields to magnitude and invoices stack as a ledger", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/money");
+    await expect(page.locator(".policy-treemap")).toBeHidden();
+    await expect(
+      page.getByRole("heading", { name: "2026 authorisations by policy area" }),
+    ).toBeVisible();
+
+    await page.locator("#invoice-coverage").scrollIntoViewIfNeeded();
+    const vendor = page.locator(".pocket-ledger-row td[data-label='Vendor']").first();
+    const asOf = page.locator(".pocket-ledger-row td[data-label='As of']").first();
+    await expect(vendor).toBeVisible();
+    const vendorBox = await vendor.boundingBox();
+    const asOfBox = await asOf.boundingBox();
+    expect(asOfBox!.y).toBeGreaterThan(vendorBox!.y + vendorBox!.height / 2);
+    expect(vendorBox!.width).toBeGreaterThan(280);
+  });
+
+  test("evidence as-of chips become a year index", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/anomalies");
+    const chips = page.locator(".as-of-rail .as-of-chip");
+    await expect(chips.first()).toBeVisible();
+    const first = await chips.nth(0).boundingBox();
+    const second = await chips.nth(1).boundingBox();
+    expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
+  });
+
+  test("command palette docks as a sheet and intake and compare stack", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/");
+    await page.getByRole("button", { name: "Search the records" }).click();
+    const dialog = page.getByRole("dialog", { name: "Search the records" });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole("heading", { name: "Search the records" })).toBeVisible();
+    const box = await dialog.boundingBox();
+    expect(box).toBeTruthy();
+    expect(box!.y).toBeGreaterThan(200);
+    expect(box!.width).toBeGreaterThan(300);
+    await page.keyboard.press("Escape");
+
+    await page.goto("/intake");
+    const from = await page.locator("#intake-from").boundingBox();
+    const to = await page.locator("#intake-to").boundingBox();
+    expect(to!.y).toBeGreaterThan(from!.y + from!.height / 2);
+
+    await page.goto("/compare");
+    const columns = page.locator("[data-compare-column]");
+    await expect(columns).toHaveCount(2);
+    const left = await columns.nth(0).boundingBox();
+    const right = await columns.nth(1).boundingBox();
+    expect(right!.y).toBeGreaterThan(left!.y + left!.height / 2);
+  });
+
+  test("night leader drops from the pin toward the sheet when anchors work", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/map?focus=althingi");
+    const leader = page.locator(".geo-leader");
+    await expect(leader).toHaveCount(1);
+    const geometry = await leader.evaluate((el) => {
+      const style = getComputedStyle(el);
+      return {
+        display: style.display,
+        width: style.width,
+        height: style.height,
+        borderLeftWidth: style.borderLeftWidth,
+        borderTopWidth: style.borderTopWidth,
+      };
+    });
+    if (geometry.display === "none") return;
+    expect(Number.parseFloat(geometry.width)).toBeLessThan(2);
+    expect(Number.parseFloat(geometry.borderTopWidth)).toBe(0);
+    expect(Number.parseFloat(geometry.borderLeftWidth)).toBeGreaterThan(0);
+  });
+
   test("desktop atlas keeps the side caption and chips", async ({
     page,
   }, testInfo) => {
