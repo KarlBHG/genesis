@@ -784,6 +784,11 @@ export default function MethodologyPage() {
                   "A municipality pick is not a postcode, and it does not invent which member of Alþingi that place elects. elects stays the 2024 election to Alþingi, and Alþingi electing the Seðlabanki board, until a cited sentence names a constituency membership.",
               },
               {
+                title: "No inferred current from a missing end",
+                body:
+                  "An empty end is labelled “no end date stored,” never “current.” Current membership is a holds-office row with no end date stored and a cited as-of. Board seats and invoices are not assumed still true because the end field is empty.",
+              },
+              {
                 title: "No Wikidata edges",
                 body:
                   "Open checklists from Govdirectory and Wikidata are not turned into owns, regulates, or parent-ministry lines. They only show which public bodies this phase chose to track.",

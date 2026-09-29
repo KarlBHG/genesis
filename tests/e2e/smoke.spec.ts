@@ -284,6 +284,69 @@ test("office pages keep the post and list time-bounded membership", async ({
   await expect(social.getByRole("link", { name: "Inga Sæland" })).toBeVisible();
 });
 
+test("connections tenure filter labels empty ends and does not invent current", async ({
+  page,
+}) => {
+  await page.goto("/connections");
+  const tenure = page.getByRole("region", {
+    name: "Filter current or ended connections",
+  });
+  await expect(tenure).toBeVisible();
+  await expect(
+    tenure.getByText("no end date stored", { exact: true }).first(),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Tenure",
+    }),
+  ).toHaveCount(0);
+  await expect(page.locator("#careers").getByText("current", { exact: true })).toHaveCount(
+    0,
+  );
+
+  await tenure.getByRole("button", { name: /current membership/i }).click();
+  await expect(page).toHaveURL(/tenure=current/);
+  const careers = page.locator("#careers");
+  await expect(careers).toBeVisible();
+  await expect(
+    careers.getByRole("link", { name: "Kristrún Frostadóttir" }).first(),
+  ).toBeVisible();
+  await expect(careers.getByRole("link", { name: "Prime Minister" }).first()).toBeVisible();
+  await expect(careers.getByText("current membership").first()).toBeVisible();
+  await expect(careers.getByText("no end date stored").first()).toBeVisible();
+  await expect(careers.getByText("ended", { exact: true })).toHaveCount(0);
+  await expect(careers.getByRole("link", { name: "Director of Health" })).toHaveCount(0);
+  await expect(page.locator("#spending")).toHaveCount(0);
+
+  await careers.getByRole("link", { name: "Open this connection" }).first().click();
+  await expect(page).toHaveURL(/\/connections\//);
+  await expect(page.getByText("current membership").first()).toBeVisible();
+  const endField = page.locator("main .folio-gutter > div").filter({
+    has: page.getByText("End", { exact: true }),
+  });
+  await expect(endField.getByText("no end date stored")).toBeVisible();
+  await expect(endField.getByText("current", { exact: true })).toHaveCount(0);
+
+  await page
+    .getByRole("region", { name: "Filter current or ended connections" })
+    .getByRole("button", { name: /^ended/i })
+    .click();
+  await expect(page).toHaveURL(/tenure=ended/);
+  const endedCareers = page.locator("#careers");
+  await expect(endedCareers.getByText("ended", { exact: true }).first()).toBeVisible();
+  await expect(
+    endedCareers.getByRole("link", { name: "Director of Health" }).first(),
+  ).toBeVisible();
+  await expect(
+    endedCareers.getByRole("link", { name: "Alma D. Möller" }).first(),
+  ).toBeVisible();
+  await expect(
+    endedCareers.getByRole("link", { name: "Prime Minister" }),
+  ).toHaveCount(0);
+  await expect(endedCareers.getByText("current membership")).toHaveCount(0);
+});
+
+
 test("parent-ministry checklist labels empty parents and stays off the nav", async ({
   page,
 }) => {
@@ -874,6 +937,31 @@ test.describe("pocket folio", () => {
     expect(statusBox!.y).toBeGreaterThan(entityBox!.y + entityBox!.height / 2);
     expect(entityBox!.width).toBeGreaterThan(280);
   });
+
+  test("connections tenure chips stack and the end field stays unlabeled current", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/connections");
+    const chips = page.locator(".as-of-rail .as-of-chip");
+    await expect(chips).toHaveCount(2);
+    const first = await chips.nth(0).boundingBox();
+    const second = await chips.nth(1).boundingBox();
+    expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
+
+    await chips.nth(0).click();
+    await expect(page).toHaveURL(/tenure=current/);
+    await page.locator("#careers").getByRole("link", { name: "Open this connection" }).first().click();
+    const record = page.locator("main .folio-gutter > div");
+    await expect(record.first()).toBeVisible();
+    const asOf = record.filter({ has: page.getByText("As of", { exact: true }) });
+    const end = record.filter({ has: page.getByText("End", { exact: true }) });
+    await expect(end.getByText("no end date stored")).toBeVisible();
+    const asOfBox = await asOf.first().boundingBox();
+    const endBox = await end.first().boundingBox();
+    expect(endBox!.y).toBeGreaterThan(asOfBox!.y + asOfBox!.height / 2);
+  });
+
 
   test("command palette docks as a sheet and intake and compare stack", async ({
     page,

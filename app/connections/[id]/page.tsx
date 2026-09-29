@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ConnectionTenureFilter } from "@/components/connection-tenure-filter";
 import { PrintPlateColophon, PrintPlateHead } from "@/components/print-plate";
 import { ProvenanceEdgeCard } from "@/components/provenance-edge";
 import { Badge } from "@/components/ui/badge";
@@ -14,10 +15,22 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { asOfMeta } from "@/lib/as-of";
+import {
+  CURRENT_MEMBERSHIP_LABEL,
+  ENDED_LABEL,
+  NO_END_STORED,
+  connectionTenure,
+  displayConnectionEnd,
+  isCareerStored,
+  isCurrentConnection,
+  isPrintedEnd,
+  tenureCounts,
+  unlabeledCareerEnds,
+} from "@/lib/connection-tenure";
 import { getCatalog, getEdges, getOffices, resolveSlug } from "@/lib/content";
 import { edgeId, findEdgeById } from "@/lib/edge-id";
 import { clampSentence } from "@/lib/entry-facts";
-import { labelize } from "@/lib/format";
+import { formatDate, labelize } from "@/lib/format";
 import { MAP_VIEWS, viewOf } from "@/lib/geo-map";
 import { identityForPaysEdge, uniqueMatchForHeading } from "@/lib/identities";
 import { officeLabel } from "@/lib/notes";
@@ -79,6 +92,11 @@ export default async function ConnectionPermalinkPage({
       ])
     : null;
   const uniqueMatch = uniqueSlug ? resolveSlug(uniqueSlug) : null;
+  const catalogEdges = getEdges();
+  const counts = tenureCounts(catalogEdges);
+  const unlabeledCareer = unlabeledCareerEnds(catalogEdges);
+  const tenure = connectionTenure(edge);
+  const highlight = tenure === "unlabeled" ? null : tenure;
 
   return (
     <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
@@ -151,15 +169,34 @@ export default async function ConnectionPermalinkPage({
           ) : (
             <>
               This page is one stored relationship — the quotation, the date the
-              cited page prints, and the address it was read at. It is not a
-              score, a cluster, or a derived total.
+              cited page prints, and the address it was read at. An empty end is
+              labelled {NO_END_STORED}, never “current.” It is not a score, a
+              cluster, or a derived total.
             </>
           )}
         </p>
         <p className="fade-rise-4 flex flex-wrap items-center gap-2">
           <Badge variant="secondary">{labelize(edge.relationship)}</Badge>
+          {isCurrentConnection(edge) ? (
+            <Badge variant="secondary">{CURRENT_MEMBERSHIP_LABEL}</Badge>
+          ) : isPrintedEnd(edge.end) ? (
+            <Badge variant="outline">{ENDED_LABEL}</Badge>
+          ) : (
+            <Badge variant="outline">{NO_END_STORED}</Badge>
+          )}
         </p>
       </header>
+
+      <div className="print:hidden">
+        <ConnectionTenureFilter
+          currentCount={counts.current}
+          endedCount={counts.ended}
+          filter={null}
+          highlight={highlight}
+          total={catalogEdges.length}
+          unlabeledCount={unlabeledCareer.length}
+        />
+      </div>
 
       <ProvenanceEdgeCard
         as="article"
@@ -205,6 +242,24 @@ export default async function ConnectionPermalinkPage({
             {asOf.display}{" "}
             <span className="text-muted-foreground">({asOf.bucketLabel})</span>
           </dd>
+        </div>
+        {isCareerStored(edge) ? (
+          <div className="flex flex-col gap-1">
+            <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+              Start
+            </dt>
+            <dd>
+              {isPrintedEnd(edge.start)
+                ? formatDate(edge.start!.trim())
+                : "not printed"}
+            </dd>
+          </div>
+        ) : null}
+        <div className="flex flex-col gap-1">
+          <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+            End
+          </dt>
+          <dd>{displayConnectionEnd(edge.end)}</dd>
         </div>
         {edge.year ? (
           <div className="flex flex-col gap-1">

@@ -4,6 +4,14 @@ import { AsOfChip } from "@/components/as-of-chip";
 import { CitationClaim, CitationGutter } from "@/components/citation-gutter";
 import { Badge } from "@/components/ui/badge";
 import { printedFigure } from "@/components/viz/money";
+import {
+  CURRENT_MEMBERSHIP_LABEL,
+  ENDED_LABEL,
+  displayConnectionEnd,
+  isCareerStored,
+  isCurrentConnection,
+  isPrintedEnd,
+} from "@/lib/connection-tenure";
 import { resolveSlug } from "@/lib/content";
 import { edgeHref } from "@/lib/edge-id";
 import { labelize } from "@/lib/format";
@@ -120,6 +128,26 @@ export function EdgeRow({
               slug={edge.organization ?? ""}
               title={edge.organizationTitle}
             />
+          </>
+        ) : null}
+        {isCareerStored(edge) ? (
+          <>
+            <Badge
+              className="ml-2 font-normal"
+              variant={isCurrentConnection(edge) ? "secondary" : "outline"}
+            >
+              {isCurrentConnection(edge)
+                ? CURRENT_MEMBERSHIP_LABEL
+                : isPrintedEnd(edge.end)
+                  ? ENDED_LABEL
+                  : displayConnectionEnd(edge.end)}
+            </Badge>
+            {isCurrentConnection(edge) || isPrintedEnd(edge.end) ? (
+              <span className="text-sm text-muted-foreground">
+                {" "}
+                · End {displayConnectionEnd(edge.end)}
+              </span>
+            ) : null}
           </>
         ) : null}
         {edge.asOf ? (

@@ -2,8 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ConnectionGroupedPanels, edgeKey } from "@/components/connection-graph";
+import { ConnectionTenureFilter } from "@/components/connection-tenure-filter";
 import { HashScroll } from "@/components/hash-scroll";
 import { PageHero } from "@/components/page-hero";
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { EdgeRow } from "@/components/viz";
 import {
   Table,
@@ -16,6 +23,13 @@ import {
 } from "@/components/ui/table";
 import { getCatalog, getContradictions, getEdges, hrefFor, resolveSlug } from "@/lib/content";
 import { GROUP_BY_VIEW } from "@/lib/connection-groups";
+import {
+  NO_END_STORED,
+  filterByTenure,
+  parseTenureFilter,
+  tenureCounts,
+  unlabeledCareerEnds,
+} from "@/lib/connection-tenure";
 import { compareAsOf } from "@/lib/as-of";
 import { kindLabel } from "@/lib/format";
 import { MAP_VIEWS, viewOf } from "@/lib/geo-map";
@@ -33,11 +47,25 @@ function ViewBody({
   viewId,
   edges,
   noteFor,
+  emptyTitle,
+  emptyDescription,
 }: {
   viewId: string;
   edges: Edge[];
   noteFor: (edge: Edge) => string | null;
+  emptyTitle: string;
+  emptyDescription: string;
 }) {
+  if (edges.length === 0) {
+    return (
+      <Empty className="border border-dashed">
+        <EmptyHeader>
+          <EmptyTitle>{emptyTitle}</EmptyTitle>
+          <EmptyDescription>{emptyDescription}</EmptyDescription>
+        </EmptyHeader>
+      </Empty>
+    );
+  }
   const by = GROUP_BY_VIEW[viewId] ?? "none";
   const renderEdge = (edge: Edge) => (
     <EdgeRow
@@ -66,19 +94,23 @@ function ViewBody({
 export default async function ConnectionsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ entry?: string }>;
+  searchParams: Promise<{ entry?: string; tenure?: string }>;
 }) {
   const params = await searchParams;
   const focusSlug = params.entry?.trim() ?? "";
+  const tenureFilter = parseTenureFilter(params.tenure);
   const focusEntry = focusSlug ? resolveSlug(focusSlug) : null;
   const entries = getCatalog();
   const allEdges = getEdges();
-  const edges =
+  const scoped =
     focusSlug.length > 0
       ? allEdges.filter(
           (edge) => edge.from === focusSlug || edge.to === focusSlug,
         )
       : allEdges;
+  const counts = tenureCounts(scoped);
+  const unlabeledCareer = unlabeledCareerEnds(scoped);
+  const edges = filterByTenure(scoped, tenureFilter);
   const contradictions = getContradictions();
   const drawn = new Set(allEdges.flatMap((edge) => [edge.from, edge.to]));
   const missing = entries
@@ -139,7 +171,9 @@ export default async function ConnectionsPage({
             The same buckets as the map. Authorisations, invoices, and contracts are
             separate money phases — a permission to spend is not a payment, and a
             power-purchase line is not an invoice. Each line is one typed
-            relationship with its own page. Full names wrap. The budget drawing is on{" "}
+            relationship with its own page. Filter current membership against ended:
+            an empty end is labelled {NO_END_STORED}, never “current.” Full names wrap.
+            The budget drawing is on{" "}
             <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
           </>
         }
@@ -159,8 +193,15 @@ export default async function ConnectionsPage({
                   {focusEntry.title}
                 </Link>
                 .{" "}
-                <Link className="underline underline-offset-4" href="/connections">
-                  Clear filter
+                <Link
+                  className="underline underline-offset-4"
+                  href={
+                    tenureFilter
+                      ? `/connections?tenure=${tenureFilter}`
+                      : "/connections"
+                  }
+                >
+                  Clear entry
                 </Link>
               </>
             ) : (
@@ -173,6 +214,14 @@ export default async function ConnectionsPage({
             )}
           </p>
         ) : null}
+        <ConnectionTenureFilter
+          currentCount={counts.current}
+          endedCount={counts.ended}
+          filter={tenureFilter}
+          params={focusSlug ? { entry: focusSlug } : {}}
+          total={scoped.length}
+          unlabeledCount={unlabeledCareer.length}
+        />
       <nav aria-label="Connection views" className="flex flex-wrap gap-2">
         {byView.map((view) => (
           <a
@@ -184,7 +233,9 @@ export default async function ConnectionsPage({
           </a>
         ))}
       </nav>
-      {byView.map((view, index) => (
+      {byView.map((view, index) => {
+        if (tenureFilter && view.edges.length === 0) return null;
+        return (
         <section className="flex min-w-0 scroll-mt-24 flex-col gap-3" id={view.id} key={view.id}>
           <header className="reading-section-head">
             <span className="section-index">{String(index + 1).padStart(2, "0")}</span>
@@ -220,10 +271,24 @@ export default async function ConnectionsPage({
           ) : null}
           {view.id === "careers" ? (
             <p className="max-w-reading text-base leading-7 text-muted-foreground">
-              Dated personal holdings are listed here as well as under Investments. Ásgeir Jónsson has no dated appointment, so he is not on a line.
+              Dated personal holdings are listed here as well as under Investments. Ásgeir Jónsson has no dated appointment, so he is not on a line. Current membership is a holds-office row with {NO_END_STORED} and a cited as-of. Board seats with an empty end stay unlabeled.
             </p>
           ) : null}
           <ViewBody
+            emptyDescription={
+              tenureFilter === "current"
+                ? `Current membership is a holds-office row with ${NO_END_STORED} and a cited as-of. Empty ends on invoices, board seats, and holdings are not inferred current.`
+                : tenureFilter === "ended"
+                  ? "Ended means the cited page printed an end date. Missing ends are not filled in."
+                  : "No typed line sits in this map view."
+            }
+            emptyTitle={
+              tenureFilter === "current"
+                ? "No current membership here"
+                : tenureFilter === "ended"
+                  ? "No ended line here"
+                  : "No typed line here"
+            }
             edges={view.edges}
             noteFor={(edge) =>
               [tradeValueNote(edge.relationship), ownsRowNote(edge, contradictions)].filter(Boolean).join(" ") || null
@@ -231,7 +296,8 @@ export default async function ConnectionsPage({
             viewId={view.id}
           />
         </section>
-      ))}
+        );
+      })}
       {leftover.length > 0 ? (
         <section className="flex min-w-0 flex-col gap-3" id="leftover">
           <header className="reading-section-head">
@@ -267,8 +333,9 @@ export default async function ConnectionsPage({
             </header>
             <p className="max-w-reading text-base leading-7 text-muted-foreground">
               These entries have no typed edge. Related links on their pages are not drawn here.
-              Where a cited page still does not support an allowlisted relationship, the record
-              is labelled prose-only instead of left unexplained.
+              <code className="text-sm">related</code> stays a mention. Where a cited page still
+              does not support an allowlisted relationship, the record is labelled prose-only
+              instead of left unexplained.
             </p>
             <Table className="pocket-ledger">
               <TableCaption>
