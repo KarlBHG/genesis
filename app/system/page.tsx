@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { edgeKey } from "@/components/connection-graph";
+import { ExternalLink } from "@/components/external-link";
 import { PageHero } from "@/components/page-hero";
 import { getBySlug, getChanges, getEdges, hrefFor } from "@/lib/content";
 import { formatDate, labelize } from "@/lib/format";
@@ -164,9 +165,9 @@ export default function SystemPage() {
               <p className="mt-1 break-words text-sm leading-6">
                 {change.oldValue} → {change.newValue}. Observed {formatDate(change.observed)}.
               </p>
-              <a className="mt-1 block break-all text-sm underline underline-offset-4" href={change.source} rel="noreferrer" target="_blank">
+              <ExternalLink className="mt-1 block break-all text-sm underline underline-offset-4" href={change.source}>
                 {change.source}
-              </a>
+              </ExternalLink>
             </li>
           ))}
         </ul>

@@ -53,7 +53,7 @@ export type GovdirectoryClassSummary = {
 };
 
 function wikidataHref(id: string | undefined): string | null {
-  if (!id) return null;
+  if (!id || !/^Q\d+$/.test(id)) return null;
   return `https://www.wikidata.org/wiki/${id}`;
 }
 

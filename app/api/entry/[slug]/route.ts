@@ -1,4 +1,5 @@
 import { entryExport } from "@/lib/export";
+import { attachmentDisposition } from "@/lib/safe-href";
 
 type Params = { slug: string };
 
@@ -14,7 +15,7 @@ export async function GET(
   return new Response(JSON.stringify(payload, null, 2), {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Content-Disposition": `attachment; filename="${slug}.json"`,
+      "Content-Disposition": attachmentDisposition(slug, "json"),
     },
   });
 }

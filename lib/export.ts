@@ -24,9 +24,13 @@ export function entryExport(slug: string): {
   return { entry, connectionsOut: out, connectionsIn: inn };
 }
 
-function csvCell(value: string): string {
-  if (/[",\n\r]/.test(value)) return `"${value.replace(/"/g, '""')}"`;
-  return value;
+/** Prefix formula-like values so Excel/Sheets does not execute a downloaded cell. */
+export function csvCell(value: string): string {
+  const formula = /^[=+\-@\t\r]/.test(value);
+  const escaped = value.replace(/"/g, '""');
+  const body = formula ? `'${escaped}` : escaped;
+  if (formula || /[",\n\r]/.test(value)) return `"${body}"`;
+  return body;
 }
 
 export function connectionsCsv(): string {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { ExternalLink } from "@/components/external-link";
 import { PageHero } from "@/components/page-hero";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -194,23 +195,19 @@ export default function PublicEntitiesPage() {
               </p>
               <p className="text-xs leading-5 text-muted-foreground">
                 Source:{" "}
-                <a
+                <ExternalLink
                   className="underline underline-offset-4"
                   href={GOVDIRECTORY_ICELAND.source}
-                  rel="noreferrer"
-                  target="_blank"
                 >
                   govdirectory.org/iceland
-                </a>
+                </ExternalLink>
                 {" · "}
-                <a
+                <ExternalLink
                   className="underline underline-offset-4"
                   href={GOVDIRECTORY_ICELAND.wikidataProject}
-                  rel="noreferrer"
-                  target="_blank"
                 >
                   Wikidata Govdirectory/Iceland
-                </a>
+                </ExternalLink>
                 . {GOVDIRECTORY_ICELAND.license}
               </p>
             </div>
@@ -277,14 +274,12 @@ export default function PublicEntitiesPage() {
                             </TableCell>
                             <TableCell>
                               {row.wikidataHref ? (
-                                <a
+                                <ExternalLink
                                   className="underline underline-offset-4"
                                   href={row.wikidataHref}
-                                  rel="noreferrer"
-                                  target="_blank"
                                 >
                                   Wikidata
-                                </a>
+                                </ExternalLink>
                               ) : (
                                 "—"
                               )}
