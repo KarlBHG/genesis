@@ -141,27 +141,29 @@ export function EvidenceRoom({
     <div className="flex min-w-0 flex-col gap-8" id="evidence">
       <nav
         aria-label="Filter evidence by type"
-        className="flex min-w-0 flex-wrap gap-2"
+        className="type-rail flex min-w-0 flex-col gap-3"
       >
-        {EVIDENCE_FACETS.map((item) => (
-          <Link
-            aria-current={facet === item.id ? "true" : undefined}
-            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors ${
-              facet === item.id
-                ? "border-primary/40 bg-secondary text-secondary-foreground"
-                : "border-border/70 text-muted-foreground hover:border-primary/25 hover:text-foreground"
-            }`}
-            href={facetHref(item.id, item.anchor)}
-            key={item.id}
-          >
-            {item.label}
-            {item.id !== "all" ? (
-              <span className="tabular-nums opacity-70">
-                {counts[item.id as keyof typeof counts]}
-              </span>
-            ) : null}
-          </Link>
-        ))}
+        <div className="type-chip-row flex min-w-0 flex-wrap gap-2">
+          {EVIDENCE_FACETS.map((item) => (
+            <Link
+              aria-current={facet === item.id ? "true" : undefined}
+              className={`type-chip inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors ${
+                facet === item.id
+                  ? "border-primary/40 bg-secondary text-secondary-foreground"
+                  : "border-border/70 text-muted-foreground hover:border-primary/25 hover:text-foreground"
+              }`}
+              href={facetHref(item.id, item.anchor)}
+              key={item.id}
+            >
+              {item.label}
+              {item.id !== "all" ? (
+                <span className="tabular-nums opacity-70">
+                  {counts[item.id as keyof typeof counts]}
+                </span>
+              ) : null}
+            </Link>
+          ))}
+        </div>
       </nav>
 
       {scopedAsOfValues.length > 0 ? (

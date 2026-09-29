@@ -41,7 +41,7 @@ export function ParentMinistryChecklist({ rows }: { rows: ParentMinistryRow[] })
           count, and neither does a Govdirectory or Wikidata Q-id.
         </p>
       </header>
-      <Table>
+      <Table className="pocket-ledger">
         <TableCaption>{parentMinistryCaption(rows)}</TableCaption>
         <TableHeader>
           <TableRow>
@@ -53,8 +53,8 @@ export function ParentMinistryChecklist({ rows }: { rows: ParentMinistryRow[] })
         </TableHeader>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.slug}>
-              <TableCell className="whitespace-normal">
+            <TableRow className="pocket-ledger-row" key={row.slug}>
+              <TableCell className="whitespace-normal" data-label="Entity">
                 <div className="flex flex-col gap-0.5">
                   {row.href ? (
                     <Link
@@ -69,15 +69,18 @@ export function ParentMinistryChecklist({ rows }: { rows: ParentMinistryRow[] })
                   <span className="text-xs text-muted-foreground">{row.slug}</span>
                 </div>
               </TableCell>
-              <TableCell className="whitespace-normal text-muted-foreground">
+              <TableCell
+                className="whitespace-normal text-muted-foreground"
+                data-label="Kind"
+              >
                 {PUBLIC_ENTITY_CATEGORY_LABELS[row.category]}
               </TableCell>
-              <TableCell>
+              <TableCell data-label="Status">
                 <Badge variant={statusVariant(row.status)}>
                   {PARENT_MINISTRY_STATUS_LABELS[row.status]}
                 </Badge>
               </TableCell>
-              <TableCell className="whitespace-normal">
+              <TableCell className="whitespace-normal" data-label="Parent">
                 {row.statements.length === 0 ? (
                   <span className="text-muted-foreground">none</span>
                 ) : (

@@ -270,7 +270,7 @@ export default async function ConnectionsPage({
               Where a cited page still does not support an allowlisted relationship, the record
               is labelled prose-only instead of left unexplained.
             </p>
-            <Table>
+            <Table className="pocket-ledger">
               <TableCaption>
                 Catalog records with no typed edge on this drawing. Related links on
                 their pages are not edges.
@@ -284,14 +284,17 @@ export default async function ConnectionsPage({
               </TableHeader>
               <TableBody>
                 {missing.map((entry) => (
-                  <TableRow key={entry.slug}>
-                    <TableCell className="whitespace-normal">
+                  <TableRow className="pocket-ledger-row" key={entry.slug}>
+                    <TableCell className="whitespace-normal" data-label="Record">
                       <Link className="underline underline-offset-4" href={hrefFor(entry)}>
                         {entry.title}
                       </Link>
                     </TableCell>
-                    <TableCell>{kindLabel(entry.kind)}</TableCell>
-                    <TableCell className="whitespace-normal text-muted-foreground">
+                    <TableCell data-label="Kind">{kindLabel(entry.kind)}</TableCell>
+                    <TableCell
+                      className="whitespace-normal text-muted-foreground"
+                      data-label="Status"
+                    >
                       {entry.proseOnly ? "Prose only · no typed edge" : "No typed edge"}
                     </TableCell>
                   </TableRow>

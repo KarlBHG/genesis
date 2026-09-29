@@ -291,7 +291,7 @@ export function HomeDashboard({
             {officeCount} public offices tracked
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="home-portals grid grid-cols-1 gap-3 lg:grid-cols-3">
           {PORTALS.map((portal, index) => (
             <Link
               className="glass-panel ink-card group relative flex flex-col gap-4 overflow-hidden p-5"

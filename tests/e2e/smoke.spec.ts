@@ -794,6 +794,86 @@ test.describe("pocket folio", () => {
     expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
   });
 
+  test("evidence type pills become a pocket index", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/anomalies");
+    const types = page.locator(".type-rail .type-chip");
+    await expect(types).toHaveCount(5);
+    const first = await types.nth(0).boundingBox();
+    const second = await types.nth(1).boundingBox();
+    expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
+    expect(first!.width).toBeGreaterThan(280);
+  });
+
+  test("home portals stay one plate before lg", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.setViewportSize({ width: 800, height: 844 });
+    await page.goto("/");
+    const portals = page.locator(".home-portals a");
+    await expect(portals).toHaveCount(6);
+    const first = await portals.nth(0).boundingBox();
+    const second = await portals.nth(1).boundingBox();
+    expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
+    expect(first!.width).toBeGreaterThan(500);
+  });
+
+  test("office, connections, and public-entity tables stack as pocket rows", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/offices");
+    const post = page.locator("#posts .pocket-ledger-row td[data-label='Post']").first();
+    const org = page.locator("#posts .pocket-ledger-row td[data-label='Organization']").first();
+    await expect(post).toBeVisible();
+    const postBox = await post.boundingBox();
+    const orgBox = await org.boundingBox();
+    expect(orgBox!.y).toBeGreaterThan(postBox!.y + postBox!.height / 2);
+    expect(postBox!.width).toBeGreaterThan(280);
+
+    await page.goto("/connections#not-on-the-drawing");
+    const record = page
+      .locator("#not-on-the-drawing .pocket-ledger-row td[data-label='Record']")
+      .first();
+    const kind = page
+      .locator("#not-on-the-drawing .pocket-ledger-row td[data-label='Kind']")
+      .first();
+    await expect(record).toBeVisible();
+    const recordBox = await record.boundingBox();
+    const kindBox = await kind.boundingBox();
+    expect(kindBox!.y).toBeGreaterThan(recordBox!.y + recordBox!.height / 2);
+    expect(recordBox!.width).toBeGreaterThan(280);
+
+    await page.goto("/public-entities");
+    const inventory = page
+      .locator("[data-slot=table] .pocket-ledger-row td[data-label='Entity']")
+      .first();
+    const catalog = page
+      .locator("[data-slot=table] .pocket-ledger-row td[data-label='Catalog']")
+      .first();
+    await expect(inventory).toBeVisible();
+    const inventoryBox = await inventory.boundingBox();
+    const catalogBox = await catalog.boundingBox();
+    expect(catalogBox!.y).toBeGreaterThan(inventoryBox!.y + inventoryBox!.height / 2);
+    expect(inventoryBox!.width).toBeGreaterThan(280);
+
+    await page.goto("/public-entities#ownership");
+    const entity = page
+      .locator("#ownership .pocket-ledger-row td[data-label='Entity']")
+      .first();
+    const status = page
+      .locator("#ownership .pocket-ledger-row td[data-label='Status']")
+      .first();
+    await expect(entity).toBeVisible();
+    const entityBox = await entity.boundingBox();
+    const statusBox = await status.boundingBox();
+    expect(statusBox!.y).toBeGreaterThan(entityBox!.y + entityBox!.height / 2);
+    expect(entityBox!.width).toBeGreaterThan(280);
+  });
+
   test("command palette docks as a sheet and intake and compare stack", async ({
     page,
   }, testInfo) => {
@@ -863,6 +943,21 @@ test.describe("pocket folio", () => {
     expect(stage).toBeTruthy();
     expect(caption).toBeTruthy();
     expect(caption!.x).toBeGreaterThan(stage!.x + stage!.width * 0.4);
+
+    await page.goto("/anomalies");
+    const types = page.locator(".type-rail .type-chip");
+    await expect(types).toHaveCount(5);
+    const first = await types.nth(0).boundingBox();
+    const second = await types.nth(1).boundingBox();
+    expect(second!.x).toBeGreaterThan(first!.x + first!.width / 2);
+    expect(Math.abs(second!.y - first!.y)).toBeLessThan(24);
+
+    await page.goto("/");
+    const portals = page.locator(".home-portals a");
+    const portalFirst = await portals.nth(0).boundingBox();
+    const portalSecond = await portals.nth(1).boundingBox();
+    expect(portalSecond!.x).toBeGreaterThan(portalFirst!.x + portalFirst!.width / 2);
+    expect(Math.abs(portalSecond!.y - portalFirst!.y)).toBeLessThan(24);
   });
 });
 

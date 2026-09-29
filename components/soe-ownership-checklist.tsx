@@ -41,7 +41,7 @@ export function SoeOwnershipChecklist({ rows }: { rows: SoeOwnershipRow[] }) {
           statement — or have only a contradiction. Percentages are not added.
         </p>
       </header>
-      <Table>
+      <Table className="pocket-ledger">
         <TableCaption>{soeOwnershipCaption(rows)}</TableCaption>
         <TableHeader>
           <TableRow>
@@ -53,8 +53,8 @@ export function SoeOwnershipChecklist({ rows }: { rows: SoeOwnershipRow[] }) {
         </TableHeader>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.slug}>
-              <TableCell className="whitespace-normal">
+            <TableRow className="pocket-ledger-row" key={row.slug}>
+              <TableCell className="whitespace-normal" data-label="Entity">
                 <div className="flex flex-col gap-0.5">
                   {row.href ? (
                     <Link
@@ -69,12 +69,12 @@ export function SoeOwnershipChecklist({ rows }: { rows: SoeOwnershipRow[] }) {
                   <span className="text-xs text-muted-foreground">{row.slug}</span>
                 </div>
               </TableCell>
-              <TableCell>
+              <TableCell data-label="Status">
                 <Badge variant={statusVariant(row.status)}>
                   {SOE_OWNERSHIP_STATUS_LABELS[row.status]}
                 </Badge>
               </TableCell>
-              <TableCell className="whitespace-normal">
+              <TableCell className="whitespace-normal" data-label="Statements">
                 {row.statements.length === 0 ? (
                   <span className="text-muted-foreground">none</span>
                 ) : (
@@ -96,7 +96,7 @@ export function SoeOwnershipChecklist({ rows }: { rows: SoeOwnershipRow[] }) {
                   </ul>
                 )}
               </TableCell>
-              <TableCell className="whitespace-normal">
+              <TableCell className="whitespace-normal" data-label="Contradiction">
                 {row.contradictions.length === 0 ? (
                   <span className="text-muted-foreground">—</span>
                 ) : (

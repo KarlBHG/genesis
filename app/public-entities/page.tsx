@@ -178,7 +178,7 @@ export default function PublicEntitiesPage() {
                         Every listed {group.label.toLowerCase()} row is matched or grouped.
                       </p>
                     ) : (
-                      <Table>
+                      <Table className="pocket-ledger">
                         <TableCaption>
                           Official names not yet in this catalog. Not a source of typed edges.
                         </TableCaption>
@@ -191,14 +191,24 @@ export default function PublicEntitiesPage() {
                         </TableHeader>
                         <TableBody>
                           {unmatched.map((row) => (
-                            <TableRow key={`${group.id}-${row.name}`}>
-                              <TableCell className="whitespace-normal" lang={group.id === "municipalities" ? "is" : undefined}>
+                            <TableRow
+                              className="pocket-ledger-row"
+                              key={`${group.id}-${row.name}`}
+                            >
+                              <TableCell
+                                className="whitespace-normal"
+                                data-label="Name"
+                                lang={group.id === "municipalities" ? "is" : undefined}
+                              >
                                 {row.name}
                               </TableCell>
-                              <TableCell className="whitespace-normal text-muted-foreground">
+                              <TableCell
+                                className="whitespace-normal text-muted-foreground"
+                                data-label="Note"
+                              >
                                 {row.note ?? "—"}
                               </TableCell>
-                              <TableCell>
+                              <TableCell data-label="Wikidata">
                                 {row.wikidataHref ? (
                                   <ExternalLink
                                     className="underline underline-offset-4"
@@ -237,7 +247,7 @@ export default function PublicEntitiesPage() {
                       {summary.total} typed-linked · {summary.officeLinked}/
                       {summary.total} office-linked
                     </p>
-                    <Table>
+                    <Table className="pocket-ledger">
                       <TableCaption>
                         Coverage for {PUBLIC_ENTITY_CATEGORY_LABELS[summary.category].toLowerCase()}.
                         Counts are not money totals.
@@ -253,8 +263,8 @@ export default function PublicEntitiesPage() {
                       </TableHeader>
                       <TableBody>
                         {categoryRows.map((row) => (
-                          <TableRow key={row.slug}>
-                            <TableCell className="whitespace-normal">
+                          <TableRow className="pocket-ledger-row" key={row.slug}>
+                            <TableCell className="whitespace-normal" data-label="Entity">
                               <div className="flex flex-col gap-0.5">
                                 {row.href ? (
                                   <Link
@@ -269,12 +279,12 @@ export default function PublicEntitiesPage() {
                                 <span className="text-xs text-muted-foreground">{row.slug}</span>
                               </div>
                             </TableCell>
-                            <TableCell>
+                            <TableCell data-label="Catalog">
                               <Badge variant={row.inCatalog ? "secondary" : "destructive"}>
                                 {catalogLabel(row)}
                               </Badge>
                             </TableCell>
-                            <TableCell>
+                            <TableCell data-label="Map">
                               <Badge
                                 variant={
                                   row.mapped || row.mapMode === "office-only"
@@ -285,12 +295,12 @@ export default function PublicEntitiesPage() {
                                 {mapLabel(row)}
                               </Badge>
                             </TableCell>
-                            <TableCell>
+                            <TableCell data-label="Typed links">
                               <Badge variant={row.typedLinkage ? "secondary" : "destructive"}>
                                 {row.directTypedLinks + row.officeLinks}
                               </Badge>
                             </TableCell>
-                            <TableCell>
+                            <TableCell data-label="Office">
                               <Badge variant={row.officeLinked ? "secondary" : "outline"}>
                                 {row.officeLinked ? "yes" : "no"}
                               </Badge>

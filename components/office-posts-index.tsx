@@ -30,7 +30,7 @@ export function OfficePostsIndex({
           holder field does not fill it.
         </p>
       </header>
-      <Table>
+      <Table className="pocket-ledger">
         <TableCaption>{officeIndexCaption(views)}</TableCaption>
         <TableHeader>
           <TableRow>
@@ -46,8 +46,8 @@ export function OfficePostsIndex({
               .map((row) => row.personTitle)
               .filter((title, index, all) => all.indexOf(title) === index);
             return (
-              <TableRow key={view.office.id}>
-                <TableCell className="whitespace-normal">
+              <TableRow className="pocket-ledger-row" key={view.office.id}>
+                <TableCell className="whitespace-normal" data-label="Post">
                   <Link
                     className="font-medium underline underline-offset-4"
                     href={`/offices/${view.office.id}`}
@@ -55,7 +55,7 @@ export function OfficePostsIndex({
                     {view.office.title}
                   </Link>
                 </TableCell>
-                <TableCell className="whitespace-normal">
+                <TableCell className="whitespace-normal" data-label="Organization">
                   {view.organizationHref ? (
                     <Link
                       className="underline underline-offset-4"
@@ -67,14 +67,14 @@ export function OfficePostsIndex({
                     view.organizationTitle
                   )}
                 </TableCell>
-                <TableCell className="whitespace-normal">
+                <TableCell className="whitespace-normal" data-label="Status">
                   {view.vacant ? (
                     <Badge variant="outline">vacant</Badge>
                   ) : (
                     <span>{currentNames.join(", ")}</span>
                   )}
                 </TableCell>
-                <TableCell>{view.memberships.length}</TableCell>
+                <TableCell data-label="Memberships">{view.memberships.length}</TableCell>
               </TableRow>
             );
           })}

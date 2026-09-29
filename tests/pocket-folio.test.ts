@@ -44,6 +44,7 @@ describe("pocket folio CSS", () => {
     expect(css).toContain(".folio-rail");
     expect(css).toContain(".policy-treemap");
     expect(css).toContain(".as-of-rail");
+    expect(css).toContain(".type-rail");
     expect(css).toContain(".pocket-ledger");
     expect(css).toContain(".command-folio");
     expect(css).toContain(".intake-folio");

@@ -1749,14 +1749,16 @@ body:has(.geo-room) footer {
     display: none;
   }
 
-  .as-of-rail {
+  .as-of-rail,
+  .type-rail {
     gap: 0.75rem;
     border-radius: 0;
     background: transparent;
     padding: 0.15rem 0 0.5rem;
   }
 
-  .as-of-chip-row {
+  .as-of-chip-row,
+  .type-chip-row {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -1764,7 +1766,8 @@ body:has(.geo-room) footer {
     border-top: 1px solid var(--border);
   }
 
-  .as-of-rail .as-of-chip {
+  .as-of-rail .as-of-chip,
+  .type-rail .type-chip {
     display: grid;
     width: 100%;
     grid-template-columns: minmax(0, 1fr) auto;
@@ -1778,7 +1781,8 @@ body:has(.geo-room) footer {
     letter-spacing: -0.02em;
   }
 
-  .as-of-rail .as-of-chip[aria-pressed="true"] {
+  .as-of-rail .as-of-chip[aria-pressed="true"],
+  .type-rail .type-chip[aria-current="true"] {
     background: transparent;
     box-shadow: inset 2px 0 0 var(--paper-ink-bar);
     color: var(--foreground);

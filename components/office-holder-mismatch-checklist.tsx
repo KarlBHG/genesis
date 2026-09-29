@@ -39,7 +39,7 @@ export function OfficeHolderMismatchChecklist({
           succession, and not a start date copied from as-of.
         </p>
       </header>
-      <Table>
+      <Table className="pocket-ledger">
         <TableCaption>{holderMismatchCaption(rows)}</TableCaption>
         <TableHeader>
           <TableRow>
@@ -66,8 +66,8 @@ export function OfficeHolderMismatchChecklist({
             </TableRow>
           ) : (
             rows.map((row) => (
-              <TableRow key={row.officeId}>
-                <TableCell className="whitespace-normal">
+              <TableRow className="pocket-ledger-row" key={row.officeId}>
+                <TableCell className="whitespace-normal" data-label="Post">
                   <Link
                     className="font-medium underline underline-offset-4"
                     href={row.officeHref}
@@ -75,7 +75,7 @@ export function OfficeHolderMismatchChecklist({
                     {row.officeTitle}
                   </Link>
                 </TableCell>
-                <TableCell className="whitespace-normal">
+                <TableCell className="whitespace-normal" data-label="Holder field">
                   {row.holderHref ? (
                     <Link
                       className="underline underline-offset-4"
@@ -87,7 +87,7 @@ export function OfficeHolderMismatchChecklist({
                     row.holderTitle
                   )}
                 </TableCell>
-                <TableCell className="whitespace-normal">
+                <TableCell className="whitespace-normal" data-label="Current membership">
                   {row.currentPeople.length === 0 ? (
                     <span className="text-muted-foreground">none (vacant)</span>
                   ) : (
@@ -96,7 +96,7 @@ export function OfficeHolderMismatchChecklist({
                       .join(", ")
                   )}
                 </TableCell>
-                <TableCell className="whitespace-normal">
+                <TableCell className="whitespace-normal" data-label="Status">
                   <div className="flex flex-col gap-1">
                     <Badge variant="destructive">{row.label}</Badge>
                     <span className="text-xs leading-5 text-muted-foreground">
