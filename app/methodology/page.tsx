@@ -203,8 +203,12 @@ export default function MethodologyPage() {
           </ol>
           <p className="text-sm leading-6 text-muted-foreground">
             {stats.relationshipTypes} relationship types are allowlisted across{" "}
-            {stats.edges} rows. A new type is added only when a source class needs
-            one, never to accommodate a single interesting page.
+            {stats.edges} rows. Each type also says which kinds of records may
+            stand on each end — a person cannot regulate a bank, and an
+            organisation cannot hold an office. Two leftover rows that predate
+            the rule are listed by edge key and cannot spread. A new type is
+            added only when a source class needs one, never to accommodate a
+            single interesting page.
           </p>
         </Section>
 

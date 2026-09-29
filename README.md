@@ -2,7 +2,7 @@
 
 A searchable reference for how Iceland is wired: treaties, institutions, events, business sectors, published money flows, and public office-holders. The interface is English. Icelandic proper names keep their spelling (Alþingi, Seðlabanki Íslands, króna).
 
-Typed edges live in `data/edges.json`. Each one has from, to, type, asOf, source, and quotation. The app refuses to load if a field is missing, the type is not on the allowlist, or either end does not exist. A career line (`holds-office`, `sits-on-board`, or a person’s disclosed holding) also needs a start, an end, and a channel, `political` or `business`. Authority and trade lines use `elects`, `imported-from`, `exported-to`, and `incorporates`. The system page reads those records. When a page prints only one end of the term, the other field is the words `not printed`. `data/contradictions.json` keeps two sourced sentences about the same entries and does not pick a winner. `related` in the Markdown stays untyped and is not drawn. The connections page, the contradictions page, and the map read those files.
+Typed edges live in `data/edges.json`. Each one has from, to, type, asOf, source, and quotation. The app refuses to load if a field is missing, the type is not on the allowlist, either end does not exist, or the two endpoint kinds are not a legal pair for that verb. Exceptions are listed by existing `edgeKey` and cannot spread. A career line (`holds-office`, `sits-on-board`, or a person’s disclosed holding) also needs a start, an end, and a channel, `political` or `business`. Authority and trade lines use `elects`, `imported-from`, `exported-to`, and `incorporates`. The system page reads those records. When a page prints only one end of the term, the other field is the words `not printed`. `data/contradictions.json` keeps two sourced sentences about the same entries and does not pick a winner. `related` in the Markdown stays untyped and is not drawn. The connections page, the contradictions page, and the map read those files.
 
 ## Run locally
 
@@ -16,7 +16,7 @@ Public-entity coverage is listed on **Public entities** (`/public-entities`), wi
 
 ## Paste a sourced line (local)
 
-`/intake` is a human form, linked from the footer and from Methodology — not an eleventh nav leaf. Paste an official URL, the sentence as printed, an allowlisted relationship, and two existing from/to slugs (or office ids). The same checks as `lib/content.ts` run: six fields, allowlisted type, both ends exist, amount (if present) must be a substring of the quotation and print the stored number. Career lines still need start, end, and channel. `pays` lines still need year and a program join or an explicit null reason.
+`/intake` is a human form, linked from the footer and from Methodology — not an eleventh nav leaf. Paste an official URL, the sentence as printed, an allowlisted relationship, and two existing from/to slugs (or office ids). The same checks as `lib/content.ts` run: six fields, allowlisted type, both ends exist, pair-type law, amount (if present) must be a substring of the quotation and print the stored number. Career lines still need start, end, and channel. `pays` lines still need year and a program join or an explicit null reason.
 
 The form does **not** fetch the URL, scrape HTML, or call Ollama or any other model. A passing check can be queued in `data/intake-queue.json` on a local/dev tree. It never appends to `data/edges.json`; promote a row by hand after `npm run check` would still pass.
 

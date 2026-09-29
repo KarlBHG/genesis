@@ -86,6 +86,23 @@ test("paste intake checks a sourced line without writing edges.json", async ({
   await expect(page.getByText("Queued for review")).toHaveCount(0);
 });
 
+test("paste intake refuses an illegal pair-type", async ({ page }) => {
+  await page.goto("/intake");
+  await page.locator("#intake-from").selectOption("kristrun-frostadottir");
+  await page.locator("#intake-to").selectOption("landsbankinn");
+  await page.locator("#intake-type").selectOption("regulates");
+  await page.locator("#intake-as-of").fill("2026");
+  await page.locator("#intake-source").fill("https://www.althingi.is/");
+  await page.locator("#intake-quotation").fill(
+    "A person does not regulate a bank on this graph.",
+  );
+  await page.getByRole("button", { name: "Check against the contract" }).click();
+  await expect(page.locator("[data-slot=field-error]")).toContainText(
+    "regulates cannot run from person to organization",
+  );
+  await expect(page.getByText("The contract accepts this row.")).toHaveCount(0);
+});
+
 test("quoted-name ledger stores unmatched names, not stub players", async ({
   page,
 }) => {

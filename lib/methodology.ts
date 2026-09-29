@@ -24,7 +24,7 @@ export const REQUIRED_EDGE_FIELDS = [
     name: "type",
     title: "Which relationship it is",
     detail:
-      "One of the allowlisted relationship types. There is no generic “linked to”, and a relationship is not minted to fit a single page.",
+      "One of the allowlisted relationship types, and only between the kinds of records that type may join. There is no generic “linked to”, and a relationship is not minted to fit a single page.",
   },
   {
     name: "asOf",

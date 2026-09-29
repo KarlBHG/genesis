@@ -278,6 +278,7 @@ describe("paste intake contract", () => {
       "app/intake/opnir/page.tsx",
       "lib/quoted-name-contract.ts",
       "lib/quoted-names.ts",
+      "lib/pair-type.ts",
       "app/api/intake/quoted-names/route.ts",
       "components/quoted-name-ledger.tsx",
     ];

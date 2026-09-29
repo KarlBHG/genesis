@@ -1,3 +1,9 @@
+import {
+  isListedPairTypeException,
+  pairAllowed,
+  pairKindOf,
+  pairTypeError,
+} from "@/lib/pair-type";
 import { isHttpUrl } from "@/lib/safe-href";
 import type {
   CareerChannel,
@@ -373,6 +379,26 @@ export function checkRawEdge(
     if (!year) errors.push(`${where} pays row is missing year`);
     if (!("program" in row)) {
       errors.push(`${where} pays row is missing program`);
+    }
+  }
+
+  if (relationship && from && to) {
+    const fromKind = pairKindOf(from, ctx);
+    const toKind = pairKindOf(to, ctx);
+    if (
+      fromKind &&
+      toKind &&
+      !pairAllowed(relationship, fromKind, toKind) &&
+      !isListedPairTypeException({
+        from,
+        relationship,
+        to,
+        asOf,
+        start,
+        quotation,
+      })
+    ) {
+      errors.push(pairTypeError(where, relationship, fromKind, toKind));
     }
   }
 
