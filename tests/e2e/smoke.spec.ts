@@ -292,9 +292,8 @@ test("connections tenure filter labels empty ends and does not invent current", 
     name: "Filter current or ended connections",
   });
   await expect(tenure).toBeVisible();
-  await expect(
-    tenure.getByText("no end date stored", { exact: true }).first(),
-  ).toBeVisible();
+  await expect(tenure).toContainText("no end date stored");
+  await expect(tenure).toContainText("never labelled “current.”");
   await expect(
     page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
       name: "Tenure",
@@ -321,7 +320,7 @@ test("connections tenure filter labels empty ends and does not invent current", 
   await careers.getByRole("link", { name: "Open this connection" }).first().click();
   await expect(page).toHaveURL(/\/connections\//);
   await expect(page.getByText("current membership").first()).toBeVisible();
-  const endField = page.locator("main .folio-gutter > div").filter({
+  const endField = page.locator(".folio-gutter > div").filter({
     has: page.getByText("End", { exact: true }),
   });
   await expect(endField.getByText("no end date stored")).toBeVisible();
@@ -333,7 +332,7 @@ test("connections tenure filter labels empty ends and does not invent current", 
     .click();
   await expect(page).toHaveURL(/tenure=ended/);
   const endedCareers = page.locator("#careers");
-  await expect(endedCareers.getByText("ended", { exact: true }).first()).toBeVisible();
+  await expect(endedCareers.locator("li").getByText("ended", { exact: true }).first()).toBeVisible();
   await expect(
     endedCareers.getByRole("link", { name: "Director of Health" }).first(),
   ).toBeVisible();
@@ -343,7 +342,7 @@ test("connections tenure filter labels empty ends and does not invent current", 
   await expect(
     endedCareers.getByRole("link", { name: "Prime Minister" }),
   ).toHaveCount(0);
-  await expect(endedCareers.getByText("current membership")).toHaveCount(0);
+  await expect(endedCareers.locator("li").getByText("current membership")).toHaveCount(0);
 });
 
 
@@ -952,7 +951,7 @@ test.describe("pocket folio", () => {
     await chips.nth(0).click();
     await expect(page).toHaveURL(/tenure=current/);
     await page.locator("#careers").getByRole("link", { name: "Open this connection" }).first().click();
-    const record = page.locator("main .folio-gutter > div");
+    const record = page.locator(".folio-gutter > div");
     await expect(record.first()).toBeVisible();
     const asOf = record.filter({ has: page.getByText("As of", { exact: true }) });
     const end = record.filter({ has: page.getByText("End", { exact: true }) });
