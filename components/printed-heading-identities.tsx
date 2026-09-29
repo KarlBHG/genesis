@@ -54,8 +54,8 @@ export function PrintedHeadingIdentityTable({
           When the heading an invoice ledger prints is not a unique match for the
           catalog title the row sits on, that fact is a statement — not a silent
           rename. Re-parenting a <span lang="is">pays</span> row waits until this
-          statement exists. Unmatched vendor strings stay unmatched; they are not
-          stub players.
+          Identity is one heading → one slug. Unmatched names are not turned
+          into stub players.
         </p>
       </header>
 

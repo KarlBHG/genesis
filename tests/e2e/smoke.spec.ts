@@ -160,8 +160,8 @@ test("invoice coverage ledger counts rows, not krónur, and keeps Hæstiréttur 
   await expect(headings.getByText("Invoices were not moved here.")).toBeVisible();
   await expect(headings.getByText("None on file")).toBeVisible();
   await expect(
-    headings.getByText("Unmatched vendor strings stay unmatched"),
-  ).toBeVisible();
+    headings.locator("[data-slot=empty-description]"),
+  ).toContainText("Unmatched vendor strings stay unmatched");
 });
 
 test("command palette opens with Ctrl+K", async ({ page }) => {
