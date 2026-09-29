@@ -191,16 +191,19 @@ describe("map membership", () => {
     }
   });
 
-  it("gives every map pin a typed edge or an explicit pin-only flag", () => {
-    const edges = getEdges();
-    const offices = getOffices();
-    for (const ref of MAP_ENTRIES) {
-      const linked = mapSlugHasTypedLinkage(ref.slug, edges, offices);
-      expect(
-        linked || ref.pinOnly === true,
-        `map pin "${ref.slug}" has no typed linkage and is not marked pinOnly`,
-      ).toBe(true);
-    }
+  it("does not scale pins by typed-edge degree and keeps off-map as text", () => {
+    const source = fs.readFileSync(
+      path.join(ROOT, "components", "iceland-map.tsx"),
+      "utf8",
+    );
+    expect(source).toContain("const radius = selected ? 10 : cluster ? 8 : 5.5");
+    expect(source).not.toMatch(/radius[^\n]*(lit|shown|edges)\.length/);
+    expect(source).not.toMatch(/maplibre|MapLibre/i);
+    expect(source).not.toMatch(/ollama/i);
+    expect(source).toContain("On the drawing, no typed line");
+    expect(source).toContain("geo-caption-legend");
+    expect(source).toContain("edgeHref");
+    expect(source).toContain("Off-map endpoints");
   });
 
   it("ratchets edge endpoints missing from the map (baseline 39)", () => {

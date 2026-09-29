@@ -298,6 +298,48 @@ test("command palette opens with Ctrl+K", async ({ page }) => {
   await expect(page.getByRole("dialog", { name: "Search the records" })).toHaveCount(0);
 });
 
+test("night plate caption reads as a legend, not a GIS inspector", async ({
+  page,
+}) => {
+  await page.goto("/map?focus=althingi");
+  await expect(page).toHaveURL(/focus=althingi/);
+  const caption = page.getByRole("region", { name: "Plate caption" });
+  await expect(caption).toBeVisible();
+  await expect(caption.getByText("State", { exact: true })).toBeVisible();
+  await expect(caption.getByRole("heading", { name: "Alþingi" })).toBeVisible();
+  await expect(caption.getByText("Reykjavík", { exact: true })).toBeVisible();
+  await expect(caption).toContainText("Alþingi is Iceland's parliament.");
+  await expect(caption.getByRole("link", { name: "Open the entry" })).toBeVisible();
+  const legend = caption.getByRole("list", { name: "Legend" });
+  await expect(legend.getByRole("listitem").first()).toBeVisible();
+  await expect(legend.getByRole("link", { name: "permalink" }).first()).toBeVisible();
+  await expect(legend.getByRole("link", { name: "permalink" }).first()).toHaveAttribute(
+    "href",
+    /\/connections\//,
+  );
+  await expect(caption.getByRole("heading", { name: "Career" })).toHaveCount(0);
+
+  await page.goto("/map?place=reykjavik&focus=althingi");
+  await expect(page).toHaveURL(/place=reykjavik/);
+  await expect(page).toHaveURL(/focus=althingi/);
+  await expect(
+    page.getByRole("region", { name: "Plate caption" }).getByText("Reykjavík", {
+      exact: true,
+    }),
+  ).toBeVisible();
+
+  await page.goto("/map?focus=frimurarareglan");
+  const pinOnly = page.getByRole("region", { name: "Plate caption" });
+  await expect(pinOnly.getByText("On the drawing, no typed line")).toBeVisible();
+  await expect(pinOnly.getByRole("heading", { name: "Frímúrarareglan á Íslandi" })).toBeVisible();
+  await expect(pinOnly.getByRole("list", { name: "Legend" })).toHaveCount(0);
+  await expect(pinOnly.getByRole("link", { name: "permalink" })).toHaveCount(0);
+
+  await page.goto("/map?views=trade");
+  await expect(page.getByText("Off-map endpoints")).toBeVisible();
+  await expect(page.getByText("listed here instead of pinned in Reykjavík")).toBeVisible();
+});
+
 test.describe("visual baselines", () => {
   test("home and money — desktop 1440", async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== "desktop", "Desktop baselines only");

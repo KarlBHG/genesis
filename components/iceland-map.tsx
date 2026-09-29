@@ -11,6 +11,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import coast from "@/data/iceland-coast.json";
+import { edgeHref } from "@/lib/edge-id";
 import { labelize, yearOf } from "@/lib/format";
 import { icelandicLang } from "@/lib/lang";
 import {
@@ -27,6 +28,7 @@ import {
   serializeMapQuery,
   type MapQuery,
 } from "@/lib/map-query";
+import type { Relationship } from "@/lib/types";
 
 export type MapFlowLink = {
   title: string;
@@ -57,7 +59,7 @@ export type MapEdgeView = {
   to: string;
   fromTitle: string;
   toTitle: string;
-  relationship: string;
+  relationship: Relationship;
   asOf: string;
   quotation: string;
   start: string | null;
@@ -262,19 +264,97 @@ function placeLabel(edge: MapEdgeView): string {
   return edge.toTitle;
 }
 
-function careerRank(start: string | null): string {
-  if (!start || start === "not printed") return "9999-99-99";
-  if (/^\d{4}$/.test(start)) return `${start}-00-00`;
-  return start;
+function captionAsOf(asOf: string): string {
+  const printed = asOf.trim();
+  return printed || "undated";
 }
 
-function printedEnd(value: string | null, side: "start" | "end"): string {
-  if (!value || value === "not printed") return `${side} not printed`;
-  return value;
-}
-
-function careerSpan(edge: MapEdgeView): string {
-  return `${printedEnd(edge.start, "start")} – ${printedEnd(edge.end, "end")}`;
+function PlateCaption({
+  focus,
+  placeName,
+  legend,
+  cluster,
+  onBack,
+}: {
+  focus: MapEntryView;
+  placeName: string | undefined;
+  legend: MapEdgeView[];
+  cluster: boolean;
+  onBack: () => void;
+}) {
+  return (
+    <div className="geo-caption-body">
+      <p className="geo-caption-kicker">{LAYER_LABEL[focus.layer]}</p>
+      {focus.pinOnly ? (
+        <p
+          className="geo-caption-stamp"
+          title="This pin is on the drawing because a page names the place. No typed edge is on file."
+        >
+          On the drawing, no typed line
+        </p>
+      ) : null}
+      <h2 className="geo-caption-title">{focus.title}</h2>
+      {placeName ? <p className="geo-caption-place">{placeName}</p> : null}
+      <p className="geo-caption-fact">{focus.fact}</p>
+      <a className="geo-caption-entry" href={focus.href}>
+        Open the entry
+      </a>
+      {focus.pinOnly ? null : legend.length > 0 ? (
+        <ol className="geo-caption-legend" aria-label="Legend">
+          {legend.map((edge) => (
+            <li key={edgeKey(edge)}>
+              <span className="geo-caption-line">
+                <span className="geo-caption-meta">
+                  {labelize(edge.relationship)} · {captionAsOf(edge.asOf)}
+                </span>
+                <span className="geo-caption-dot" aria-hidden>
+                  ·
+                </span>
+                <span
+                  className="geo-caption-quote"
+                  lang={icelandicLang(edge.quotation)}
+                  title={edge.quotation}
+                >
+                  {edge.quotation}
+                </span>
+                <span className="geo-caption-dot" aria-hidden>
+                  ·
+                </span>
+                <a className="geo-caption-permalink" href={edgeHref(edge)}>
+                  permalink
+                </a>
+              </span>
+              {edge.note ? (
+                <span className="geo-caption-note">{edge.note}</span>
+              ) : null}
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p className="geo-caption-empty">No lines in the views that are on.</p>
+      )}
+      {focus.flows.length > 0 ? (
+        <ul className="geo-caption-flows">
+          {focus.flows.map((flow) => (
+            <li key={flow.href}>
+              <a className="geo-caption-entry" href={flow.href}>
+                {flow.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {cluster ? (
+        <button
+          type="button"
+          className={`geo-caption-back ${MAP_CONTROL}`}
+          onClick={onBack}
+        >
+          Back to {placeName} · still one pin
+        </button>
+      ) : null}
+    </div>
+  );
 }
 
 export function IcelandMap({
@@ -363,21 +443,15 @@ export function IcelandMap({
     ? visible.filter((entry) => entry.place === selectedPlace)
     : [];
   const focus = entries.find((entry) => entry.slug === selectedSlug) ?? null;
-  const timeline =
-    focus?.person === true
-      ? edges
-          .filter(
-            (edge) =>
-              edge.channel != null && (edge.from === focus.slug || edge.to === focus.slug),
-          )
-          .slice()
-          .sort(
-            (a, b) =>
-              careerRank(a.start).localeCompare(careerRank(b.start)) ||
-              a.toTitle.localeCompare(b.toTitle, "en"),
-          )
-      : [];
-  const panelLines = focus?.person === true ? lit.filter((edge) => edge.channel == null) : lit;
+  const captionPlaceId = focus?.place ?? selectedPlace;
+  const captionPlaceName = captionPlaceId
+    ? PLACES.find((place) => place.id === captionPlaceId)?.name
+    : undefined;
+  const captionPlaceEntries = captionPlaceId
+    ? visible.filter((entry) => entry.place === captionPlaceId)
+    : [];
+  const captionCluster = captionPlaceEntries.length > 1;
+  const legend = focus ? lit : [];
   const placeName = PLACES.find((place) => place.id === selectedPlace)?.name;
   const grouped = MAP_LAYERS.map((layer) => ({
     layer,
@@ -459,22 +533,23 @@ export function IcelandMap({
   }
 
   function roamPinList(event: KeyboardEvent, slugs: string[]) {
-    if (slugs.length === 0 || !selectedPlace) return;
+    const place = captionPlaceId ?? selectedPlace;
+    if (slugs.length === 0 || !place) return;
     const idx = selectedSlug ? slugs.indexOf(selectedSlug) : -1;
     if (event.key === "ArrowDown" || event.key === "j") {
       event.preventDefault();
       const next = slugs[(idx + 1) % slugs.length];
-      selectSlug(next, selectedPlace);
+      selectSlug(next, place);
     } else if (event.key === "ArrowUp" || event.key === "k") {
       event.preventDefault();
       const next = slugs[(idx - 1 + slugs.length) % slugs.length];
-      selectSlug(next, selectedPlace);
+      selectSlug(next, place);
     } else if (event.key === "Home") {
       event.preventDefault();
-      selectSlug(slugs[0], selectedPlace);
+      selectSlug(slugs[0], place);
     } else if (event.key === "End") {
       event.preventDefault();
-      selectSlug(slugs[slugs.length - 1], selectedPlace);
+      selectSlug(slugs[slugs.length - 1], place);
     }
   }
 
@@ -718,6 +793,7 @@ export function IcelandMap({
                     (edge.fromPlace === place.id || edge.toPlace === place.id) &&
                     (edge.from === selectedSlug || edge.to === selectedSlug),
                 );
+              // Selected or cluster vs a singleton — never typed-edge degree.
               const radius = selected ? 10 : cluster ? 8 : 5.5;
               const label = LABEL_AT[place.id];
               const gap = (2 * Math.PI) / Math.max(mix.length, 1);
@@ -806,7 +882,10 @@ export function IcelandMap({
               <button
                 key={place.id}
                 type="button"
-                className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full ${MAP_CONTROL} ${cluster ? "h-11 w-11" : "h-8 w-8"}`}
+                className={`geo-pin-hit absolute -translate-x-1/2 -translate-y-1/2 rounded-full ${MAP_CONTROL} ${cluster ? "h-11 w-11" : "h-8 w-8"}`}
+                data-geo-anchor={
+                  focus && place.id === focus.place ? "focus" : undefined
+                }
                 style={{
                   left: `${(point.x / scene.width) * 100}%`,
                   top: `${(point.y / scene.height) * 100}%`,
@@ -816,6 +895,9 @@ export function IcelandMap({
                   cluster
                     ? `${place.name}, ${atPlace.length} records on one pin`
                     : place.name
+                }
+                aria-current={
+                  focus && place.id === focus.place ? "true" : undefined
                 }
                 onClick={() => selectPlace(place.id)}
               />
@@ -877,104 +959,44 @@ export function IcelandMap({
           )}
         </nav>
 
+        {focus ? <div className="geo-leader" aria-hidden /> : null}
+
         <aside
-          className="geo-inspector"
+          className={focus ? "geo-inspector geo-caption" : "geo-inspector"}
           aria-live="polite"
-          role={placeEntries.length > 1 ? "region" : undefined}
+          role={focus || placeEntries.length > 1 ? "region" : undefined}
           aria-label={
-            placeEntries.length > 1
-              ? `${placeName} entries`
-              : undefined
+            focus
+              ? "Plate caption"
+              : placeEntries.length > 1
+                ? `${placeName} entries`
+                : undefined
           }
-          tabIndex={placeEntries.length > 1 ? 0 : undefined}
+          tabIndex={captionCluster ? 0 : undefined}
           onKeyDown={
-            placeEntries.length > 1
+            captionCluster
               ? (event) =>
                   roamPinList(
                     event,
-                    placeEntries.map((entry) => entry.slug),
+                    captionPlaceEntries.map((entry) => entry.slug),
                   )
               : undefined
           }
         >
           {focus ? (
-            <div className="flex flex-col gap-3">
-              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">{LAYER_LABEL[focus.layer]}</p>
-              {focus.pinOnly ? (
-                <p
-                  className="w-fit rounded-md border border-(--geo-line-bright) bg-(--geo-chip) px-2.5 py-0.5 text-[11px] tracking-wide text-(--geo-accent-dim) uppercase"
-                  title="This pin is geographic only until a sourced typed edge exists."
-                >
-                  Pin only · no typed edge
-                </p>
-              ) : null}
-              <h2 className="text-xl font-medium text-(--geo-ink)">{focus.title}</h2>
-              <p className="text-sm leading-6 text-(--geo-ink-muted)">{focus.fact}</p>
-              <a className="text-sm text-(--geo-accent) underline underline-offset-4" href={focus.href}>
-                Open the entry
-              </a>
-              {focus.person ? (
-                <div className="flex min-w-0 flex-col gap-2">
-                  <h3 className="text-sm font-medium text-(--geo-ink)">Career</h3>
-                  {timeline.length === 0 ? (
-                    <p className="text-sm leading-6 text-(--geo-ink-dim)">No career lines are on file.</p>
-                  ) : (
-                    <ol className="flex min-w-0 flex-col gap-3">
-                      {timeline.map((edge) => (
-                        <li key={edgeKey(edge)} className="min-w-0 text-sm leading-5 break-words text-(--geo-ink-muted)">
-                          <span className="block text-xs tracking-wide text-(--geo-accent) uppercase">
-                            {edge.channel === "political" ? "Political" : "Business"} · {labelize(edge.relationship)}
-                          </span>
-                          {edge.from === focus.slug ? placeLabel(edge) : edge.fromTitle}
-                          <span className="mt-0.5 block text-(--geo-ink-dim)">{careerSpan(edge)}</span>
-                          <span className="mt-0.5 block text-(--geo-ink-dim)" lang={icelandicLang(edge.quotation)}>
-                          {edge.quotation}
-                        </span>
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                </div>
-              ) : null}
-              {panelLines.length > 0 ? (
-                <ul className="flex flex-col gap-2">
-                  {panelLines.map((edge) => (
-                    <li key={edgeKey(edge)} className="text-sm leading-5 break-words text-(--geo-ink-muted)">
-                      {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {placeLabel(edge)}
-                      {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
-                      {edge.view === "careers" || edge.view === "spending" || careerHolding(edge) ? (
-                        <span className="mt-0.5 block text-(--geo-ink-dim)" lang={icelandicLang(edge.quotation)}>
-                          {edge.quotation}
-                        </span>
-                      ) : null}
-                      {edge.note ? <span className="mt-0.5 block text-(--geo-ink-dim)">{edge.note}</span> : null}
-                    </li>
-                  ))}
-                </ul>
-              ) : focus.person ? null : (
-                <p className="text-sm leading-6 text-(--geo-ink-dim)">No lines in the views that are on.</p>
-              )}
-              {focus.flows.length > 0 ? (
-                <ul className="flex flex-col gap-2">
-                  {focus.flows.map((flow) => (
-                    <li key={flow.href}>
-                      <a className="text-sm text-(--geo-accent) underline underline-offset-4" href={flow.href}>
-                        {flow.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-              {placeEntries.length > 1 ? (
-                <button
-                  type="button"
-                  className={`text-left text-sm text-(--geo-ink-dim) underline underline-offset-4 ${MAP_CONTROL}`}
-                  onClick={() => go({ ...query, focus: null })}
-                >
-                  Back to {placeName} · still one pin
-                </button>
-              ) : null}
-            </div>
+            <PlateCaption
+              focus={focus}
+              placeName={captionPlaceName}
+              legend={legend}
+              cluster={captionCluster}
+              onBack={() =>
+                go({
+                  ...query,
+                  focus: null,
+                  place: focus.place,
+                })
+              }
+            />
           ) : selectedPlace ? (
             <div className="flex flex-col gap-3">
               <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">
@@ -1003,7 +1025,7 @@ export function IcelandMap({
                           {entry.title}
                           {entry.pinOnly ? (
                             <span className="mt-0.5 block text-[10px] font-normal text-(--geo-ink-dim) no-underline">
-                              Pin only · no typed edge
+                              On the drawing, no typed line
                             </span>
                           ) : null}
                         </button>
