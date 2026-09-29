@@ -1,18 +1,22 @@
 import type { ReactNode } from "react";
 
 import { AsOfChip } from "@/components/as-of-chip";
-import { ExternalLink } from "@/components/external-link";
-import { Badge } from "@/components/ui/badge";
+import {
+  CitationClaim,
+  CitationGutter,
+  CitationPlate,
+  type CitationSecondary,
+} from "@/components/citation-gutter";
 import { basisLabel, printedFigure } from "@/components/viz/money";
-import { icelandicLang } from "@/lib/lang";
-import { retrievalCaveat, sourceLabel } from "@/lib/provenance";
 import type { EdgeAmount } from "@/lib/types";
 
-export type ProvenanceSecondary = {
-  label: string;
-  quotation: string;
-  source?: string | null;
-};
+export type ProvenanceSecondary = CitationSecondary;
+
+/** @deprecated Use CitationSourceLink — kept so older imports still type-check. */
+export {
+  CitationSourceLink as ProvenanceSourceLink,
+  RetrievalCaveatNote,
+} from "@/components/citation-gutter";
 
 type ProvenanceCardProps = {
   /** Address the quotation was read from. */
@@ -33,66 +37,31 @@ type ProvenanceCardProps = {
   note?: ReactNode;
   as?: "li" | "div" | "article";
   className?: string;
+  /**
+   * `gutter` (default): citation sits in the Tufte margin on other pages.
+   * `page`: the quotation is the body — edge permalinks keep the six fields
+   * as the whole page.
+   */
+  layout?: "gutter" | "page";
 };
 
-export function ProvenanceSourceLink({
-  source,
-  className,
-}: {
-  source: string;
-  className?: string;
-}) {
-  return (
-    <ExternalLink
-      className={`inline-flex max-w-full items-baseline gap-1.5 text-xs underline-offset-4 hover:underline ${className ?? ""}`}
-      href={source}
-      title={source}
-    >
-      <span className="font-medium break-all">{sourceLabel(source)}</span>
-      <span className="text-muted-foreground">↗</span>
-    </ExternalLink>
-  );
-}
-
-export function RetrievalCaveatNote({ source }: { source: string }) {
-  const caveat = retrievalCaveat(source);
-  if (!caveat) return null;
-  return (
-    <p className="flex flex-col gap-1 text-xs leading-5 text-muted-foreground sm:flex-row sm:items-baseline sm:gap-2">
-      <Badge className="w-fit shrink-0 font-normal" variant="outline">
-        {caveat.label}
-      </Badge>
-      <span className="break-words">{caveat.note}</span>
-    </p>
-  );
-}
-
-/**
- * One sourced line: what it supports, when the page said it, the quotation
- * itself, the address, and how the address had to be read.
- *
- * `components/viz/EdgeRow` is the compact way to list stored edges inside an
- * entry or index. This is the provenance-first presentation, for surfaces whose
- * subject is the sourcing rather than the relationship — and for sourced rows
- * that are not edges at all, such as contradiction sides and audit sentences.
- */
-export function ProvenanceCard({
-  source,
-  quotation,
-  asOf,
+function ClaimHeader({
   title,
+  asOf,
   meta,
   amount,
-  secondary,
   note,
-  as: Tag = "div",
-  className,
-}: ProvenanceCardProps) {
+}: {
+  title?: ReactNode;
+  asOf?: string | null;
+  meta?: ReactNode;
+  amount?: EdgeAmount | null;
+  note?: ReactNode;
+}) {
+  const hasHeader = Boolean(title || asOf || meta);
   return (
-    <Tag
-      className={`flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 bg-background/70 p-4 ${className ?? ""}`}
-    >
-      {title || asOf || meta ? (
+    <>
+      {hasHeader ? (
         <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1.5">
           {title ? (
             <p className="min-w-0 flex-1 break-words text-sm font-medium">
@@ -118,38 +87,70 @@ export function ProvenanceCard({
         </p>
       ) : null}
 
-      <blockquote
-        className="hang-quote border-l-2 border-primary/25 pl-3 text-sm leading-6 break-words"
-        lang={icelandicLang(quotation)}
-      >
-        {quotation}
-      </blockquote>
-
-      {secondary ? (
-        <div className="flex min-w-0 flex-col gap-1 rounded-lg bg-muted/40 p-3">
-          <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-            {secondary.label}
-          </p>
-          <blockquote
-            className="hang-quote text-sm leading-6 break-words"
-            lang={icelandicLang(secondary.quotation)}
-          >
-            {secondary.quotation}
-          </blockquote>
-          {secondary.source ? (
-            <ProvenanceSourceLink source={secondary.source} />
-          ) : null}
-        </div>
-      ) : null}
-
       {note ? (
-        <p className="text-xs leading-5 break-words text-muted-foreground">{note}</p>
+        <p className="text-xs leading-5 break-words text-muted-foreground">
+          {note}
+        </p>
       ) : null}
+    </>
+  );
+}
 
-      <div className="flex min-w-0 flex-col gap-1.5">
-        <ProvenanceSourceLink source={source} />
-        <RetrievalCaveatNote source={source} />
-      </div>
-    </Tag>
+/**
+ * One sourced line: what it supports, when the page said it, and a citation
+ * gutter for the proving sentence.
+ *
+ * `components/viz/EdgeRow` is the compact way to list stored edges inside an
+ * entry or index. This is the provenance-first presentation, for surfaces whose
+ * subject is the sourcing rather than the relationship — and for sourced rows
+ * that are not edges at all, such as contradiction sides and audit sentences.
+ */
+export function ProvenanceCard({
+  source,
+  quotation,
+  asOf,
+  title,
+  meta,
+  amount,
+  secondary,
+  note,
+  as: Tag = "div",
+  className,
+  layout = "gutter",
+}: ProvenanceCardProps) {
+  const gutter = (
+    <CitationGutter
+      asOf={asOf}
+      quotation={quotation}
+      secondary={secondary}
+      source={source}
+    />
+  );
+
+  if (layout === "page") {
+    return (
+      <CitationPlate as={Tag} className={className}>
+        <ClaimHeader
+          amount={amount}
+          asOf={null}
+          meta={meta}
+          note={note}
+          title={title}
+        />
+        {gutter}
+      </CitationPlate>
+    );
+  }
+
+  return (
+    <CitationClaim as={Tag} className={className} gutter={gutter}>
+      <ClaimHeader
+        amount={amount}
+        asOf={asOf}
+        meta={meta}
+        note={note}
+        title={title}
+      />
+    </CitationClaim>
   );
 }

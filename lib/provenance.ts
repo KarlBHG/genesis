@@ -1,5 +1,5 @@
 /**
- * Retrieval caveats and quotation language for the provenance card.
+ * Retrieval caveats and quotation language for the citation gutter.
  *
  * A caveat records how the quotation came off the page, not what it says. Every
  * rule here matches a note already written into an entry's Sources list: PDF

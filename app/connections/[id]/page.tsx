@@ -164,7 +164,10 @@ export default async function ConnectionPermalinkPage({
       <ProvenanceEdgeCard
         as="article"
         edge={edge}
+        layout="page"
         showProgramQuotation
+        showRelationship={false}
+        showTitle={false}
       />
 
       <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">

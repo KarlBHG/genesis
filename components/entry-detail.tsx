@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { CitationClaim, CitationGutter } from "@/components/citation-gutter";
 import { ExternalLink } from "@/components/external-link";
 import { MarkdownBody } from "@/components/markdown-body";
 import { Badge } from "@/components/ui/badge";
@@ -47,7 +48,6 @@ import {
   parentMinistryFor,
 } from "@/lib/parent-ministry";
 import type { Edge, Entry } from "@/lib/types";
-import { icelandicLang } from "@/lib/lang";
 
 function Fact({
   term,
@@ -85,16 +85,19 @@ function KennitalaFact({ slug }: { slug: string }) {
   const record = kennitalaFor(slug);
   if (!record) return null;
   return (
-    <Fact term="Kennitala">
-      <span className="font-mono tabular-nums">{record.kennitala}</span>
-      <p className="text-sm leading-6 text-muted-foreground">{record.quotation}</p>
-      <ExternalLink
-        className="break-all text-sm underline underline-offset-4"
-        href={record.source}
-      >
-        {record.source}
-      </ExternalLink>
-    </Fact>
+    <CitationClaim
+      gutter={
+        <CitationGutter
+          quotation={record.quotation}
+          source={record.source}
+        />
+      }
+    >
+      <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+        Kennitala
+      </p>
+      <p className="font-mono tabular-nums">{record.kennitala}</p>
+    </CitationClaim>
   );
 }
 
@@ -260,7 +263,6 @@ function Record({ entry }: { entry: Entry }) {
               </Fact>
             </>
           ) : null}
-          <KennitalaFact slug={entry.slug} />
           <OwnershipFact slug={entry.slug} />
           <ParentMinistryFact slug={entry.slug} />
         </dl>
@@ -358,7 +360,6 @@ function EdgeSection({
                 edge={edge}
                 key={edgeKey(edge)}
                 program="chip"
-                showSource
                 side={side}
               />
             ))}
@@ -378,35 +379,36 @@ function EvidenceNotice({ slug }: { slug: string }) {
   );
   if (contradictions.length === 0 && audits.length === 0) return null;
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Disputed or audited</CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-2 text-sm">
-        {contradictions.length > 0 ? (
-          <p>
-            {contradictions.length}{" "}
-            {contradictions.length === 1 ? "contradiction" : "contradictions"}{" "}
-            on file: two sourced sentences that disagree.{" "}
-            <Link className="underline underline-offset-4" href="/anomalies#contradictions">
-              Read both sides
-            </Link>
-            .
+    <section className="flex flex-col gap-3">
+      <h2 className="reading-head text-lg">Disputed or audited</h2>
+      {contradictions.length > 0 ? (
+        <p className="text-sm leading-6">
+          {contradictions.length}{" "}
+          {contradictions.length === 1 ? "contradiction" : "contradictions"}{" "}
+          on file: two sourced sentences that disagree.{" "}
+          <Link className="underline underline-offset-4" href="/anomalies#contradictions">
+            Read both sides
+          </Link>
+          .
+        </p>
+      ) : null}
+      {audits.map((audit) => (
+        <CitationClaim
+          key={audit.id}
+          gutter={
+            <CitationGutter
+              asOf={audit.published}
+              quotation={audit.quotation}
+              source={audit.source}
+            />
+          }
+        >
+          <p className="text-sm leading-6">
+            Ríkisendurskoðun, {formatDate(audit.published)}
           </p>
-        ) : null}
-        {audits.map((audit) => (
-          <p className="text-muted-foreground" key={audit.id}>
-            Ríkisendurskoðun, {formatDate(audit.published)}: <span lang={icelandicLang(audit.quotation)}>“{audit.quotation}”</span>{" "}
-            <ExternalLink
-              className="break-all underline underline-offset-4"
-              href={audit.source}
-            >
-              Source
-            </ExternalLink>
-          </p>
-        ))}
-      </CardContent>
-    </Card>
+        </CitationClaim>
+      ))}
+    </section>
   );
 }
 
@@ -448,14 +450,14 @@ export function EntryDetail({ entry }: { entry: Entry }) {
   const ego = egoLayout(entry.slug, getEdges());
 
   return (
-    <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
+    <article className="atlas-page mx-auto flex w-full max-w-folio flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
       <PrintPlateHead
         asOf={entryAsOfValue(entry)}
         kind={kindNoun(entry.kind)}
         pathname={kindPath(entry.kind)}
         slug={entry.slug}
       />
-      <Breadcrumb className="print:hidden">
+      <Breadcrumb className="max-w-reading print:hidden">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink render={<Link href="/overview" />}>Overview</BreadcrumbLink>
@@ -472,7 +474,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <header className="glass-panel atlas-page-header entry-masthead">
+      <header className="glass-panel atlas-page-header entry-masthead max-w-reading">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <p className="kicker fade-rise">{labelize(entry.kind)}</p>
           <p className="entry-running-head fade-rise print:hidden">
@@ -528,11 +530,18 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         </div>
       </header>
       <EvidenceNotice slug={entry.slug} />
-      <PaysProgramNullNotice slug={entry.slug} />
-      <MarkdownBody source={entry.body} />
-      <Record entry={entry} />
+      <div className="max-w-reading">
+        <PaysProgramNullNotice slug={entry.slug} />
+      </div>
+      <div className="max-w-reading">
+        <MarkdownBody source={entry.body} />
+      </div>
+      <div className="max-w-reading">
+        <Record entry={entry} />
+      </div>
+      <KennitalaFact slug={entry.slug} />
       {ego.nodes.length > 1 ? (
-        <section className="flex flex-col gap-3 print:hidden">
+        <section className="flex max-w-reading flex-col gap-3 print:hidden">
           <h2 className="reading-head">Typed network (one hop)</h2>
           <p className="text-base leading-7 text-muted-foreground">
             Neighbours on the graph only. Untyped reading suggestions are not
@@ -584,19 +593,23 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         </>
       ) : null}
       <Separator />
-      <section className="flex flex-col gap-3">
+      <section
+        className="flex max-w-reading flex-col gap-3"
+        data-reading-suggestions=""
+      >
         <h2 className="reading-head">Reading suggestions</h2>
         {entry.related.length > 0 ? (
           <p className="text-base leading-7 text-muted-foreground">
             Untyped links from this record&apos;s Markdown. They are reading
-            suggestions only — not sourced graph edges. Typed connections appear
-            in Connections above and on the map.
+            suggestions only — not sourced graph edges, and not citation
+            sidenotes. Typed connections appear in Connections above and on the
+            map.
           </p>
         ) : null}
         <Related slugs={entry.related} />
       </section>
       <Separator />
-      <section className="flex flex-col gap-3">
+      <section className="flex max-w-reading flex-col gap-3">
         <h2 className="reading-head">Sources</h2>
         {entry.sources ? (
           <MarkdownBody source={entry.sources} />

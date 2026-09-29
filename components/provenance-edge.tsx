@@ -52,6 +52,8 @@ export function ProvenanceEdgeCard({
   note,
   showRelationship = true,
   showProgramQuotation = false,
+  showTitle = true,
+  layout = "gutter",
 }: {
   edge: Edge;
   as?: "li" | "div" | "article";
@@ -60,6 +62,9 @@ export function ProvenanceEdgeCard({
   showRelationship?: boolean;
   /** For `pays` rows: print the budget heading that joined the invoice. */
   showProgramQuotation?: boolean;
+  /** Permalink pages already title the relationship in the masthead. */
+  showTitle?: boolean;
+  layout?: "gutter" | "page";
 }) {
   return (
     <ProvenanceCard
@@ -67,6 +72,7 @@ export function ProvenanceEdgeCard({
       as={as}
       asOf={edge.asOf}
       className={className}
+      layout={layout}
       meta={
         <>
           {showRelationship ? (
@@ -94,16 +100,20 @@ export function ProvenanceEdgeCard({
       }
       source={edge.source}
       title={
-        <>
-          <EndpointLink slug={edge.from} title={edge.fromTitle} />
-          {" → "}
-          <EndpointLink
-            slug={edge.to}
-            title={
-              edge.relationship === "holds-office" ? officeLabel(edge) : edge.toTitle
-            }
-          />
-        </>
+        showTitle ? (
+          <>
+            <EndpointLink slug={edge.from} title={edge.fromTitle} />
+            {" → "}
+            <EndpointLink
+              slug={edge.to}
+              title={
+                edge.relationship === "holds-office"
+                  ? officeLabel(edge)
+                  : edge.toTitle
+              }
+            />
+          </>
+        ) : undefined
       }
     />
   );

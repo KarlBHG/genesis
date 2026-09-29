@@ -76,6 +76,7 @@ describe("print CSS keeps the plate honest", () => {
     expect(css).toContain(".atlas-page > .entry-prose > p:first-of-type::first-letter");
     expect(css).toMatch(/\.geo-print-ornament/);
     expect(css).toMatch(/hang-quote\[lang="is"\]/);
+    expect(css).toContain(".citation-gutter");
     expect(css).toContain(".print-off-plate-kicker");
     expect(css).toContain("html:has(.geo-room)");
   });

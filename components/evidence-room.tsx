@@ -181,10 +181,10 @@ export function EvidenceRoom({
           lede={
             <>
               A contradiction is the unit here: two sourced sentences about the
-              same records that cannot both be the whole story. Each card shows
-              both quotations, each side’s own as-of value, and the records the
-              disagreement lands on. None of them is resolved, and none is
-              averaged away.
+              same records that cannot both be the whole story. Each pair prints
+              both quotations in the gutter, each side’s own as-of value, and
+              the records the disagreement lands on. None of them is resolved,
+              and none is averaged away.
             </>
           }
           title="Contradictions"

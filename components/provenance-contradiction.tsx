@@ -61,7 +61,6 @@ export function ContradictionCard({
           <ProvenanceCard
             asOf={side.asOf}
             as="div"
-            className="h-full bg-background/80"
             key={`${side.source}-${side.quotation.slice(0, 24)}`}
             quotation={side.quotation}
             source={side.source}

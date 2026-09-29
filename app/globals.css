@@ -16,6 +16,12 @@
   --container-reading: 48rem;
   /* The narrow measure for ledes and standfirsts. */
   --container-lede: 42rem;
+  /* Margin for citation gutters beside the reading column. */
+  --container-gutter: 16.5rem;
+  /* Reading column plus gutter, used on entry pages that cite in the margin. */
+  --container-folio: calc(
+    var(--container-reading) + var(--container-gutter) + 1.75rem
+  );
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -1590,6 +1596,113 @@ body:has(.geo-room) footer {
     3px 0 0 var(--paper-ink-bar);
 }
 
+/* Quotations: same grammar on screen as on the print plate. Never truncated. */
+.hang-quote {
+  font-style: italic;
+}
+
+.hang-quote[lang="is"] {
+  padding-left: 0.7em;
+  text-indent: -0.55em;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  quotes: "„" "“" "‚" "‘";
+}
+
+.hang-quote[lang="is"]::before {
+  content: open-quote;
+}
+
+.hang-quote[lang="is"]::after {
+  content: close-quote;
+}
+
+.citation-claim {
+  container-type: inline-size;
+  container-name: citation-claim;
+  min-width: 0;
+}
+
+.citation-claim-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem 1.75rem;
+  align-items: start;
+  min-width: 0;
+}
+
+.citation-claim-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.citation-gutter {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.45rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.7rem;
+}
+
+.citation-as-of {
+  font-size: 0.6875rem;
+  font-weight: 650;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.12em;
+  color: var(--muted-foreground);
+}
+
+.citation-quote {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.citation-source {
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  word-break: break-all;
+  color: var(--muted-foreground);
+}
+
+.citation-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+}
+
+.citation-plate {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.citation-plate > .citation-gutter {
+  border-top: 0;
+  padding-top: 0;
+}
+
+@container citation-claim (min-width: 56rem) {
+  .citation-claim-grid {
+    grid-template-columns: minmax(0, 1fr) var(--container-gutter);
+  }
+
+  .citation-gutter {
+    border-top: 0;
+    padding-top: 0.15rem;
+    border-left: 1px solid var(--border);
+    padding-left: 0.95rem;
+  }
+}
+
 .paper-sheet {
   position: relative;
   isolation: isolate;
@@ -1931,6 +2044,23 @@ body:has(.geo-room) .site-footer-glow::before {
   blockquote,
   [lang="is"] {
     color: #333 !important;
+  }
+
+  .citation-claim-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 6pt;
+  }
+
+  .citation-gutter {
+    border-left: none !important;
+    padding-left: 0 !important;
+    border-top: 0.4pt solid #000;
+    padding-top: 6pt;
+  }
+
+  .citation-plate > .citation-gutter {
+    border-top: 0 !important;
+    padding-top: 0 !important;
   }
 
   /* Every sourced quotation in this app is Icelandic prose in an English page. */

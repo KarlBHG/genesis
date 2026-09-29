@@ -522,6 +522,10 @@ test("print plate is a citable folio", async ({ page }) => {
     "Rows are not added together",
   );
   await expect(page.locator("blockquote.hang-quote").first()).toBeVisible();
+  await expect(page.locator("[data-citation-plate]")).toBeVisible();
+  await expect(
+    page.locator("[data-slot=card] [data-citation-plate]"),
+  ).toHaveCount(0);
 
   await page.goto("/map?focus=althingi");
   await page.emulateMedia({ media: "print" });
@@ -537,6 +541,37 @@ test("print plate is a citable folio", async ({ page }) => {
     return getComputedStyle(el).backgroundColor;
   });
   expect(canvas).not.toBe("rgb(255, 255, 255)");
+});
+
+test("citation gutter cites the proving sentence, not a card", async ({
+  page,
+}, testInfo) => {
+  await page.goto("/institutions/sedlabanki");
+  await page.locator(".entry-edge-group").first().evaluate((el) => {
+    (el as HTMLDetailsElement).open = true;
+  });
+  const claim = page.locator(".citation-claim").first();
+  const gutter = claim.locator("[data-citation-gutter]");
+  await expect(gutter).toBeVisible();
+  await expect(gutter.locator("blockquote.hang-quote")).toBeVisible();
+  await expect(page.locator("[data-slot=card] [data-citation-gutter]")).toHaveCount(
+    0,
+  );
+  await expect(
+    page.locator("[data-reading-suggestions] [data-citation-gutter]"),
+  ).toHaveCount(0);
+
+  if (testInfo.project.name === "desktop") {
+    const bodyBox = await claim.locator(".citation-claim-body").boundingBox();
+    const gutterBox = await gutter.boundingBox();
+    expect(bodyBox).toBeTruthy();
+    expect(gutterBox).toBeTruthy();
+    expect(gutterBox!.x).toBeGreaterThan(bodyBox!.x + bodyBox!.width - 8);
+    expect(Math.abs(gutterBox!.y - bodyBox!.y)).toBeLessThan(48);
+  }
+
+  await page.goto("/anomalies#audits");
+  await expect(page.locator("#audits [data-citation-gutter]").first()).toBeVisible();
 });
 
 test("night plate caption reads as a legend, not a GIS inspector", async ({

@@ -1,13 +1,12 @@
 import Link from "next/link";
 
 import { AsOfChip } from "@/components/as-of-chip";
-import { ExternalLink } from "@/components/external-link";
+import { CitationClaim, CitationGutter } from "@/components/citation-gutter";
 import { Badge } from "@/components/ui/badge";
 import { printedFigure } from "@/components/viz/money";
 import { resolveSlug } from "@/lib/content";
 import { edgeHref } from "@/lib/edge-id";
 import { labelize } from "@/lib/format";
-import { icelandicLang } from "@/lib/lang";
 import { officeLabel } from "@/lib/notes";
 import type { Edge } from "@/lib/types";
 
@@ -46,9 +45,10 @@ function SlugLink({
  * The one way this app draws a stored edge.
  *
  * Every row shows the same four things in the same order: who, the typed
- * relationship, when it was true, and the sentence that says so. A quotation is
- * tagged `lang="is"` when it reads as Icelandic, so a screen reader does not
- * announce an English sentence with Icelandic phonemes.
+ * relationship, when it was true, and the sentence that says so. The proving
+ * sentence lives in the citation gutter, tagged `lang="is"` when it reads as
+ * Icelandic, so a screen reader does not announce an English sentence with
+ * Icelandic phonemes.
  *
  * When an `amount` is present it is printed as its own source printed it.
  * Amounts are never added across rows, so there is no total line here.
@@ -57,14 +57,12 @@ export function EdgeRow({
   edge,
   side = "both",
   note = null,
-  showSource = false,
   showAmount = true,
   program = "none",
 }: {
   edge: Edge;
   side?: EdgeRowSide;
   note?: string | null;
-  showSource?: boolean;
   showAmount?: boolean;
   program?: EdgeRowProgram;
 }) {
@@ -77,7 +75,26 @@ export function EdgeRow({
         : officeLabel(edge);
 
   return (
-    <li className="flex min-w-0 flex-col gap-1 border-b border-border/60 py-3 last:border-0">
+    <CitationClaim
+      as="li"
+      className="border-b border-border/60 py-3 last:border-0"
+      gutter={
+        <CitationGutter
+          asOf={edge.asOf}
+          quotation={edge.quotation}
+          secondary={
+            program === "quotation" && edge.programQuotation
+              ? {
+                  label: "Program heading",
+                  quotation: edge.programQuotation,
+                  source: edge.programSource,
+                }
+              : null
+          }
+          source={edge.source}
+        />
+      }
+    >
       <p className="break-words">
         {side === "both" ? (
           <>
@@ -130,44 +147,8 @@ export function EdgeRow({
         </p>
       ) : null}
 
-      <p
-        className="hang-quote break-words text-sm leading-6 text-muted-foreground"
-        lang={icelandicLang(edge.quotation)}
-      >
-        {edge.quotation}
-      </p>
-
       {note ? (
         <p className="break-words text-sm leading-6 text-muted-foreground">{note}</p>
-      ) : null}
-
-      {program === "quotation" && edge.programQuotation ? (
-        <p className="text-sm">
-          <span className="text-muted-foreground">Program heading: </span>
-          <span lang={icelandicLang(edge.programQuotation)}>
-            “{edge.programQuotation}”
-          </span>
-          {edge.programSource ? (
-            <>
-              {" "}
-              <ExternalLink
-                className="break-all underline underline-offset-4"
-                href={edge.programSource}
-              >
-                Source
-              </ExternalLink>
-            </>
-          ) : null}
-        </p>
-      ) : null}
-
-      {showSource ? (
-        <ExternalLink
-          className="print-literal-url break-all text-sm text-muted-foreground underline underline-offset-4"
-          href={edge.source}
-        >
-          {edge.source}
-        </ExternalLink>
       ) : null}
 
       <p className="print:hidden">
@@ -178,6 +159,6 @@ export function EdgeRow({
           Open this connection
         </Link>
       </p>
-    </li>
+    </CitationClaim>
   );
 }

@@ -45,7 +45,6 @@ function ViewBody({
       key={edgeKey(edge)}
       note={noteFor(edge)}
       program="chip"
-      showSource
     />
   );
   if (by === "none") {
@@ -249,7 +248,7 @@ export default async function ConnectionsPage({
           </p>
           <ul className="flex min-w-0 flex-col">
             {leftover.map((edge) => (
-              <EdgeRow edge={edge} key={edgeKey(edge)} note={null} showSource />
+              <EdgeRow edge={edge} key={edgeKey(edge)} note={null} />
             ))}
           </ul>
         </section>

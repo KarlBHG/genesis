@@ -731,13 +731,13 @@ describe("visualisation primitives", () => {
     for (const part of [
       "AsOfChip",
       "labelize(edge.relationship)",
+      "CitationGutter",
       "edge.quotation",
       "edge.organizationTitle",
       "edge.programQuotation",
       "edge.source",
       "edge.year",
       "printedFigure",
-      "icelandicLang(edge.quotation)",
       "edgeHref",
       "Open this connection",
     ]) {
@@ -818,6 +818,8 @@ describe("one design system", () => {
     const css = fs.readFileSync(path.join(ROOT, "app", "globals.css"), "utf8");
     expect(css).toContain("--container-shell:");
     expect(css).toContain("--container-reading:");
+    expect(css).toContain("--container-gutter:");
+    expect(css).toContain("--container-folio:");
     for (const shell of ["components/site-header.tsx", "components/site-footer.tsx"]) {
       expect(fs.readFileSync(path.join(ROOT, shell), "utf8")).toContain(
         "max-w-shell",
@@ -859,7 +861,13 @@ describe("Icelandic quotations are marked up as Icelandic", () => {
 
   it("marks up every surface that prints a quotation", () => {
     /** A surface may mark up its own quotation or hand it to one of these. */
-    const DELEGATES = ["ProvenanceCard", "ProvenanceEdgeCard", "EdgeRow"];
+    const DELEGATES = [
+      "ProvenanceCard",
+      "ProvenanceEdgeCard",
+      "EdgeRow",
+      "CitationGutter",
+      "CitationClaim",
+    ];
     for (const file of [
       "app/connections/page.tsx",
       "app/connections/[id]/page.tsx",
@@ -874,6 +882,7 @@ describe("Icelandic quotations are marked up as Icelandic", () => {
       "components/paste-intake-form.tsx",
       "components/opnir-review-feed.tsx",
       "components/provenance-card.tsx",
+      "components/citation-gutter.tsx",
       "components/viz/edge-row.tsx",
     ]) {
       const source = fs.readFileSync(path.join(ROOT, file), "utf8");
