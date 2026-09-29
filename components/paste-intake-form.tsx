@@ -127,12 +127,17 @@ export function PasteIntakeForm({
   endpoints,
   persistAllowed,
   policyAreas,
+  initial,
 }: {
   endpoints: IntakeEndpointOption[];
   persistAllowed: boolean;
   policyAreas: PolicyAreaOption[];
+  initial?: Partial<IntakeFormInput>;
 }) {
-  const [form, setForm] = useState<IntakeFormInput>(EMPTY_FORM);
+  const [form, setForm] = useState<IntakeFormInput>({
+    ...EMPTY_FORM,
+    ...initial,
+  });
   const [errors, setErrors] = useState<string[]>([]);
   const [result, setResult] = useState<Extract<IntakeResponse, { ok: true }> | null>(
     null,
@@ -191,6 +196,8 @@ export function PasteIntakeForm({
           <FieldDescription>
             Paste a sentence from a page you have open. This form does not fetch
             the URL, does not scrape, and does not ask a model to invent a join.
+            A pays row still needs you to confirm a program or store a null
+            reason — nothing here invents a málaflok.
           </FieldDescription>
           <div className="grid min-w-0 gap-4 md:grid-cols-2">
             <EndpointSelect

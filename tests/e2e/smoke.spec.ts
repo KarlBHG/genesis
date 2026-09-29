@@ -8,6 +8,7 @@ const ROUTES = [
   "/anomalies",
   "/methodology",
   "/intake",
+  "/intake/opnir",
   "/connections",
   "/public-entities",
   "/obligations",
@@ -80,6 +81,48 @@ test("paste intake checks a sourced line without writing edges.json", async ({
   await expect(
     page.getByText("The contract accepts this row."),
   ).toBeVisible();
+  await expect(page.getByText("Queued for review")).toHaveCount(0);
+});
+
+test("Opnir review feed needs a human program decision and does not sum amounts", async ({
+  page,
+}) => {
+  await page.goto("/intake/opnir");
+  await expect(
+    page.getByRole("heading", { name: "Review official Opnir rows" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Review Opnir rows",
+    }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("navigation", { name: "Footer" }).getByRole("link", {
+      name: "Review Opnir rows",
+    }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Load fixture" }).click();
+  await expect(
+    page.getByText("official rows are ready for a human program decision"),
+  ).toBeVisible();
+  await expect(page.getByText("Amounts are not added together")).toBeVisible();
+  await expect(
+    page.getByText("This row does not print a málaflokkur heading."),
+  ).toBeVisible();
+  await expect(page.locator("#intake-program")).toHaveValue("");
+  await expect(page.locator("#intake-from")).toHaveValue("landspitali");
+  await expect(page.locator("#intake-to")).toHaveValue("islandsbanki");
+
+  await page.getByRole("button", { name: "Check against the contract" }).click();
+  await expect(page.locator("[data-slot=field-error]")).toContainText("program");
+
+  await page.locator("#intake-program").selectOption("__none__");
+  await page.locator("#intake-program-reason").fill(
+    "The Landspítali buyer ledger on Opnir reikningar prints this invoice row without a málaflok heading on the returned page.",
+  );
+  await page.getByRole("button", { name: "Check against the contract" }).click();
+  await expect(page.getByText("The contract accepts this row.")).toBeVisible();
   await expect(page.getByText("Queued for review")).toHaveCount(0);
 });
 

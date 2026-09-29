@@ -20,6 +20,18 @@ Public-entity coverage is listed on **Public entities** (`/public-entities`), wi
 
 The form does **not** fetch the URL, scrape HTML, or call Ollama or any other model. A passing check can be queued in `data/intake-queue.json` on a local/dev tree. It never appends to `data/edges.json`; promote a row by hand after `npm run check` would still pass.
 
+## Review official Opnir rows (local)
+
+`/intake/opnir` is a review queue for official invoice rows from [opnirreikningar.is](https://opnirreikningar.is/), linked from the footer and Methodology — not an eleventh nav leaf. It accepts:
+
+1. A paste of official CSV/JSON (columns `kaupandi`, `dagsetning`, `seljandi`, `reikningsnúmer`, `upphæð`) or semicolon ledger lines.
+2. The bundled fixture in `data/opnir-feed-fixture.json` (copied official-shaped rows; **not** fetched at runtime).
+3. Already-stored `pays` quotations from `data/edges.json`.
+
+A human must then confirm a policy-area join (with program source and quotation) or store a null reason. A printed `málaflokkur` column stays printed text and is never mapped to a program. Vendor line of business is not a málaflok. Amounts are not added together. Ollama is not called.
+
+Save-to-review writes `data/opnir-review-queue.json`. A confirmed row can be queued to `data/intake-queue.json` like any other paste. Neither write touches `data/edges.json`.
+
 ## Content
 
 Markdown with YAML frontmatter lives in `content/treaties`, `content/institutions`, `content/events`, `content/business`, `content/money`, and `content/players`. `lib/content.ts` reads those files when the app builds or serves a page. Places are `data/places.json`. Named offices are `data/offices.json`, each with a page at `/offices/[id]`. Cross-links use `[[slug]]`. A slug with no entry renders as an unresolved reference.

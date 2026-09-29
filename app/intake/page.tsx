@@ -59,6 +59,14 @@ export default function IntakePage() {
             <code className="text-sm">data/intake-queue.json</code> on a
             local/dev tree.
           </li>
+          <li>
+            Official Opnir invoice rows have their own review step at{" "}
+            <Link className="underline underline-offset-4" href="/intake/opnir">
+              Review official Opnir rows
+            </Link>
+            , because a pays line still needs a human program join or a null
+            reason.
+          </li>
         </ul>
         <PasteIntakeForm
           endpoints={endpoints}

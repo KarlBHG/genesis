@@ -40,6 +40,7 @@ const SECTIONS = [
   { id: "pin-only", label: "Pin only · no typed edge" },
   { id: "open-checklists", label: "Open checklists" },
   { id: "paste-intake", label: "Paste intake" },
+  { id: "opnir-feed", label: "Opnir review feed" },
   { id: "refusals", label: "What this refuses to do" },
 ] as const;
 
@@ -607,6 +608,37 @@ export default function MethodologyPage() {
             </>
           }
           title="How a new line is proposed"
+        />
+
+        <Section
+          id="opnir-feed"
+          lede={
+            <>
+              <p>
+                State-ledger invoices are a special case of paste intake. The
+                official row names a buyer, a day, a vendor, an invoice number,
+                and an amount. It usually does not print a málaflok heading, and
+                a vendor’s line of business is not a policy area. On a local
+                tree,{" "}
+                <Link className="underline underline-offset-4" href="/intake/opnir">
+                  Review official Opnir rows
+                </Link>{" "}
+                takes a paste of official CSV/JSON, a bundled fixture, or
+                already-stored pays quotations into a review queue. A human must
+                then confirm a program join from a cited ministry page, or store
+                the reason the join was not made.
+              </p>
+              <p>
+                The feed does not fetch opnirreikningar.is, does not crawl, does
+                not call a language model, and does not add invoice amounts
+                together. Review writes{" "}
+                <code className="text-sm">data/opnir-review-queue.json</code>.
+                A passing confirmed row can be queued like any other paste.
+                Neither file is the published catalog.
+              </p>
+            </>
+          }
+          title="How an Opnir row is reviewed"
         />
 
         <Section

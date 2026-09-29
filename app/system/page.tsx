@@ -181,7 +181,12 @@ export default function SystemPage() {
           <Link className="underline underline-offset-4" href="/intake">
             Paste a sourced line
           </Link>
-          . It does not scrape, and it does not write{" "}
+          . Official Opnir invoice rows go through{" "}
+          <Link className="underline underline-offset-4" href="/intake/opnir">
+            Review official Opnir rows
+          </Link>{" "}
+          so a human confirms the program join. Neither form scrapes, and
+          neither writes{" "}
           <code className="text-sm">data/edges.json</code> for you.
         </p>
       </section>
