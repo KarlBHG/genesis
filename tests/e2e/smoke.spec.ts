@@ -828,7 +828,9 @@ test.describe("pocket folio", () => {
     await expect(
       page.getByRole("navigation", { name: "Atlas thumb index" }),
     ).toHaveCount(0);
-    await page.getByRole("button", { name: "Open menu" }).click();
+    const menu = page.getByRole("button", { name: "Open menu" });
+    await expect(menu).toHaveAttribute("aria-haspopup", "dialog");
+    await menu.click();
     const index = page.getByRole("navigation", { name: "Atlas thumb index" });
     await expect(index).toBeVisible();
     await expect(index.getByRole("link")).toHaveCount(10);
