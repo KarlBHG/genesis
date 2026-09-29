@@ -658,7 +658,7 @@ test.describe("pocket folio", () => {
     expect(stage).toBeTruthy();
     expect(peek!.y).toBeGreaterThan(stage!.y);
 
-    await caption.getByRole("button").click();
+    await caption.getByRole("button", { name: "Pull to read quotations" }).click();
     const open = await caption.boundingBox();
     expect(open!.height).toBeGreaterThan(peek!.height);
     const legend = caption.getByRole("list", { name: "Legend" });

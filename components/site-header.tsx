@@ -9,7 +9,6 @@ import { CommandPalette } from "@/components/command-palette";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -49,6 +48,7 @@ function FolioNum({ n, end }: { n: number; end?: number }) {
 export function SiteHeader() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
   const indexed = withNavIndex();
   const leaves = navLeaves();
 
@@ -60,6 +60,10 @@ export function SiteHeader() {
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
+  useEffect(() => {
+    setSheetOpen(false);
+  }, [pathname]);
+
   return (
     <header className="site-masthead sticky top-0 z-40 print:hidden">
       <div className="mx-auto flex w-full max-w-shell flex-col px-4 sm:px-6">
@@ -70,7 +74,7 @@ export function SiteHeader() {
           </Link>
           <div className="ml-auto flex items-center gap-2">
             <CommandPalette />
-            <Sheet>
+            <Sheet onOpenChange={setSheetOpen} open={sheetOpen}>
               <SheetTrigger
                 className="lg:hidden"
                 render={
@@ -93,24 +97,20 @@ export function SiteHeader() {
                   data-thumb-index=""
                 >
                   {leaves.map((leaf) => (
-                    <SheetClose
-                      key={leaf.href}
-                      nativeButton={false}
-                      render={
-                        <Link
-                          aria-current={
-                            isCurrent(pathname, leaf.href) ? "page" : undefined
-                          }
-                          className="thumb-cut"
-                          href={leaf.href}
-                        />
+                    <Link
+                      aria-current={
+                        isCurrent(pathname, leaf.href) ? "page" : undefined
                       }
+                      className="thumb-cut"
+                      href={leaf.href}
+                      key={leaf.href}
+                      onClick={() => setSheetOpen(false)}
                     >
                       <span className="thumb-cut-label">{leaf.label}</span>
                       <span className="thumb-cut-num">
                         {padFolio(leaf.index)}
                       </span>
-                    </SheetClose>
+                    </Link>
                   ))}
                 </nav>
               </SheetContent>

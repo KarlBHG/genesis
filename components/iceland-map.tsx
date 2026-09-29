@@ -628,12 +628,12 @@ export function IcelandMap({
 
   const sheetHint = focus
     ? focus.pinOnly
-      ? "On the drawing, no typed line"
+      ? "This plate"
       : legend.length > 0
         ? sheet === "peek"
           ? "Pull to read quotations"
           : "Quotations on this plate"
-        : "On this plate"
+        : "This plate"
     : selectedPlace
       ? placeEntries.length > 1
         ? sheet === "peek"
