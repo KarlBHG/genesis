@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -101,11 +104,18 @@ export function ConnectionTenureFilter({
     highlight != null ? link("current") : link(toggleTenureFilter(filter, "current"));
   const endedHref =
     highlight != null ? link("ended") : link(toggleTenureFilter(filter, "ended"));
+  const rootRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const root = rootRef.current;
+    root?.setAttribute("data-tenure-live", "");
+    return () => root?.removeAttribute("data-tenure-live");
+  }, []);
 
   return (
     <section
       aria-label="Filter current or ended connections"
       className="as-of-rail flex min-w-0 flex-col gap-3 rounded-2xl border border-border/70 bg-muted/20 p-4"
+      ref={rootRef}
     >
       <div className="flex min-w-0 flex-wrap items-baseline justify-between gap-2">
         <h3 className="text-sm font-medium">Tenure</h3>

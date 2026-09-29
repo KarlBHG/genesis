@@ -30,10 +30,12 @@ export function MoneyRoomTabs({
   const [tab, setTab] = useState<"authorisations" | "invoices" | "contracts">(
     "authorisations",
   );
+  const [live, setLive] = useState(false);
 
   useEffect(() => {
     const apply = () => setTab(tabFromHash(window.location.hash));
     apply();
+    setLive(true);
     window.addEventListener("hashchange", apply);
     return () => window.removeEventListener("hashchange", apply);
   }, []);
@@ -43,7 +45,12 @@ export function MoneyRoomTabs({
   }, [tab]);
 
   return (
-    <Tabs className="gap-8" onValueChange={(value) => setTab(value as typeof tab)} value={tab}>
+    <Tabs
+      className="gap-8"
+      data-tabs-live={live ? "" : undefined}
+      onValueChange={(value) => setTab(value as typeof tab)}
+      value={tab}
+    >
       <TabsList
         aria-label="Budget rooms"
         className="folio-tabs h-auto w-full justify-start"

@@ -1,6 +1,8 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import { waitForSelectedTab } from "./live";
+
 async function headingClearsMasthead(page: import("@playwright/test").Page, id: string) {
   await expect
     .poll(
@@ -36,7 +38,8 @@ test("unprinted career ends heading clears the masthead", async ({ page }) => {
 
 test("parent-ministry tab keeps a valid panel id", async ({ page }) => {
   await page.goto("/public-entities#parent-ministry");
-  await expect(page.getByRole("tab", { name: "Parent ministry" })).toBeVisible();
+  await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
+  await waitForSelectedTab(page, "Parent ministry");
   await expect(page.getByRole("heading", { name: "Parent ministry" })).toBeVisible();
   await headingClearsMasthead(page, "parent-ministry");
 

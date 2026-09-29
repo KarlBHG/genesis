@@ -1,6 +1,17 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import {
+  clickLive,
+  emulatePrint,
+  expectFacing,
+  expectStacked,
+  tenureChip,
+  waitForSearchLive,
+  waitForSelectedTab,
+  waitForTenureLive,
+} from "./live";
+
 const ROUTES = [
   "/",
   "/standing",
@@ -150,7 +161,8 @@ test("quoted-name ledger stores unmatched names, not stub players", async ({
   await expect(page.getByText("Queued as unmatched")).toHaveCount(0);
 
   await page.goto("/public-entities#quoted-names");
-  await expect(page.getByRole("tab", { name: "Quoted names" })).toBeVisible();
+  await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
+  await waitForSelectedTab(page, "Quoted names");
   await expect(page.getByText("No unmatched names on file")).toBeVisible();
   await expect(
     page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
@@ -163,9 +175,8 @@ test("ownership statements are dated and holes sit on public entities", async ({
   page,
 }) => {
   await page.goto("/public-entities#ownership");
-  await expect(
-    page.getByRole("tab", { name: "Ownership statements" }),
-  ).toBeVisible();
+  await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
+  await waitForSelectedTab(page, "Ownership statements");
   await expect(
     page.getByRole("heading", { name: "Ownership statements" }),
   ).toBeVisible();
@@ -288,10 +299,7 @@ test("connections tenure filter labels empty ends and does not invent current", 
   page,
 }) => {
   await page.goto("/connections");
-  const tenure = page.getByRole("region", {
-    name: "Filter current or ended connections",
-  });
-  await expect(tenure).toBeVisible();
+  const tenure = await waitForTenureLive(page);
   await expect(tenure).toContainText("no end date stored");
   await expect(tenure).toContainText("never labelled “current.”");
   await expect(
@@ -303,7 +311,9 @@ test("connections tenure filter labels empty ends and does not invent current", 
     0,
   );
 
-  await tenure.getByRole("button", { name: /current membership/i }).click();
+  const current = tenureChip(tenure, "current");
+  await expect(current).toHaveAttribute("href", /tenure=current/);
+  await clickLive(current);
   await expect(page).toHaveURL(/tenure=current/);
   const careers = page.locator("#careers");
   await expect(careers).toBeVisible();
@@ -317,7 +327,7 @@ test("connections tenure filter labels empty ends and does not invent current", 
   await expect(careers.getByRole("link", { name: "Director of Health" })).toHaveCount(0);
   await expect(page.locator("#spending")).toHaveCount(0);
 
-  await careers.getByRole("link", { name: "Open this connection" }).first().click();
+  await clickLive(careers.getByRole("link", { name: "Open this connection" }).first());
   await expect(page).toHaveURL(/\/connections\//);
   await expect(page.getByText("current membership").first()).toBeVisible();
   const endField = page.locator(".folio-gutter > div").filter({
@@ -326,10 +336,8 @@ test("connections tenure filter labels empty ends and does not invent current", 
   await expect(endField.getByText("no end date stored")).toBeVisible();
   await expect(endField.getByText("current", { exact: true })).toHaveCount(0);
 
-  await page
-    .getByRole("region", { name: "Filter current or ended connections" })
-    .getByRole("button", { name: /^ended/i })
-    .click();
+  const detailTenure = await waitForTenureLive(page);
+  await clickLive(tenureChip(detailTenure, "ended"));
   await expect(page).toHaveURL(/tenure=ended/);
   const endedCareers = page.locator("#careers");
   await expect(endedCareers.locator("li").getByText("ended", { exact: true }).first()).toBeVisible();
@@ -400,6 +408,8 @@ test("parent-ministry checklist labels empty parents and stays off the nav", asy
   page,
 }) => {
   await page.goto("/public-entities#parent-ministry");
+  await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
+  await waitForSelectedTab(page, "Parent ministry");
   await expect(page.getByRole("tab", { name: "Parent ministry" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Parent ministry" })).toBeVisible();
   await expect(
@@ -478,7 +488,8 @@ test("invoice coverage ledger counts rows, not krónur, and keeps Hæstiréttur 
       name: "Invoice coverage",
     }),
   ).toHaveCount(0);
-  await page.getByRole("tab", { name: "Invoice coverage" }).click();
+  await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
+  await clickLive(page.getByRole("tab", { name: "Invoice coverage" }));
   await expect(
     page.getByRole("heading", { name: "Invoice coverage" }),
   ).toBeVisible();
@@ -592,6 +603,7 @@ test("resident standing walks sourced hops or prints no sourced line", async ({
 
 test("command palette opens with Ctrl+K", async ({ page }) => {
   await page.goto("/");
+  await waitForSearchLive(page);
   await expect(page.getByRole("dialog", { name: "Search the records" })).toHaveCount(0);
   await page.keyboard.press("Control+k");
   await expect(page.getByRole("dialog", { name: "Search the records" })).toBeVisible();
@@ -608,7 +620,7 @@ test("print plate is a citable folio", async ({ page }, testInfo) => {
     .getAttribute("href");
   expect(connectionHref).toMatch(/^\/connections\//);
 
-  await page.emulateMedia({ media: "print" });
+  await emulatePrint(page);
 
   await expect(page.locator("[data-print-running-head]")).toHaveText(
     "Institution · sedlabanki · undated",
@@ -626,7 +638,7 @@ test("print plate is a citable folio", async ({ page }, testInfo) => {
   ).toBeVisible();
 
   await page.goto(connectionHref!);
-  await page.emulateMedia({ media: "print" });
+  await emulatePrint(page);
   await expect(page.locator("[data-print-folio]")).toHaveText("09");
   await expect(page.locator("[data-print-running-head]")).toHaveText(
     /^Connection · .+ · /,
@@ -641,7 +653,7 @@ test("print plate is a citable folio", async ({ page }, testInfo) => {
   ).toHaveCount(0);
 
   await page.goto("/map?focus=althingi");
-  await page.emulateMedia({ media: "print" });
+  await emulatePrint(page);
   await expect(page.locator("[data-print-running-head]")).toHaveText(
     "Map · althingi · undated",
   );
@@ -656,7 +668,7 @@ test("print plate is a citable folio", async ({ page }, testInfo) => {
   expect(canvas).not.toBe("rgb(255, 255, 255)");
 
   await page.goto("/anomalies#contradictions");
-  await page.emulateMedia({ media: "print" });
+  await emulatePrint(page);
   await expect(page.locator("[data-print-running-head]")).toHaveText(
     "Evidence · anomalies · undated",
   );
@@ -665,15 +677,10 @@ test("print plate is a citable folio", async ({ page }, testInfo) => {
   await expect(printed.locator("blockquote.hang-quote")).toHaveCount(2);
   await expect(printed).toContainText("Unresolved");
   if (testInfo.project.name === "desktop") {
-    const printVerso = await printed
-      .locator("[data-variorum-leaf=verso]")
-      .boundingBox();
-    const printRecto = await printed
-      .locator("[data-variorum-leaf=recto]")
-      .boundingBox();
-    expect(printVerso).toBeTruthy();
-    expect(printRecto).toBeTruthy();
-    expect(printRecto!.x).toBeGreaterThan(printVerso!.x + printVerso!.width - 8);
+    await expectFacing(
+      printed.locator("[data-variorum-leaf=verso]"),
+      printed.locator("[data-variorum-leaf=recto]"),
+    );
   }
 });
 
@@ -696,12 +703,9 @@ test("citation gutter cites the proving sentence, not a card", async ({
   ).toHaveCount(0);
 
   if (testInfo.project.name === "desktop") {
-    const bodyBox = await claim.locator(".citation-claim-body").boundingBox();
-    const gutterBox = await gutter.boundingBox();
-    expect(bodyBox).toBeTruthy();
-    expect(gutterBox).toBeTruthy();
-    expect(gutterBox!.x).toBeGreaterThan(bodyBox!.x + bodyBox!.width - 8);
-    expect(Math.abs(gutterBox!.y - bodyBox!.y)).toBeLessThan(48);
+    await expectFacing(claim.locator(".citation-claim-body"), gutter, {
+      ySlop: 48,
+    });
   }
 
   await page.goto("/anomalies#audits");
@@ -721,13 +725,11 @@ test("citation gutter cites the proving sentence, not a card", async ({
   ).toHaveCount(0);
 
   if (testInfo.project.name === "desktop") {
-    const verso = await pair.locator("[data-variorum-leaf=verso]").boundingBox();
-    const recto = await pair.locator("[data-variorum-leaf=recto]").boundingBox();
-    expect(verso).toBeTruthy();
-    expect(recto).toBeTruthy();
-    expect(recto!.x).toBeGreaterThan(verso!.x + verso!.width - 8);
-    expect(Math.abs(verso!.y - recto!.y)).toBeLessThan(48);
-    expect(Math.abs(verso!.width - recto!.width)).toBeLessThan(40);
+    await expectFacing(
+      pair.locator("[data-variorum-leaf=verso]"),
+      pair.locator("[data-variorum-leaf=recto]"),
+      { ySlop: 48, widthSlop: 40 },
+    );
   }
 
   await page.goto("/players/landsbankinn");
@@ -758,13 +760,10 @@ test("citation gutter cites the proving sentence, not a card", async ({
   ).toHaveCount(0);
 
   if (testInfo.project.name === "desktop") {
-    const introBody = await intro.locator(".citation-claim-body").boundingBox();
-    const introGutter = await intro
-      .locator("[data-citation-gutter]")
-      .boundingBox();
-    expect(introBody).toBeTruthy();
-    expect(introGutter).toBeTruthy();
-    expect(introGutter!.x).toBeGreaterThan(introBody!.x + introBody!.width - 8);
+    await expectFacing(
+      intro.locator(".citation-claim-body"),
+      intro.locator("[data-citation-gutter]"),
+    );
   }
 
   await page.goto("/money/policy-area-02-domstolar");
@@ -830,7 +829,7 @@ test.describe("pocket folio", () => {
     ).toHaveCount(0);
     const menu = page.getByRole("button", { name: "Open menu" });
     await expect(menu).toHaveAttribute("aria-haspopup", "dialog");
-    await menu.click();
+    await clickLive(menu);
     const index = page.getByRole("navigation", { name: "Atlas thumb index" });
     await expect(index).toBeVisible();
     await expect(index.getByRole("link")).toHaveCount(10);
@@ -935,16 +934,13 @@ test.describe("pocket folio", () => {
       page.getByRole("heading", { name: "2026 authorisations by policy area" }),
     ).toBeVisible();
 
-    await page.getByRole("tab", { name: "Invoice coverage" }).click();
+    await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
+    await clickLive(page.getByRole("tab", { name: "Invoice coverage" }));
     const coverage = page.locator("#invoice-coverage");
     await expect(coverage).toBeVisible();
     const vendor = coverage.locator(".pocket-ledger-row td[data-label='Vendor']").first();
     const asOf = coverage.locator(".pocket-ledger-row td[data-label='As of']").first();
-    await expect(vendor).toBeVisible();
-    const vendorBox = await vendor.boundingBox();
-    const asOfBox = await asOf.boundingBox();
-    expect(asOfBox!.y).toBeGreaterThan(vendorBox!.y + vendorBox!.height / 2);
-    expect(vendorBox!.width).toBeGreaterThan(280);
+    await expectStacked(vendor, asOf, { minWidth: 280 });
   });
 
   test("evidence as-of chips become a year index", async ({
@@ -993,11 +989,7 @@ test.describe("pocket folio", () => {
     await page.goto("/offices");
     const post = page.locator("#posts .pocket-ledger-row td[data-label='Post']").first();
     const org = page.locator("#posts .pocket-ledger-row td[data-label='Organization']").first();
-    await expect(post).toBeVisible();
-    const postBox = await post.boundingBox();
-    const orgBox = await org.boundingBox();
-    expect(orgBox!.y).toBeGreaterThan(postBox!.y + postBox!.height / 2);
-    expect(postBox!.width).toBeGreaterThan(280);
+    await expectStacked(post, org, { minWidth: 280 });
 
     await page.goto("/connections#not-on-the-drawing");
     const record = page
@@ -1006,37 +998,28 @@ test.describe("pocket folio", () => {
     const kind = page
       .locator("#not-on-the-drawing .pocket-ledger-row td[data-label='Kind']")
       .first();
-    await expect(record).toBeVisible();
-    const recordBox = await record.boundingBox();
-    const kindBox = await kind.boundingBox();
-    expect(kindBox!.y).toBeGreaterThan(recordBox!.y + recordBox!.height / 2);
-    expect(recordBox!.width).toBeGreaterThan(280);
+    await expectStacked(record, kind, { minWidth: 280 });
 
     await page.goto("/public-entities");
+    await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
     const inventory = page
       .locator("[data-slot=table] .pocket-ledger-row td[data-label='Entity']")
       .first();
     const catalog = page
       .locator("[data-slot=table] .pocket-ledger-row td[data-label='Catalog']")
       .first();
-    await expect(inventory).toBeVisible();
-    const inventoryBox = await inventory.boundingBox();
-    const catalogBox = await catalog.boundingBox();
-    expect(catalogBox!.y).toBeGreaterThan(inventoryBox!.y + inventoryBox!.height / 2);
-    expect(inventoryBox!.width).toBeGreaterThan(280);
+    await expectStacked(inventory, catalog, { minWidth: 280 });
 
     await page.goto("/public-entities#ownership");
+    await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
+    await waitForSelectedTab(page, "Ownership statements");
     const entity = page
       .locator("#ownership .pocket-ledger-row td[data-label='Entity']")
       .first();
     const status = page
       .locator("#ownership .pocket-ledger-row td[data-label='Status']")
       .first();
-    await expect(entity).toBeVisible();
-    const entityBox = await entity.boundingBox();
-    const statusBox = await status.boundingBox();
-    expect(statusBox!.y).toBeGreaterThan(entityBox!.y + entityBox!.height / 2);
-    expect(entityBox!.width).toBeGreaterThan(280);
+    await expectStacked(entity, status, { minWidth: 280 });
   });
 
   test("quoted-name, membership, variorum, and public-entity tabs stack before lg", async ({
@@ -1051,11 +1034,7 @@ test.describe("pocket folio", () => {
     const start = page
       .locator("#membership .pocket-ledger-row td[data-label='Start']")
       .first();
-    await expect(person).toBeVisible();
-    const personBox = await person.boundingBox();
-    const startBox = await start.boundingBox();
-    expect(startBox!.y).toBeGreaterThan(personBox!.y + personBox!.height / 2);
-    expect(personBox!.width).toBeGreaterThan(280);
+    await expectStacked(person, start, { minWidth: 280 });
 
     await page.goto("/offices/ceo-of-landsvirkjun");
     const boardPerson = page
@@ -1064,43 +1043,29 @@ test.describe("pocket folio", () => {
     const boardAsOf = page
       .locator("#board-seats .pocket-ledger-row td[data-label='As of']")
       .first();
-    await expect(boardPerson).toBeVisible();
-    const boardPersonBox = await boardPerson.boundingBox();
-    const boardAsOfBox = await boardAsOf.boundingBox();
-    expect(boardAsOfBox!.y).toBeGreaterThan(
-      boardPersonBox!.y + boardPersonBox!.height / 2,
-    );
+    await expectStacked(boardPerson, boardAsOf);
 
     await page.goto("/anomalies#contradictions");
     const spread = page.locator(".variorum-spread").first();
-    await expect(spread).toBeVisible();
     const sides = spread.locator("[data-citation-gutter]");
     await expect(sides).toHaveCount(2);
-    const firstSide = await sides.nth(0).boundingBox();
-    const secondSide = await sides.nth(1).boundingBox();
-    expect(secondSide!.y).toBeGreaterThan(firstSide!.y + firstSide!.height / 2);
-    expect(firstSide!.width).toBeGreaterThan(280);
+    await expectStacked(sides.nth(0), sides.nth(1), { minWidth: 280 });
 
     await page.setViewportSize({ width: 800, height: 844 });
     await page.goto("/anomalies#contradictions");
     const tabletSpread = page.locator(".variorum-spread").first();
     const tabletSides = tabletSpread.locator("[data-citation-gutter]");
-    const tabletFirst = await tabletSides.nth(0).boundingBox();
-    const tabletSecond = await tabletSides.nth(1).boundingBox();
-    expect(tabletSecond!.y).toBeGreaterThan(tabletFirst!.y + tabletFirst!.height / 2);
-    expect(tabletFirst!.width).toBeGreaterThan(500);
+    await expectStacked(tabletSides.nth(0), tabletSides.nth(1), { minWidth: 500 });
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/public-entities");
+    await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
     const tabs = page.getByRole("tab");
     await expect(tabs).toHaveCount(5);
-    const firstTab = await tabs.nth(0).boundingBox();
-    const secondTab = await tabs.nth(1).boundingBox();
-    expect(secondTab!.y).toBeGreaterThan(firstTab!.y + firstTab!.height / 2);
-    expect(firstTab!.width).toBeGreaterThan(280);
+    await expectStacked(tabs.nth(0), tabs.nth(1), { minWidth: 280 });
     await expect(page.locator(".folio-tabs")).toHaveCSS("overflow-x", "visible");
 
-    await page.getByRole("tab", { name: "Quoted names" }).click();
+    await clickLive(page.getByRole("tab", { name: "Quoted names" }));
     await expect(page.getByText("No unmatched names on file")).toBeVisible();
     await expect(page.locator("#quoted-names .pocket-ledger")).toHaveCount(0);
   });
@@ -1111,12 +1076,10 @@ test.describe("pocket folio", () => {
     test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
 
     await page.goto("/money");
+    await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
     const tabs = page.getByRole("tab");
     await expect(tabs).toHaveCount(3);
-    const firstTab = await tabs.nth(0).boundingBox();
-    const secondTab = await tabs.nth(1).boundingBox();
-    expect(secondTab!.y).toBeGreaterThan(firstTab!.y + firstTab!.height / 2);
-    expect(firstTab!.width).toBeGreaterThan(280);
+    await expectStacked(tabs.nth(0), tabs.nth(1), { minWidth: 280 });
     await expect(page.locator(".folio-tabs")).toHaveCSS("overflow-x", "visible");
 
     await page.goto("/");
@@ -1259,7 +1222,8 @@ test.describe("pocket folio", () => {
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/money#printed-headings");
-    await page.getByRole("tab", { name: "Invoice coverage" }).click();
+    await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
+    await waitForSelectedTab(page, "Invoice coverage");
     const heading = page
       .locator("#printed-headings .pocket-ledger-row td[data-label='Printed heading']")
       .first();
@@ -1267,12 +1231,7 @@ test.describe("pocket folio", () => {
       .locator("#printed-headings .pocket-ledger-row td[data-label='Sits on']")
       .first();
     await heading.scrollIntoViewIfNeeded();
-    await expect(heading).toBeVisible();
-    await expect(sits).toBeVisible();
-    const headingBox = await heading.boundingBox();
-    const sitsBox = await sits.boundingBox();
-    expect(sitsBox!.y).toBeGreaterThan(headingBox!.y + headingBox!.height / 2);
-    expect(headingBox!.width).toBeGreaterThan(280);
+    await expectStacked(heading, sits, { minWidth: 280 });
   });
 
   test("event type index and connection strips stop sideways scrolling", async ({
@@ -1300,7 +1259,8 @@ test.describe("pocket folio", () => {
     expect(toBox!.y).toBeGreaterThan(fromBox!.y + fromBox!.height / 2);
 
     await page.goto("/public-entities");
-    await page.getByRole("tab", { name: "Govdirectory checklist" }).click();
+    await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
+    await clickLive(page.getByRole("tab", { name: "Govdirectory checklist" }));
     const summaries = page.locator(".govdirectory-summary [data-slot=card]");
     await expect(summaries).toHaveCount(3);
     const summaryFirst = await summaries.nth(0).boundingBox();
@@ -1314,23 +1274,24 @@ test.describe("pocket folio", () => {
   }, testInfo) => {
     test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
     await page.goto("/connections");
-    const chips = page.locator(".as-of-rail .as-of-chip");
+    const tenure = await waitForTenureLive(page);
+    const chips = tenure.locator(".as-of-chip");
     await expect(chips).toHaveCount(2);
-    const first = await chips.nth(0).boundingBox();
-    const second = await chips.nth(1).boundingBox();
-    expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
+    await expectStacked(chips.nth(0), chips.nth(1));
 
-    await chips.nth(0).click();
+    const current = tenureChip(tenure, "current");
+    await expect(current).toHaveAttribute("href", /tenure=current/);
+    await clickLive(current);
     await expect(page).toHaveURL(/tenure=current/);
-    await page.locator("#careers").getByRole("link", { name: "Open this connection" }).first().click();
+    await clickLive(
+      page.locator("#careers").getByRole("link", { name: "Open this connection" }).first(),
+    );
     const record = page.locator(".folio-gutter > div");
     await expect(record.first()).toBeVisible();
     const asOf = record.filter({ has: page.getByText("As of", { exact: true }) });
     const end = record.filter({ has: page.getByText("End", { exact: true }) });
     await expect(end.getByText("no end date stored")).toBeVisible();
-    const asOfBox = await asOf.first().boundingBox();
-    const endBox = await end.first().boundingBox();
-    expect(endBox!.y).toBeGreaterThan(asOfBox!.y + asOfBox!.height / 2);
+    await expectStacked(asOf.first(), end.first());
 
     await page.goto("/connections#unprinted-ends");
     const leftover = page.locator("#unprinted-ends");
@@ -1343,13 +1304,7 @@ test.describe("pocket folio", () => {
     const endCell = leftover
       .locator(".pocket-ledger-row td[data-label='End']")
       .first();
-    await expect(from).toBeVisible();
-    const leftoverFrom = await from.boundingBox();
-    const leftoverEnd = await endCell.boundingBox();
-    expect(leftoverFrom).toBeTruthy();
-    expect(leftoverEnd).toBeTruthy();
-    expect(leftoverEnd!.y).toBeGreaterThan(leftoverFrom!.y + leftoverFrom!.height / 2);
-    expect(leftoverFrom!.width).toBeGreaterThan(280);
+    await expectStacked(from, endCell, { minWidth: 280 });
     await expect(endCell.getByText("no end date stored")).toBeVisible();
     await expect(leftover.getByText("current", { exact: true })).toHaveCount(0);
   });
@@ -1360,16 +1315,18 @@ test.describe("pocket folio", () => {
   }, testInfo) => {
     test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
     await page.goto("/");
-    const search = page.getByRole("button", { name: "Search the records" });
-    await expect(search).toBeVisible();
-    await search.click();
+    const search = await waitForSearchLive(page);
+    await clickLive(search);
     const dialog = page.getByRole("dialog", { name: "Search the records" });
     await expect(dialog).toBeVisible();
     await expect(dialog.getByRole("heading", { name: "Search the records" })).toBeVisible();
-    const box = await dialog.boundingBox();
-    expect(box).toBeTruthy();
-    expect(box!.y).toBeGreaterThan(200);
-    expect(box!.width).toBeGreaterThan(300);
+    await expect
+      .poll(async () => {
+        const box = await dialog.boundingBox();
+        if (!box) return false;
+        return box.y > 200 && box.width > 300;
+      })
+      .toBe(true);
     await page.keyboard.press("Escape");
     await expect(dialog).toHaveCount(0);
 

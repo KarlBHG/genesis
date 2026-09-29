@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { SearchIcon } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -29,12 +29,16 @@ export function CommandPalette() {
     setOpen(false);
     setQuery("");
   }, []);
+  const openRef = useRef(open);
+  openRef.current = open;
+  const searchRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
+      const isOpen = openRef.current;
       const isPaletteKey =
         event.code === "KeyK" || event.key === "k" || event.key === "K";
-      if (event.key === "Escape" && open) {
+      if (event.key === "Escape" && isOpen) {
         event.preventDefault();
         event.stopPropagation();
         close();
@@ -44,7 +48,7 @@ export function CommandPalette() {
         const target = event.target;
         if (
           target instanceof HTMLElement &&
-          !open &&
+          !isOpen &&
           (target.isContentEditable ||
             target.tagName === "INPUT" ||
             target.tagName === "TEXTAREA" ||
@@ -59,8 +63,17 @@ export function CommandPalette() {
       }
     }
     document.addEventListener("keydown", onKey, true);
-    return () => document.removeEventListener("keydown", onKey, true);
-  }, [open, close]);
+    const search =
+      searchRef.current ??
+      document.querySelector<HTMLElement>(
+        'button[aria-label="Search the records"]',
+      );
+    search?.setAttribute("data-search-live", "");
+    return () => {
+      document.removeEventListener("keydown", onKey, true);
+      search?.removeAttribute("data-search-live");
+    };
+  }, [close]);
 
   useEffect(() => {
     close();
@@ -95,6 +108,7 @@ export function CommandPalette() {
         aria-label="Search the records"
         className="gap-2"
         onClick={() => setOpen(true)}
+        ref={searchRef}
         size="sm"
         variant="outline"
       >

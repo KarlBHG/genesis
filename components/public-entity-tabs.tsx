@@ -36,10 +36,12 @@ export function PublicEntityTabs({
     | "ownership"
     | "parent-ministry"
   >("inventory");
+  const [live, setLive] = useState(false);
 
   useEffect(() => {
     const apply = () => setTab(tabFromHash(window.location.hash));
     apply();
+    setLive(true);
     window.addEventListener("hashchange", apply);
     return () => window.removeEventListener("hashchange", apply);
   }, []);
@@ -51,6 +53,7 @@ export function PublicEntityTabs({
   return (
     <Tabs
       className="gap-8"
+      data-tabs-live={live ? "" : undefined}
       onValueChange={(value) => setTab(value as typeof tab)}
       value={tab}
     >
