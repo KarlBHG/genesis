@@ -40,28 +40,50 @@ export default function MoneyPage() {
     <main className="dashboard-canvas min-w-0">
       <HashScroll />
       <PageHero
+        aside={
+          <dl className="hero-stat-rail">
+            <div>
+              <dt>Policy areas</dt>
+              <dd>{areas.length}</dd>
+            </div>
+            <div>
+              <dt>Invoice rows</dt>
+              <dd>{pays.length}</dd>
+            </div>
+            <div>
+              <dt>Buyers on file</dt>
+              <dd>{buyers.length}</dd>
+            </div>
+          </dl>
+        }
         description={`Authorisations, invoices, and contracts are different fiscal phases. Trade, pensions, and Treasury totals sit with the other published aggregates. The ${areas.length} ministry policy areas and Article 4 rows are on this page too. Published figures only; each entry names the year on the source.`}
         eyebrow="Budget · flows · 2026"
-        title="Budget & money"
+        folio="04"
+        italic="and money."
+        size="dramatic"
+        title="Budget"
       />
-      <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 py-10 sm:px-6">
+      <div className="mx-auto flex w-full max-w-shell flex-col gap-14 px-4 py-12 sm:px-6 sm:py-16">
         <FiscalPhasesNav />
 
-        <section className="flex min-w-0 scroll-mt-24 flex-col gap-4" id="authorisations">
+        <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="authorisations">
           <BudgetProgramsSection />
         </section>
 
-        <section className="flex min-w-0 scroll-mt-24 flex-col gap-4" id="invoices">
+        <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="invoices">
+          <header className="reading-section-head">
+            <span className="section-index">02</span>
+            <h2 className="reading-head">Invoices</h2>
+          </header>
           <div className="glass-panel flex max-w-reading flex-col gap-3 p-6">
-            <h2 className="font-serif text-xl font-medium">Invoices</h2>
-            <p className="text-sm leading-6 text-muted-foreground">
+            <p className="text-base leading-7 text-muted-foreground">
               {pays.length} stored Opnir reikningar {pays.length === 1 ? "row" : "rows"}.
               Each line is one payment a named buyer made to a named vendor on a named
               day. Salaries, foreign-currency payments, and grants are not on that
               ledger. Amounts are not added together, and the stored sample is a
               sample — not the year.
             </p>
-            <p className="text-sm leading-6 text-muted-foreground">
+            <p className="text-base leading-7 text-muted-foreground">
               {buyers.length > 0 ? (
                 <>
                   Buyers on file:{" "}
@@ -85,18 +107,19 @@ export default function MoneyPage() {
           </div>
         </section>
 
-        <section className="flex min-w-0 scroll-mt-24 flex-col gap-4" id="contracts">
-          <div className="flex min-w-0 flex-col gap-3">
-            <h2 className="text-xl font-medium tracking-tight">Contracts and commodity lines</h2>
-            <p className="max-w-reading text-sm leading-6 text-muted-foreground">
-              Power-purchase agreements and Hagstofa import/export commodity rows.
-              These are not invoices and not Article 4 ceilings. Typed lines are under{" "}
-              <Link className="underline underline-offset-4" href="/connections#contracts">
-                Connections · Contracts
-              </Link>
-              .
-            </p>
-          </div>
+        <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="contracts">
+          <header className="reading-section-head">
+            <span className="section-index">03</span>
+            <h2 className="reading-head">Contracts and commodity lines</h2>
+          </header>
+          <p className="max-w-reading text-base leading-7 text-muted-foreground">
+            Power-purchase agreements and Hagstofa import/export commodity rows.
+            These are not invoices and not Article 4 ceilings. Typed lines are under{" "}
+            <Link className="underline underline-offset-4" href="/connections#contracts">
+              Connections · Contracts
+            </Link>
+            .
+          </p>
           {contractItems.length === 0 ? (
             <p className="text-muted-foreground">No contract or commodity flows are on file.</p>
           ) : (
@@ -104,9 +127,12 @@ export default function MoneyPage() {
           )}
         </section>
 
-        <section className="flex min-w-0 flex-col gap-4">
-          <h2 className="text-xl font-medium tracking-tight">Other money flows</h2>
-          <p className="max-w-reading text-sm leading-6 text-muted-foreground">
+        <section className="flex min-w-0 flex-col gap-5">
+          <header className="reading-section-head">
+            <span className="section-index">04</span>
+            <h2 className="reading-head">Other money flows</h2>
+          </header>
+          <p className="max-w-reading text-base leading-7 text-muted-foreground">
             Treasury totals, pensions, and holdings that are not an authorisation,
             an invoice, or a contract line.
           </p>

@@ -56,42 +56,40 @@ export default function PublicEntitiesPage() {
   return (
     <main className="dashboard-canvas min-w-0">
       <PageHero
+        aside={
+          <dl className="hero-stat-rail">
+            <div>
+              <dt>Mapped</dt>
+              <dd>
+                {totalMapped}
+                <span className="display-over">/{rows.length}</span>
+              </dd>
+            </div>
+            <div>
+              <dt>Typed links</dt>
+              <dd>
+                {totalTyped}
+                <span className="display-over">/{rows.length}</span>
+              </dd>
+            </div>
+            <div>
+              <dt>Office-linked</dt>
+              <dd>
+                {totalOffice}
+                <span className="display-over">/{rows.length}</span>
+              </dd>
+            </div>
+          </dl>
+        }
         description="Every in-scope public entity tracked in this phase appears here with explicit coverage indicators. “Mapped” means it has a geography pin unless marked office-only, “typed links” means at least one schema-typed edge, and “office-linked” means named office records connect through holds-office lines."
-        eyebrow={`${rows.length} tracked entities · ${totalMapped} mapped · ${totalTyped} typed-linked`}
+        eyebrow={`${rows.length} tracked entities`}
+        folio="07"
+        italic="what’s in scope."
+        size="dramatic"
         title="Public entities"
       />
-      <div className="mx-auto flex w-full max-w-shell flex-col gap-6 px-4 pb-16 pt-10 sm:px-6">
-        <section className="grid gap-3 md:grid-cols-3">
-          <Card>
-            <CardHeader>
-              <p className="kicker">Coverage</p>
-              <CardDescription>Mapped</CardDescription>
-              <CardTitle className="font-serif text-3xl tabular-nums">
-                {totalMapped} / {rows.length}
-              </CardTitle>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <p className="kicker">Graph</p>
-              <CardDescription>Typed links</CardDescription>
-              <CardTitle className="font-serif text-3xl tabular-nums">
-                {totalTyped} / {rows.length}
-              </CardTitle>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <p className="kicker">Offices</p>
-              <CardDescription>Office-linked</CardDescription>
-              <CardTitle className="font-serif text-3xl tabular-nums">
-                {totalOffice} / {rows.length}
-              </CardTitle>
-            </CardHeader>
-          </Card>
-        </section>
-
-        <Tabs className="gap-6" defaultValue="inventory">
+      <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 pb-20 pt-12 sm:px-6 sm:pt-16">
+        <Tabs className="gap-8" defaultValue="inventory">
           <TabsList className="h-auto w-full flex-wrap justify-start" variant="line">
             <TabsTrigger value="inventory">In-scope inventory</TabsTrigger>
             <TabsTrigger value="checklist">Govdirectory checklist</TabsTrigger>
@@ -102,11 +100,13 @@ export default function PublicEntitiesPage() {
               const categoryRows = rows.filter((row) => row.category === summary.category);
               return (
                 <section className="flex flex-col gap-3" key={summary.category}>
-                  <h2 className="font-serif text-xl font-medium tracking-tight">
+                  <h2 className="reading-head">
                     {PUBLIC_ENTITY_CATEGORY_LABELS[summary.category]}{" "}
-                    <span className="text-muted-foreground">· {summary.total}</span>
+                    <span className="display-italic text-[0.7em] text-muted-foreground">
+                      · {summary.total}
+                    </span>
                   </h2>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-base leading-7 text-muted-foreground">
                     {summary.mapped}/{summary.total} mapped · {summary.typedLinked}/
                     {summary.total} typed-linked · {summary.officeLinked}/
                     {summary.total} office-linked
@@ -180,10 +180,10 @@ export default function PublicEntitiesPage() {
 
           <TabsContent className="flex flex-col gap-4" value="checklist">
             <div className="flex max-w-reading flex-col gap-2">
-              <h2 className="font-serif text-xl font-medium tracking-tight">
+              <h2 className="reading-head">
                 Open checklist · Govdirectory
               </h2>
-              <p className="text-sm leading-6 text-muted-foreground">
+              <p className="text-base leading-7 text-muted-foreground">
                 {GOVDIRECTORY_ICELAND.note} Retrieved {GOVDIRECTORY_ICELAND.retrieved}; Govdirectory
                 marked its Iceland page updated {GOVDIRECTORY_ICELAND.govdirectoryUpdated}. This is
                 not a source of typed edges. See{" "}
@@ -219,7 +219,7 @@ export default function PublicEntitiesPage() {
                 <Card key={group.id}>
                   <CardHeader>
                     <CardDescription>{group.label}</CardDescription>
-                    <CardTitle className="font-serif text-3xl tabular-nums">
+                    <CardTitle className="display-figure text-[2.4rem]">
                       {group.matched} / {group.total}
                     </CardTitle>
                     <p className="text-xs text-muted-foreground">
