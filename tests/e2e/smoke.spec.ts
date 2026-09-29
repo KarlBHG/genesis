@@ -616,6 +616,98 @@ test("night plate caption reads as a legend, not a GIS inspector", async ({
   await expect(page.getByText("listed here instead of pinned in Reykjavík")).toBeVisible();
 });
 
+test.describe("pocket folio", () => {
+  test("thumb index is the mobile door and stays ten plates", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/");
+    await expect(page.locator(".home-constellation")).toBeHidden();
+    await expect(
+      page.getByRole("navigation", { name: "Atlas thumb index" }),
+    ).toHaveCount(0);
+    await page.getByRole("button", { name: "Open menu" }).click();
+    const index = page.getByRole("navigation", { name: "Atlas thumb index" });
+    await expect(index).toBeVisible();
+    await expect(index.getByRole("link")).toHaveCount(10);
+    await expect(index.getByRole("link", { name: /System/ })).toContainText("01");
+    await expect(index.getByRole("link", { name: /Evidence/ })).toContainText("10");
+    await expect(
+      page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+        name: "Offices",
+      }),
+    ).toHaveCount(0);
+  });
+
+  test("map caption docks as a bottom sheet over the island", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/map?focus=althingi");
+    const caption = page.getByRole("region", { name: "Plate caption" });
+    await expect(caption).toBeVisible();
+    await expect(page.getByRole("group", { name: "This plate" })).toBeVisible();
+    await expect(page.locator(".geo-chips")).toBeHidden();
+    await expect(page.locator(".geo-rail")).toBeHidden();
+    await expect(caption.getByRole("heading", { name: "Alþingi" })).toBeVisible();
+    await expect(caption.getByText("Alþingi is Iceland's parliament.")).toBeVisible();
+    const peek = await caption.boundingBox();
+    expect(peek).toBeTruthy();
+    expect(peek!.height).toBeLessThan(240);
+    const stage = await page.locator(".geo-stage").boundingBox();
+    expect(stage).toBeTruthy();
+    expect(peek!.y).toBeGreaterThan(stage!.y);
+
+    await caption.getByRole("button").click();
+    const open = await caption.boundingBox();
+    expect(open!.height).toBeGreaterThan(peek!.height);
+    const legend = caption.getByRole("list", { name: "Legend" });
+    await expect(legend.getByRole("link", { name: "permalink" }).first()).toBeVisible();
+  });
+
+  test("peek still stamps pin-only records", async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/map?focus=frimurarareglan");
+    const caption = page.getByRole("region", { name: "Plate caption" });
+    await expect(caption.getByText("On the drawing, no typed line").first()).toBeVisible();
+    await expect(
+      caption.getByRole("heading", { name: "Frímúrarareglan á Íslandi" }),
+    ).toBeVisible();
+    await expect(caption.getByRole("list", { name: "Legend" })).toHaveCount(0);
+    const peek = await caption.boundingBox();
+    expect(peek!.height).toBeLessThan(240);
+  });
+
+  test("reading pages stack the fact strip as a gutter", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+    await page.goto("/institutions/sedlabanki");
+    const facts = page.locator(".entry-fact-strip > div");
+    await expect(facts).toHaveCount(4);
+    const first = await facts.nth(0).boundingBox();
+    const second = await facts.nth(1).boundingBox();
+    expect(first).toBeTruthy();
+    expect(second).toBeTruthy();
+    expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
+  });
+
+  test("desktop atlas keeps the side caption and chips", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop", "Desktop atlas stays as-is");
+    await page.goto("/map?focus=althingi");
+    await expect(page.getByRole("group", { name: "This plate" })).toBeHidden();
+    await expect(page.locator(".geo-chips")).toBeVisible();
+    await expect(page.locator(".geo-rail")).toBeVisible();
+    const stage = await page.locator(".geo-stage").boundingBox();
+    const caption = await page.getByRole("region", { name: "Plate caption" }).boundingBox();
+    expect(stage).toBeTruthy();
+    expect(caption).toBeTruthy();
+    expect(caption!.x).toBeGreaterThan(stage!.x + stage!.width * 0.4);
+  });
+});
+
 test.describe("visual baselines", () => {
   test("home and money — desktop 1440", async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== "desktop", "Desktop baselines only");

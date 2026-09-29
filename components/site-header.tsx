@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/sheet";
 import {
   NAV,
+  navLeaves,
   padFolio,
   pathMatchesHref,
   withNavIndex,
@@ -49,6 +50,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const indexed = withNavIndex();
+  const leaves = navLeaves();
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -78,58 +80,38 @@ export function SiteHeader() {
                 <MenuIcon />
                 <span className="sr-only">Open menu</span>
               </SheetTrigger>
-              <SheetContent side="left">
-                <SheetHeader>
-                  <SheetTitle>AlltÍkerfi</SheetTitle>
-                  <SheetDescription>Index of the atlas</SheetDescription>
+              <SheetContent className="thumb-folio gap-0 p-0" side="left" showCloseButton={false}>
+                <SheetHeader className="border-b border-border pr-4">
+                  <SheetTitle>Index</SheetTitle>
+                  <SheetDescription>
+                    Thumb cuts 01–10. The same ten plates as the masthead.
+                  </SheetDescription>
                 </SheetHeader>
-                <nav className="flex flex-col gap-1 overflow-y-auto px-4 pb-4">
-                  {indexed.map((entry) =>
-                    "href" in entry ? (
-                      <SheetClose
-                        key={entry.href}
-                        nativeButton={false}
-                        render={
-                          <Link
-                            aria-current={
-                              isCurrent(pathname, entry.href) ? "page" : undefined
-                            }
-                            className="flex items-baseline gap-3 rounded-md px-3 py-2 text-sm hover:bg-muted"
-                            href={entry.href}
-                          />
-                        }
-                      >
-                        <FolioNum n={entry.index} />
-                        {entry.label}
-                      </SheetClose>
-                    ) : (
-                      <div className="flex flex-col gap-1" key={entry.label}>
-                        <p className="px-3 pt-2 text-xs tracking-wide text-muted-foreground uppercase">
-                          {entry.label}
-                        </p>
-                        {entry.items.map((item) => (
-                          <SheetClose
-                            key={item.href}
-                            nativeButton={false}
-                            render={
-                              <Link
-                                aria-current={
-                                  isCurrent(pathname, item.href)
-                                    ? "page"
-                                    : undefined
-                                }
-                                className="flex items-baseline gap-3 rounded-md px-3 py-2 text-sm hover:bg-muted"
-                                href={item.href}
-                              />
-                            }
-                          >
-                            <FolioNum n={item.index} />
-                            {item.label}
-                          </SheetClose>
-                        ))}
-                      </div>
-                    ),
-                  )}
+                <nav
+                  aria-label="Atlas thumb index"
+                  className="thumb-index overflow-y-auto"
+                  data-thumb-index=""
+                >
+                  {leaves.map((leaf) => (
+                    <SheetClose
+                      key={leaf.href}
+                      nativeButton={false}
+                      render={
+                        <Link
+                          aria-current={
+                            isCurrent(pathname, leaf.href) ? "page" : undefined
+                          }
+                          className="thumb-cut"
+                          href={leaf.href}
+                        />
+                      }
+                    >
+                      <span className="thumb-cut-label">{leaf.label}</span>
+                      <span className="thumb-cut-num">
+                        {padFolio(leaf.index)}
+                      </span>
+                    </SheetClose>
+                  ))}
                 </nav>
               </SheetContent>
             </Sheet>

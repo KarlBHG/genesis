@@ -243,7 +243,7 @@ export function HomeConstellation() {
 /** Compact fallback for narrow screens — a legend, not the full radial diagram. */
 export function ConstellationLegend() {
   return (
-    <ul className="grid w-full max-w-sm grid-cols-1 gap-0 sm:hidden">
+    <ul className="grid w-full max-w-sm grid-cols-1 gap-0 lg:hidden">
       {OBLIGATION_SECTIONS.map((section, index) => {
         const visual = obligationVisual(section.id);
         return (

@@ -194,7 +194,7 @@ function Record({ entry }: { entry: Entry }) {
         <CardTitle>Record</CardTitle>
       </CardHeader>
       <CardContent>
-        <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <dl className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {entry.kind === "treaty" ? (
             <>
               <Fact term="Signed">{formatDate(entry.signed)}</Fact>

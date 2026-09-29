@@ -245,7 +245,7 @@ export function HomeDashboard({
                 full index
               </Link>
             </p>
-            <div className="w-full">
+            <div className="hidden w-full lg:block">
               <HomeConstellation />
             </div>
             <ConstellationLegend />

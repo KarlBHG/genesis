@@ -170,7 +170,7 @@ export default async function ConnectionPermalinkPage({
         showTitle={false}
       />
 
-      <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <dl className="folio-gutter grid grid-cols-1 gap-0 lg:grid-cols-2 lg:gap-4">
         <div className="flex flex-col gap-1">
           <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
             {statement ? "Interested party" : "From"}
@@ -223,7 +223,7 @@ export default async function ConnectionPermalinkPage({
           </div>
         ) : null}
         {edge.programNullReason ? (
-          <div className="flex flex-col gap-1 sm:col-span-2">
+          <div className="flex flex-col gap-1 lg:col-span-2">
             <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
               Ledger prints no program
             </dt>
@@ -231,7 +231,7 @@ export default async function ConnectionPermalinkPage({
           </div>
         ) : null}
         {identity ? (
-          <div className="flex flex-col gap-1 sm:col-span-2">
+          <div className="flex flex-col gap-1 lg:col-span-2">
             <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
               Printed heading
             </dt>

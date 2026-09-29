@@ -4,9 +4,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   useEffect,
   useMemo,
+  useRef,
   useState,
   type CSSProperties,
   type KeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
 } from "react";
 
 import { PrintPlateColophon, PrintPlateHead } from "@/components/print-plate";
@@ -81,6 +83,25 @@ const LAYER_LABEL = Object.fromEntries(LAYERS.map((layer) => [layer.id, layer.la
 >;
 
 const MAP_CONTROL = "map-control focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--geo-accent)";
+
+type SheetSnap = "peek" | "half" | "full";
+
+function snapSheet(height: number, viewport: number): SheetSnap {
+  const peek = 176;
+  const half = viewport * 0.48;
+  const full = Math.min(viewport * 0.88, viewport - 72);
+  const scored: [SheetSnap, number][] = [
+    ["peek", Math.abs(height - peek)],
+    ["half", Math.abs(height - half)],
+    ["full", Math.abs(height - full)],
+  ];
+  scored.sort((left, right) => left[1] - right[1]);
+  return scored[0][0];
+}
+
+function cycleSheet(current: SheetSnap): SheetSnap {
+  return current === "peek" ? "half" : current === "half" ? "full" : "peek";
+}
 
 /** Label offsets keep neighbouring Nominatim pins readable without moving the dots. */
 const LABEL_AT: Record<PlaceId, { dx: number; dy: number; anchor: "start" | "end" | "middle" }> = {
@@ -407,6 +428,9 @@ export function IcelandMap({
   const selectedPlace = query.place;
   const selectedSlug = query.focus;
   const [copied, setCopied] = useState(false);
+  const [sheet, setSheet] = useState<SheetSnap>("peek");
+  const [dragHeight, setDragHeight] = useState<number | null>(null);
+  const dragRef = useRef<{ y: number; h: number } | null>(null);
   const reduceMotion = usePrefersReducedMotion();
   const motionTransition = reduceMotion ? undefined : "opacity 200ms ease";
   const shareQuery = serializeMapQuery(query);
@@ -569,6 +593,55 @@ export function IcelandMap({
 
   const emptyLayers = visible.length === 0;
 
+  useEffect(() => {
+    setSheet("peek");
+    setDragHeight(null);
+  }, [selectedSlug, selectedPlace]);
+
+  function onSheetPointerDown(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (reduceMotion) return;
+    const aside = event.currentTarget.closest("[data-pocket-sheet]");
+    if (!(aside instanceof HTMLElement)) return;
+    dragRef.current = { y: event.clientY, h: aside.getBoundingClientRect().height };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function onSheetPointerMove(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (!dragRef.current) return;
+    const next = dragRef.current.h + (dragRef.current.y - event.clientY);
+    const max = window.innerHeight - 72;
+    setDragHeight(Math.min(Math.max(140, next), max));
+  }
+
+  function onSheetPointerUp(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (!dragRef.current) return;
+    const delta = dragRef.current.y - event.clientY;
+    const next = dragRef.current.h + delta;
+    dragRef.current = null;
+    setDragHeight(null);
+    if (Math.abs(delta) < 10) {
+      setSheet((current) => cycleSheet(current));
+      return;
+    }
+    setSheet(snapSheet(next, window.innerHeight));
+  }
+
+  const sheetHint = focus
+    ? focus.pinOnly
+      ? "On the drawing, no typed line"
+      : legend.length > 0
+        ? sheet === "peek"
+          ? "Pull to read quotations"
+          : "Quotations on this plate"
+        : "On this plate"
+    : selectedPlace
+      ? placeEntries.length > 1
+        ? sheet === "peek"
+          ? "Pull to read the pin list"
+          : "Records on this pin"
+        : "On this plate"
+      : "Touch a named place";
+
   return (
     <div>
       <PrintPlateHead
@@ -606,6 +679,51 @@ export function IcelandMap({
             </span>
           </div>
         </header>
+
+        <div className="geo-plate-strip" role="group" aria-label="This plate">
+          <p className="geo-plate-kicker">This plate</p>
+          <div className="geo-plate-row" role="group" aria-label="Layers">
+            {MAP_LAYERS.map((layer) => (
+              <button
+                key={layer.id}
+                type="button"
+                aria-pressed={enabled[layer.id]}
+                className={`geo-plate-swatch ${MAP_CONTROL}`}
+                style={{
+                  borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
+                  color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+                  background: enabled[layer.id] ? "var(--geo-chip-active)" : "transparent",
+                }}
+                title={layer.label}
+                onClick={() => toggle(layer.id)}
+              >
+                <span
+                  className="inline-block h-1.5 w-1.5 rounded-full"
+                  style={{ background: layer.swatch }}
+                />
+                {layer.label}
+              </button>
+            ))}
+          </div>
+          <div className="geo-plate-row" role="group" aria-label="Views">
+            {MAP_VIEWS.map((view) => (
+              <button
+                key={view.id}
+                type="button"
+                aria-pressed={viewsOn[view.id]}
+                className={`geo-plate-swatch ${MAP_CONTROL}`}
+                style={{
+                  color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+                  background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
+                  borderColor: viewsOn[view.id] ? "var(--geo-line-bright)" : "var(--geo-line)",
+                }}
+                onClick={() => toggleView(view.id)}
+              >
+                {view.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div className="geo-chips">
           <div className="geo-chip-row" role="group" aria-label="Layers">
@@ -991,6 +1109,10 @@ export function IcelandMap({
 
         <aside
           className={focus ? "geo-inspector geo-caption" : "geo-inspector"}
+          data-pocket-sheet=""
+          data-sheet-height={sheet}
+          id="geo-pocket-sheet"
+          style={dragHeight != null ? { height: `${dragHeight}px` } : undefined}
           aria-live="polite"
           role={focus || placeEntries.length > 1 ? "region" : undefined}
           aria-label={
@@ -1011,6 +1133,23 @@ export function IcelandMap({
               : undefined
           }
         >
+          <div className="geo-sheet-handle">
+            <button
+              type="button"
+              aria-controls="geo-pocket-sheet"
+              aria-expanded={sheet !== "peek"}
+              className={`geo-sheet-grip ${MAP_CONTROL}`}
+              onClick={reduceMotion ? () => setSheet((current) => cycleSheet(current)) : undefined}
+              onPointerDown={reduceMotion ? undefined : onSheetPointerDown}
+              onPointerMove={reduceMotion ? undefined : onSheetPointerMove}
+              onPointerUp={reduceMotion ? undefined : onSheetPointerUp}
+              onPointerCancel={reduceMotion ? undefined : onSheetPointerUp}
+            >
+              <span className="geo-sheet-pip" aria-hidden />
+              <span className="geo-sheet-hint">{sheetHint}</span>
+            </button>
+          </div>
+          <div className="geo-sheet-body">
           {focus ? (
             <PlateCaption
               focus={focus}
@@ -1090,6 +1229,7 @@ export function IcelandMap({
               Touch a named place. The island stays dark where a page has not named it.
             </p>
           )}
+          </div>
         </aside>
       </div>
 
