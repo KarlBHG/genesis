@@ -268,6 +268,22 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "policy-area-33-fjarmagnskostnadur-abyrgdir-og-lifeyrisskuldbindingar", layer: "state", place: "reykjavik" },
   { slug: "policy-area-34-almennur-varasjodur-og-sertaekar-fjarradstafanir", layer: "state", place: "reykjavik" },
   { slug: "policy-area-35-althjodleg-throunarsamvinna-islands", layer: "state", place: "reykjavik" },
+  { slug: "2009-eu-application", layer: "state", place: "reykjavik" },
+  { slug: "2015-eu-candidate-letter", layer: "state", place: "reykjavik" },
+  { slug: "2024-parliamentary-election", layer: "state", place: "reykjavik" },
+  { slug: "international-development-cooperation", layer: "state", place: "reykjavik" },
+  { slug: "creditinfo-lanstraust", layer: "companies", place: "reykjavik" },
+  { slug: "forlagid", layer: "companies", place: "reykjavik" },
+  { slug: "iclean", layer: "companies", place: "reykjavik" },
+  { slug: "kronan", layer: "companies", place: "kopavogur" },
+  { slug: "n1", layer: "companies", place: "kopavogur" },
+  { slug: "nings", layer: "companies", place: "reykjavik" },
+  { slug: "opin-kerfi", layer: "companies", place: "reykjavik" },
+  { slug: "rekstrarfelag-stjornarradsins", layer: "state", place: "reykjavik" },
+  { slug: "securitas", layer: "companies", place: "reykjavik" },
+  { slug: "trackwell", layer: "companies", place: "reykjavik" },
+  { slug: "veitur", layer: "companies", place: "reykjavik" },
+  { slug: "verifone-a-islandi", layer: "companies", place: "kopavogur" },
 ];
 
 /** Layers that have at least one map pin (empty NGO/Family toggles stay hidden). */
