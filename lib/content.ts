@@ -3,62 +3,36 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+import {
+  MONEY_BASES,
+  MONEY_UNITS,
+  checkRawEdge,
+  quotationPrintsValue,
+} from "@/lib/edge-contract";
 import { kindPath, labelize } from "@/lib/format";
 import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
 import { isHttpUrl } from "@/lib/safe-href";
 import type {
   AuditFinding,
-  CareerChannel,
   ChangeRecord,
   Contradiction,
   Edge,
-  EdgeAmount,
   Entry,
   Flow,
   Institution,
   Kind,
   MapEvent,
-  MoneyBasis,
-  MoneyUnit,
   OfficeRecord,
   Player,
-  Relationship,
   SearchDoc,
   Sector,
   Treaty,
 } from "@/lib/types";
 
+export { MONEY_BASES, MONEY_UNITS, quotationPrintsValue };
+
 const ROOT = path.join(process.cwd(), "content");
 const DATA = path.join(process.cwd(), "data");
-
-const RELATIONSHIPS = new Set<Relationship>([
-  "owns",
-  "regulates",
-  "appoints",
-  "sells-power-to",
-  "represents",
-  "funds",
-  "export-of",
-  "import-line-of",
-  "tariff-terms",
-  "invests-in",
-  "holds-office",
-  "sits-on-board",
-  "pays",
-  "elects",
-  "imported-from",
-  "exported-to",
-  "incorporates",
-]);
-
-export const MONEY_UNITS = new Set<MoneyUnit>(["ISK", "mkr", "makr", "USD"]);
-
-export const MONEY_BASES = new Set<MoneyBasis>([
-  "authorisation",
-  "invoice",
-  "statement",
-  "trade-release",
-]);
 
 const FOLDERS: { folder: string; kind: Kind }[] = [
   { folder: "treaties", kind: "treaty" },
@@ -424,8 +398,6 @@ export function getCatalog(): Entry[] {
   return snapshot().entries;
 }
 
-const EDGE_FIELDS = ["from", "to", "type", "asOf", "source", "quotation"] as const;
-
 function resolveSummarySlugs(entries: Entry[]): void {
   const titles = new Map(entries.map((entry) => [entry.slug, entry.title]));
   for (const entry of entries) {
@@ -435,79 +407,6 @@ function resolveSummarySlugs(entries: Entry[]): void {
         titles.has(slug) ? `→ ${titles.get(slug)}` : match,
     );
   }
-}
-
-function requireEdgeString(row: Record<string, unknown>, key: string, index: number): string {
-  const value = row[key];
-  if (typeof value !== "string" || !value.trim()) {
-    throw new Error(`data/edges.json edge ${index + 1} is missing ${key}`);
-  }
-  return value.trim();
-}
-
-/**
- * Every way a number can be read out of a printed figure. Icelandic pages use
- * `192.293,9`; ledger exports print `3546720`. We try both separator
- * conventions rather than reformatting anything.
- */
-function readingsOf(token: string): number[] {
-  const trimmed = token.replace(/\s/g, "");
-  const readings = new Set<number>();
-  for (const candidate of [
-    trimmed.replace(/\./g, "").replace(",", "."),
-    trimmed.replace(/,/g, ""),
-  ]) {
-    const parsed = Number(candidate);
-    if (Number.isFinite(parsed)) readings.add(parsed);
-  }
-  return [...readings];
-}
-
-/** True when `quotation` literally prints `value`, under either convention. */
-export function quotationPrintsValue(value: number, quotation: string): boolean {
-  const tokens = quotation.match(/-?\d[\d.,\s]*\d|-?\d/g) ?? [];
-  return tokens.some((token) => readingsOf(token).includes(value));
-}
-
-function readEdgeAmount(
-  row: Record<string, unknown>,
-  quotation: string,
-  index: number,
-): EdgeAmount | undefined {
-  if (!("amount" in row) || row.amount == null) return undefined;
-  const where = `data/edges.json edge ${index + 1} amount`;
-  const raw = row.amount;
-  if (typeof raw !== "object" || Array.isArray(raw)) {
-    throw new Error(`${where} must be an object`);
-  }
-  const money = raw as Record<string, unknown>;
-  for (const key of Object.keys(money)) {
-    if (!["value", "unit", "basis", "quotation"].includes(key)) {
-      throw new Error(`${where} has unknown field "${key}"`);
-    }
-  }
-  const { value, unit, basis } = money;
-  if (typeof value !== "number" || !Number.isFinite(value)) {
-    throw new Error(`${where} value must be a finite number`);
-  }
-  if (typeof unit !== "string" || !MONEY_UNITS.has(unit as MoneyUnit)) {
-    throw new Error(`${where} has unknown unit "${String(unit)}"`);
-  }
-  if (typeof basis !== "string" || !MONEY_BASES.has(basis as MoneyBasis)) {
-    throw new Error(`${where} has unknown basis "${String(basis)}"`);
-  }
-  const cited = money.quotation;
-  if (typeof cited !== "string" || !cited.trim()) {
-    throw new Error(`${where} is missing quotation`);
-  }
-  const citation = cited.trim();
-  if (!quotation.includes(citation)) {
-    throw new Error(`${where} quotation is not part of the edge quotation`);
-  }
-  if (!quotationPrintsValue(value, citation)) {
-    throw new Error(`${where} value ${value} is not printed in its quotation`);
-  }
-  return { value, unit: unit as MoneyUnit, basis: basis as MoneyBasis, quotation: citation };
 }
 
 function readOffices(): OfficeRecord[] {
@@ -551,185 +450,34 @@ function buildEdges(entries: Entry[], officeRecords: OfficeRecord[]): Edge[] {
     throw new Error(`data/edges.json edge ${index + 1} ${side} "${slug}" does not exist`);
   };
   return parsed.map((item, index) => {
-    if (item == null || typeof item !== "object" || Array.isArray(item)) {
-      throw new Error(`data/edges.json edge ${index + 1} must be an object`);
-    }
-    const row = item as Record<string, unknown>;
-    for (const key of EDGE_FIELDS) {
-      if (!(key in row)) throw new Error(`data/edges.json edge ${index + 1} is missing ${key}`);
-    }
-    const from = requireEdgeString(row, "from", index);
-    const to = requireEdgeString(row, "to", index);
-    const type = requireEdgeString(row, "type", index);
-    const asOf = requireEdgeString(row, "asOf", index);
-    const source = requireHttpUrl(
-      requireEdgeString(row, "source", index),
-      `data/edges.json edge ${index + 1} source`,
-    );
-    const quotation = requireEdgeString(row, "quotation", index);
-    if (!RELATIONSHIPS.has(type as Relationship)) {
-      throw new Error(`data/edges.json edge ${index + 1} has unknown type "${type}"`);
-    }
-    if (from === to) throw new Error(`data/edges.json edge ${index + 1} points at itself`);
-    const relationship = type as Relationship;
-    const fromEntry = bySlug.get(from);
-    const career =
-      relationship === "holds-office" ||
-      relationship === "sits-on-board" ||
-      (relationship === "invests-in" &&
-        fromEntry?.kind === "player" &&
-        fromEntry.playerType === "person");
-    let start: string | null = null;
-    let end: string | null = null;
-    let channel: CareerChannel | null = null;
-    if (career) {
-      for (const key of ["start", "end", "channel"] as const) {
-        if (!(key in row)) {
-          throw new Error(`data/edges.json edge ${index + 1} is missing ${key}`);
-        }
-      }
-      start = requireEdgeString(row, "start", index);
-      end = requireEdgeString(row, "end", index);
-      const channelValue = requireEdgeString(row, "channel", index);
-      if (channelValue !== "political" && channelValue !== "business") {
-        throw new Error(`data/edges.json edge ${index + 1} has unknown channel "${channelValue}"`);
-      }
-      channel = channelValue;
-    }
-    const amount = readEdgeAmount(row, quotation, index);
-    const office = offices.get(to);
+    const where = `data/edges.json edge ${index + 1}`;
+    const checked = checkRawEdge(item, { where, bySlug, offices });
+    if (!checked.ok) throw new Error(checked.errors[0]);
+    const fields = checked.fields;
+    const office = offices.get(fields.to);
     const organizationEntry = office ? bySlug.get(office.organization) : undefined;
-    if (office && !organizationEntry) {
-      throw new Error(
-        `data/edges.json edge ${index + 1} office "${to}" organization does not exist`,
-      );
-    }
-    let year: string | null = null;
-    let program: string | null = null;
-    let programTitle: string | null = null;
-    let programNullReason: string | null = null;
-    let programSource: string | null = null;
-    let programQuotation: string | null = null;
-    if (relationship === "pays") {
-      if ("year" in row) {
-        if (row.year === null) {
-          year = null;
-        } else if (typeof row.year === "string" && row.year.trim()) {
-          year = row.year.trim();
-        } else if (typeof row.year === "number" && Number.isInteger(row.year)) {
-          year = String(row.year);
-        } else {
-          throw new Error(`data/edges.json edge ${index + 1} year must be a string or integer`);
-        }
-      }
-      if ("program" in row) {
-        if (row.program === null) {
-          program = null;
-        } else if (typeof row.program === "string" && row.program.trim()) {
-          program = row.program.trim();
-          const programEntry = bySlug.get(program);
-          if (!programEntry || programEntry.kind !== "flow") {
-            throw new Error(
-              `data/edges.json edge ${index + 1} program "${program}" is not a money flow`,
-            );
-          }
-          if (!program.startsWith("policy-area-")) {
-            throw new Error(
-              `data/edges.json edge ${index + 1} program must be a policy-area slug`,
-            );
-          }
-          programTitle = programEntry.title;
-        } else {
-          throw new Error(`data/edges.json edge ${index + 1} program must be a slug or null`);
-        }
-      }
-      if ("programNullReason" in row) {
-        if (row.programNullReason === null) {
-          programNullReason = null;
-        } else if (
-          typeof row.programNullReason === "string" &&
-          row.programNullReason.trim()
-        ) {
-          programNullReason = row.programNullReason.trim();
-        } else {
-          throw new Error(
-            `data/edges.json edge ${index + 1} programNullReason must be a string or null`,
-          );
-        }
-      }
-      if ("programSource" in row) {
-        if (row.programSource === null) {
-          programSource = null;
-        } else if (typeof row.programSource === "string" && row.programSource.trim()) {
-          programSource = requireHttpUrl(
-            row.programSource.trim(),
-            `data/edges.json edge ${index + 1} programSource`,
-          );
-        } else {
-          throw new Error(
-            `data/edges.json edge ${index + 1} programSource must be a string or null`,
-          );
-        }
-      }
-      if ("programQuotation" in row) {
-        if (row.programQuotation === null) {
-          programQuotation = null;
-        } else if (
-          typeof row.programQuotation === "string" &&
-          row.programQuotation.trim()
-        ) {
-          programQuotation = row.programQuotation.trim();
-        } else {
-          throw new Error(
-            `data/edges.json edge ${index + 1} programQuotation must be a string or null`,
-          );
-        }
-      }
-      if (program != null) {
-        if (programNullReason) {
-          throw new Error(
-            `data/edges.json edge ${index + 1} cannot set programNullReason when program is set`,
-          );
-        }
-        if (!programSource || !programQuotation) {
-          throw new Error(
-            `data/edges.json edge ${index + 1} joined program needs programSource and programQuotation`,
-          );
-        }
-      }
-      if (program === null && "program" in row && !programNullReason) {
-        throw new Error(
-          `data/edges.json edge ${index + 1} program null needs programNullReason`,
-        );
-      }
-      if (!year) {
-        throw new Error(`data/edges.json edge ${index + 1} pays row is missing year`);
-      }
-      if (!("program" in row)) {
-        throw new Error(`data/edges.json edge ${index + 1} pays row is missing program`);
-      }
-    }
+    const programEntry = fields.program ? bySlug.get(fields.program) : undefined;
     return {
-      from,
-      fromTitle: titleOf(from, index, "from"),
-      to,
-      toTitle: titleOf(to, index, "to"),
-      relationship,
-      source,
-      quotation,
-      asOf,
-      start,
-      end,
-      channel,
+      from: fields.from,
+      fromTitle: titleOf(fields.from, index, "from"),
+      to: fields.to,
+      toTitle: titleOf(fields.to, index, "to"),
+      relationship: fields.relationship,
+      source: fields.source,
+      quotation: fields.quotation,
+      asOf: fields.asOf,
+      start: fields.start,
+      end: fields.end,
+      channel: fields.channel,
       organization: office?.organization ?? null,
       organizationTitle: organizationEntry?.title ?? null,
-      year,
-      program,
-      programTitle,
-      programNullReason,
-      programSource,
-      programQuotation,
-      ...(amount ? { amount } : {}),
+      year: fields.year,
+      program: fields.program,
+      programTitle: programEntry?.title ?? null,
+      programNullReason: fields.programNullReason,
+      programSource: fields.programSource,
+      programQuotation: fields.programQuotation,
+      ...(fields.amount ? { amount: fields.amount } : {}),
     };
   });
 }

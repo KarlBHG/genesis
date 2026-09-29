@@ -172,6 +172,19 @@ export default function SystemPage() {
           ))}
         </ul>
       </section>
+      <section className="flex min-w-0 flex-col gap-3">
+        <h2 className="text-xl font-medium">Propose a sourced line</h2>
+        <p className="break-words">
+          A typed connection is pasted from a page already open: official URL,
+          verbatim quotation, allowlisted relationship, two existing records.
+          The local form is{" "}
+          <Link className="underline underline-offset-4" href="/intake">
+            Paste a sourced line
+          </Link>
+          . It does not scrape, and it does not write{" "}
+          <code className="text-sm">data/edges.json</code> for you.
+        </p>
+      </section>
       </div>
     </main>
   );

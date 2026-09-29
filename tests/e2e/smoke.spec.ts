@@ -7,6 +7,7 @@ const ROUTES = [
   "/money",
   "/anomalies",
   "/methodology",
+  "/intake",
   "/connections",
   "/public-entities",
   "/obligations",
@@ -30,6 +31,57 @@ for (const route of ROUTES) {
     expect(serious, JSON.stringify(serious, null, 2)).toHaveLength(0);
   });
 }
+
+test("paste intake checks a sourced line without writing edges.json", async ({
+  page,
+}) => {
+  await page.goto("/intake");
+  await expect(
+    page.getByRole("heading", { name: "Paste a sourced line" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Paste a line",
+    }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("navigation", { name: "Footer" }).getByRole("link", {
+      name: "Paste a line",
+    }),
+  ).toBeVisible();
+
+  await page.locator("#intake-from").selectOption("financial-supervisory-authority");
+  await page.locator("#intake-to").selectOption("lsr");
+  await page.locator("#intake-type").selectOption("regulates");
+  await page.locator("#intake-as-of").fill("consolidated statute");
+  await page.locator("#intake-source").fill(
+    "https://www.althingi.is/lagas/nuna/1997129.html",
+  );
+  await page.locator("#intake-quotation").fill(
+    "Article 44 of the consolidated Act No. 129/1997 says Fjármálaeftirlitið supervises that pension funds operate in line with the act.",
+  );
+
+  await page.locator("#intake-amount-value").fill("999");
+  await page.locator("#intake-amount-unit").selectOption("ISK");
+  await page.locator("#intake-amount-basis").selectOption("statement");
+  await page.locator("#intake-amount-quotation").fill(
+    "Fjármálaeftirlitið supervises that pension funds operate in line with the act.",
+  );
+  await page.getByRole("button", { name: "Check against the contract" }).click();
+  await expect(page.getByRole("alert")).toContainText(
+    "value 999 is not printed in its quotation",
+  );
+
+  await page.locator("#intake-amount-value").fill("");
+  await page.locator("#intake-amount-unit").selectOption("");
+  await page.locator("#intake-amount-basis").selectOption("");
+  await page.locator("#intake-amount-quotation").fill("");
+  await page.getByRole("button", { name: "Check against the contract" }).click();
+  await expect(
+    page.getByText("The contract accepts this row."),
+  ).toBeVisible();
+  await expect(page.getByText("Queued for review")).toHaveCount(0);
+});
 
 test("command palette opens with Ctrl+K", async ({ page }) => {
   await page.goto("/");

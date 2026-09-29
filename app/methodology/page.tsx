@@ -39,6 +39,7 @@ const SECTIONS = [
   { id: "contradictions", label: "Contradictions" },
   { id: "pin-only", label: "Pin only · no typed edge" },
   { id: "open-checklists", label: "Open checklists" },
+  { id: "paste-intake", label: "Paste intake" },
   { id: "refusals", label: "What this refuses to do" },
 ] as const;
 
@@ -577,6 +578,35 @@ export default function MethodologyPage() {
             </>
           }
           title="Open checklists"
+        />
+
+        <Section
+          id="paste-intake"
+          lede={
+            <>
+              <p>
+                A new typed line starts as a paste, not as a crawl. On a local
+                tree you can open{" "}
+                <Link className="underline underline-offset-4" href="/intake">
+                  Paste a sourced line
+                </Link>{" "}
+                and put in an official URL, the sentence as printed, an
+                allowlisted relationship, and two slugs that already exist. The
+                form runs the same checks as the catalog loader: six fields, a
+                real http(s) address, both ends on the map of records, and — if
+                a figure is stored — that figure inside the quotation.
+              </p>
+              <p>
+                A passing check can be written to{" "}
+                <code className="text-sm">data/intake-queue.json</code> for
+                review. It is not appended to{" "}
+                <code className="text-sm">data/edges.json</code>. The intake
+                does not fetch the pasted URL, does not scrape, and does not
+                call a language model to invent a join.
+              </p>
+            </>
+          }
+          title="How a new line is proposed"
         />
 
         <Section

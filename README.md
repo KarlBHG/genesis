@@ -14,6 +14,12 @@ npm run dev -- --hostname 0.0.0.0 --port 38471
 Open [http://127.0.0.1:38471](http://127.0.0.1:38471) for the **dashboard** (home). Use **System** for how to read the map; **Overview** for the budget drawing and search. **Budget** (`/money`) lists the 35 policy areas for 2026 plus trade and Treasury flows, split into authorisations, invoices, and contracts; `/programs` redirects to the programs section on that page. **Evidence** (`/anomalies`) filters contradictions, field changes from `data/changes.json`, repeated invoices, and audit sentences. Connections groups edges into the map views; each typed line has a permalink at `/connections/[id]`. The map opens with Authority, Ownership, and Trade on.
 Public-entity coverage is listed on **Public entities** (`/public-entities`), with per-entity badges for catalog presence, map pinning, typed links, and office linkage. The same page keeps a dated [Govdirectory](https://www.govdirectory.org/iceland/) / Wikidata checklist of ministries, courts, and municipalities. That list is open data (Wikidata is CC0). It is not a source of typed edges. A kennitala is stored in `data/identifiers.json` only when a cited page prints it.
 
+## Paste a sourced line (local)
+
+`/intake` is a human form, linked from the footer and from Methodology — not an eleventh nav leaf. Paste an official URL, the sentence as printed, an allowlisted relationship, and two existing from/to slugs (or office ids). The same checks as `lib/content.ts` run: six fields, allowlisted type, both ends exist, amount (if present) must be a substring of the quotation and print the stored number. Career lines still need start, end, and channel. `pays` lines still need year and a program join or an explicit null reason.
+
+The form does **not** fetch the URL, scrape HTML, or call Ollama or any other model. A passing check can be queued in `data/intake-queue.json` on a local/dev tree. It never appends to `data/edges.json`; promote a row by hand after `npm run check` would still pass.
+
 ## Content
 
 Markdown with YAML frontmatter lives in `content/treaties`, `content/institutions`, `content/events`, `content/business`, `content/money`, and `content/players`. `lib/content.ts` reads those files when the app builds or serves a page. Places are `data/places.json`. Named offices are `data/offices.json`, each with a page at `/offices/[id]`. Cross-links use `[[slug]]`. A slug with no entry renders as an unresolved reference.

@@ -7,6 +7,7 @@ const LINKS = [
   { href: "/connections", label: "Connections" },
   { href: "/system", label: "How to read" },
   { href: "/methodology", label: "Methodology" },
+  { href: "/intake", label: "Paste a line" },
 ] as const;
 
 function padIndex(n: number) {

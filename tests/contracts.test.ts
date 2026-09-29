@@ -815,6 +815,7 @@ describe("Icelandic quotations are marked up as Icelandic", () => {
       "components/markdown-body.tsx",
       "components/budget-programs-section.tsx",
       "components/obligations-index.tsx",
+      "components/paste-intake-form.tsx",
       "components/provenance-card.tsx",
       "components/viz/edge-row.tsx",
     ]) {
