@@ -757,10 +757,10 @@ export function IcelandMap({
                         return (
                           <path
                             key={layerId}
-                            d={arcPath(point.x, point.y, radius + 2.4, start, end)}
+                            d={arcPath(point.x, point.y, radius + 3.2, start, end)}
                             fill="none"
                             stroke={LAYERS.find((layer) => layer.id === layerId)?.swatch}
-                            strokeWidth="2.2"
+                            strokeWidth="2.8"
                             strokeLinecap="butt"
                           />
                         );
@@ -791,7 +791,6 @@ export function IcelandMap({
                     strokeWidth="3.5"
                   >
                     {place.name}
-                    {cluster ? ` · ${atPlace.length} on one pin` : ""}
                   </text>
                 </g>
               );
@@ -806,8 +805,12 @@ export function IcelandMap({
               <button
                 key={place.id}
                 type="button"
-                className={`absolute h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full ${MAP_CONTROL}`}
-                style={{ left: `${(point.x / scene.width) * 100}%`, top: `${(point.y / scene.height) * 100}%` }}
+                className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full ${MAP_CONTROL} ${cluster ? "h-11 w-11" : "h-8 w-8"}`}
+                style={{
+                  left: `${(point.x / scene.width) * 100}%`,
+                  top: `${(point.y / scene.height) * 100}%`,
+                  zIndex: atPlace.length,
+                }}
                 aria-label={
                   cluster
                     ? `${place.name}, ${atPlace.length} records on one pin`

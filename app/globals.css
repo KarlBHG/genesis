@@ -181,6 +181,7 @@
  * theme. Paper pages never set these properties.
  */
 .geo-room,
+html:has(.geo-room),
 body:has(.geo-room) {
   --geo-canvas: #040604;
   --geo-plate: #07100c;
@@ -248,6 +249,7 @@ body:has(.geo-room) {
   z-index: 1;
 }
 
+html:has(.geo-room),
 body:has(.geo-room) {
   --background: var(--geo-canvas);
   --foreground: var(--geo-ink);
@@ -279,9 +281,11 @@ body:has(.geo-room) .site-footer-glow {
 }
 
 body:has(.geo-room) .site-masthead {
-  background: color-mix(in srgb, var(--geo-canvas) 78%, transparent);
+  background-color: var(--geo-canvas);
+  background-image: none;
   border-bottom-color: var(--geo-line);
   box-shadow: none;
+  color: var(--geo-ink);
 }
 
 body:has(.geo-room) footer {
@@ -489,13 +493,32 @@ body:has(.geo-room) footer {
     flex-direction: column;
   }
 
+  .geo-room .geo-mast {
+    order: 1;
+  }
+
+  .geo-room .geo-stage {
+    order: 2;
+    min-height: 52dvh;
+  }
+
+  .geo-room .geo-chips {
+    order: 3;
+  }
+
   .geo-room .geo-rail {
+    order: 4;
     flex-direction: row;
     flex-wrap: wrap;
   }
 
-  .geo-room .geo-stage {
-    min-height: 58dvh;
+  .geo-room .geo-pins {
+    order: 5;
+  }
+
+  .geo-room .geo-inspector {
+    order: 6;
+    max-height: none;
   }
 
   .geo-room .geo-stage-art {
@@ -503,8 +526,13 @@ body:has(.geo-room) footer {
     max-width: none;
   }
 
-  .geo-room .geo-inspector {
-    max-height: none;
+  .geo-room .geo-lede,
+  .geo-room .geo-permalink {
+    display: none;
+  }
+
+  .geo-room .geo-mast h1 {
+    font-size: 1.7rem;
   }
 
   .geo-room .geo-share {
