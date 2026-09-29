@@ -224,7 +224,8 @@ test("office pages keep the post and list time-bounded membership", async ({
   await page.goto("/offices/prime-minister");
   await expect(page.getByRole("heading", { name: "Prime Minister" })).toBeVisible();
   await expect(page.getByText("Post", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("vacant")).toHaveCount(0);
+  await expect(page.getByText("current membership", { exact: true })).toBeVisible();
+  await expect(page.getByText("vacant", { exact: true })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Membership" })).toBeVisible();
   const membership = page.locator("#membership");
   await expect(membership.getByRole("link", { name: "Kristrún Frostadóttir" })).toBeVisible();

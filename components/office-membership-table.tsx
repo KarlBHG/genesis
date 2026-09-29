@@ -154,8 +154,7 @@ export function OfficeBoardSeatTable({ view }: { view: OfficeMembershipView }) {
           ) : (
             view.organizationTitle
           )}
-          . They are not memberships of this post, and they do not fill a vacant
-          office.
+          . They are not memberships of this post, and they do not occupy it.
         </p>
       </header>
       <MembershipTableFrame caption={boardSeatCaption(view)}>
