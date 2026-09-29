@@ -421,11 +421,18 @@ export default function MethodologyPage() {
             ministry report, or a budget heading on the buyer’s ledger. Where
             neither prints, the row stores the reason the join failed and the
             interface says so, instead of guessing from the vendor’s line of
-            business. The joined rows are on the{" "}
-            <Link className="underline underline-offset-4" href="/money#government-programs">
-              policy-area pages
+            business. Every stored invoice is listed on{" "}
+            <Link className="underline underline-offset-4" href="/money#invoice-coverage">
+              Budget · Invoice coverage
             </Link>
-            .
+            {" "}as joined, explicit null, or unreviewed — row counts, never a
+            krónur total. When the heading the ledger prints is not a unique match
+            for the catalog title the row sits on, that is an{" "}
+            <Link className="underline underline-offset-4" href="/money#printed-headings">
+              identity statement
+            </Link>
+            , not a silent rename. The first such leftover is Opnir buyer{" "}
+            <span lang="is">Hæstiréttur</span> sitting on the Courts index page.
           </p>
         </Section>
 

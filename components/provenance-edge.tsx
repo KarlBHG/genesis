@@ -1,9 +1,11 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import { ProvenanceCard } from "@/components/provenance-card";
 import { Badge } from "@/components/ui/badge";
 import { resolveSlug } from "@/lib/content";
 import { labelize } from "@/lib/format";
+import { identityForPaysEdge } from "@/lib/identities";
 import { officeLabel } from "@/lib/notes";
 import type { Edge } from "@/lib/types";
 
@@ -14,6 +16,24 @@ function EndpointLink({ slug, title }: { slug: string; title: string }) {
     <Link className="underline underline-offset-4" href={target.href}>
       {title}
     </Link>
+  );
+}
+
+function printedHeadingNote(edge: Edge): ReactNode {
+  const identity = identityForPaysEdge(edge);
+  if (!identity) return null;
+  const sits = identity.catalogSlug ? resolveSlug(identity.catalogSlug) : null;
+  return (
+    <>
+      Printed heading{" "}
+      <span lang="is">{identity.printedHeading}</span>
+      {sits ? <> sits on {sits.title}</> : <> is unmatched</>}. This is an
+      identity statement, not a silent rename.{" "}
+      <Link className="underline underline-offset-4" href="/money#printed-headings">
+        Heading identities
+      </Link>
+      .
+    </>
   );
 }
 
@@ -61,7 +81,7 @@ export function ProvenanceEdgeCard({
           ) : null}
         </>
       }
-      note={note}
+      note={note ?? printedHeadingNote(edge)}
       quotation={edge.quotation}
       secondary={
         showProgramQuotation && edge.programQuotation

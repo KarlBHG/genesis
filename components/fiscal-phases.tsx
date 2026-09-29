@@ -33,7 +33,8 @@ const PHASES = [
         <Link className="underline underline-offset-4" href="/connections#spending">
           pays
         </Link>
-        . Amounts are not added together.
+        . Coverage of every stored row is the table on this page. Amounts are
+        not added together.
       </>
     ),
   },

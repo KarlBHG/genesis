@@ -126,6 +126,38 @@ test("Opnir review feed needs a human program decision and does not sum amounts"
   await expect(page.getByText("Queued for review")).toHaveCount(0);
 });
 
+test("invoice coverage ledger counts rows, not krónur, and keeps Hæstiréttur on Courts", async ({
+  page,
+}) => {
+  await page.goto("/money#invoice-coverage");
+  await expect(
+    page.getByRole("heading", { name: "Invoice coverage" }),
+  ).toBeVisible();
+  const coverage = page.locator("#invoice-coverage");
+  await expect(coverage.getByText("100 invoice rows")).toBeVisible();
+  await expect(coverage.getByText("36 joined to a program")).toBeVisible();
+  await expect(coverage.getByText("64 with an explicit null reason")).toBeVisible();
+  await expect(coverage.getByText("0 unreviewed")).toBeVisible();
+  await expect(coverage.getByText("Counts are rows, not krónur.")).toBeVisible();
+  await expect(coverage.getByText(/\bISK\b/)).toHaveCount(0);
+
+  await page.goto("/money#printed-headings");
+  const headings = page.locator("#printed-headings");
+  await expect(
+    headings.getByRole("heading", { name: "Printed heading = endpoint" }),
+  ).toBeVisible();
+  await expect(headings.getByText("Hæstiréttur", { exact: true })).toBeVisible();
+  await expect(headings.getByRole("link", { name: "Courts" })).toBeVisible();
+  await expect(
+    headings.getByRole("link", { name: "Hæstiréttur Íslands" }),
+  ).toBeVisible();
+  await expect(headings.getByText("Invoices were not moved here.")).toBeVisible();
+  await expect(headings.getByText("None on file")).toBeVisible();
+  await expect(
+    headings.getByText("Unmatched vendor strings stay unmatched"),
+  ).toBeVisible();
+});
+
 test("command palette opens with Ctrl+K", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("dialog", { name: "Search the records" })).toHaveCount(0);

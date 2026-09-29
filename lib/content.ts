@@ -10,6 +10,10 @@ import {
   quotationPrintsValue,
 } from "@/lib/edge-contract";
 import { kindPath, labelize } from "@/lib/format";
+import {
+  assertPrintedHeadingIdentities,
+  PRINTED_HEADING_IDENTITIES,
+} from "@/lib/identities";
 import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
 import { isHttpUrl } from "@/lib/safe-href";
 import type {
@@ -264,6 +268,7 @@ const DATA_FILES = [
   "changes.json",
   "audits.json",
   "contradictions.json",
+  "identities.json",
 ] as const;
 
 /** Every file the catalog is built from, in a stable order. */
@@ -303,6 +308,14 @@ export function readCatalogFromSource(): CatalogSnapshot {
   resolveSummarySlugs(entries);
   assertRecords(entries, offices);
   assertProseOnly(entries, edges, offices);
+  assertPrintedHeadingIdentities(
+    PRINTED_HEADING_IDENTITIES,
+    edges,
+    [
+      ...entries.map((entry) => ({ id: entry.slug, title: entry.title })),
+      ...offices.map((office) => ({ id: office.id, title: office.title })),
+    ],
+  );
   return { entries, edges, contradictions, changes, audits, offices };
 }
 

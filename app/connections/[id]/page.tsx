@@ -13,11 +13,12 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { asOfMeta } from "@/lib/as-of";
-import { getEdges, resolveSlug } from "@/lib/content";
+import { getCatalog, getEdges, getOffices, resolveSlug } from "@/lib/content";
 import { edgeId, findEdgeById } from "@/lib/edge-id";
 import { clampSentence } from "@/lib/entry-facts";
 import { labelize } from "@/lib/format";
 import { MAP_VIEWS, viewOf } from "@/lib/geo-map";
+import { identityForPaysEdge, uniqueMatchForHeading } from "@/lib/identities";
 import { officeLabel } from "@/lib/notes";
 
 type Params = { id: string };
@@ -62,6 +63,17 @@ export default async function ConnectionPermalinkPage({
   const toTitle =
     edge.relationship === "holds-office" ? officeLabel(edge) : edge.toTitle;
   const program = edge.program ? resolveSlug(edge.program) : null;
+  const identity = identityForPaysEdge(edge);
+  const identitySits = identity?.catalogSlug
+    ? resolveSlug(identity.catalogSlug)
+    : null;
+  const uniqueSlug = identity
+    ? uniqueMatchForHeading(identity.printedHeading, [
+        ...getCatalog().map((entry) => ({ id: entry.slug, title: entry.title })),
+        ...getOffices().map((office) => ({ id: office.id, title: office.title })),
+      ])
+    : null;
+  const uniqueMatch = uniqueSlug ? resolveSlug(uniqueSlug) : null;
 
   return (
     <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
@@ -172,6 +184,41 @@ export default async function ConnectionPermalinkPage({
               Ledger prints no program
             </dt>
             <dd className="text-sm leading-6">{edge.programNullReason}</dd>
+          </div>
+        ) : null}
+        {identity ? (
+          <div className="flex flex-col gap-1 sm:col-span-2">
+            <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+              Printed heading
+            </dt>
+            <dd className="text-sm leading-6">
+              <span lang="is">{identity.printedHeading}</span>
+              {identitySits ? (
+                <>
+                  {" "}
+                  sits on{" "}
+                  <Link className="underline underline-offset-4" href={identitySits.href}>
+                    {identitySits.title}
+                  </Link>
+                </>
+              ) : (
+                <> is unmatched</>
+              )}
+              {uniqueMatch && uniqueSlug && uniqueSlug !== identity.catalogSlug ? (
+                <>
+                  . The unique catalog title match is{" "}
+                  <Link className="underline underline-offset-4" href={uniqueMatch.href}>
+                    {uniqueMatch.title}
+                  </Link>
+                  ; these invoices were not moved there
+                </>
+              ) : null}
+              . See{" "}
+              <Link className="underline underline-offset-4" href="/money#printed-headings">
+                heading identities
+              </Link>
+              .
+            </dd>
           </div>
         ) : null}
       </dl>

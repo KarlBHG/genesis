@@ -5,9 +5,21 @@ import { BudgetProgramsSection } from "@/components/budget-programs-section";
 import { EntryIndex } from "@/components/entry-index";
 import { FiscalPhasesNav } from "@/components/fiscal-phases";
 import { HashScroll } from "@/components/hash-scroll";
+import { InvoiceCoverageLedgerTable } from "@/components/invoice-coverage-ledger";
 import { PageHero } from "@/components/page-hero";
-import { getEdges, getOtherFlows, getPolicyAreas, hrefFor, resolveSlug } from "@/lib/content";
+import { PrintedHeadingIdentityTable } from "@/components/printed-heading-identities";
+import {
+  getCatalog,
+  getEdges,
+  getOffices,
+  getOtherFlows,
+  getPolicyAreas,
+  hrefFor,
+  resolveSlug,
+} from "@/lib/content";
 import { partitionOtherFlows } from "@/lib/fiscal-phases";
+import { PRINTED_HEADING_IDENTITIES } from "@/lib/identities";
+import { buildInvoiceCoverageLedger } from "@/lib/invoice-coverage";
 
 export const metadata: Metadata = {
   title: "Budget & money",
@@ -18,7 +30,14 @@ export const metadata: Metadata = {
 export default function MoneyPage() {
   const areas = getPolicyAreas();
   const { contracts, other } = partitionOtherFlows(getOtherFlows());
-  const pays = getEdges().filter((edge) => edge.relationship === "pays");
+  const edges = getEdges();
+  const pays = edges.filter((edge) => edge.relationship === "pays");
+  const coverage = buildInvoiceCoverageLedger(edges);
+  const identities = PRINTED_HEADING_IDENTITIES;
+  const identityNames = [
+    ...getCatalog().map((entry) => ({ id: entry.slug, title: entry.title })),
+    ...getOffices().map((office) => ({ id: office.id, title: office.title })),
+  ];
   const buyers = [...new Set(pays.map((edge) => edge.from))]
     .map((slug) => resolveSlug(slug))
     .filter((item): item is NonNullable<typeof item> => item != null)
@@ -77,34 +96,24 @@ export default function MoneyPage() {
           </header>
           <div className="glass-panel flex max-w-reading flex-col gap-3 p-6">
             <p className="text-base leading-7 text-muted-foreground">
-              {pays.length} stored Opnir reikningar {pays.length === 1 ? "row" : "rows"}.
+              {pays.length} stored Opnir reikningar {pays.length === 1 ? "row" : "rows"}{" "}
+              from {buyers.length} {buyers.length === 1 ? "buyer" : "buyers"}.
               Each line is one payment a named buyer made to a named vendor on a named
               day. Salaries, foreign-currency payments, and grants are not on that
               ledger. Amounts are not added together, and the stored sample is a
               sample — not the year.
             </p>
             <p className="text-base leading-7 text-muted-foreground">
-              {buyers.length > 0 ? (
-                <>
-                  Buyers on file:{" "}
-                  {buyers.map((buyer, index) => (
-                    <span key={buyer.href}>
-                      {index > 0 ? ", " : null}
-                      <Link className="underline underline-offset-4" href={buyer.href}>
-                        {buyer.title}
-                      </Link>
-                    </span>
-                  ))}
-                  .{" "}
-                </>
-              ) : null}
-              The typed lines are under{" "}
+              Coverage of those rows — joined, explicit null, or unreviewed — is the
+              table below. Typed lines are also under{" "}
               <Link className="underline underline-offset-4" href="/connections#spending">
                 Connections · Invoices
               </Link>
               .
             </p>
           </div>
+          <InvoiceCoverageLedgerTable ledger={coverage} />
+          <PrintedHeadingIdentityTable identities={identities} names={identityNames} />
         </section>
 
         <section className="flex min-w-0 scroll-mt-24 flex-col gap-5" id="contracts">

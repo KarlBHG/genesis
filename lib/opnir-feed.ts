@@ -376,7 +376,8 @@ export function paysAliasesFromEdges(
   return unique;
 }
 
-function uniqueNameMatch(
+/** Unique catalog/office title for a printed heading, or null if 0 or 2+ hits. */
+export function uniqueNameMatch(
   printed: string,
   names: readonly OpnirNameHint[],
 ): string | null {
