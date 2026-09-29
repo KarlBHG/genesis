@@ -178,7 +178,7 @@ test("ownership statements are dated and holes sit on public entities", async ({
   await expect(page.locator("h1")).not.toHaveText(/owns /i);
 
   await page.goto("/players/islandsbanki");
-  await expect(page.getByText("no sourced owns")).toBeVisible();
+  await expect(page.getByText("no sourced owns", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "Ownership checklist" })).toHaveAttribute(
     "href",
     "/public-entities#ownership",
