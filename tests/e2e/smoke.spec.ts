@@ -750,8 +750,11 @@ test.describe("pocket folio", () => {
     expect(themeSecond!.y).toBeGreaterThan(themeFirst!.y + themeFirst!.height / 2);
 
     await page.goto("/offices/prime-minister");
-    const record = page.locator(".folio-gutter > div");
+    await expect(page.getByRole("heading", { name: "Prime Minister" })).toBeVisible();
+    const record = page.locator("main .folio-gutter > div");
     await expect(record).toHaveCount(2);
+    await expect(record.nth(0)).toBeVisible();
+    await expect(record.nth(1)).toBeVisible();
     const org = await record.nth(0).boundingBox();
     const membership = await record.nth(1).boundingBox();
     expect(membership!.y).toBeGreaterThan(org!.y + org!.height / 2);
@@ -767,9 +770,11 @@ test.describe("pocket folio", () => {
       page.getByRole("heading", { name: "2026 authorisations by policy area" }),
     ).toBeVisible();
 
-    await page.locator("#invoice-coverage").scrollIntoViewIfNeeded();
-    const vendor = page.locator(".pocket-ledger-row td[data-label='Vendor']").first();
-    const asOf = page.locator(".pocket-ledger-row td[data-label='As of']").first();
+    await page.getByRole("tab", { name: "Invoice coverage" }).click();
+    const coverage = page.locator("#invoice-coverage");
+    await expect(coverage).toBeVisible();
+    const vendor = coverage.locator(".pocket-ledger-row td[data-label='Vendor']").first();
+    const asOf = coverage.locator(".pocket-ledger-row td[data-label='As of']").first();
     await expect(vendor).toBeVisible();
     const vendorBox = await vendor.boundingBox();
     const asOfBox = await asOf.boundingBox();
@@ -803,15 +808,20 @@ test.describe("pocket folio", () => {
     expect(box!.y).toBeGreaterThan(200);
     expect(box!.width).toBeGreaterThan(300);
     await page.keyboard.press("Escape");
+    await expect(dialog).toHaveCount(0);
 
     await page.goto("/intake");
+    await expect(page.getByRole("heading", { name: "Paste a sourced line" })).toBeVisible();
     const from = await page.locator("#intake-from").boundingBox();
     const to = await page.locator("#intake-to").boundingBox();
     expect(to!.y).toBeGreaterThan(from!.y + from!.height / 2);
 
     await page.goto("/compare");
+    await expect(page.getByRole("heading", { name: "Compare" })).toBeVisible();
     const columns = page.locator("[data-compare-column]");
     await expect(columns).toHaveCount(2);
+    await expect(columns.nth(0)).toBeVisible();
+    await expect(columns.nth(1)).toBeVisible();
     const left = await columns.nth(0).boundingBox();
     const right = await columns.nth(1).boundingBox();
     expect(right!.y).toBeGreaterThan(left!.y + left!.height / 2);
