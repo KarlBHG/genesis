@@ -98,7 +98,9 @@ test("quoted-name ledger stores unmatched names, not stub players", async ({
     }),
   ).toHaveCount(0);
   await expect(ledger.getByText("No unmatched names on file")).toBeVisible();
-  await expect(ledger.getByText("not a player", { exact: false })).toBeVisible();
+  await expect(
+    ledger.getByText("It is not a player. It is not drawn as a dashed edge."),
+  ).toBeVisible();
 
   await page.locator("#quoted-name").fill("Síminn");
   await page.locator("#quoted-as-of").fill("2026");
@@ -125,7 +127,7 @@ test("quoted-name ledger stores unmatched names, not stub players", async ({
   await expect(
     page.getByText("The contract accepts this placeholder."),
   ).toBeVisible();
-  await expect(page.getByText("It is not a player.")).toBeVisible();
+  await expect(page.getByText("It is not an edge.")).toBeVisible();
   await expect(page.getByText("Queued as unmatched")).toHaveCount(0);
 
   await page.goto("/public-entities#quoted-names");
