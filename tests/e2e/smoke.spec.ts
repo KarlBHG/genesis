@@ -68,7 +68,7 @@ test("paste intake checks a sourced line without writing edges.json", async ({
     "Fjármálaeftirlitið supervises that pension funds operate in line with the act.",
   );
   await page.getByRole("button", { name: "Check against the contract" }).click();
-  await expect(page.getByRole("alert")).toContainText(
+  await expect(page.locator("[data-slot=field-error]")).toContainText(
     "value 999 is not printed in its quotation",
   );
 
