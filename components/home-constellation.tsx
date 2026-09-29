@@ -3,11 +3,12 @@ import Link from "next/link";
 import { obligationVisual } from "@/lib/obligation-visual";
 import { OBLIGATION_SECTIONS } from "@/lib/obligations";
 
-const SIZE = 520;
+const SIZE = 540;
 const CX = SIZE / 2;
 const CY = SIZE / 2;
-const R = 158;
-const LABEL_GAP = 72;
+const R = 148;
+const OUTER = R + 28;
+const LABEL_GAP = 78;
 
 function polar(angleDeg: number, radius: number) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
@@ -26,6 +27,10 @@ function distanceFromVertical(angle: number): number {
 
 const VERTICAL_ZONE = 22;
 
+function padIndex(n: number) {
+  return String(n).padStart(2, "0");
+}
+
 export function HomeConstellation() {
   const count = OBLIGATION_SECTIONS.length;
   const nodes = OBLIGATION_SECTIONS.map((section, index) => {
@@ -36,11 +41,28 @@ export function HomeConstellation() {
     const isVertical = distanceFromVertical(angle) < VERTICAL_ZONE;
     const isTop = angle < 90 || angle > 270;
     const isRightHalf = angle > 0 && angle < 180;
-    return { section, node, label, angle, visual, isVertical, isTop, isRightHalf };
+    return {
+      section,
+      node,
+      label,
+      angle,
+      visual,
+      isVertical,
+      isTop,
+      isRightHalf,
+      index: index + 1,
+    };
+  });
+
+  const ticks = Array.from({ length: 36 }, (_, i) => {
+    const angle = i * 10;
+    const inner = polar(angle, OUTER - (i % 3 === 0 ? 10 : 5));
+    const outer = polar(angle, OUTER);
+    return { angle, inner, outer };
   });
 
   return (
-    <div className="home-constellation relative mx-auto w-full max-w-[36rem] overflow-visible px-2 py-2 sm:px-3 sm:py-4">
+    <div className="home-constellation constellation-plate relative mx-auto w-full max-w-[36rem] overflow-visible px-2 py-2 sm:px-3 sm:py-4">
       <svg
         aria-labelledby="constellation-title"
         className="mx-auto h-auto w-full max-h-[min(72vw,18rem)] drop-shadow-sm sm:max-h-none"
@@ -62,7 +84,42 @@ export function HomeConstellation() {
             <stop offset="100%" stopColor="var(--constellation-orbit-c)" />
           </linearGradient>
         </defs>
-        <circle cx={CX} cy={CY} fill="url(#core-glow)" r={R + 46} />
+        <circle cx={CX} cy={CY} fill="url(#core-glow)" r={R + 52} />
+        <line
+          stroke="var(--constellation-cross)"
+          strokeWidth="0.75"
+          x1={CX}
+          x2={CX}
+          y1={CY - OUTER}
+          y2={CY + OUTER}
+        />
+        <line
+          stroke="var(--constellation-cross)"
+          strokeWidth="0.75"
+          x1={CX - OUTER}
+          x2={CX + OUTER}
+          y1={CY}
+          y2={CY}
+        />
+        {ticks.map((tick) => (
+          <line
+            key={`tick-${tick.angle}`}
+            stroke="var(--paper-orbit-tick)"
+            strokeWidth={tick.angle % 90 === 0 ? 1.25 : 0.7}
+            x1={tick.inner.x}
+            x2={tick.outer.x}
+            y1={tick.inner.y}
+            y2={tick.outer.y}
+          />
+        ))}
+        <circle
+          cx={CX}
+          cy={CY}
+          fill="none"
+          r={OUTER}
+          stroke="var(--paper-compass)"
+          strokeWidth="0.6"
+        />
         <g
           className="constellation-orbit motion-reduce:animate-none"
           transform={`translate(${CX} ${CY})`}
@@ -81,8 +138,8 @@ export function HomeConstellation() {
           <line
             key={`line-${section.id}`}
             stroke={visual.ring}
-            strokeOpacity={0.32}
-            strokeWidth="0.75"
+            strokeOpacity={0.38}
+            strokeWidth="0.8"
             x1={CX}
             x2={node.x}
             y1={CY}
@@ -90,29 +147,37 @@ export function HomeConstellation() {
           />
         ))}
         <circle
-          className="fill-card/95 stroke-primary/25"
+          className="fill-card/95 stroke-primary/30"
           cx={CX}
           cy={CY}
-          r={38}
-          strokeWidth="1.25"
+          r={42}
+          strokeWidth="1.35"
         />
         <text
-          className="fill-foreground text-[12px] font-medium"
+          className="fill-foreground text-[13px] font-medium"
           dominantBaseline="middle"
           textAnchor="middle"
           x={CX}
-          y={CY - 7}
+          y={CY - 8}
         >
           Iceland
         </text>
         <text
-          className="fill-muted-foreground text-[9px] tracking-wide"
+          className="fill-muted-foreground text-[9px] tracking-[0.18em]"
           dominantBaseline="middle"
           textAnchor="middle"
           x={CX}
-          y={CY + 11}
+          y={CY + 10}
         >
           obligations
+        </text>
+        <text
+          className="fill-muted-foreground text-[9px] tracking-[0.28em]"
+          textAnchor="middle"
+          x={CX}
+          y={CY - OUTER - 10}
+        >
+          N
         </text>
         {nodes.map(({ section, node, visual }) => (
           <circle
@@ -121,7 +186,7 @@ export function HomeConstellation() {
             cy={node.y}
             fill={visual.ring}
             key={section.id}
-            r={6}
+            r={6.5}
             stroke="var(--constellation-node-ring)"
             strokeWidth="2"
             style={{
@@ -132,38 +197,51 @@ export function HomeConstellation() {
         ))}
       </svg>
       <ul className="absolute inset-0 m-0 hidden list-none p-0 sm:block">
-        {nodes.map(({ section, label, isVertical, isTop, isRightHalf }) => {
-          const topPct = (label.y / SIZE) * 100;
-          const leftPct = (label.x / SIZE) * 100;
+        {nodes.map(
+          ({ section, label, isVertical, isTop, isRightHalf, index }) => {
+            const topPct = (label.y / SIZE) * 100;
+            const leftPct = (label.x / SIZE) * 100;
 
-          let transform: string;
-          let textAlign: "left" | "right" | "center";
-          if (isVertical) {
-            textAlign = "center";
-            transform = `translate(-50%, ${isTop ? "-100%" : "0%"}) translateY(${isTop ? "-0.4rem" : "0.4rem"})`;
-          } else if (isRightHalf) {
-            textAlign = "left";
-            transform = "translate(0, -50%)";
-          } else {
-            textAlign = "right";
-            transform = "translate(-100%, -50%)";
-          }
+            let transform: string;
+            let textAlign: "left" | "right" | "center";
+            if (isVertical) {
+              textAlign = "center";
+              transform = `translate(-50%, ${isTop ? "-100%" : "0%"}) translateY(${isTop ? "-0.4rem" : "0.4rem"})`;
+            } else if (isRightHalf) {
+              textAlign = "left";
+              transform = "translate(0, -50%)";
+            } else {
+              textAlign = "right";
+              transform = "translate(-100%, -50%)";
+            }
 
-          return (
-            <li
-              className="absolute max-w-[6.75rem] text-[0.68rem] leading-snug sm:max-w-[7.25rem] sm:text-[0.72rem]"
-              key={section.id}
-              style={{ top: `${topPct}%`, left: `${leftPct}%`, transform, textAlign }}
-            >
-              <Link
-                className="constellation-label font-semibold underline-offset-4 transition-colors hover:text-foreground hover:underline"
-                href={`/obligations#${section.id}`}
+            return (
+              <li
+                className="absolute max-w-[7.1rem] text-[0.68rem] leading-snug sm:max-w-[7.6rem] sm:text-[0.72rem]"
+                key={section.id}
+                style={{
+                  top: `${topPct}%`,
+                  left: `${leftPct}%`,
+                  transform,
+                  textAlign,
+                }}
               >
-                {section.title}
-              </Link>
-            </li>
-          );
-        })}
+                <Link
+                  className="constellation-label font-semibold underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                  href={`/obligations#${section.id}`}
+                >
+                  <span
+                    aria-hidden
+                    className="mr-1 font-sans text-[0.58rem] font-semibold tracking-[0.14em] text-muted-foreground"
+                  >
+                    {padIndex(index)}
+                  </span>
+                  {section.title}
+                </Link>
+              </li>
+            );
+          },
+        )}
       </ul>
     </div>
   );
@@ -172,15 +250,24 @@ export function HomeConstellation() {
 /** Compact fallback for narrow screens — a legend, not the full radial diagram. */
 export function ConstellationLegend() {
   return (
-    <ul className="grid w-full max-w-sm grid-cols-1 gap-2 sm:hidden">
-      {OBLIGATION_SECTIONS.map((section) => {
+    <ul className="grid w-full max-w-sm grid-cols-1 gap-0 sm:hidden">
+      {OBLIGATION_SECTIONS.map((section, index) => {
         const visual = obligationVisual(section.id);
         return (
-          <li key={section.id}>
+          <li
+            className="border-b border-border/70 last:border-b-0"
+            key={section.id}
+          >
             <Link
-              className="flex items-center gap-2.5 rounded-md border border-border/60 bg-card/70 px-3 py-2 text-sm transition-colors hover:border-primary/25"
+              className="flex items-center gap-2.5 px-1 py-2.5 text-sm transition-colors hover:text-foreground"
               href={`/obligations#${section.id}`}
             >
+              <span
+                aria-hidden
+                className="masthead-link-index w-6 shrink-0"
+              >
+                {padIndex(index + 1)}
+              </span>
               <span
                 className="size-2 shrink-0 rounded-full"
                 style={{ backgroundColor: visual.ring }}
