@@ -68,6 +68,7 @@ describe("parent-ministry density", () => {
     expect(bySlug.get("sedlabanki")?.catalogParent).toBe("independent");
     expect(bySlug.get("samband-islenskra-sveitarfelaga")?.catalogParent).toBe("");
     expect(bySlug.get("vinnumalastofnun")?.catalogParent).toBeNull();
+    const caption = parentMinistryCaption(rows);
     expect(caption).toMatch(/33 agencies, regulators, courts, universities/);
     expect(caption).toMatch(/6 have an empty parent/);
     expect(caption).toMatch(/Counts are rows, not totals/);
