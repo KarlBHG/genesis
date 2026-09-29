@@ -4,10 +4,13 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-function tabFromHash(hash: string): "inventory" | "checklist" | "quoted-names" {
+function tabFromHash(
+  hash: string,
+): "inventory" | "checklist" | "quoted-names" | "ownership" {
   const id = hash.replace(/^#/, "");
   if (id === "quoted-names") return "quoted-names";
   if (id === "checklist" || id === "open-checklists") return "checklist";
+  if (id === "ownership") return "ownership";
   return "inventory";
 }
 
@@ -15,14 +18,16 @@ export function PublicEntityTabs({
   inventory,
   checklist,
   quotedNames,
+  ownership,
 }: {
   inventory: ReactNode;
   checklist: ReactNode;
   quotedNames: ReactNode;
+  ownership: ReactNode;
 }) {
-  const [tab, setTab] = useState<"inventory" | "checklist" | "quoted-names">(
-    "inventory",
-  );
+  const [tab, setTab] = useState<
+    "inventory" | "checklist" | "quoted-names" | "ownership"
+  >("inventory");
 
   useEffect(() => {
     const apply = () => setTab(tabFromHash(window.location.hash));
@@ -50,11 +55,19 @@ export function PublicEntityTabs({
         variant="line"
       >
         <TabsTrigger value="inventory">In-scope inventory</TabsTrigger>
+        <TabsTrigger value="ownership">Ownership statements</TabsTrigger>
         <TabsTrigger value="checklist">Govdirectory checklist</TabsTrigger>
         <TabsTrigger value="quoted-names">Quoted names</TabsTrigger>
       </TabsList>
       <TabsContent className="flex flex-col gap-8 outline-none" value="inventory">
         {inventory}
+      </TabsContent>
+      <TabsContent
+        className="flex scroll-mt-24 flex-col gap-4 outline-none"
+        id="ownership"
+        value="ownership"
+      >
+        {ownership}
       </TabsContent>
       <TabsContent className="flex flex-col gap-4 outline-none" value="checklist">
         {checklist}

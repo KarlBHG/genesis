@@ -6,6 +6,7 @@ import { HashScroll } from "@/components/hash-scroll";
 import { PageHero } from "@/components/page-hero";
 import { PublicEntityTabs } from "@/components/public-entity-tabs";
 import { QuotedNameLedgerTable } from "@/components/quoted-name-ledger";
+import { SoeOwnershipChecklist } from "@/components/soe-ownership-checklist";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -26,6 +27,7 @@ import {
   GOVDIRECTORY_ICELAND,
   getGovdirectoryLedger,
 } from "@/lib/govdirectory";
+import { getSoeOwnershipChecklist } from "@/lib/ownership";
 import {
   PUBLIC_ENTITY_CATEGORY_LABELS,
   getPublicEntityCoverage,
@@ -37,7 +39,7 @@ import { readQuotedNameQueue } from "@/lib/quoted-names";
 export const metadata: Metadata = {
   title: "Public entities",
   description:
-    "An explicit inventory of in-scope public entities and their coverage status: mapped, typed-linked, and office-linked, plus a Govdirectory/Wikidata completeness checklist.",
+    "An explicit inventory of in-scope public entities and their coverage status: mapped, typed-linked, and office-linked, plus a checklist of public companies and funds without a sourced owns statement, and a Govdirectory/Wikidata completeness checklist.",
 };
 
 function catalogLabel(row: PublicEntityCoverageRow): string {
@@ -54,6 +56,7 @@ export default function PublicEntitiesPage() {
   const summaries = summarizePublicEntityCoverage(rows);
   const ledger = getGovdirectoryLedger();
   const quotedNames = readQuotedNameQueue();
+  const soeOwnership = getSoeOwnershipChecklist(rows);
   const totalMapped = rows.filter((row) => row.mapped).length;
   const totalTyped = rows.filter((row) => row.typedLinkage).length;
   const totalOffice = rows.filter((row) => row.officeLinked).length;
@@ -87,7 +90,7 @@ export default function PublicEntitiesPage() {
             </div>
           </dl>
         }
-        description="Every in-scope public entity tracked in this phase appears here with explicit coverage indicators. “Mapped” means it has a geography pin unless marked office-only, “typed links” means at least one schema-typed edge, and “office-linked” means named office records connect through holds-office lines. Cited names that have no catalog slug sit on the quoted-name ledger — unmatched, not stubbed."
+        description="Every in-scope public entity tracked in this phase appears here with explicit coverage indicators. “Mapped” means it has a geography pin unless marked office-only, “typed links” means at least one schema-typed edge, and “office-linked” means named office records connect through holds-office lines. Public companies and funds without a sourced owns statement sit on the ownership tab. Cited names that have no catalog slug sit on the quoted-name ledger — unmatched, not stubbed."
         eyebrow={`${rows.length} tracked entities`}
         folio="07"
         italic="what’s in scope."
@@ -96,6 +99,7 @@ export default function PublicEntitiesPage() {
       />
       <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 pb-20 pt-12 sm:px-6 sm:pt-16">
         <PublicEntityTabs
+          ownership={<SoeOwnershipChecklist rows={soeOwnership} />}
           checklist={
             <>
               <div className="flex max-w-reading flex-col gap-2">

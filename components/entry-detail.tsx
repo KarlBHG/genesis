@@ -36,6 +36,11 @@ import { PrintPlateColophon, PrintPlateHead } from "@/components/print-plate";
 import { entryAsOfValue, factStrip, kindNoun } from "@/lib/entry-facts";
 import { mapFocusHref } from "@/lib/map-focus";
 import { formatDate, kindLabel, kindPath, labelize } from "@/lib/format";
+import {
+  SOE_OWNERSHIP_STATUS_LABELS,
+  isInventoryPublicCompanyOrFund,
+  soeOwnershipFor,
+} from "@/lib/ownership";
 import type { Edge, Entry } from "@/lib/types";
 import { icelandicLang } from "@/lib/lang";
 
@@ -78,6 +83,51 @@ function KennitalaFact({ slug }: { slug: string }) {
       >
         {record.source}
       </ExternalLink>
+    </Fact>
+  );
+}
+
+function OwnershipFact({ slug }: { slug: string }) {
+  if (!isInventoryPublicCompanyOrFund(slug)) return null;
+  const row = soeOwnershipFor(slug);
+  if (!row) return null;
+  return (
+    <Fact term="Ownership statements">
+      <Badge
+        variant={
+          row.status === "sourced"
+            ? "secondary"
+            : row.status === "contradiction-only"
+              ? "outline"
+              : "destructive"
+        }
+      >
+        {SOE_OWNERSHIP_STATUS_LABELS[row.status]}
+      </Badge>
+      {row.statements.length > 0 ? (
+        <ul className="flex flex-col gap-1 text-sm leading-6">
+          {row.statements.map((statement) => (
+            <li key={statement.href}>
+              <Link className="underline underline-offset-4" href={statement.href}>
+                {statement.interestedPartyTitle}
+              </Link>
+              <span className="text-muted-foreground"> · {statement.asOf}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-sm leading-6 text-muted-foreground">
+          No sourced owns row names this company as its subject. Appoints and
+          regulates stay on their own lines.{" "}
+          <Link
+            className="underline underline-offset-4"
+            href="/public-entities#ownership"
+          >
+            Ownership checklist
+          </Link>
+          .
+        </p>
+      )}
     </Fact>
   );
 }
@@ -156,6 +206,7 @@ function Record({ entry }: { entry: Entry }) {
             </>
           ) : null}
           <KennitalaFact slug={entry.slug} />
+          <OwnershipFact slug={entry.slug} />
         </dl>
       </CardContent>
     </Card>

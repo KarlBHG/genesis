@@ -141,6 +141,53 @@ test("quoted-name ledger stores unmatched names, not stub players", async ({
   ).toHaveCount(0);
 });
 
+test("ownership statements are dated and holes sit on public entities", async ({
+  page,
+}) => {
+  await page.goto("/public-entities#ownership");
+  await expect(
+    page.getByRole("tab", { name: "Ownership statements" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Ownership statements" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Ownership statements",
+    }),
+  ).toHaveCount(0);
+  await expect(page.getByText("no sourced owns")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Íslandsbanki" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Lífeyrissjóður starfsmanna ríkisins (LSR)" }),
+  ).toBeVisible();
+  const caption = page.locator("#ownership [data-slot=table-caption]");
+  await expect(caption).toContainText("Counts are rows, not share totals.");
+  await expect(caption).toContainText("5 have none");
+
+  const landsvirkjun = page.locator("tr", {
+    has: page.getByRole("link", { name: "Landsvirkjun", exact: true }),
+  });
+  await landsvirkjun.getByRole("link", { name: "Ríkissjóður Íslands" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Ownership statement" }),
+  ).toBeVisible();
+  await expect(page.getByText("Interested party", { exact: true })).toBeVisible();
+  await expect(page.getByText("Subject", { exact: true })).toBeVisible();
+  await expect(page.locator("h1")).toHaveText(/Ownership\s+statement/);
+  await expect(page.locator("h1")).not.toHaveText(/owns /i);
+
+  await page.goto("/players/islandsbanki");
+  await expect(page.getByText("no sourced owns")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Ownership checklist" })).toHaveAttribute(
+    "href",
+    "/public-entities#ownership",
+  );
+
+  await page.goto("/players/landsvirkjun");
+  await expect(page.getByText("sourced statement")).toBeVisible();
+});
+
 test("Opnir review feed needs a human program decision and does not sum amounts", async ({
   page,
 }) => {

@@ -28,13 +28,14 @@ export function ownsRowNote(
   edge: { relationship: string; from: string; to: string },
   contradictions: Contradiction[],
 ): string | null {
-  if (
-    edge.relationship !== "owns" ||
-    edge.from !== "ministry-of-finance" ||
-    edge.to !== "landsbankinn"
-  ) {
-    return null;
-  }
-  const record = contradictions.find((item) => item.id === "landsbankinn-shareholder-count");
+  if (edge.relationship !== "owns") return null;
+  const id =
+    edge.to === "landsbankinn"
+      ? "landsbankinn-shareholder-count"
+      : edge.to === "landsvirkjun"
+        ? "landsvirkjun-form-and-holding"
+        : null;
+  if (!id) return null;
+  const record = contradictions.find((item) => item.id === id);
   return record?.summary ?? null;
 }

@@ -399,6 +399,17 @@ describe("public-entity inventory (phase 1)", () => {
       ).toBeGreaterThanOrEqual(floor);
     }
   });
+
+  it("does not treat Wikidata or Govdirectory as an owns source", () => {
+    const owns = getEdges().filter((edge) => edge.relationship === "owns");
+    for (const edge of owns) {
+      expect(edge.source, `${edge.from} → ${edge.to}`).not.toMatch(/wikidata/i);
+      expect(edge.source, `${edge.from} → ${edge.to}`).not.toMatch(
+        /govdirectory/i,
+      );
+      expect(edge.quotation, `${edge.from} → ${edge.to}`).not.toMatch(/P749/);
+    }
+  });
 });
 
 describe("invoice program bridge", () => {

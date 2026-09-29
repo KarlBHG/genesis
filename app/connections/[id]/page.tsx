@@ -21,6 +21,7 @@ import { labelize } from "@/lib/format";
 import { MAP_VIEWS, viewOf } from "@/lib/geo-map";
 import { identityForPaysEdge, uniqueMatchForHeading } from "@/lib/identities";
 import { officeLabel } from "@/lib/notes";
+import { isOwnsEdge, ownershipStatement } from "@/lib/ownership";
 
 type Params = { id: string };
 
@@ -40,7 +41,9 @@ export async function generateMetadata({
   if (!edge) return { title: "Not found" };
   const toTitle =
     edge.relationship === "holds-office" ? officeLabel(edge) : edge.toTitle;
-  const title = `${edge.fromTitle} ${labelize(edge.relationship)} ${toTitle}`;
+  const title = isOwnsEdge(edge)
+    ? `Ownership statement · ${toTitle}`
+    : `${edge.fromTitle} ${labelize(edge.relationship)} ${toTitle}`;
   return {
     title,
     description: clampSentence(edge.quotation, 200),
@@ -63,6 +66,7 @@ export default async function ConnectionPermalinkPage({
   const to = resolveSlug(edge.to);
   const toTitle =
     edge.relationship === "holds-office" ? officeLabel(edge) : edge.toTitle;
+  const statement = isOwnsEdge(edge) ? ownershipStatement(edge) : null;
   const program = edge.program ? resolveSlug(edge.program) : null;
   const identity = identityForPaysEdge(edge);
   const identitySits = identity?.catalogSlug
@@ -99,14 +103,18 @@ export default async function ConnectionPermalinkPage({
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>{labelize(edge.relationship)}</BreadcrumbPage>
+            <BreadcrumbPage>
+              {statement ? "Ownership statement" : labelize(edge.relationship)}
+            </BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
       <header className="glass-panel atlas-page-header entry-masthead">
         <div className="flex flex-wrap items-end justify-between gap-3">
-          <p className="kicker fade-rise">Typed connection</p>
+          <p className="kicker fade-rise">
+            {statement ? "Ownership statement" : "Typed connection"}
+          </p>
           {view && viewLabel ? (
             <Link
               className="entry-running-head fade-rise underline-offset-4 hover:underline"
@@ -117,14 +125,36 @@ export default async function ConnectionPermalinkPage({
           ) : null}
         </div>
         <h1 className="display-title hero-display text-[2.05rem] leading-[1.02] text-balance sm:text-4xl lg:text-[2.85rem]">
-          {edge.fromTitle}{" "}
-          <span className="display-italic">{labelize(edge.relationship).toLowerCase()}</span>{" "}
-          {toTitle}
+          {statement ? (
+            <>
+              Ownership{" "}
+              <span className="display-italic">statement</span>
+            </>
+          ) : (
+            <>
+              {edge.fromTitle}{" "}
+              <span className="display-italic">
+                {labelize(edge.relationship).toLowerCase()}
+              </span>{" "}
+              {toTitle}
+            </>
+          )}
         </h1>
         <p className="standfirst-body fade-rise-3">
-          This page is one stored relationship — the quotation, the date the cited
-          page prints, and the address it was read at. It is not a score, a
-          cluster, or a derived total.
+          {statement ? (
+            <>
+              A dated statement that {statement.interestedPartyTitle} has an
+              interest in {statement.subjectTitle}, as printed on the cited page.
+              It is not a timeless fact, a vote total, or a merge with appoints
+              or regulates.
+            </>
+          ) : (
+            <>
+              This page is one stored relationship — the quotation, the date the
+              cited page prints, and the address it was read at. It is not a
+              score, a cluster, or a derived total.
+            </>
+          )}
         </p>
         <p className="fade-rise-4 flex flex-wrap items-center gap-2">
           <Badge variant="secondary">{labelize(edge.relationship)}</Badge>
@@ -139,7 +169,9 @@ export default async function ConnectionPermalinkPage({
 
       <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1">
-          <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">From</dt>
+          <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+            {statement ? "Interested party" : "From"}
+          </dt>
           <dd>
             {from ? (
               <Link className="underline underline-offset-4" href={from.href}>
@@ -151,7 +183,9 @@ export default async function ConnectionPermalinkPage({
           </dd>
         </div>
         <div className="flex flex-col gap-1">
-          <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">To</dt>
+          <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+            {statement ? "Subject" : "To"}
+          </dt>
           <dd>
             {to ? (
               <Link className="underline underline-offset-4" href={to.href}>

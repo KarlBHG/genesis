@@ -4939,5 +4939,45 @@
     "asOf": "undated on the cited page",
     "source": "https://www.rikisendurskodun.is/um-rikisendurskodun",
     "quotation": "Rikisendurskodun says it operates on behalf of Althingi and audits state finances and state entities."
+  },
+  {
+    "from": "rikissjodur",
+    "to": "landsvirkjun",
+    "type": "owns",
+    "asOf": "consolidated statute",
+    "source": "https://www.althingi.is/lagas/nuna/1983042.html",
+    "quotation": "Á ríkissjóður 99,9% eignarhluta í fyrirtækinu og Eignarhlutir ehf. 0,1%."
+  },
+  {
+    "from": "republic-of-iceland",
+    "to": "landsbankinn",
+    "type": "owns",
+    "asOf": "2025-12-31",
+    "source": "https://www.landsbankinn.is/uploads/documents/arsskyrsluroguppgjor/fact-book-2025-en.pdf",
+    "quotation": "The Icelandic State holds 98.2% of the shares and the total number of shareholders amount to approximately 819."
+  },
+  {
+    "from": "rikissjodur",
+    "to": "landsbankinn",
+    "type": "owns",
+    "asOf": "undated on the ownership page",
+    "source": "https://www.landsbankinn.is/en/the-bank/about-us/strategy-and-organisation/ownership",
+    "quotation": "Landsbankinn's shareholders are around 800 with the National Treasury as the largest owner of a 98.2% share."
+  },
+  {
+    "from": "rikissjodur",
+    "to": "landsnet",
+    "type": "owns",
+    "asOf": "2025",
+    "source": "https://ml-eu.globenewswire.com/Resource/Download/441b1630-ff23-447f-bed1-0b19f6969906",
+    "quotation": "The Company is majority-owned by the Icelandic Treasury and is classified as a company in Group C of the Central Government."
+  },
+  {
+    "from": "republic-of-iceland",
+    "to": "isavia",
+    "type": "owns",
+    "asOf": "2025",
+    "source": "https://eu-assets.contentstack.com/v3/assets/bltde8e98ee10782d85/blt0adda88abbe83d4c/6a044373f2b294f4a7927b05/Isavia_Consolidated_FinancialStatements_2025.pdf",
+    "quotation": "The Icelandic State is the sole owner of Isavia ohf. at the end of 2025, as at the end of 2024. The Minister of Finance and Economic Affairs carries the voting rights on behalf of the Icelandic Treasury."
   }
 ]
