@@ -824,11 +824,11 @@ body:has(.geo-room) .site-footer-glow {
   position: relative;
   display: inline-flex;
   align-items: baseline;
-  gap: 0.32rem;
-  padding: 0.7rem 0.38rem 0.75rem;
-  font-size: 0.68rem;
+  gap: 0.28rem;
+  padding: 0.55rem 0.28rem 0.62rem;
+  font-size: 0.62rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
   color: var(--muted-foreground);
   text-decoration: none;
@@ -857,8 +857,8 @@ body:has(.geo-room) .site-footer-glow {
 .masthead-link[data-active="true"]::after {
   content: "";
   position: absolute;
-  left: 0.38rem;
-  right: 0.38rem;
+  left: 0.28rem;
+  right: 0.28rem;
   bottom: 0;
   height: 2px;
   background: var(--paper-ink-bar);
@@ -963,14 +963,20 @@ body:has(.geo-room) .site-footer-glow {
   gap: 0.45rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .masthead-index {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: stretch;
-    justify-content: space-between;
-    gap: 0;
+    justify-content: flex-start;
+    gap: 0.15rem;
     border-top: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .masthead-index::-webkit-scrollbar {
+    display: none;
   }
 }
 

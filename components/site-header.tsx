@@ -119,9 +119,9 @@ export function SiteHeader() {
             <CommandPalette />
             <Sheet>
               <SheetTrigger
-                className="md:hidden"
+                className="lg:hidden"
                 render={
-                  <Button className="md:hidden" size="icon" variant="outline" />
+                  <Button className="lg:hidden" size="icon" variant="outline" />
                 }
               >
                 <MenuIcon />

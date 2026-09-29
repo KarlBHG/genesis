@@ -3,12 +3,12 @@ import Link from "next/link";
 import { obligationVisual } from "@/lib/obligation-visual";
 import { OBLIGATION_SECTIONS } from "@/lib/obligations";
 
-const SIZE = 540;
+const SIZE = 560;
 const CX = SIZE / 2;
 const CY = SIZE / 2;
-const R = 148;
-const OUTER = R + 28;
-const LABEL_GAP = 78;
+const R = 142;
+const OUTER = R + 26;
+const LABEL_GAP = 88;
 
 function polar(angleDeg: number, radius: number) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
@@ -50,7 +50,6 @@ export function HomeConstellation() {
       isVertical,
       isTop,
       isRightHalf,
-      index: index + 1,
     };
   });
 
@@ -198,7 +197,7 @@ export function HomeConstellation() {
       </svg>
       <ul className="absolute inset-0 m-0 hidden list-none p-0 sm:block">
         {nodes.map(
-          ({ section, label, isVertical, isTop, isRightHalf, index }) => {
+          ({ section, label, isVertical, isTop, isRightHalf }) => {
             const topPct = (label.y / SIZE) * 100;
             const leftPct = (label.x / SIZE) * 100;
 
@@ -217,7 +216,7 @@ export function HomeConstellation() {
 
             return (
               <li
-                className="absolute max-w-[7.1rem] text-[0.68rem] leading-snug sm:max-w-[7.6rem] sm:text-[0.72rem]"
+                className="absolute max-w-[6.8rem] text-[0.65rem] leading-snug sm:max-w-[7.4rem] sm:text-[0.7rem]"
                 key={section.id}
                 style={{
                   top: `${topPct}%`,
@@ -230,12 +229,6 @@ export function HomeConstellation() {
                   className="constellation-label font-semibold underline-offset-4 transition-colors hover:text-foreground hover:underline"
                   href={`/obligations#${section.id}`}
                 >
-                  <span
-                    aria-hidden
-                    className="mr-1 font-sans text-[0.58rem] font-semibold tracking-[0.14em] text-muted-foreground"
-                  >
-                    {padIndex(index)}
-                  </span>
                   {section.title}
                 </Link>
               </li>
