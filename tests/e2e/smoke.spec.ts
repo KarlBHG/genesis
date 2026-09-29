@@ -286,6 +286,22 @@ test("resident standing walks sourced hops or prints no sourced line", async ({
       name: "Standing",
     }),
   ).toHaveCount(0);
+
+  await page.goto("/system");
+  await expect(
+    page.getByRole("heading", { name: "Resident standing" }),
+  ).toBeVisible();
+  await expect(
+    page.locator("main").getByRole("link", { name: "Standing" }),
+  ).toHaveAttribute("href", "/standing");
+
+  await page.goto("/methodology#standing");
+  await expect(
+    page.locator("#standing").getByRole("heading", { name: "Resident standing" }),
+  ).toBeVisible();
+  await expect(
+    page.locator("#standing").getByRole("link", { name: "See their standing" }),
+  ).toHaveAttribute("href", "/standing");
 });
 
 test("command palette opens with Ctrl+K", async ({ page }) => {

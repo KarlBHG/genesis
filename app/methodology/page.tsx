@@ -700,12 +700,12 @@ export default function MethodologyPage() {
                   connection permalink
                 </Link>
                 . A missing hop prints{" "}
-                <span className="text-foreground">no sourced line</span>. The
-                folio is{" "}
+                <span className="text-foreground">no sourced line</span>. Open{" "}
                 <Link className="underline underline-offset-4" href="/standing">
-                  Standing
-                </Link>
-                , linked from the footer and System — not an eleventh nav leaf.
+                  See their standing
+                </Link>{" "}
+                to walk the three questions. That folio is linked from the
+                footer and System — not an eleventh nav leaf.
               </p>
               <p>
                 Municipality is a catalog pick, not a postcode lookup.{" "}
