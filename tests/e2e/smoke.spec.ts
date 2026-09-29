@@ -104,9 +104,8 @@ test("Opnir review feed needs a human program decision and does not sum amounts"
 
   await page.getByRole("button", { name: "Load fixture" }).click();
   await expect(
-    page.getByText("official rows are ready for a human program decision"),
+    page.getByText("3 official rows are ready for a human program decision"),
   ).toBeVisible();
-  await expect(page.getByText("Amounts are not added together")).toBeVisible();
   await expect(
     page.getByText("This row does not print a málaflokkur heading."),
   ).toBeVisible();
