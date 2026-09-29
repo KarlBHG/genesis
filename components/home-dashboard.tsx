@@ -13,10 +13,12 @@ import {
 
 import { SearchPanel } from "@/components/search-panel";
 import { ConstellationLegend, HomeConstellation } from "@/components/home-constellation";
+import { ResidentStanding } from "@/components/resident-standing";
 import { Button } from "@/components/ui/button";
 import { catalogSlices } from "@/lib/dashboard-stats";
 import { labelize } from "@/lib/format";
 import { LANDING_CHAINS, resolveChain, type LandingChain } from "@/lib/landing";
+import type { StandingBoard, StandingQuestionView } from "@/lib/standing";
 import type { Entry, SearchDoc } from "@/lib/types";
 
 type HomeDashboardProps = {
@@ -27,6 +29,12 @@ type HomeDashboardProps = {
   mapPinCount: number;
   obligationThemeCount: number;
   searchDocs: SearchDoc[];
+  standing: {
+    board: StandingBoard;
+    questions: StandingQuestionView[];
+    programSlug: string;
+    municipalitySlug: string | null;
+  };
 };
 
 const PORTALS = [
@@ -157,6 +165,7 @@ export function HomeDashboard({
   mapPinCount,
   obligationThemeCount,
   searchDocs,
+  standing,
 }: HomeDashboardProps) {
   const entryCount = entries.length;
   const slices = catalogSlices(entries);
@@ -242,6 +251,31 @@ export function HomeDashboard({
             <ConstellationLegend />
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-shell px-4 py-14 sm:px-6">
+        <div className="mb-8 flex flex-col gap-2">
+          <p className="kicker">Resident standing</p>
+          <h2 className="text-2xl font-medium">Three questions</h2>
+          <p className="max-w-lede text-sm text-muted-foreground">
+            As a taxpayer, as a depositor in a state-owned bank, as a voter
+            after 30 November 2024. Each hop is a stored edge with a permalink,
+            or{" "}
+            <span className="text-foreground">no sourced line</span>. The folio
+            is{" "}
+            <Link className="underline underline-offset-4" href="/standing">
+              Standing
+            </Link>
+            — not an eleventh nav leaf.
+          </p>
+        </div>
+        <ResidentStanding
+          board={standing.board}
+          compact
+          municipalitySlug={standing.municipalitySlug}
+          programSlug={standing.programSlug}
+          questions={standing.questions}
+        />
       </section>
 
       <section className="mx-auto w-full max-w-shell px-4 py-14 sm:px-6">

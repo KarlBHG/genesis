@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 
 const ROUTES = [
   "/",
+  "/standing",
   "/map",
   "/money",
   "/anomalies",
@@ -218,6 +219,73 @@ test("invoice coverage ledger counts rows, not krónur, and keeps Hæstiréttur 
   await expect(
     headings.locator("[data-slot=empty-description]"),
   ).toContainText("Unmatched vendor strings stay unmatched");
+});
+
+test("resident standing walks sourced hops or prints no sourced line", async ({
+  page,
+}) => {
+  await page.goto("/standing");
+  await expect(
+    page.getByRole("heading", { name: "See their standing" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Standing",
+    }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("navigation", { name: "Footer" }).getByRole("link", {
+      name: "Standing",
+    }),
+  ).toBeVisible();
+
+  await expect(
+    page.getByRole("heading", { name: "As a taxpayer" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "As a depositor in a state-owned bank" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "As a voter after 30 Nov 2024" }),
+  ).toBeVisible();
+
+  const taxpayer = page.locator("#taxpayer");
+  await expect(taxpayer.getByRole("link", { name: "permalink" }).first()).toBeVisible();
+  await expect(taxpayer.getByText("Counts are rows, not krónur.")).toBeVisible();
+  await expect(taxpayer.getByText(/\bISK\b/)).toHaveCount(0);
+
+  const voter = page.locator("#voter");
+  await expect(voter.getByText("no sourced line")).toBeVisible();
+  await expect(voter.getByText("this municipality elects a member of Alþingi")).toBeVisible();
+  await page.locator("#standing-municipality").selectOption("reykjavikurborg");
+  await expect(voter.getByText("no sourced line")).toBeVisible();
+  await expect(voter.getByText("Reykjavíkurborg elects a member of Alþingi")).toBeVisible();
+  await expect(
+    voter.getByRole("link", { name: "permalink" }),
+  ).toHaveCount(1);
+
+  await page.locator("#standing-program").selectOption(
+    "policy-area-05-skatta-eigna-og-fjarmalaumsysla",
+  );
+  await expect(
+    page.locator("#taxpayer").getByText("no sourced line"),
+  ).toBeVisible();
+  await expect(
+    page.locator("#taxpayer").getByText("an invoice joined to this policy area"),
+  ).toBeVisible();
+
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", { name: "Three questions" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "As a taxpayer" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Standing",
+    }),
+  ).toHaveCount(0);
 });
 
 test("command palette opens with Ctrl+K", async ({ page }) => {

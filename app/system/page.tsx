@@ -173,6 +173,21 @@ export default function SystemPage() {
         </ul>
       </section>
       <section className="flex min-w-0 flex-col gap-3">
+        <h2 className="text-xl font-medium">Resident standing</h2>
+        <p className="break-words">
+          Three questions a resident can ask without the org chart — as a
+          taxpayer, as a depositor in a state-owned bank, as a voter after 30
+          November 2024 — walk typed edges already on file. Each hop has a
+          permalink, or it prints no sourced line. The folio is{" "}
+          <Link className="underline underline-offset-4" href="/standing">
+            Standing
+          </Link>
+          , also linked from the footer and Methodology — not an eleventh nav
+          leaf. A municipality is a catalog pick, not a postcode, and it does
+          not mint a constituency membership.
+        </p>
+      </section>
+      <section className="flex min-w-0 flex-col gap-3">
         <h2 className="text-xl font-medium">Propose a sourced line</h2>
         <p className="break-words">
           A typed connection is pasted from a page already open: official URL,

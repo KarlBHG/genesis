@@ -42,6 +42,7 @@ const SECTIONS = [
   { id: "paste-intake", label: "Paste intake" },
   { id: "quoted-names", label: "Quoted names" },
   { id: "opnir-feed", label: "Opnir review feed" },
+  { id: "standing", label: "Resident standing" },
   { id: "refusals", label: "What this refuses to do" },
 ] as const;
 
@@ -686,6 +687,41 @@ export default function MethodologyPage() {
         />
 
         <Section
+          id="standing"
+          lede={
+            <>
+              <p>
+                The atlas tours on the home page are budget, power, and 2008.
+                Three resident questions sit above them: as a taxpayer, as a
+                depositor in a state-owned bank, as a voter after 30 November
+                2024. Each walk uses only typed edges already stored. Every
+                sourced hop has a{" "}
+                <Link className="underline underline-offset-4" href="/connections">
+                  connection permalink
+                </Link>
+                . A missing hop prints{" "}
+                <span className="text-foreground">no sourced line</span>. The
+                folio is{" "}
+                <Link className="underline underline-offset-4" href="/standing">
+                  Standing
+                </Link>
+                , linked from the footer and System — not an eleventh nav leaf.
+              </p>
+              <p>
+                Municipality is a catalog pick, not a postcode lookup.{" "}
+                <code className="text-sm">elects</code> today is Alþingi to the
+                Seðlabanki board, and the 2024 election to Alþingi. There is no
+                sourced constituency membership, so the member hop stays empty.
+                The depositor walk does not guess which bank you use. Invoice
+                hops are joined <span lang="is">pays</span> rows, counted as
+                rows, never added together.
+              </p>
+            </>
+          }
+          title="Resident standing"
+        />
+
+        <Section
           id="refusals"
           lede={
             <p>
@@ -737,6 +773,11 @@ export default function MethodologyPage() {
                 title: "No unsourced identifiers",
                 body:
                   "A kennitala appears on a record only when a cited page prints it. The public checksum is used to refuse a mistyped stored id, not to mint one.",
+              },
+              {
+                title: "No constituency memberships",
+                body:
+                  "A municipality pick is not a postcode, and it does not invent which member of Alþingi that place elects. elects stays the 2024 election to Alþingi, and Alþingi electing the Seðlabanki board, until a cited sentence names a constituency membership.",
               },
               {
                 title: "No Wikidata edges",
