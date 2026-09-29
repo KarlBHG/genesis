@@ -645,6 +645,12 @@ test("citation gutter cites the proving sentence, not a card", async ({
   await expect(
     page.locator("#contradictions [data-slot=card] [data-citation-gutter]"),
   ).toHaveCount(0);
+  if (testInfo.project.name === "desktop") {
+    const spreadSides = pair.locator(".variorum-spread [data-citation-gutter]");
+    const verso = await spreadSides.nth(0).boundingBox();
+    const recto = await spreadSides.nth(1).boundingBox();
+    expect(recto!.x).toBeGreaterThan(verso!.x + verso!.width / 2);
+  }
 
   await page.goto("/money");
   const intro = page.locator("#government-programs .citation-claim").first();
@@ -935,6 +941,72 @@ test.describe("pocket folio", () => {
     const statusBox = await status.boundingBox();
     expect(statusBox!.y).toBeGreaterThan(entityBox!.y + entityBox!.height / 2);
     expect(entityBox!.width).toBeGreaterThan(280);
+  });
+
+  test("quoted-name, membership, variorum, and public-entity tabs stack before lg", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+
+    await page.goto("/offices/prime-minister");
+    const person = page
+      .locator("#membership .pocket-ledger-row td[data-label='Person']")
+      .first();
+    const start = page
+      .locator("#membership .pocket-ledger-row td[data-label='Start']")
+      .first();
+    await expect(person).toBeVisible();
+    const personBox = await person.boundingBox();
+    const startBox = await start.boundingBox();
+    expect(startBox!.y).toBeGreaterThan(personBox!.y + personBox!.height / 2);
+    expect(personBox!.width).toBeGreaterThan(280);
+
+    await page.goto("/offices/ceo-of-landsvirkjun");
+    const boardPerson = page
+      .locator("#board-seats .pocket-ledger-row td[data-label='Person']")
+      .first();
+    const boardAsOf = page
+      .locator("#board-seats .pocket-ledger-row td[data-label='As of']")
+      .first();
+    await expect(boardPerson).toBeVisible();
+    const boardPersonBox = await boardPerson.boundingBox();
+    const boardAsOfBox = await boardAsOf.boundingBox();
+    expect(boardAsOfBox!.y).toBeGreaterThan(
+      boardPersonBox!.y + boardPersonBox!.height / 2,
+    );
+
+    await page.goto("/anomalies#contradictions");
+    const spread = page.locator(".variorum-spread").first();
+    await expect(spread).toBeVisible();
+    const sides = spread.locator("[data-citation-gutter]");
+    await expect(sides).toHaveCount(2);
+    const firstSide = await sides.nth(0).boundingBox();
+    const secondSide = await sides.nth(1).boundingBox();
+    expect(secondSide!.y).toBeGreaterThan(firstSide!.y + firstSide!.height / 2);
+    expect(firstSide!.width).toBeGreaterThan(280);
+
+    await page.setViewportSize({ width: 800, height: 844 });
+    await page.goto("/anomalies#contradictions");
+    const tabletSpread = page.locator(".variorum-spread").first();
+    const tabletSides = tabletSpread.locator("[data-citation-gutter]");
+    const tabletFirst = await tabletSides.nth(0).boundingBox();
+    const tabletSecond = await tabletSides.nth(1).boundingBox();
+    expect(tabletSecond!.y).toBeGreaterThan(tabletFirst!.y + tabletFirst!.height / 2);
+    expect(tabletFirst!.width).toBeGreaterThan(500);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/public-entities");
+    const tabs = page.getByRole("tab");
+    await expect(tabs).toHaveCount(5);
+    const firstTab = await tabs.nth(0).boundingBox();
+    const secondTab = await tabs.nth(1).boundingBox();
+    expect(secondTab!.y).toBeGreaterThan(firstTab!.y + firstTab!.height / 2);
+    expect(firstTab!.width).toBeGreaterThan(280);
+    await expect(page.locator(".folio-tabs")).toHaveCSS("overflow-x", "visible");
+
+    await page.getByRole("tab", { name: "Quoted names" }).click();
+    await expect(page.getByText("No unmatched names on file")).toBeVisible();
+    await expect(page.locator("#quoted-names .pocket-ledger")).toHaveCount(0);
   });
 
   test("connections tenure chips stack and the end field stays unlabeled current", async ({

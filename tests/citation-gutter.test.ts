@@ -84,6 +84,8 @@ describe("citation gutter", () => {
     );
     expect(pair).toContain("ProvenanceCard");
     expect(pair).toContain("CONTRADICTION_STATE");
+    expect(pair).toContain("variorum-spread");
+    expect(pair).toContain("lg:grid-cols-2");
     expect(pair).not.toContain("rounded-2xl");
     expect(pair).not.toContain("md:grid-cols-2");
   });

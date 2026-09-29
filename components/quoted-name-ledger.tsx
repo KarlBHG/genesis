@@ -82,7 +82,7 @@ export function QuotedNameLedgerTable({
           </EmptyHeader>
         </Empty>
       ) : (
-        <Table>
+        <Table className="pocket-ledger">
           <TableCaption>{quotedNameCaption(items.length)}</TableCaption>
           <TableHeader>
             <TableRow>
@@ -94,9 +94,10 @@ export function QuotedNameLedgerTable({
           </TableHeader>
           <TableBody>
             {items.map((item) => (
-              <TableRow key={item.id}>
+              <TableRow className="pocket-ledger-row" key={item.id}>
                 <TableCell
                   className="whitespace-normal font-medium"
+                  data-label="Printed name"
                   lang={icelandicLang(item.statement.printedName) ?? "is"}
                 >
                   {item.statement.printedName}
@@ -104,7 +105,10 @@ export function QuotedNameLedgerTable({
                     as of {item.statement.asOf}
                   </span>
                 </TableCell>
-                <TableCell className="max-w-md whitespace-normal">
+                <TableCell
+                  className="max-w-md whitespace-normal"
+                  data-label="Quoted on"
+                >
                   <p
                     className="text-sm leading-6 text-muted-foreground"
                     lang={icelandicLang(item.statement.quotation) ?? undefined}
@@ -118,14 +122,14 @@ export function QuotedNameLedgerTable({
                     {item.statement.source}
                   </ExternalLink>
                 </TableCell>
-                <TableCell>
+                <TableCell data-label="Suggested type">
                   {item.statement.suggestedType ? (
                     labelize(item.statement.suggestedType)
                   ) : (
                     <span className="text-muted-foreground">Not picked</span>
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell data-label="Status">
                   <Badge className="font-normal" variant="ghost">
                     Unmatched
                   </Badge>

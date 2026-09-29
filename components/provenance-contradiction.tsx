@@ -22,7 +22,8 @@ export function contradictionAnchor(id: string): string {
  * One contradiction as the first-class unit: the disagreement, both sourced
  * sentences in the citation gutter with their own as-of values, an explicit
  * unresolved state, and links into the entries the disagreement lands on.
- * Variorum facing-pages are a later slice; stacking is not a ruling.
+ * Variorum facing-pages start at `lg`. Before that the two stored sentences
+ * stack. Layout only — both quotations stay as filed. Stacking is not a ruling.
  */
 export function ContradictionCard({
   record,
@@ -57,7 +58,7 @@ export function ContradictionCard({
         </p>
       </header>
 
-      <div className="flex min-w-0 flex-col gap-3">
+      <div className="variorum-spread grid min-w-0 grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-0">
         {[first, second].map((side, index) => (
           <ProvenanceCard
             asOf={side.asOf}

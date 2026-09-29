@@ -63,8 +63,8 @@ function MembershipRows({
   return (
     <>
       {rows.map((row) => (
-        <TableRow key={row.href}>
-          <TableCell className="whitespace-normal">
+        <TableRow className="pocket-ledger-row" key={row.href}>
+          <TableCell className="whitespace-normal" data-label="Person">
             <div className="flex flex-wrap items-center gap-2">
               <PersonCell row={row} />
               <Badge variant={row.current ? "secondary" : "outline"}>
@@ -72,14 +72,16 @@ function MembershipRows({
               </Badge>
             </div>
           </TableCell>
-          <TableCell className="whitespace-normal">
+          <TableCell className="whitespace-normal" data-label="Start">
             {formatDate(displayCareerDate(row.start))}
           </TableCell>
-          <TableCell className="whitespace-normal">
+          <TableCell className="whitespace-normal" data-label="End">
             {formatDate(displayCareerDate(row.end))}
           </TableCell>
-          <TableCell className="whitespace-normal">{formatDate(row.asOf)}</TableCell>
-          <TableCell>
+          <TableCell className="whitespace-normal" data-label="As of">
+            {formatDate(row.asOf)}
+          </TableCell>
+          <TableCell data-label="Permalink">
             <Link className="underline underline-offset-4" href={row.href}>
               permalink
             </Link>
@@ -98,7 +100,7 @@ function MembershipTableFrame({
   children: ReactNode;
 }) {
   return (
-    <Table>
+    <Table className="pocket-ledger">
       <TableCaption>{caption}</TableCaption>
       <TableHeader>
         <TableRow>
