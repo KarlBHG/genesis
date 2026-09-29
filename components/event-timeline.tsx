@@ -126,35 +126,36 @@ export function EventTimeline({ events }: { events: TimelineEvent[] }) {
             value={query}
           />
         </label>
-        <div
+        <nav
           aria-label="Filter events by type"
-          className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
-          role="group"
+          className="type-rail flex min-w-0 flex-col gap-3"
         >
-          <Button
-            aria-pressed={type === "all"}
-            className="shrink-0"
-            onClick={() => setParam("type", "")}
-            size="sm"
-            variant={type === "all" ? "secondary" : "outline"}
-          >
-            All
-            <Badge variant="outline">{events.length}</Badge>
-          </Button>
-          {types.map((item) => (
+          <div className="type-chip-row flex min-w-0 flex-wrap gap-2">
             <Button
-              aria-pressed={type === item.id}
-              className="shrink-0"
-              key={item.id}
-              onClick={() => setParam("type", item.id)}
+              aria-pressed={type === "all"}
+              className="type-chip"
+              onClick={() => setParam("type", "")}
               size="sm"
-              variant={type === item.id ? "secondary" : "outline"}
+              variant={type === "all" ? "secondary" : "outline"}
             >
-              {item.label}
-              <Badge variant="outline">{item.count}</Badge>
+              All
+              <Badge variant="outline">{events.length}</Badge>
             </Button>
-          ))}
-        </div>
+            {types.map((item) => (
+              <Button
+                aria-pressed={type === item.id}
+                className="type-chip"
+                key={item.id}
+                onClick={() => setParam("type", item.id)}
+                size="sm"
+                variant={type === item.id ? "secondary" : "outline"}
+              >
+                {item.label}
+                <Badge variant="outline">{item.count}</Badge>
+              </Button>
+            ))}
+          </div>
+        </nav>
         <div className="flex flex-wrap items-center gap-3">
           <div aria-label="Sort events" className="flex gap-2" role="group">
             <Button

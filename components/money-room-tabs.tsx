@@ -48,7 +48,7 @@ export function MoneyRoomTabs({
     <Tabs className="gap-8" onValueChange={(value) => setTab(value as typeof tab)} value={tab}>
       <TabsList
         aria-label="Budget rooms"
-        className="h-auto w-full flex-nowrap justify-start overflow-x-auto pb-1"
+        className="folio-tabs h-auto w-full justify-start"
         variant="line"
       >
         <TabsTrigger value="authorisations">Authorisations</TabsTrigger>

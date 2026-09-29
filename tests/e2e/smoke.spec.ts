@@ -1053,6 +1053,103 @@ test.describe("pocket folio", () => {
     await expect(page.locator("#quoted-names .pocket-ledger")).toHaveCount(0);
   });
 
+  test("budget tabs, landing chains, browsers, and standing picks stack before lg", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+
+    await page.goto("/money");
+    const tabs = page.getByRole("tab");
+    await expect(tabs).toHaveCount(3);
+    const firstTab = await tabs.nth(0).boundingBox();
+    const secondTab = await tabs.nth(1).boundingBox();
+    expect(secondTab!.y).toBeGreaterThan(firstTab!.y + firstTab!.height / 2);
+    expect(firstTab!.width).toBeGreaterThan(280);
+    await expect(page.locator(".folio-tabs")).toHaveCSS("overflow-x", "visible");
+
+    await page.goto("/");
+    const chains = page.locator(".landing-chains article");
+    await expect(chains).toHaveCount(6);
+    const chainFirst = await chains.nth(0).boundingBox();
+    const chainSecond = await chains.nth(1).boundingBox();
+    expect(chainSecond!.y).toBeGreaterThan(chainFirst!.y + chainFirst!.height / 2);
+    expect(chainFirst!.width).toBeGreaterThan(280);
+
+    await page.setViewportSize({ width: 800, height: 844 });
+    await page.goto("/");
+    const tabletChains = page.locator(".landing-chains article");
+    const tabletFirst = await tabletChains.nth(0).boundingBox();
+    const tabletSecond = await tabletChains.nth(1).boundingBox();
+    expect(tabletSecond!.y).toBeGreaterThan(tabletFirst!.y + tabletFirst!.height / 2);
+    expect(tabletFirst!.width).toBeGreaterThan(500);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/institutions");
+    const institutionCards = page.locator("main [data-slot=card]");
+    await expect(institutionCards.first()).toBeVisible();
+    const instFirst = await institutionCards.nth(0).boundingBox();
+    const instSecond = await institutionCards.nth(1).boundingBox();
+    expect(instSecond!.y).toBeGreaterThan(instFirst!.y + instFirst!.height / 2);
+    expect(instFirst!.width).toBeGreaterThan(280);
+
+    await page.goto("/treaties");
+    const treatyCards = page.locator("main [data-slot=card]");
+    await expect(treatyCards.first()).toBeVisible();
+    const treatyFirst = await treatyCards.nth(0).boundingBox();
+    const treatySecond = await treatyCards.nth(1).boundingBox();
+    expect(treatySecond!.y).toBeGreaterThan(treatyFirst!.y + treatyFirst!.height / 2);
+
+    await page.goto("/players");
+    const playerCards = page.locator("main ul li");
+    await expect(playerCards.first()).toBeVisible();
+    const playerFirst = await playerCards.nth(0).boundingBox();
+    const playerSecond = await playerCards.nth(1).boundingBox();
+    expect(playerSecond!.y).toBeGreaterThan(playerFirst!.y + playerFirst!.height / 2);
+
+    await page.goto("/standing");
+    const municipality = page.locator("#standing-municipality");
+    const program = page.locator("#standing-program");
+    await expect(municipality).toBeVisible();
+    const municipalityBox = await municipality.boundingBox();
+    const programBox = await program.boundingBox();
+    expect(programBox!.y).toBeGreaterThan(municipalityBox!.y + municipalityBox!.height / 2);
+    expect(municipalityBox!.width).toBeGreaterThan(280);
+  });
+
+  test("event type index and connection strips stop sideways scrolling", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+
+    await page.goto("/events");
+    const types = page.locator(".type-rail .type-chip");
+    await expect(types.first()).toBeVisible();
+    const first = await types.nth(0).boundingBox();
+    const second = await types.nth(1).boundingBox();
+    expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
+    expect(first!.width).toBeGreaterThan(280);
+
+    await page.goto("/overview");
+    await expect(page.locator(".strip-drawing")).toBeHidden();
+    const stripRow = page.locator("#budget-strip ol li").first();
+    await expect(stripRow).toBeVisible();
+    const from = stripRow.locator("a").first();
+    const to = stripRow.locator("a").nth(1);
+    await expect(from).toBeVisible();
+    const fromBox = await from.boundingBox();
+    const toBox = await to.boundingBox();
+    expect(toBox!.y).toBeGreaterThan(fromBox!.y + fromBox!.height / 2);
+
+    await page.goto("/public-entities");
+    await page.getByRole("tab", { name: "Govdirectory checklist" }).click();
+    const summaries = page.locator(".govdirectory-summary [data-slot=card]");
+    await expect(summaries).toHaveCount(3);
+    const summaryFirst = await summaries.nth(0).boundingBox();
+    const summarySecond = await summaries.nth(1).boundingBox();
+    expect(summarySecond!.y).toBeGreaterThan(summaryFirst!.y + summaryFirst!.height / 2);
+    expect(summaryFirst!.width).toBeGreaterThan(280);
+  });
+
   test("connections tenure chips stack and the end field stays unlabeled current", async ({
     page,
   }, testInfo) => {
@@ -1149,6 +1246,24 @@ test.describe("pocket folio", () => {
     expect(stage).toBeTruthy();
     expect(caption).toBeTruthy();
     expect(caption!.x).toBeGreaterThan(stage!.x + stage!.width * 0.4);
+  });
+
+  test("desktop atlas keeps strip drawings and two-up landing chains", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop", "Desktop atlas stays as-is");
+    await page.goto("/overview");
+    const drawing = page.locator(".strip-drawing");
+    await expect(drawing).toBeVisible();
+    const drawingBox = await drawing.boundingBox();
+    expect(drawingBox!.width).toBeGreaterThan(700);
+
+    await page.goto("/");
+    const chains = page.locator(".landing-chains article");
+    await expect(chains).toHaveCount(6);
+    const first = await chains.nth(0).boundingBox();
+    const second = await chains.nth(1).boundingBox();
+    expect(second!.x).toBeGreaterThan(first!.x + first!.width / 2);
   });
 });
 

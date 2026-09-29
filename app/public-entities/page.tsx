@@ -137,7 +137,7 @@ export default function PublicEntitiesPage() {
                   . {GOVDIRECTORY_ICELAND.license}
                 </p>
               </div>
-              <div className="grid gap-3 md:grid-cols-3">
+              <div className="govdirectory-summary grid gap-3 lg:grid-cols-3">
                 {ledger.map((group) => (
                   <Card key={group.id}>
                     <CardHeader>

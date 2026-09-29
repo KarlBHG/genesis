@@ -360,7 +360,7 @@ export function HomeDashboard({
             quotation.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="landing-chains grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {LANDING_CHAINS.map((chain, index) => (
             <ChainCard chain={chain} index={index + 1} key={chain.id} />
           ))}

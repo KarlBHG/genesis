@@ -1770,6 +1770,8 @@ body:has(.geo-room) footer {
   .type-rail .type-chip {
     display: grid;
     width: 100%;
+    height: auto;
+    min-height: 0;
     grid-template-columns: minmax(0, 1fr) auto;
     justify-content: space-between;
     border-radius: 0;
@@ -1782,10 +1784,15 @@ body:has(.geo-room) footer {
   }
 
   .as-of-rail .as-of-chip[aria-pressed="true"],
-  .type-rail .type-chip[aria-current="true"] {
+  .type-rail .type-chip[aria-current="true"],
+  .type-rail .type-chip[aria-pressed="true"] {
     background: transparent;
     box-shadow: inset 2px 0 0 var(--paper-ink-bar);
     color: var(--foreground);
+  }
+
+  .strip-drawing {
+    display: none;
   }
 
   [data-slot="table-container"]:has(> .pocket-ledger) {
@@ -1956,6 +1963,10 @@ body:has(.geo-room) footer {
 @media (min-width: 1024px) {
   .folio-tabs {
     flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .strip-drawing {
     overflow-x: auto;
   }
 }

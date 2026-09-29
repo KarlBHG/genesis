@@ -365,7 +365,7 @@ export function EntryIndexBrowser({
                 </span>
               </h2>
             ) : null}
-            <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">
               {groupItems.map((item) => (
                 <li className="flex" key={item.href}>
                   <Card className="w-full">

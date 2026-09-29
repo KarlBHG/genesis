@@ -114,7 +114,7 @@ export function TreatyBrowser({ items }: { items: TreatyItem[] }) {
             <h2 className="font-serif text-xl font-medium tracking-tight">
               {labelize(group)}
             </h2>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
               {groupItems.map((item) => (
                 <Card
                   className="glass-panel border-border/60 bg-card/50 transition-all hover:-translate-y-0.5 hover:shadow-lg"

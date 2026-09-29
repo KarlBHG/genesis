@@ -16,7 +16,7 @@ function StripEdgeRow({ edge }: { edge: Edge }) {
   const to = resolveSlug(edge.to);
   return (
     <li
-      className="grid grid-cols-1 gap-1 px-3 py-3 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-baseline sm:gap-3"
+      className="grid grid-cols-1 gap-1 px-3 py-3 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-baseline lg:gap-3"
       key={edgeKey(edge)}
     >
       {from ? (
@@ -29,13 +29,13 @@ function StripEdgeRow({ edge }: { edge: Edge }) {
       <span className="text-sm text-muted-foreground">{lineLabel(edge)}</span>
       {to ? (
         <a
-          className="font-medium break-words underline underline-offset-4 sm:text-right"
+          className="font-medium break-words underline underline-offset-4 lg:text-right"
           href={to.href}
         >
           {to.title}
         </a>
       ) : (
-        <span className="font-medium break-words sm:text-right">{edge.toTitle}</span>
+        <span className="font-medium break-words lg:text-right">{edge.toTitle}</span>
       )}
     </li>
   );
@@ -622,7 +622,7 @@ function StripDrawing({ id, edges }: { id: StripId; edges: Edge[] }) {
   const scene = id === "budget" ? layoutBudget(edges) : id === "power" ? layoutPower(edges) : layoutOwnership(edges);
   const markerId = `${id}-arrow`;
   return (
-    <div className="w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain rounded-lg border bg-background">
+    <div className="strip-drawing w-full min-w-0 max-w-full overscroll-x-contain rounded-lg border bg-background">
       <svg
         aria-label={DRAWING_LABEL[id]}
         className="max-w-none"

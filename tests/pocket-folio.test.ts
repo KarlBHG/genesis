@@ -52,6 +52,7 @@ describe("pocket folio CSS", () => {
     expect(css).toContain(".intake-folio");
     expect(css).toContain("[data-compare-column]");
     expect(css).toContain("anchor(--geo-caption top)");
+    expect(css).toContain(".strip-drawing");
   });
 });
 
@@ -97,5 +98,78 @@ describe("pocket folio leftover surfaces", () => {
     );
     expect(tabs).toContain("folio-tabs");
     expect(tabs).not.toContain("overflow-x-auto");
+  });
+
+  it("stacks the remaining named leftover plates until lg", () => {
+    const moneyTabs = fs.readFileSync(
+      path.join(process.cwd(), "components", "money-room-tabs.tsx"),
+      "utf8",
+    );
+    expect(moneyTabs).toContain("folio-tabs");
+    expect(moneyTabs).not.toContain("overflow-x-auto");
+
+    const home = fs.readFileSync(
+      path.join(process.cwd(), "components", "home-dashboard.tsx"),
+      "utf8",
+    );
+    expect(home).toContain("landing-chains");
+    expect(home).toContain("lg:grid-cols-2");
+    expect(home).not.toContain("md:grid-cols-2");
+
+    const institutions = fs.readFileSync(
+      path.join(process.cwd(), "components", "institution-browser.tsx"),
+      "utf8",
+    );
+    expect(institutions).toContain("lg:grid-cols-2");
+    expect(institutions).not.toContain("md:grid-cols-2");
+
+    const treaties = fs.readFileSync(
+      path.join(process.cwd(), "components", "treaty-browser.tsx"),
+      "utf8",
+    );
+    expect(treaties).toContain("lg:grid-cols-2");
+    expect(treaties).not.toContain("md:grid-cols-2");
+
+    const index = fs.readFileSync(
+      path.join(process.cwd(), "components", "entry-index-browser.tsx"),
+      "utf8",
+    );
+    expect(index).toContain("lg:grid-cols-2");
+    expect(index).not.toContain("md:grid-cols-2");
+
+    const standing = fs.readFileSync(
+      path.join(process.cwd(), "components", "standing-picks.tsx"),
+      "utf8",
+    );
+    expect(standing).toContain("lg:grid-cols-2");
+    expect(standing).not.toContain("sm:grid-cols-2");
+
+    const events = fs.readFileSync(
+      path.join(process.cwd(), "components", "event-timeline.tsx"),
+      "utf8",
+    );
+    expect(events).toContain("type-rail");
+    expect(events).toContain("type-chip");
+    expect(events).not.toContain("overflow-x-auto");
+
+    const strips = fs.readFileSync(
+      path.join(process.cwd(), "components", "connections", "connection-strips.tsx"),
+      "utf8",
+    );
+    expect(strips).toContain("strip-drawing");
+    expect(strips).not.toContain("overflow-x-auto");
+    expect(strips).toContain("lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]");
+    expect(strips).not.toContain("sm:grid-cols-[");
+
+    const publicEntities = fs.readFileSync(
+      path.join(process.cwd(), "app", "public-entities", "page.tsx"),
+      "utf8",
+    );
+    expect(publicEntities).toContain("govdirectory-summary");
+    expect(publicEntities).toContain("lg:grid-cols-3");
+    expect(publicEntities).not.toContain("md:grid-cols-3");
+
+    const css = fs.readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8");
+    expect(css).toMatch(/@media \(max-width: 1023px\)[\s\S]*\.strip-drawing[\s\S]*display: none/);
   });
 });
