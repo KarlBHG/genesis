@@ -1,12 +1,19 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { SearchIcon } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { labelize } from "@/lib/format";
 import { searchEntries } from "@/lib/search";
 import type { SearchDoc } from "@/lib/types";
@@ -15,8 +22,8 @@ export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [docs, setDocs] = useState<SearchDoc[] | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
+  const router = useRouter();
 
   const close = useCallback(() => {
     setOpen(false);
@@ -44,11 +51,6 @@ export function CommandPalette() {
         setOpen((current) => !current);
         return;
       }
-      if (event.key === "Escape" && open) {
-        event.preventDefault();
-        setOpen(false);
-        setQuery("");
-      }
     }
     document.addEventListener("keydown", onKey, true);
     return () => document.removeEventListener("keydown", onKey, true);
@@ -75,27 +77,6 @@ export function CommandPalette() {
     };
   }, [open, docs]);
 
-  useEffect(() => {
-    if (!open) return;
-    const focusInput = () => inputRef.current?.focus();
-    focusInput();
-    const frame = requestAnimationFrame(focusInput);
-    const timer = window.setTimeout(focusInput, 50);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.clearTimeout(timer);
-    };
-  }, [open, docs]);
-
-  useEffect(() => {
-    if (!open) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previous;
-    };
-  }, [open ]);
-
   const results = useMemo(
     () => (docs ? searchEntries(docs, query).slice(0, 10) : []),
     [docs, query],
@@ -110,77 +91,65 @@ export function CommandPalette() {
         size="sm"
         variant="outline"
       >
-        <SearchIcon />
+        <SearchIcon data-icon="inline-start" />
         <span className="hidden sm:inline">Search</span>
         <kbd className="hidden rounded border px-1 text-xs text-muted-foreground md:inline">
           ⌘K
         </kbd>
       </Button>
-      {open ? (
-        <div
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-[12vh]"
-          role="dialog"
-          aria-label="Search the records"
-        >
-          <button
-            aria-label="Close search"
-            className="absolute inset-0 cursor-default bg-black/40"
-            onClick={close}
-            tabIndex={-1}
-            type="button"
+      <CommandDialog
+        description="Titles, summaries, and typed connections. Icelandic accents fold, so Sedlabanki finds Seðlabanki."
+        onOpenChange={(next) => {
+          if (next) setOpen(true);
+          else close();
+        }}
+        open={open}
+        title="Search the records"
+      >
+        <Command label="Search the records" shouldFilter={false}>
+          <CommandInput
+            aria-label="Search the records"
+            onValueChange={setQuery}
+            placeholder="Try EEA, Landsvirkjun, sells power, regulates"
+            value={query}
           />
-          <div className="relative flex max-h-[70vh] w-full max-w-xl flex-col overflow-hidden rounded-xl border bg-background shadow-lg">
-            <div className="border-b p-3">
-              <Input
-                aria-label="Search the records"
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Try EEA, Landsvirkjun, sells power, regulates"
-                ref={inputRef}
-                value={query}
-              />
-            </div>
-            <ul className="min-h-0 flex-1 overflow-y-auto p-2">
-              {docs == null ? (
-                <li className="px-3 py-6 text-center text-sm text-muted-foreground">
-                  Loading the index…
-                </li>
-              ) : !query.trim() ? (
-                <li className="px-3 py-6 text-center text-sm text-muted-foreground">
-                  {docs.length} records. Start typing to search titles,
-                  summaries, and typed connections.
-                </li>
-              ) : results.length === 0 ? (
-                <li className="px-3 py-6 text-center text-sm text-muted-foreground">
-                  No matches for “{query.trim()}”.
-                </li>
-              ) : (
-                results.map((doc) => (
-                  <li key={doc.slug}>
-                    <Link
-                      className="flex flex-col gap-0.5 rounded-lg px-3 py-2 hover:bg-muted"
-                      href={doc.href}
-                      onClick={close}
-                    >
-                      <span className="flex items-baseline gap-2">
-                        <span className="min-w-0 flex-1 truncate font-medium">
-                          {doc.title}
-                        </span>
-                        <span className="shrink-0 text-xs text-muted-foreground">
-                          {labelize(doc.kind)}
-                        </span>
-                      </span>
-                      <span className="line-clamp-1 text-sm text-muted-foreground">
+          <CommandList>
+            {docs == null ? (
+              <CommandEmpty>Loading the index…</CommandEmpty>
+            ) : !query.trim() ? (
+              <CommandEmpty>
+                {docs.length} records. Start typing to search titles, summaries,
+                and typed connections.
+              </CommandEmpty>
+            ) : results.length === 0 ? (
+              <CommandEmpty>No matches for “{query.trim()}”.</CommandEmpty>
+            ) : (
+              <CommandGroup heading="Records">
+                {results.map((doc) => (
+                  <CommandItem
+                    key={doc.slug}
+                    onSelect={() => {
+                      router.push(doc.href);
+                      close();
+                    }}
+                    value={doc.slug}
+                  >
+                    <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                      <span className="truncate font-medium">{doc.title}</span>
+                      <span className="line-clamp-1 text-xs text-muted-foreground">
                         {doc.summary}
                       </span>
-                    </Link>
-                  </li>
-                ))
-              )}
-            </ul>
-          </div>
-        </div>
-      ) : null}
+                    </span>
+                    <span className="shrink-0 text-xs text-muted-foreground">
+                      {labelize(doc.kind)}
+                    </span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+          </CommandList>
+        </Command>
+      </CommandDialog>
     </>
   );
 }

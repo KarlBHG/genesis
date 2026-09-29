@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Empty,
   EmptyDescription,
@@ -18,6 +17,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { labelize } from "@/lib/format";
 import { highlightParts, searchEntries, snippetText } from "@/lib/search";
 import type { SearchDoc, SearchKind } from "@/lib/types";
@@ -86,35 +86,28 @@ export function SearchPanel({ docs }: { docs: SearchDoc[] }) {
         </Field>
       </FieldGroup>
       {trimmed ? (
-        <div
-          aria-label="Filter results by type"
-          className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
-          role="group"
+        <Tabs
+          className="gap-3"
+          onValueChange={(value) => setFacet(value as SearchKind | "all")}
+          value={facet}
         >
-          <Button
-            aria-pressed={facet === "all"}
-            className="shrink-0"
-            onClick={() => setFacet("all")}
-            size="sm"
-            variant={facet === "all" ? "secondary" : "outline"}
+          <TabsList
+            aria-label="Filter results by type"
+            className="h-auto w-full flex-wrap justify-start"
+            variant="line"
           >
-            All
-            <Badge variant="outline">{results.length}</Badge>
-          </Button>
-          {FACETS.map((item) => (
-            <Button
-              aria-pressed={facet === item.id}
-              className="shrink-0"
-              key={item.id}
-              onClick={() => setFacet(item.id)}
-              size="sm"
-              variant={facet === item.id ? "secondary" : "outline"}
-            >
-              {item.label}
-              <Badge variant="outline">{counts.get(item.id) ?? 0}</Badge>
-            </Button>
-          ))}
-        </div>
+            <TabsTrigger value="all">
+              All
+              <Badge variant="outline">{results.length}</Badge>
+            </TabsTrigger>
+            {FACETS.map((item) => (
+              <TabsTrigger key={item.id} value={item.id}>
+                {item.label}
+                <Badge variant="outline">{counts.get(item.id) ?? 0}</Badge>
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
       ) : null}
       {trimmed && visible.length === 0 ? (
         <Empty className="border">

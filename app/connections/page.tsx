@@ -4,6 +4,15 @@ import Link from "next/link";
 import { ConnectionGroupedPanels, edgeKey } from "@/components/connection-graph";
 import { HashScroll } from "@/components/hash-scroll";
 import { EdgeRow } from "@/components/viz";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { getCatalog, getContradictions, getEdges, hrefFor, resolveSlug } from "@/lib/content";
 import { GROUP_BY_VIEW } from "@/lib/connection-groups";
 import { compareAsOf } from "@/lib/as-of";
@@ -215,21 +224,34 @@ export default async function ConnectionsPage({
               Where a cited page still does not support an allowlisted relationship, the record
               is labelled prose-only instead of left unexplained.
             </p>
-            <ul className="flex flex-col gap-2">
-              {missing.map((entry) => (
-                <li className="flex flex-wrap items-baseline gap-2" key={entry.slug}>
-                  <Link className="underline underline-offset-4" href={hrefFor(entry)}>
-                    {entry.title}
-                  </Link>
-                  <span className="text-sm text-muted-foreground">{kindLabel(entry.kind)}</span>
-                  {entry.proseOnly ? (
-                    <span className="text-sm text-muted-foreground">
-                      · Prose only · no typed edge
-                    </span>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
+            <Table>
+              <TableCaption>
+                Catalog records with no typed edge on this drawing. Related links on
+                their pages are not edges.
+              </TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Record</TableHead>
+                  <TableHead>Kind</TableHead>
+                  <TableHead>Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {missing.map((entry) => (
+                  <TableRow key={entry.slug}>
+                    <TableCell className="whitespace-normal">
+                      <Link className="underline underline-offset-4" href={hrefFor(entry)}>
+                        {entry.title}
+                      </Link>
+                    </TableCell>
+                    <TableCell>{kindLabel(entry.kind)}</TableCell>
+                    <TableCell className="whitespace-normal text-muted-foreground">
+                      {entry.proseOnly ? "Prose only · no typed edge" : "No typed edge"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </section>
         </>
       )}
