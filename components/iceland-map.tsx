@@ -97,6 +97,7 @@ const LABEL_AT: Record<PlaceId, { dx: number; dy: number; anchor: "start" | "end
   vestmannaeyjar: { dx: 10, dy: 16, anchor: "start" },
   seltjarnarnes: { dx: -18, dy: 8, anchor: "end" },
   hvanneyri: { dx: 14, dy: -12, anchor: "start" },
+  thingvellir: { dx: 14, dy: -12, anchor: "start" },
 };
 
 function usePrefersReducedMotion(): boolean {

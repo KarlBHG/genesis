@@ -16,5 +16,6 @@
   { "id": "fjardabyggd", "name": "Fjarðabyggð", "lat": 64.9875916, "lon": -14.172221 },
   { "id": "vestmannaeyjar", "name": "Vestmannaeyjar", "lat": 63.4266646, "lon": -20.2698816 },
   { "id": "seltjarnarnes", "name": "Seltjarnarnes", "lat": 64.1526552, "lon": -21.9879563 },
-  { "id": "hvanneyri", "name": "Hvanneyri", "lat": 64.5604248, "lon": -21.7703682 }
+  { "id": "hvanneyri", "name": "Hvanneyri", "lat": 64.5604248, "lon": -21.7703682 },
+  { "id": "thingvellir", "name": "Þingvellir", "lat": 64.2590998, "lon": -21.1212537 }
 ]

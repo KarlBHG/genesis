@@ -29,7 +29,8 @@ export type PlaceId =
   | "fjardabyggd"
   | "vestmannaeyjar"
   | "seltjarnarnes"
-  | "hvanneyri";
+  | "hvanneyri"
+  | "thingvellir";
 
 export type Place = {
   id: PlaceId;
@@ -114,6 +115,7 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "oddfellowreglan", layer: "societies", place: "reykjavik", pinOnly: true },
   { slug: "nordural", layer: "companies", place: "grundartangi" },
   { slug: "isavia", layer: "companies", place: "keflavik" },
+  { slug: "icelandair", layer: "companies", place: "keflavik" },
   { slug: "borealis-data-center", layer: "companies", place: "blonduos" },
   { slug: "isal", layer: "multinationals", place: "straumsvik" },
   { slug: "alcoa-fjardaal", layer: "multinationals", place: "reydarfjordur" },
@@ -136,6 +138,7 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "landsnet", layer: "companies", place: "reykjavik" },
   { slug: "il-sjodur", layer: "state", place: "reykjavik" },
   { slug: "orkuveita-reykjavikur", layer: "companies", place: "reykjavik" },
+  { slug: "gylfi-magnusson", layer: "companies", place: "reykjavik" },
   { slug: "orka-natturunnar", layer: "companies", place: "reykjavik" },
   { slug: "on-power", layer: "companies", place: "reykjavik" },
   { slug: "competition-authority", layer: "state", place: "reykjavik" },
@@ -185,6 +188,8 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "helga-jonsdottir", layer: "companies", place: "reykjavik" },
   { slug: "brynja-baldursdottir", layer: "companies", place: "reykjavik" },
   { slug: "eirikur-s-johannsson", layer: "companies", place: "reykjavik" },
+  { slug: "930-althingi", layer: "state", place: "thingvellir", pinOnly: true },
+  { slug: "1944-republic", layer: "state", place: "thingvellir", pinOnly: true },
   { slug: "1951-defense-agreement", layer: "state", place: "keflavik" },
   { slug: "2006-keflavik-base", layer: "state", place: "keflavik" },
   { slug: "2008-financial-crisis", layer: "state", place: "reykjavik" },
@@ -211,6 +216,8 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "goods-exports-2024", layer: "state", place: "reykjavik" },
   { slug: "marine-products-exports-2024", layer: "state", place: "reykjavik" },
   { slug: "aluminium-exports-2024", layer: "state", place: "reykjavik" },
+  { slug: "agricultural-products-exports-2024", layer: "state", place: "reykjavik" },
+  { slug: "food-and-beverages-imports-2024", layer: "state", place: "reykjavik" },
   { slug: "power-and-aluminium", layer: "state", place: "reykjavik" },
   { slug: "jon-thorvardur-sigurgeirsson", layer: "companies", place: "reykjavik" },
   { slug: "heidar-gudjonsson", layer: "companies", place: "reykjavik" },
@@ -221,6 +228,7 @@ export const MAP_ENTRIES: MapEntryRef[] = [
   { slug: "syn", layer: "companies", place: "reykjavik" },
   { slug: "arvakur", layer: "companies", place: "reykjavik" },
   { slug: "morgunbladid", layer: "companies", place: "reykjavik" },
+  { slug: "torg", layer: "companies", place: "reykjavik", pinOnly: true },
   { slug: "visir", layer: "companies", place: "reykjavik" },
   { slug: "siminn", layer: "companies", place: "reykjavik" },
   { slug: "birta", layer: "companies", place: "reykjavik" },

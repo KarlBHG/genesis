@@ -203,9 +203,9 @@ describe("map membership", () => {
     }
   });
 
-  it("ratchets edge endpoints missing from the map (baseline 43)", () => {
-    // New edges should bring their endpoints onto the map, or bump this
-    // baseline deliberately with map entries added in the same change.
+  it("ratchets edge endpoints missing from the map (baseline 39)", () => {
+    // Pin only when a cited page names an Icelandic seat. Treaties without
+    // that seat, career-CV orgs, and trade-partner countries stay off-map.
     const mapSlugs = new Set(MAP_ENTRIES.map((ref) => ref.slug));
     const officeIds = new Set(rawOffices().map((o) => o.id));
     const endpoints = new Set<string>();
@@ -216,7 +216,49 @@ describe("map membership", () => {
     const unmapped = [...endpoints].filter(
       (slug) => !mapSlugs.has(slug) && !officeIds.has(slug),
     );
-    expect(unmapped.length).toBeLessThanOrEqual(43);
+    expect(unmapped.sort()).toEqual(
+      [
+        "2010-icesave-referendum",
+        "2011-icesave-referendum",
+        "2013-icesave-judgment",
+        "air-services-agreements",
+        "arkitektafelag-islands",
+        "bjarkarhlid",
+        "brim",
+        "china",
+        "eea-joint-committee",
+        "efta",
+        "efta-third-country-ftas",
+        "eu-fish-protocol-1972",
+        "ferdifelagid-utivist",
+        "germany",
+        "golfsamband-islands",
+        "handknattleiksdeild-vikings",
+        "hlidarendi-ses",
+        "hoyvik-agreement",
+        "iceland-china-fta",
+        "iceland-eu-agriculture-2018",
+        "iceland-greenland-trade",
+        "investment-protection-agreements",
+        "kvennaathvarfid",
+        "lanasjodur-islenskra-namsmanna",
+        "leikfelag-reykjavikur",
+        "mp-banki",
+        "multilateral-trade-system",
+        "netherlands",
+        "norway",
+        "schengen",
+        "sjalfstaedir-evropumenn",
+        "ssai",
+        "stadarholl-radgjof",
+        "thorsmork",
+        "throskahjalp",
+        "un-2030-agenda",
+        "unifem-island",
+        "united-kingdom",
+        "united-states",
+      ].sort(),
+    );
   });
 
   it("marks every untyped catalog island as prose-only", () => {

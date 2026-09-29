@@ -673,6 +673,7 @@ function assertRecords(entries: Entry[], offices: OfficeRecord[]): void {
     "fjardabyggd",
     "vestmannaeyjar",
     "seltjarnarnes",
+    "thingvellir",
   ]) {
     if (!placeIds.has(id)) throw new Error(`data/places.json is missing ${id}`);
   }
