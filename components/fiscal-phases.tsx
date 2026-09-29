@@ -57,7 +57,7 @@ const PHASES = [
 
 export function FiscalPhasesNav() {
   return (
-    <section className="grid gap-3 md:grid-cols-3">
+    <section className="fiscal-phases grid gap-3 lg:grid-cols-3">
       {PHASES.map((phase) => (
         <Card className="ink-card" key={phase.href}>
           <CardHeader>

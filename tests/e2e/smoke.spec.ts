@@ -1180,6 +1180,99 @@ test.describe("pocket folio", () => {
     expect(municipalityBox!.width).toBeGreaterThan(280);
   });
 
+  test("fiscal phases, overview nav, methodology grids, and printed headings stack before lg", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
+
+    await page.goto("/money");
+    const phases = page.locator(".fiscal-phases [data-slot=card]");
+    await expect(phases).toHaveCount(3);
+    const phaseFirst = await phases.nth(0).boundingBox();
+    const phaseSecond = await phases.nth(1).boundingBox();
+    expect(phaseSecond!.y).toBeGreaterThan(phaseFirst!.y + phaseFirst!.height / 2);
+    expect(phaseFirst!.width).toBeGreaterThan(280);
+
+    await page.setViewportSize({ width: 800, height: 844 });
+    await page.goto("/money");
+    const tabletPhases = page.locator(".fiscal-phases [data-slot=card]");
+    const tabletPhaseFirst = await tabletPhases.nth(0).boundingBox();
+    const tabletPhaseSecond = await tabletPhases.nth(1).boundingBox();
+    expect(tabletPhaseSecond!.y).toBeGreaterThan(
+      tabletPhaseFirst!.y + tabletPhaseFirst!.height / 2,
+    );
+    expect(tabletPhaseFirst!.width).toBeGreaterThan(500);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/overview");
+    const sections = page.locator(".overview-sections a");
+    await expect(sections).toHaveCount(7);
+    const sectionFirst = await sections.nth(0).boundingBox();
+    const sectionSecond = await sections.nth(1).boundingBox();
+    expect(sectionSecond!.y).toBeGreaterThan(sectionFirst!.y + sectionFirst!.height / 2);
+    expect(sectionFirst!.width).toBeGreaterThan(280);
+
+    await page.setViewportSize({ width: 800, height: 844 });
+    await page.goto("/overview");
+    const tabletSections = page.locator(".overview-sections a");
+    const tabletSectionFirst = await tabletSections.nth(0).boundingBox();
+    const tabletSectionSecond = await tabletSections.nth(1).boundingBox();
+    expect(tabletSectionSecond!.y).toBeGreaterThan(
+      tabletSectionFirst!.y + tabletSectionFirst!.height / 2,
+    );
+    expect(tabletSectionFirst!.width).toBeGreaterThan(500);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/methodology");
+    const toc = page.locator(".methodology-toc a");
+    await expect(toc.first()).toBeVisible();
+    const tocFirst = await toc.nth(0).boundingBox();
+    const tocSecond = await toc.nth(1).boundingBox();
+    expect(tocSecond!.y).toBeGreaterThan(tocFirst!.y + tocFirst!.height / 2);
+    expect(tocFirst!.width).toBeGreaterThan(200);
+
+    await page.locator("#money").scrollIntoViewIfNeeded();
+    const moneyCards = page.locator(".methodology-money article");
+    await expect(moneyCards).toHaveCount(3);
+    const moneyFirst = await moneyCards.nth(0).boundingBox();
+    const moneySecond = await moneyCards.nth(1).boundingBox();
+    expect(moneySecond!.y).toBeGreaterThan(moneyFirst!.y + moneyFirst!.height / 2);
+    expect(moneyFirst!.width).toBeGreaterThan(280);
+
+    await page.setViewportSize({ width: 800, height: 844 });
+    await page.goto("/methodology");
+    const tabletToc = page.locator(".methodology-toc a");
+    const tabletTocFirst = await tabletToc.nth(0).boundingBox();
+    const tabletTocSecond = await tabletToc.nth(1).boundingBox();
+    expect(tabletTocSecond!.y).toBeGreaterThan(tabletTocFirst!.y + tabletTocFirst!.height / 2);
+
+    await page.locator("#money").scrollIntoViewIfNeeded();
+    const tabletMoney = page.locator(".methodology-money article");
+    const tabletMoneyFirst = await tabletMoney.nth(0).boundingBox();
+    const tabletMoneySecond = await tabletMoney.nth(1).boundingBox();
+    expect(tabletMoneySecond!.y).toBeGreaterThan(
+      tabletMoneyFirst!.y + tabletMoneyFirst!.height / 2,
+    );
+    expect(tabletMoneyFirst!.width).toBeGreaterThan(500);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/money#printed-headings");
+    await page.getByRole("tab", { name: "Invoice coverage" }).click();
+    const heading = page
+      .locator("#printed-headings .pocket-ledger-row td[data-label='Printed heading']")
+      .first();
+    const sits = page
+      .locator("#printed-headings .pocket-ledger-row td[data-label='Sits on']")
+      .first();
+    await heading.scrollIntoViewIfNeeded();
+    await expect(heading).toBeVisible();
+    await expect(sits).toBeVisible();
+    const headingBox = await heading.boundingBox();
+    const sitsBox = await sits.boundingBox();
+    expect(sitsBox!.y).toBeGreaterThan(headingBox!.y + headingBox!.height / 2);
+    expect(headingBox!.width).toBeGreaterThan(280);
+  });
+
   test("event type index and connection strips stop sideways scrolling", async ({
     page,
   }, testInfo) => {

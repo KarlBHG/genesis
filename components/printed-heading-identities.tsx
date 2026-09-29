@@ -64,7 +64,7 @@ export function PrintedHeadingIdentityTable({
           No sitting or refused heading identities are on file.
         </p>
       ) : (
-        <Table>
+        <Table className="pocket-ledger">
           <TableCaption>
             {sittingOrRefused.length}{" "}
             {sittingOrRefused.length === 1 ? "identity" : "identities"} where the
@@ -88,14 +88,18 @@ export function PrintedHeadingIdentityTable({
                 uniqueSlug && uniqueSlug !== row.catalogSlug,
               );
               return (
-                <TableRow key={row.id}>
+                <TableRow className="pocket-ledger-row" key={row.id}>
                   <TableCell
                     className="whitespace-normal font-medium"
+                    data-label="Printed heading"
                     lang={icelandicLang(row.printedHeading) ?? "is"}
                   >
                     {row.printedHeading}
                   </TableCell>
-                  <TableCell className="whitespace-normal">
+                  <TableCell
+                    className="whitespace-normal"
+                    data-label="Sits on"
+                  >
                     {sits ? (
                       <Link className="underline underline-offset-4" href={sits.href}>
                         {sits.title}
@@ -109,7 +113,10 @@ export function PrintedHeadingIdentityTable({
                       </span>
                     ) : null}
                   </TableCell>
-                  <TableCell className="whitespace-normal">
+                  <TableCell
+                    className="whitespace-normal"
+                    data-label="Unique catalog match"
+                  >
                     {unique ? (
                       <>
                         <Link className="underline underline-offset-4" href={unique.href}>
@@ -128,7 +135,7 @@ export function PrintedHeadingIdentityTable({
                       </span>
                     )}
                   </TableCell>
-                  <TableCell>
+                  <TableCell data-label="Status">
                     <Badge className="font-normal" variant={statusVariant(row.status)}>
                       {IDENTITY_STATUS_LABELS[row.status]}
                     </Badge>
@@ -153,7 +160,7 @@ export function PrintedHeadingIdentityTable({
             </EmptyHeader>
           </Empty>
         ) : (
-          <Table>
+          <Table className="pocket-ledger">
             <TableCaption>
               {unmatched.length} unmatched{" "}
               {unmatched.length === 1 ? "heading" : "headings"}. Not catalogued.
@@ -168,17 +175,21 @@ export function PrintedHeadingIdentityTable({
             </TableHeader>
             <TableBody>
               {unmatched.map((row) => (
-                <TableRow key={row.id}>
+                <TableRow className="pocket-ledger-row" key={row.id}>
                   <TableCell
                     className="whitespace-normal"
+                    data-label="Printed heading"
                     lang={icelandicLang(row.printedHeading) ?? "is"}
                   >
                     {row.printedHeading}
                   </TableCell>
-                  <TableCell className="max-w-md whitespace-normal text-muted-foreground">
+                  <TableCell
+                    className="max-w-md whitespace-normal text-muted-foreground"
+                    data-label="Quoted on"
+                  >
                     {row.quotation}
                   </TableCell>
-                  <TableCell>
+                  <TableCell data-label="Status">
                     <Badge className="font-normal" variant="ghost">
                       Unmatched
                     </Badge>

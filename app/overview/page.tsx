@@ -47,7 +47,7 @@ export default function OverviewPage() {
         </div>
         <nav
           aria-label="Sections"
-          className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
+          className="overview-sections grid grid-cols-1 gap-3 lg:grid-cols-4"
         >
           {counts.map((item) => (
             <Link

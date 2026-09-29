@@ -179,6 +179,51 @@ describe("pocket folio leftover surfaces", () => {
     expect(publicEntities).toContain("lg:grid-cols-3");
     expect(publicEntities).not.toContain("md:grid-cols-3");
 
+    const fiscal = fs.readFileSync(
+      path.join(process.cwd(), "components", "fiscal-phases.tsx"),
+      "utf8",
+    );
+    expect(fiscal).toContain("fiscal-phases");
+    expect(fiscal).toContain("lg:grid-cols-3");
+    expect(fiscal).not.toContain("md:grid-cols-3");
+
+    const overview = fs.readFileSync(
+      path.join(process.cwd(), "app", "overview", "page.tsx"),
+      "utf8",
+    );
+    expect(overview).toContain("overview-sections");
+    expect(overview).toContain("grid-cols-1");
+    expect(overview).toContain("lg:grid-cols-4");
+    expect(overview).not.toContain("grid-cols-2");
+    expect(overview).not.toContain("sm:grid-cols-3");
+
+    const methodology = fs.readFileSync(
+      path.join(process.cwd(), "app", "methodology", "page.tsx"),
+      "utf8",
+    );
+    expect(methodology).toContain("methodology-toc");
+    expect(methodology).toContain("lg:grid-cols-2");
+    expect(methodology).not.toContain("sm:grid-cols-2");
+    expect(methodology).toContain("methodology-money");
+    expect(methodology).toContain("lg:grid-cols-3");
+    expect(methodology).not.toContain("md:grid-cols-3");
+
+    const headings = fs.readFileSync(
+      path.join(process.cwd(), "components", "printed-heading-identities.tsx"),
+      "utf8",
+    );
+    expect(headings).toContain('className="pocket-ledger"');
+    expect(headings).toContain("pocket-ledger-row");
+    expect(headings).toContain('data-label="Printed heading"');
+    expect(headings).toContain('data-label="Sits on"');
+    expect(headings).toContain('data-label="Unique catalog match"');
+
+    const table = fs.readFileSync(
+      path.join(process.cwd(), "components", "ui", "table.tsx"),
+      "utf8",
+    );
+    expect(table).toContain("overflow-x-auto");
+
     const css = fs.readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8");
     expect(css).toMatch(/@media \(max-width: 1023px\)[\s\S]*\.strip-drawing[\s\S]*display: none/);
   });

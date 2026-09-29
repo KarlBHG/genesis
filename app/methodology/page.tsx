@@ -110,7 +110,7 @@ export default function MethodologyPage() {
             className="glass-panel flex flex-col gap-2 p-5"
           >
             <p className="kicker">On this page</p>
-            <ul className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+            <ul className="methodology-toc grid grid-cols-1 gap-1 lg:grid-cols-2">
               {SECTIONS.map((section) => (
                 <li key={section.id}>
                   <Link
@@ -378,7 +378,7 @@ export default function MethodologyPage() {
           }
           title="Authorisation, expenditure, invoice"
         >
-          <div className="grid min-w-0 gap-3 md:grid-cols-3">
+          <div className="methodology-money grid min-w-0 gap-3 lg:grid-cols-3">
             {[
               {
                 title: "Authorisation",
