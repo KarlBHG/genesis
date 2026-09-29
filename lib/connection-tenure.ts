@@ -1,4 +1,8 @@
 import { resolveSlug } from "@/lib/content";
+import {
+  NO_END_STORED,
+  type TenureFilter,
+} from "@/lib/connection-tenure-query";
 import { edgeHref } from "@/lib/edge-id";
 import { formatDate, labelize } from "@/lib/format";
 import {
@@ -7,25 +11,20 @@ import {
 } from "@/lib/office-membership";
 import type { Edge, Relationship } from "@/lib/types";
 
-/** Empty end on a connection is this phrase — never “current”. */
-export const NO_END_STORED = "no end date stored";
-
-/** Checklist of leftover career ends on the existing Connections leaf. */
-export const UNPRINTED_CAREER_ANCHOR = "unprinted-ends";
-
-export const UNPRINTED_CAREER_HREF = `/connections#${UNPRINTED_CAREER_ANCHOR}`;
-
-export const TENURE_PARAM = "tenure";
-
-export const CURRENT_MEMBERSHIP_LABEL = "current membership";
-
-export const ENDED_LABEL = "ended";
-
-export type TenureFilter = "current" | "ended";
+export {
+  CURRENT_MEMBERSHIP_LABEL,
+  ENDED_LABEL,
+  NO_END_STORED,
+  TENURE_PARAM,
+  UNPRINTED_CAREER_ANCHOR,
+  UNPRINTED_CAREER_HREF,
+  parseTenureFilter,
+  serializeTenureFilter,
+  toggleTenureFilter,
+  type TenureFilter,
+} from "@/lib/connection-tenure-query";
 
 export type ConnectionTenure = "current" | "ended" | "unlabeled";
-
-const TENURE_IDS = new Set<string>(["current", "ended"]);
 
 /** Career files store start, end, and channel. Invoices and authority lines do not. */
 export function isCareerStored(
@@ -66,24 +65,6 @@ export function displayConnectionEnd(
 ): string {
   if (isUnprinted(end)) return NO_END_STORED;
   return formatDate(end!.trim());
-}
-
-export function parseTenureFilter(
-  raw: string | null | undefined,
-): TenureFilter | null {
-  const value = raw?.trim() ?? "";
-  return TENURE_IDS.has(value) ? (value as TenureFilter) : null;
-}
-
-export function serializeTenureFilter(filter: TenureFilter | null): string {
-  return filter ?? "";
-}
-
-export function toggleTenureFilter(
-  filter: TenureFilter | null,
-  next: TenureFilter,
-): TenureFilter | null {
-  return filter === next ? null : next;
 }
 
 export function matchesTenureFilter(

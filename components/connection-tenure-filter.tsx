@@ -11,7 +11,7 @@ import {
   serializeTenureFilter,
   toggleTenureFilter,
   type TenureFilter,
-} from "@/lib/connection-tenure";
+} from "@/lib/connection-tenure-query";
 
 export type ConnectionTenureFilterProps = {
   /** Route the chips link back to. Index uses `/connections`; detail also lands there. */
