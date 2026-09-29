@@ -86,10 +86,12 @@ function entryActive(pathname: string, entry: IndexedEntry): boolean {
   return entry.items.some((item) => isCurrent(pathname, item.href));
 }
 
-function FolioNum({ n }: { n: number }) {
+function FolioNum({ n, end }: { n: number; end?: number }) {
+  const label =
+    end && end !== n ? `${padIndex(n)}–${padIndex(end)}` : padIndex(n);
   return (
     <span aria-hidden className="masthead-link-index">
-      {padIndex(n)}
+      {label}
     </span>
   );
 }
@@ -211,7 +213,10 @@ export function SiteHeader() {
                   }
                   type="button"
                 >
-                  <FolioNum n={entry.index} />
+                  <FolioNum
+                    end={entry.items[entry.items.length - 1]?.index}
+                    n={entry.index}
+                  />
                   {entry.label}
                 </button>
                 {openMenu === entry.label ? (
