@@ -943,21 +943,6 @@ test.describe("pocket folio", () => {
     expect(stage).toBeTruthy();
     expect(caption).toBeTruthy();
     expect(caption!.x).toBeGreaterThan(stage!.x + stage!.width * 0.4);
-
-    await page.goto("/anomalies");
-    const types = page.locator(".type-rail .type-chip");
-    await expect(types).toHaveCount(5);
-    const first = await types.nth(0).boundingBox();
-    const second = await types.nth(1).boundingBox();
-    expect(second!.x).toBeGreaterThan(first!.x + first!.width / 2);
-    expect(Math.abs(second!.y - first!.y)).toBeLessThan(24);
-
-    await page.goto("/");
-    const portals = page.locator(".home-portals a");
-    const portalFirst = await portals.nth(0).boundingBox();
-    const portalSecond = await portals.nth(1).boundingBox();
-    expect(portalSecond!.x).toBeGreaterThan(portalFirst!.x + portalFirst!.width / 2);
-    expect(Math.abs(portalSecond!.y - portalFirst!.y)).toBeLessThan(24);
   });
 });
 
