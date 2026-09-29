@@ -225,7 +225,7 @@ function EdgeSection({
   const openByDefault = edges.length <= OPEN_BY_DEFAULT_UP_TO;
   return (
     <div className="flex flex-col gap-2">
-      <h3 className="text-base font-medium">
+      <h3 className="reading-head text-lg">
         {title} · {edges.length}
       </h3>
       {groups.map((group) => (
@@ -325,11 +325,11 @@ function PaysProgramNullNotice({ slug }: { slug: string }) {
 
 function FactStrip({ entry }: { entry: Entry }) {
   return (
-    <dl className="entry-fact-strip flex flex-wrap gap-x-6 gap-y-2 border-t border-border pt-3 text-sm">
+    <dl className="entry-fact-strip">
       {factStrip(entry).map((fact) => (
-        <div className="flex items-baseline gap-1.5" key={fact.term}>
-          <dt className="text-muted-foreground">{fact.term}</dt>
-          <dd className="font-medium">{fact.value}</dd>
+        <div className="flex flex-col gap-0.5" key={fact.term}>
+          <dt>{fact.term}</dt>
+          <dd>{fact.value}</dd>
         </div>
       ))}
     </dl>
@@ -343,7 +343,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
   const ego = egoLayout(entry.slug, getEdges());
 
   return (
-    <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-8 px-4 py-8 sm:px-6">
+    <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
       <p className="print-only">
         AlltÍkerfi · {kindPath(entry.kind)}/{entry.slug}
       </p>
@@ -364,9 +364,31 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <header className="glass-panel atlas-page-header flex flex-col gap-4">
-        <p className="kicker">{labelize(entry.kind)}</p>
-        <div className="flex flex-wrap items-center gap-2 print:hidden">
+      <header className="glass-panel atlas-page-header entry-masthead">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <p className="kicker fade-rise">{labelize(entry.kind)}</p>
+          <p className="entry-running-head fade-rise print:hidden">
+            {kindPath(entry.kind)}/{entry.slug}
+          </p>
+        </div>
+        <h1 className="display-title hero-display text-[2.15rem] leading-[0.98] text-balance sm:text-5xl lg:text-[3.35rem]">
+          {entry.title}
+        </h1>
+        {entry.lede ? (
+          <p className="standfirst fade-rise-3">{entry.lede}</p>
+        ) : entry.summary ? (
+          <div className="fade-rise-3 flex max-w-lede flex-col gap-1">
+            <p className="standfirst-body">
+              {entry.summary}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Opening paragraph of the record, extracted automatically. No
+              authored lede yet.
+            </p>
+          </div>
+        ) : null}
+        <FactStrip entry={entry} />
+        <div className="fade-rise-4 flex flex-wrap items-center gap-2 print:hidden">
           <Button
             nativeButton={false}
             render={<Link href={kindPath(entry.kind)} />}
@@ -396,23 +418,6 @@ export function EntryDetail({ entry }: { entry: Entry }) {
             </Button>
           ) : null}
         </div>
-        <h1 className="text-3xl font-medium sm:text-4xl">
-          {entry.title}
-        </h1>
-        {entry.lede ? (
-          <p className="max-w-lede font-serif text-xl leading-8">{entry.lede}</p>
-        ) : entry.summary ? (
-          <div className="flex max-w-lede flex-col gap-1">
-            <p className="text-lg leading-8 text-muted-foreground">
-              {entry.summary}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Opening paragraph of the record, extracted automatically. No
-              authored lede yet.
-            </p>
-          </div>
-        ) : null}
-        <FactStrip entry={entry} />
       </header>
       <EvidenceNotice slug={entry.slug} />
       <PaysProgramNullNotice slug={entry.slug} />
@@ -420,8 +425,8 @@ export function EntryDetail({ entry }: { entry: Entry }) {
       <Record entry={entry} />
       {ego.nodes.length > 1 ? (
         <section className="flex flex-col gap-3 print:hidden">
-          <h2 className="text-xl font-medium">Typed network (one hop)</h2>
-          <p className="text-sm text-muted-foreground">
+          <h2 className="reading-head">Typed network (one hop)</h2>
+          <p className="text-base leading-7 text-muted-foreground">
             Neighbours on the graph only. Untyped reading suggestions are not
             drawn here.
           </p>
@@ -433,7 +438,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           <Separator />
           <section className="flex flex-col gap-3">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="text-xl font-medium">Connections</h2>
+              <h2 className="reading-head">Connections</h2>
               <Link
                 className="text-sm text-muted-foreground underline underline-offset-4 print:hidden"
                 href={`/connections?entry=${entry.slug}`}
@@ -461,8 +466,8 @@ export function EntryDetail({ entry }: { entry: Entry }) {
         <>
           <Separator />
           <section className="flex flex-col gap-2">
-            <h2 className="text-xl font-medium">Connections</h2>
-            <p className="text-sm text-muted-foreground">
+            <h2 className="reading-head">Connections</h2>
+            <p className="text-base leading-7 text-muted-foreground">
               Prose only · no typed edge. A cited page supports this record, but
               no allowlisted relationship can be drawn from it without inventing a
               join.
@@ -472,9 +477,9 @@ export function EntryDetail({ entry }: { entry: Entry }) {
       ) : null}
       <Separator />
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-medium">Reading suggestions</h2>
+        <h2 className="reading-head">Reading suggestions</h2>
         {entry.related.length > 0 ? (
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base leading-7 text-muted-foreground">
             Untyped links from this record&apos;s Markdown. They are reading
             suggestions only — not sourced graph edges. Typed connections appear
             in Connections above and on the map.
@@ -484,11 +489,11 @@ export function EntryDetail({ entry }: { entry: Entry }) {
       </section>
       <Separator />
       <section className="flex flex-col gap-3">
-        <h2 className="text-xl font-medium">Sources</h2>
+        <h2 className="reading-head">Sources</h2>
         {entry.sources ? (
           <MarkdownBody source={entry.sources} />
         ) : (
-          <p className="text-sm text-muted-foreground">No sources recorded.</p>
+          <p className="text-base leading-7 text-muted-foreground">No sources recorded.</p>
         )}
         {entry.kind === "treaty" && !entry.sources.includes(entry.source) ? (
           <p>

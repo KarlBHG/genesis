@@ -64,7 +64,7 @@ export default async function ConnectionPermalinkPage({
   const program = edge.program ? resolveSlug(edge.program) : null;
 
   return (
-    <article className="mx-auto flex w-full max-w-reading flex-col gap-8 px-4 py-8 sm:px-6">
+    <article className="atlas-page mx-auto flex w-full max-w-reading flex-col gap-10 px-4 py-10 sm:px-6 sm:py-14">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -85,25 +85,29 @@ export default async function ConnectionPermalinkPage({
         </BreadcrumbList>
       </Breadcrumb>
 
-      <header className="flex flex-col gap-3">
-        <p className="text-sm text-muted-foreground">Typed connection</p>
-        <h1 className="text-3xl font-medium tracking-tight">
-          {edge.fromTitle} {labelize(edge.relationship)} {toTitle}
-        </h1>
-        <p className="text-sm leading-6 text-muted-foreground">
-          This page is one stored relationship — the quotation, the date the cited
-          page prints, and the address it was read at. It is not a score, a
-          cluster, or a derived total.
-        </p>
-        <p className="flex flex-wrap items-center gap-2">
+      <header className="glass-panel atlas-page-header entry-masthead">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <p className="kicker fade-rise">Typed connection</p>
           {view && viewLabel ? (
             <Link
-              className="text-sm underline underline-offset-4"
+              className="entry-running-head fade-rise underline-offset-4 hover:underline"
               href={`/connections#${view}`}
             >
               {viewLabel} view
             </Link>
           ) : null}
+        </div>
+        <h1 className="display-title hero-display text-[2.05rem] leading-[1.02] text-balance sm:text-4xl lg:text-[2.85rem]">
+          {edge.fromTitle}{" "}
+          <span className="display-italic">{labelize(edge.relationship).toLowerCase()}</span>{" "}
+          {toTitle}
+        </h1>
+        <p className="standfirst-body fade-rise-3">
+          This page is one stored relationship — the quotation, the date the cited
+          page prints, and the address it was read at. It is not a score, a
+          cluster, or a derived total.
+        </p>
+        <p className="fade-rise-4 flex flex-wrap items-center gap-2">
           <Badge variant="secondary">{labelize(edge.relationship)}</Badge>
         </p>
       </header>
@@ -116,7 +120,7 @@ export default async function ConnectionPermalinkPage({
 
       <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1">
-          <dt className="text-sm text-muted-foreground">From</dt>
+          <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">From</dt>
           <dd>
             {from ? (
               <Link className="underline underline-offset-4" href={from.href}>
@@ -128,7 +132,7 @@ export default async function ConnectionPermalinkPage({
           </dd>
         </div>
         <div className="flex flex-col gap-1">
-          <dt className="text-sm text-muted-foreground">To</dt>
+          <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">To</dt>
           <dd>
             {to ? (
               <Link className="underline underline-offset-4" href={to.href}>
@@ -140,7 +144,7 @@ export default async function ConnectionPermalinkPage({
           </dd>
         </div>
         <div className="flex flex-col gap-1">
-          <dt className="text-sm text-muted-foreground">As of</dt>
+          <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">As of</dt>
           <dd>
             {asOf.display}{" "}
             <span className="text-muted-foreground">({asOf.bucketLabel})</span>
@@ -148,13 +152,13 @@ export default async function ConnectionPermalinkPage({
         </div>
         {edge.year ? (
           <div className="flex flex-col gap-1">
-            <dt className="text-sm text-muted-foreground">Fiscal year</dt>
+            <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">Fiscal year</dt>
             <dd>{edge.year}</dd>
           </div>
         ) : null}
         {program ? (
           <div className="flex flex-col gap-1">
-            <dt className="text-sm text-muted-foreground">Budget heading</dt>
+            <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">Budget heading</dt>
             <dd>
               <Link className="underline underline-offset-4" href={program.href}>
                 {edge.programTitle ?? program.title}
@@ -164,7 +168,7 @@ export default async function ConnectionPermalinkPage({
         ) : null}
         {edge.programNullReason ? (
           <div className="flex flex-col gap-1 sm:col-span-2">
-            <dt className="text-sm text-muted-foreground">
+            <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
               Ledger prints no program
             </dt>
             <dd className="text-sm leading-6">{edge.programNullReason}</dd>

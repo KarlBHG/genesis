@@ -117,6 +117,24 @@ export default async function ConnectionsPage({
     <main className="dashboard-canvas min-w-0">
       <HashScroll />
       <PageHero
+        aside={
+          focusSlug ? undefined : (
+            <dl className="hero-stat-rail">
+              <div>
+                <dt>Typed lines</dt>
+                <dd>{allEdges.length}</dd>
+              </div>
+              <div>
+                <dt>Not on drawing</dt>
+                <dd>{missing.length}</dd>
+              </div>
+              <div>
+                <dt>Catalog</dt>
+                <dd>{entries.length}</dd>
+              </div>
+            </dl>
+          )
+        }
         description={
           <>
             The same buckets as the map. Authorisations, invoices, and contracts are
@@ -127,11 +145,14 @@ export default async function ConnectionsPage({
           </>
         }
         eyebrow="Typed public record"
+        folio="05"
+        italic="named, sourced, typed."
+        size="dramatic"
         title="Connections"
       />
-      <div className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-10 sm:px-6">
+      <div className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-12 px-4 py-12 sm:px-6 sm:py-16">
         {focusSlug ? (
-          <p className="max-w-reading text-sm text-muted-foreground">
+          <p className="max-w-reading text-base leading-7 text-muted-foreground">
             {focusEntry ? (
               <>
                 Showing {edges.length} line{edges.length === 1 ? "" : "s"} involving{" "}
@@ -156,42 +177,52 @@ export default async function ConnectionsPage({
       <nav aria-label="Connection views" className="flex flex-wrap gap-2">
         {byView.map((view) => (
           <a
-            className="rounded-md border px-3 py-1.5 text-sm underline-offset-4 transition-colors hover:bg-muted hover:underline"
+            className="connection-view-chip rounded-md border px-3 py-1.5 text-sm underline-offset-4 transition-colors hover:bg-muted hover:underline"
             href={`#${view.id}`}
             key={view.id}
           >
-            {view.label} · {view.edges.length}
+            {view.label} · <span className="count">{view.edges.length}</span>
           </a>
         ))}
       </nav>
-      {byView.map((view) => (
-        <section className="flex min-w-0 scroll-mt-24 flex-col gap-2" id={view.id} key={view.id}>
-          <h2 className="text-xl font-medium">
-            {view.label} · {view.edges.length}
-          </h2>
+      {byView.map((view, index) => (
+        <section className="flex min-w-0 scroll-mt-24 flex-col gap-3" id={view.id} key={view.id}>
+          <header className="reading-section-head">
+            <span className="section-index">{String(index + 1).padStart(2, "0")}</span>
+            <h2 className="reading-head">
+              {view.label}{" "}
+              <span className="display-italic text-[0.7em] text-muted-foreground">
+                · {view.edges.length}
+              </span>
+            </h2>
+          </header>
           {view.id === "authorisations" ? (
-            <p className="text-sm text-muted-foreground">
+            <p className="max-w-reading text-base leading-7 text-muted-foreground">
               Article 4 ceilings. A permission to spend, not a payment.
             </p>
           ) : null}
           {view.id === "spending" ? (
-            <p className="text-sm text-muted-foreground">
+            <p className="max-w-reading text-base leading-7 text-muted-foreground">
               Each line is one Opnir reikningar invoice. Salaries, foreign-currency
               payments, and grants are not on that ledger. Amounts are not added
               together.
             </p>
           ) : null}
           {view.id === "contracts" ? (
-            <p className="text-sm text-muted-foreground">
+            <p className="max-w-reading text-base leading-7 text-muted-foreground">
               Power-purchase agreements and Hagstofa import/export commodity rows.
               Not invoices.
             </p>
           ) : null}
           {view.id === "ownership" ? (
-            <p className="text-sm text-muted-foreground">Owns only. Stakes are under Investments.</p>
+            <p className="max-w-reading text-base leading-7 text-muted-foreground">
+              Owns only. Stakes are under Investments.
+            </p>
           ) : null}
           {view.id === "careers" ? (
-            <p className="text-sm text-muted-foreground">Dated personal holdings are listed here as well as under Investments. Ásgeir Jónsson has no dated appointment, so he is not on a line.</p>
+            <p className="max-w-reading text-base leading-7 text-muted-foreground">
+              Dated personal holdings are listed here as well as under Investments. Ásgeir Jónsson has no dated appointment, so he is not on a line.
+            </p>
           ) : null}
           <ViewBody
             edges={view.edges}
@@ -203,9 +234,17 @@ export default async function ConnectionsPage({
         </section>
       ))}
       {leftover.length > 0 ? (
-        <section className="flex min-w-0 flex-col gap-2" id="leftover">
-          <h2 className="text-xl font-medium">Leftover · {leftover.length}</h2>
-          <p className="text-sm text-muted-foreground">
+        <section className="flex min-w-0 flex-col gap-3" id="leftover">
+          <header className="reading-section-head">
+            <span className="section-index">—</span>
+            <h2 className="reading-head">
+              Leftover{" "}
+              <span className="display-italic text-[0.7em] text-muted-foreground">
+                · {leftover.length}
+              </span>
+            </h2>
+          </header>
+          <p className="max-w-reading text-base leading-7 text-muted-foreground">
             These typed lines are outside the map views.
           </p>
           <ul className="flex min-w-0 flex-col">
@@ -217,14 +256,17 @@ export default async function ConnectionsPage({
       ) : null}
       {focusSlug ? null : (
         <>
-          <p>
+          <p className="text-base">
             <a className="underline underline-offset-4" href="#not-on-the-drawing">
               {missing.length} of {entries.length} entries are not on this drawing.
             </a>
           </p>
-          <section className="flex flex-col gap-3" id="not-on-the-drawing">
-            <h2 className="text-xl font-medium">Not on this drawing</h2>
-            <p className="text-muted-foreground">
+          <section className="flex flex-col gap-4" id="not-on-the-drawing">
+            <header className="reading-section-head">
+              <span className="section-index">—</span>
+              <h2 className="reading-head">Not on this drawing</h2>
+            </header>
+            <p className="max-w-reading text-base leading-7 text-muted-foreground">
               These entries have no typed edge. Related links on their pages are not drawn here.
               Where a cited page still does not support an allowlisted relationship, the record
               is labelled prose-only instead of left unexplained.
