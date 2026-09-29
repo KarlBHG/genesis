@@ -74,6 +74,16 @@ describe("pocket folio leftover surfaces", () => {
     expect(membership).toContain('className="pocket-ledger"');
     expect(membership).toContain('data-label="Person"');
     expect(membership).toContain('data-label="Permalink"');
+
+    const unprinted = fs.readFileSync(
+      path.join(process.cwd(), "components", "unprinted-career-ends-checklist.tsx"),
+      "utf8",
+    );
+    expect(unprinted).toContain('className="pocket-ledger"');
+    expect(unprinted).toContain("pocket-ledger-row");
+    expect(unprinted).toContain('data-label="End"');
+    expect(unprinted).toContain("NO_END_STORED");
+    expect(unprinted).not.toContain('"current"');
   });
 
   it("keeps the variorum spread stacked until lg", () => {

@@ -1118,18 +1118,32 @@ test.describe("pocket folio", () => {
     await expect(page.locator(".folio-tabs")).toHaveCSS("overflow-x", "visible");
 
     await page.goto("/");
+    await expect(
+      page.getByRole("heading", { name: /chains to start from/ }),
+    ).toBeVisible();
     const chains = page.locator(".landing-chains article");
     await expect(chains).toHaveCount(6);
+    await chains.nth(0).scrollIntoViewIfNeeded();
+    await expect(chains.nth(0)).toBeVisible();
+    await expect(chains.nth(1)).toBeVisible();
     const chainFirst = await chains.nth(0).boundingBox();
     const chainSecond = await chains.nth(1).boundingBox();
+    expect(chainFirst).toBeTruthy();
+    expect(chainSecond).toBeTruthy();
     expect(chainSecond!.y).toBeGreaterThan(chainFirst!.y + chainFirst!.height / 2);
     expect(chainFirst!.width).toBeGreaterThan(280);
 
     await page.setViewportSize({ width: 800, height: 844 });
     await page.goto("/");
     const tabletChains = page.locator(".landing-chains article");
+    await expect(tabletChains).toHaveCount(6);
+    await tabletChains.nth(0).scrollIntoViewIfNeeded();
+    await expect(tabletChains.nth(0)).toBeVisible();
+    await expect(tabletChains.nth(1)).toBeVisible();
     const tabletFirst = await tabletChains.nth(0).boundingBox();
     const tabletSecond = await tabletChains.nth(1).boundingBox();
+    expect(tabletFirst).toBeTruthy();
+    expect(tabletSecond).toBeTruthy();
     expect(tabletSecond!.y).toBeGreaterThan(tabletFirst!.y + tabletFirst!.height / 2);
     expect(tabletFirst!.width).toBeGreaterThan(500);
 
@@ -1222,6 +1236,27 @@ test.describe("pocket folio", () => {
     const asOfBox = await asOf.first().boundingBox();
     const endBox = await end.first().boundingBox();
     expect(endBox!.y).toBeGreaterThan(asOfBox!.y + asOfBox!.height / 2);
+
+    await page.goto("/connections#unprinted-ends");
+    const leftover = page.locator("#unprinted-ends");
+    await expect(
+      leftover.getByRole("heading", { name: "No end date stored" }),
+    ).toBeVisible();
+    const from = leftover
+      .locator(".pocket-ledger-row td[data-label='From']")
+      .first();
+    const endCell = leftover
+      .locator(".pocket-ledger-row td[data-label='End']")
+      .first();
+    await expect(from).toBeVisible();
+    const leftoverFrom = await from.boundingBox();
+    const leftoverEnd = await endCell.boundingBox();
+    expect(leftoverFrom).toBeTruthy();
+    expect(leftoverEnd).toBeTruthy();
+    expect(leftoverEnd!.y).toBeGreaterThan(leftoverFrom!.y + leftoverFrom!.height / 2);
+    expect(leftoverFrom!.width).toBeGreaterThan(280);
+    await expect(endCell.getByText("no end date stored")).toBeVisible();
+    await expect(leftover.getByText("current", { exact: true })).toHaveCount(0);
   });
 
 
@@ -1306,13 +1341,22 @@ test.describe("pocket folio", () => {
     const drawing = page.locator(".strip-drawing");
     await expect(drawing).toBeVisible();
     const drawingBox = await drawing.boundingBox();
+    expect(drawingBox).toBeTruthy();
     expect(drawingBox!.width).toBeGreaterThan(700);
 
     await page.goto("/");
+    await expect(
+      page.getByRole("heading", { name: /chains to start from/ }),
+    ).toBeVisible();
     const chains = page.locator(".landing-chains article");
     await expect(chains).toHaveCount(6);
+    await chains.nth(0).scrollIntoViewIfNeeded();
+    await expect(chains.nth(0)).toBeVisible();
+    await expect(chains.nth(1)).toBeVisible();
     const first = await chains.nth(0).boundingBox();
     const second = await chains.nth(1).boundingBox();
+    expect(first).toBeTruthy();
+    expect(second).toBeTruthy();
     expect(second!.x).toBeGreaterThan(first!.x + first!.width / 2);
   });
 });
