@@ -156,7 +156,7 @@ test("ownership statements are dated and holes sit on public entities", async ({
       name: "Ownership statements",
     }),
   ).toHaveCount(0);
-  await expect(page.getByText("no sourced owns")).toBeVisible();
+  await expect(page.getByText("no sourced owns")).toHaveCount(5);
   await expect(page.getByRole("link", { name: "Íslandsbanki" })).toBeVisible();
   await expect(
     page.getByRole("link", { name: "Lífeyrissjóður starfsmanna ríkisins (LSR)" }),
