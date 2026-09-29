@@ -508,6 +508,16 @@ export function PasteIntakeForm({
           <div className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">
             <p className="text-sm font-medium">The contract refuses this row.</p>
             <FieldError errors={errors.map((message) => ({ message }))} />
+            {errors.some((error) => error.includes("does not exist")) ? (
+              <p className="text-sm leading-6 text-muted-foreground">
+                A missing endpoint is not a stub player. File the printed name
+                on the{" "}
+                <a className="underline underline-offset-4" href="#quoted-names">
+                  quoted-name ledger
+                </a>
+                . Unmatched stays unmatched.
+              </p>
+            ) : null}
           </div>
         ) : null}
         {result?.ok && !result.queued ? (

@@ -40,6 +40,7 @@ const SECTIONS = [
   { id: "pin-only", label: "Pin only · no typed edge" },
   { id: "open-checklists", label: "Open checklists" },
   { id: "paste-intake", label: "Paste intake" },
+  { id: "quoted-names", label: "Quoted names" },
   { id: "opnir-feed", label: "Opnir review feed" },
   { id: "refusals", label: "What this refuses to do" },
 ] as const;
@@ -618,6 +619,42 @@ export default function MethodologyPage() {
         />
 
         <Section
+          id="quoted-names"
+          lede={
+            <>
+              <p>
+                Both endpoints of a typed line must already exist. When a cited
+                sentence names a party that has no catalog slug and no office
+                id, that sentence is not dropped on the floor. It is stored as a
+                placeholder: the printed name, the source URL, the quotation,
+                the as-of the page prints, an optional allowlisted type a human
+                picked, and <code className="text-sm">status: unmatched</code>.
+              </p>
+              <p>
+                A placeholder is not a player. It is not drawn as a dashed
+                edge. It is not an endpoint the loader will accept. File a
+                catalog page from the same quotation, then paste the six-field
+                row. Unmatched stays unmatched. The form is on{" "}
+                <Link className="underline underline-offset-4" href="/intake#quoted-names">
+                  Paste a sourced line
+                </Link>
+                , and the same ledger is listed on{" "}
+                <Link
+                  className="underline underline-offset-4"
+                  href="/public-entities#quoted-names"
+                >
+                  Public entities
+                </Link>
+                . It writes{" "}
+                <code className="text-sm">data/quoted-names.json</code>. It
+                does not fetch, scrape, or call a language model.
+              </p>
+            </>
+          }
+          title="Quoted names stay unmatched"
+        />
+
+        <Section
           id="opnir-feed"
           lede={
             <>
@@ -690,6 +727,11 @@ export default function MethodologyPage() {
                 title: "No inferred relationships",
                 body:
                   "Reading suggestions between entries are labelled as reading suggestions. They are not drawn as connections, and family, club, or school ties are not collected at all.",
+              },
+              {
+                title: "No stub players",
+                body:
+                  "A cited name with no catalog slug is stored as an unmatched placeholder. It is not minted as a player so the constellation can look complete, and it is not drawn as a dashed edge.",
               },
               {
                 title: "No unsourced identifiers",

@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "note": "Printed names from cited sentences that have no catalog slug and no office id. This file is not loaded as catalog. Unmatched stays unmatched. Do not create a player. Do not draw a dashed edge. A later human files the catalog page from the same quotation, then pastes the six-field row. A model must not pick the type or invent a slug.",
+  "items": []
+}

@@ -214,5 +214,6 @@ describe("reviewed Opnir official row feed", () => {
     );
     expect(hrefs).not.toContain("/intake");
     expect(hrefs).not.toContain("/intake/opnir");
+    expect(hrefs.some((href) => href.includes("quoted"))).toBe(false);
   });
 });

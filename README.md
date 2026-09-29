@@ -20,6 +20,10 @@ Public-entity coverage is listed on **Public entities** (`/public-entities`), wi
 
 The form does **not** fetch the URL, scrape HTML, or call Ollama or any other model. A passing check can be queued in `data/intake-queue.json` on a local/dev tree. It never appends to `data/edges.json`; promote a row by hand after `npm run check` would still pass.
 
+## Quoted-name ledger
+
+When a cited sentence names a party that has no catalog slug and no office id, `/intake#quoted-names` stores a **placeholder**: printed name, source URL, quotation, as-of, optional human-picked allowlisted type, `status: unmatched`. It does not create a player and it is not drawn. The same ledger is a tab on **Public entities** (`/public-entities#quoted-names`) and is explained on Methodology — not an eleventh nav leaf. Queue file: `data/quoted-names.json`. Unmatched stays unmatched. File a catalog page from the same quotation, then paste the six-field row.
+
 ## Review official Opnir rows (local)
 
 `/intake/opnir` is a review queue for official invoice rows from [opnirreikningar.is](https://opnirreikningar.is/), linked from the footer and Methodology — not an eleventh nav leaf. It accepts:

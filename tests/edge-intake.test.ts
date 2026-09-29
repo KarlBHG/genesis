@@ -276,6 +276,10 @@ describe("paste intake contract", () => {
       "app/api/intake/opnir/route.ts",
       "components/opnir-review-feed.tsx",
       "app/intake/opnir/page.tsx",
+      "lib/quoted-name-contract.ts",
+      "lib/quoted-names.ts",
+      "app/api/intake/quoted-names/route.ts",
+      "components/quoted-name-ledger.tsx",
     ];
     for (const file of files) {
       const source = fs.readFileSync(path.join(ROOT, file), "utf8");

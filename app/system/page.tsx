@@ -181,7 +181,9 @@ export default function SystemPage() {
           <Link className="underline underline-offset-4" href="/intake">
             Paste a sourced line
           </Link>
-          . Official Opnir invoice rows go through{" "}
+          . A name the sentence prints that is not in the catalog is filed on
+          that same page as an unmatched placeholder — not a stub player. Official
+          Opnir invoice rows go through{" "}
           <Link className="underline underline-offset-4" href="/intake/opnir">
             Review official Opnir rows
           </Link>{" "}

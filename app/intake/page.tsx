@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { HashScroll } from "@/components/hash-scroll";
 import { PasteIntakeForm } from "@/components/paste-intake-form";
 import { PageHero } from "@/components/page-hero";
+import { QuotedNameForm } from "@/components/quoted-name-ledger";
 import { getCatalog, getOffices, getPolicyAreas } from "@/lib/content";
 import { intakePersistAllowed } from "@/lib/edge-intake";
+import { readQuotedNameQueue } from "@/lib/quoted-names";
 
 export const metadata: Metadata = {
   title: "Paste a sourced line",
@@ -31,8 +34,11 @@ export default function IntakePage() {
     title: area.title,
   }));
 
+  const quotedNames = readQuotedNameQueue();
+
   return (
     <main className="dashboard-canvas min-w-0">
+      <HashScroll />
       <PageHero
         description={
           <>
@@ -43,7 +49,9 @@ export default function IntakePage() {
               Methodology
             </Link>
             : six fields, no invented type, no figure that is not in the
-            quotation, no summed total.
+            quotation, no summed total. A name the sentence prints that is not
+            in the catalog is filed as an unmatched placeholder — not a stub
+            player.
           </>
         }
         eyebrow="Local review · not a scraper"
@@ -67,11 +75,22 @@ export default function IntakePage() {
             , because a pays line still needs a human program join or a null
             reason.
           </li>
+          <li>
+            A cited name with no catalog slug and no office id goes on the{" "}
+            <a className="underline underline-offset-4" href="#quoted-names">
+              quoted-name ledger
+            </a>
+            . Unmatched stays unmatched.
+          </li>
         </ul>
         <PasteIntakeForm
           endpoints={endpoints}
           persistAllowed={intakePersistAllowed()}
           policyAreas={policyAreas}
+        />
+        <QuotedNameForm
+          initialItems={quotedNames.items}
+          persistAllowed={intakePersistAllowed()}
         />
       </div>
     </main>

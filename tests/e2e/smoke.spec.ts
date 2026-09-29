@@ -84,6 +84,60 @@ test("paste intake checks a sourced line without writing edges.json", async ({
   await expect(page.getByText("Queued for review")).toHaveCount(0);
 });
 
+test("quoted-name ledger stores unmatched names, not stub players", async ({
+  page,
+}) => {
+  await page.goto("/intake");
+  const ledger = page.locator("#quoted-names");
+  await expect(
+    ledger.getByRole("heading", { name: "Quoted-name ledger" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Quoted names",
+    }),
+  ).toHaveCount(0);
+  await expect(ledger.getByText("No unmatched names on file")).toBeVisible();
+  await expect(ledger.getByText("not a player", { exact: false })).toBeVisible();
+
+  await page.locator("#quoted-name").fill("Síminn");
+  await page.locator("#quoted-as-of").fill("2026");
+  await page.locator("#quoted-source").fill("https://www.siminn.is/");
+  await page.locator("#quoted-quotation").fill(
+    "Síminn is printed as the vendor on the buyer ledger.",
+  );
+  await page.getByRole("button", { name: "Check this quoted name" }).click();
+  await expect(
+    page.getByText("The contract refuses this placeholder."),
+  ).toBeVisible();
+  await expect(page.locator("#quoted-names [data-slot=field-error]")).toContainText(
+    "uniquely matches",
+  );
+
+  await page.locator("#quoted-name").fill("Nowhere ehf.");
+  await page.locator("#quoted-as-of").fill("2026-01-30");
+  await page.locator("#quoted-source").fill("https://opnirreikningar.is/");
+  await page.locator("#quoted-quotation").fill(
+    "Nowhere ehf. is printed as a vendor on an official invoice row that names no catalog slug.",
+  );
+  await page.locator("#quoted-type").selectOption("pays");
+  await page.getByRole("button", { name: "Check this quoted name" }).click();
+  await expect(
+    page.getByText("The contract accepts this placeholder."),
+  ).toBeVisible();
+  await expect(page.getByText("It is not a player.")).toBeVisible();
+  await expect(page.getByText("Queued as unmatched")).toHaveCount(0);
+
+  await page.goto("/public-entities#quoted-names");
+  await expect(page.getByRole("tab", { name: "Quoted names" })).toBeVisible();
+  await expect(page.getByText("No unmatched names on file")).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "Quoted names",
+    }),
+  ).toHaveCount(0);
+});
+
 test("Opnir review feed needs a human program decision and does not sum amounts", async ({
   page,
 }) => {
