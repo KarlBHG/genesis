@@ -123,7 +123,7 @@ export default function MapPage() {
     <main className="geo-room">
       <Suspense
         fallback={
-          <p className="px-4 py-10 text-sm text-(--geo-ink-dim)">
+          <p className="px-4 py-10 text-sm text-(--geo-ink-muted)">
             Drawing the island from sourced places.
           </p>
         }

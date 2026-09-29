@@ -157,7 +157,7 @@ export function EvidenceRoom({
             >
               {item.label}
               {item.id !== "all" ? (
-                <span className="tabular-nums opacity-70">
+                <span className="tabular-nums">
                   {counts[item.id as keyof typeof counts]}
                 </span>
               ) : null}

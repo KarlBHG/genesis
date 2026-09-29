@@ -131,7 +131,7 @@ export function ConnectionTenureFilter({
           to={currentHref}
         >
           <span>{CURRENT_MEMBERSHIP_LABEL}</span>
-          <span className="tabular-nums opacity-70">{currentCount}</span>
+          <span className="tabular-nums">{currentCount}</span>
         </Chip>
         <Chip
           active={endedActive}
@@ -139,7 +139,7 @@ export function ConnectionTenureFilter({
           to={endedHref}
         >
           <span>{ENDED_LABEL}</span>
-          <span className="tabular-nums opacity-70">{endedCount}</span>
+          <span className="tabular-nums">{endedCount}</span>
         </Chip>
       </div>
 

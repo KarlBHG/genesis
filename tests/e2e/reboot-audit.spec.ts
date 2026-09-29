@@ -43,9 +43,7 @@ test("parent-ministry tab keeps a valid panel id", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Parent ministry" })).toBeVisible();
   await headingClearsMasthead(page, "parent-ministry");
 
-  const results = await new AxeBuilder({ page })
-    .disableRules(["color-contrast"])
-    .analyze();
+  const results = await new AxeBuilder({ page }).analyze();
   const serious = results.violations.filter(
     (v) => v.impact === "critical" || v.impact === "serious",
   );

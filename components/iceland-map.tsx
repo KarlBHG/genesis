@@ -691,7 +691,7 @@ export function IcelandMap({
                 className={`geo-plate-swatch ${MAP_CONTROL}`}
                 style={{
                   borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
-                  color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+                  color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
                   background: enabled[layer.id] ? "var(--geo-chip-active)" : "transparent",
                 }}
                 title={layer.label}
@@ -713,7 +713,7 @@ export function IcelandMap({
                 aria-pressed={viewsOn[view.id]}
                 className={`geo-plate-swatch ${MAP_CONTROL}`}
                 style={{
-                  color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+                  color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
                   background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
                   borderColor: viewsOn[view.id] ? "var(--geo-line-bright)" : "var(--geo-line)",
                 }}
@@ -735,7 +735,7 @@ export function IcelandMap({
                 className={`rounded-md border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
                 style={{
                   borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
-                  color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+                  color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
                   background: enabled[layer.id] ? "var(--geo-chip-active)" : "transparent",
                 }}
                 onClick={() => toggle(layer.id)}
@@ -756,7 +756,7 @@ export function IcelandMap({
                 aria-pressed={viewsOn[view.id]}
                 className={`rounded-md border border-(--geo-line) px-3 py-1.5 text-sm ${MAP_CONTROL}`}
                 style={{
-                  color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-dim)",
+                  color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
                   background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
                 }}
                 onClick={() => toggleView(view.id)}
@@ -778,7 +778,7 @@ export function IcelandMap({
                 className={`flex w-[5.1rem] flex-col items-center gap-1 rounded-md border px-1 py-2 text-center text-[11px] leading-tight ${MAP_CONTROL}`}
                 style={{
                   borderColor: selected ? layer.swatch : "var(--geo-line)",
-                  color: selected ? layer.swatch : "var(--geo-ink-dim)",
+                  color: selected ? "var(--geo-ink)" : "var(--geo-ink-muted)",
                   background: "var(--geo-panel-sunken)",
                 }}
                 onClick={() => selectLayer(layer.id)}
@@ -1053,11 +1053,11 @@ export function IcelandMap({
         </div>
 
         <nav className="geo-pins" aria-label="Places on the map">
-          <p className="mb-2 text-xs tracking-wide text-(--geo-ink-dim) uppercase">
+          <p className="mb-2 text-xs tracking-wide text-(--geo-ink-muted) uppercase">
             Pins · one per named place
           </p>
           {emptyLayers ? (
-            <p className="text-sm leading-6 text-(--geo-ink-dim)">
+            <p className="text-sm leading-6 text-(--geo-ink-muted)">
               Every layer is off. The coast is still Iceland; the pins wait.
             </p>
           ) : (
@@ -1166,7 +1166,7 @@ export function IcelandMap({
             />
           ) : selectedPlace ? (
             <div className="flex flex-col gap-3">
-              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">
+              <p className="text-xs tracking-wide text-(--geo-ink-muted) uppercase">
                 Place · {placeEntries.length > 1 ? `${placeEntries.length} on one pin` : "one record"}
               </p>
               <h2 className="text-xl font-medium text-(--geo-ink)">{placeName}</h2>
@@ -1179,7 +1179,7 @@ export function IcelandMap({
               ) : null}
               {grouped.map((group) => (
                 <div key={group.layer.id} className="flex flex-col gap-2">
-                  <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">{group.layer.label}</p>
+                  <p className="text-xs tracking-wide text-(--geo-ink-muted) uppercase">{group.layer.label}</p>
                   <ul className="geo-scroll">
                     {group.entries.map((entry) => (
                       <li key={entry.slug}>
@@ -1191,7 +1191,7 @@ export function IcelandMap({
                         >
                           {entry.title}
                           {entry.pinOnly ? (
-                            <span className="mt-0.5 block text-[10px] font-normal text-(--geo-ink-dim) no-underline">
+                            <span className="mt-0.5 block text-[10px] font-normal text-(--geo-ink-muted) no-underline">
                               On the drawing, no typed line
                             </span>
                           ) : null}
@@ -1204,7 +1204,7 @@ export function IcelandMap({
             </div>
           ) : selectedLayer ? (
             <div className="flex flex-col gap-3">
-              <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase">Layer</p>
+              <p className="text-xs tracking-wide text-(--geo-ink-muted) uppercase">Layer</p>
               <h2 className="text-xl font-medium text-(--geo-ink)">{LAYER_LABEL[selectedLayer]}</h2>
               {layerEntries.length === 0 ? (
                 <p className="text-sm leading-6 text-(--geo-ink-muted)">Nothing sourced on this layer yet.</p>
@@ -1249,7 +1249,7 @@ export function IcelandMap({
                 {view.label} · {lines.length}
               </h2>
               {lines.length === 0 ? (
-                <p className="mt-1 text-sm text-(--geo-ink-dim)">No lines in this view.</p>
+                <p className="mt-1 text-sm text-(--geo-ink-muted)">No lines in this view.</p>
               ) : (
                 <ul className="mt-2 flex flex-col gap-1">
                   {lines.map((edge) => (
@@ -1257,22 +1257,22 @@ export function IcelandMap({
                       {edge.fromTitle} {labelize(edge.relationship).toLowerCase()} {placeLabel(edge)}
                       {yearOf(edge.asOf) === "Undated" ? "" : ` · ${yearOf(edge.asOf)}`}
                       {edge.view === "careers" || edge.view === "spending" || careerHolding(edge) ? (
-                        <span className="mt-0.5 block text-(--geo-ink-dim)" lang={icelandicLang(edge.quotation)}>
+                        <span className="mt-0.5 block text-(--geo-ink-muted)" lang={icelandicLang(edge.quotation)}>
                           {edge.quotation}
                         </span>
                       ) : null}
-                      {edge.note ? <span className="mt-0.5 block text-(--geo-ink-dim)">{edge.note}</span> : null}
+                      {edge.note ? <span className="mt-0.5 block text-(--geo-ink-muted)">{edge.note}</span> : null}
                     </li>
                   ))}
                 </ul>
               )}
               {offMap.length > 0 ? (
                 <div className="mt-3 rounded-md border border-(--geo-line) bg-(--geo-panel-sunken) p-3">
-                  <p className="text-xs tracking-wide text-(--geo-ink-dim) uppercase print:hidden">
+                  <p className="text-xs tracking-wide text-(--geo-ink-muted) uppercase print:hidden">
                     Off-map endpoints · {offMap.length}
                   </p>
                   <p className="print-only print-off-plate-kicker">Not on this plate</p>
-                  <p className="mt-1 text-sm leading-6 text-(--geo-ink-dim) print:hidden">
+                  <p className="mt-1 text-sm leading-6 text-(--geo-ink-muted) print:hidden">
                     {view.id === "trade"
                       ? "Countries named on trade edges have no Icelandic place on file, so they are listed here instead of pinned in Reykjavík."
                       : "These records appear on typed edges in this view but have no place pin yet, so the lines stay visible in text while geography remains honest."}
@@ -1289,14 +1289,14 @@ export function IcelandMap({
                         >
                           {endpoint.title}
                         </a>
-                        <span className="ml-2 text-xs text-(--geo-ink-dim)">
+                        <span className="ml-2 text-xs text-(--geo-ink-muted)">
                           {endpoint.count} line{endpoint.count === 1 ? "" : "s"}
                         </span>
                       </li>
                     ))}
                   </ul>
                   {hiddenOffMapCount > 0 ? (
-                    <p className="mt-2 text-xs text-(--geo-ink-dim) print:hidden">
+                    <p className="mt-2 text-xs text-(--geo-ink-muted) print:hidden">
                       + {hiddenOffMapCount} more off-map endpoint
                       {hiddenOffMapCount === 1 ? "" : "s"} in this view.
                     </p>

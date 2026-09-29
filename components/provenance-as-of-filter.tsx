@@ -137,7 +137,7 @@ export function AsOfFilterBar({
               to={link(toggleAsOfBucket(filter, bucket))}
             >
               <span>{bucket}</span>
-              <span className="tabular-nums opacity-70">{counts[bucket]}</span>
+              <span className="tabular-nums">{counts[bucket]}</span>
             </Chip>
           ))}
         </div>

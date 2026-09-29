@@ -133,7 +133,8 @@
   --paper-ink-bar: oklch(0.155 0.058 258);
   --paper-masthead: oklch(0.99 0.008 90 / 0.7);
   --paper-masthead-edge: oklch(0.155 0.058 258);
-  --paper-folio: oklch(0.155 0.058 258 / 0.42);
+  /* Quiet folio numerals: same ink as captions, no alpha wash. */
+  --paper-folio: var(--muted-foreground);
   --paper-rule-double: oklch(0.155 0.058 258);
   --paper-compass: oklch(0.5 0.04 255 / 0.55);
   --paper-orbit-tick: oklch(0.62 0.05 255 / 0.45);
@@ -221,6 +222,7 @@ body:has(.geo-room) {
   --geo-ink: #f7f1e4;
   --geo-ink-soft: #ebe4d6;
   --geo-ink-muted: #cfc6b6;
+  /* Decorative marks only — captions, chips, and chrome use --geo-ink-muted. */
   --geo-ink-dim: #8f8674;
   --geo-accent: #f0d89a;
   --geo-accent-soft: #f7ebc8;
@@ -279,7 +281,7 @@ body:has(.geo-room) {
   --secondary: var(--geo-chip);
   --secondary-foreground: var(--geo-ink);
   --muted: var(--geo-chip);
-  --muted-foreground: var(--geo-ink-dim);
+  --muted-foreground: var(--geo-ink-muted);
   --accent: var(--geo-chip-active);
   --accent-foreground: var(--geo-ink);
   --border: var(--geo-line);
@@ -289,7 +291,6 @@ body:has(.geo-room) {
    * Folio chrome still reads these paper tokens after compose. Remap them
    * here so the numbered index, ink rule, and glass dropdown inherit night.
    */
-  --paper-folio: color-mix(in srgb, var(--geo-ink-muted) 78%, transparent);
   --paper-masthead-edge: var(--geo-accent);
   --paper-ink-bar: var(--geo-accent);
   --paper-rule-double: var(--geo-line-strong);
@@ -379,7 +380,7 @@ body:has(.geo-room) footer {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.68rem;
   letter-spacing: 0.02em;
-  color: var(--geo-ink-dim);
+  color: var(--geo-ink-muted);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -549,7 +550,7 @@ body:has(.geo-room) footer {
 }
 
 .geo-room .geo-caption-dot {
-  color: var(--geo-ink-dim);
+  color: var(--geo-ink-muted);
 }
 
 .geo-room .geo-caption-quote {
@@ -572,7 +573,7 @@ body:has(.geo-room) footer {
   margin-top: 0.15rem;
   font-size: 0.75rem;
   line-height: 1.45;
-  color: var(--geo-ink-dim);
+  color: var(--geo-ink-muted);
 }
 
 .geo-room .geo-caption-flows {
@@ -584,7 +585,7 @@ body:has(.geo-room) footer {
 .geo-room .geo-caption-back {
   text-align: left;
   font-size: 0.8rem;
-  color: var(--geo-ink-dim);
+  color: var(--geo-ink-muted);
   text-decoration-line: underline;
   text-underline-offset: 4px;
 }
@@ -653,7 +654,7 @@ body:has(.geo-room) footer {
   padding: 0 1rem 1.5rem;
   font-size: 0.7rem;
   line-height: 1.5;
-  color: var(--geo-ink-dim);
+  color: var(--geo-ink-muted);
 }
 
 .geo-room .geo-aurora-band {
@@ -828,7 +829,7 @@ body:has(.geo-room) footer {
     gap: 0.28rem;
     padding: 0.15rem 0.4rem 0.2rem;
     touch-action: none;
-    color: var(--geo-ink-dim);
+    color: var(--geo-ink-muted);
   }
 
   .geo-room .geo-sheet-pip {
@@ -1487,7 +1488,7 @@ body:has(.geo-room) footer {
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.032em;
-  color: color-mix(in oklch, var(--foreground) 78%, transparent);
+  color: var(--muted-foreground);
 }
 
 .page-hero .display-italic {
