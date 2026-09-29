@@ -86,6 +86,7 @@ export function CommandPalette() {
     <>
       <Button
         aria-keyshortcuts="meta+k control+k"
+        aria-label="Search the records"
         className="gap-2"
         onClick={() => setOpen(true)}
         size="sm"
