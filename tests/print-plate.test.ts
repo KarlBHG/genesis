@@ -42,10 +42,17 @@ describe("print plates match the nav folio", () => {
 
     const althingi = getCatalog().find((entry) => entry.slug === "althingi");
     expect(althingi).toBeTruthy();
-    expect(asOfMeta(entryAsOfValue(althingi!)).bucketLabel).toBe("year");
+    // Founded "930" is stored as-is; the bucket classifier needs a four-digit year.
+    expect(asOfMeta(entryAsOfValue(althingi!)).bucketLabel).toBe("undated");
     expect(
       printRunningHead("Map", "althingi", entryAsOfValue(althingi!)),
-    ).toBe("Map · althingi · year");
+    ).toBe("Map · althingi · undated");
+
+    const samband = getCatalog().find(
+      (entry) => entry.slug === "samband-islenskra-sveitarfelaga",
+    );
+    expect(samband).toBeTruthy();
+    expect(asOfMeta(entryAsOfValue(samband!)).bucketLabel).toBe("year");
 
     expect(printRunningHead("Connection", "edgeid", "2025-03-15")).toBe(
       "Connection · edgeid · ISO",

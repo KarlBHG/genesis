@@ -353,7 +353,7 @@ test("print plate is a citable folio", async ({ page }) => {
   await page.goto("/map?focus=althingi");
   await page.emulateMedia({ media: "print" });
   await expect(page.locator("[data-print-running-head]")).toHaveText(
-    "Map · althingi · year",
+    "Map · althingi · undated",
   );
   await expect(page.locator("[data-print-folio]")).toHaveText("02");
   await expect(page.getByRole("region", { name: "Plate caption" })).toBeVisible();
