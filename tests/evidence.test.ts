@@ -207,7 +207,9 @@ describe("contradictions are the first-class evidence unit", () => {
     const [verso, recto] = variorumLeaves(landsbankinn);
     expect(verso.quotation).toMatch(/around 800/);
     expect(recto.quotation).toMatch(/approximately 819/);
-    expect(compareAsOf(recto.asOf, verso.asOf)).toBeGreaterThan(0);
+    expect(verso).toBe(landsbankinn.sides[0]);
+    expect(recto).toBe(landsbankinn.sides[1]);
+    expect(compareAsOf(verso.asOf, recto.asOf)).not.toBe(0);
   });
 
   it("does not invent a third BSRB sentence the file does not store", () => {

@@ -68,7 +68,7 @@ describe("sourced variorum", () => {
     }
     expect(CONTRADICTION_STATE.id).toBe("unresolved");
     expect(spread).toContain("CONTRADICTION_STATE.explanation");
-    expect(spread).not.toContain("winner");
+    expect(spread).not.toContain("ProvenanceCard");
   });
 
   it("does not grey out one leaf when the as-of filter matches the other", () => {
@@ -79,7 +79,9 @@ describe("sourced variorum", () => {
     const [verso, recto] = variorumLeaves(record);
     expect(verso.asOf).toMatch(/undated/);
     expect(recto.asOf).toBe("2025-12-31");
-    expect(compareAsOf(recto.asOf, verso.asOf)).toBeGreaterThan(0);
+    expect(verso.quotation).toBe(record.sides[0]!.quotation);
+    expect(recto.quotation).toBe(record.sides[1]!.quotation);
+    expect(compareAsOf(verso.asOf, recto.asOf)).not.toBe(0);
   });
 
   it("does not invent a second sentence for claims that still have only one quotation", () => {
