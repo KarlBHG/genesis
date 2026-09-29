@@ -269,7 +269,10 @@ function placeLabel(edge: MapEdgeView): string {
 
 function captionAsOf(asOf: string): string {
   const printed = asOf.trim();
-  return printed || "undated";
+  if (!printed) return "undated";
+  // The source URL already has its own print slot. Do not put it in as-of.
+  if (/https?:\/\//i.test(printed)) return "undated";
+  return printed;
 }
 
 function PlateCaption({

@@ -46,7 +46,7 @@ export function PublicEntityTabs({
     >
       <TabsList
         aria-label="Public entity ledgers"
-        className="h-auto w-full flex-wrap justify-start"
+        className="h-auto w-full flex-nowrap justify-start overflow-x-auto"
         variant="line"
       >
         <TabsTrigger value="inventory">In-scope inventory</TabsTrigger>

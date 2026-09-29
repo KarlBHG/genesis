@@ -699,26 +699,26 @@ body:has(.geo-room) footer {
 
   .geo-room .geo-stage {
     order: 2;
-    min-height: 52dvh;
+    min-height: 36dvh;
+  }
+
+  .geo-room .geo-inspector {
+    order: 3;
+    max-height: none;
   }
 
   .geo-room .geo-chips {
-    order: 3;
+    order: 4;
   }
 
   .geo-room .geo-rail {
-    order: 4;
+    order: 5;
     flex-direction: row;
     flex-wrap: wrap;
   }
 
   .geo-room .geo-pins {
-    order: 5;
-  }
-
-  .geo-room .geo-inspector {
     order: 6;
-    max-height: none;
   }
 
   .geo-room .geo-leader {
@@ -1325,7 +1325,7 @@ body:has(.geo-room) footer {
   font-size: 1.125rem;
   line-height: 1.7;
   letter-spacing: -0.012em;
-  color: color-mix(in oklch, var(--foreground) 82%, var(--muted-foreground));
+  color: color-mix(in oklch, var(--foreground) 88%, var(--muted-foreground));
 }
 
 @media (min-width: 640px) {

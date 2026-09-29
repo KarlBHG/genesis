@@ -185,7 +185,7 @@ export function PasteIntakeForm({
 
   useEffect(() => {
     if (errors.length === 0) return;
-    liveRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    liveRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
   }, [errors]);
 
   return (

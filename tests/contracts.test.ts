@@ -1159,6 +1159,20 @@ describe("asOf buckets", () => {
     expect(classifyAsOfBucket("institutions list")).toBe("undated");
   });
 
+  it("does not store a source URL in asOf — that field is the date, the URL is source", () => {
+    for (const edge of getEdges()) {
+      expect(edge.asOf, `${edge.from} ${edge.relationship} ${edge.to}`).not.toMatch(
+        /https?:\/\//i,
+      );
+    }
+    const offices = JSON.parse(
+      fs.readFileSync(path.join(ROOT, "data", "offices.json"), "utf8"),
+    ) as { id: string; asOf: string }[];
+    for (const office of offices) {
+      expect(office.asOf, office.id).not.toMatch(/https?:\/\//i);
+    }
+  });
+
   it("sorts phrase and year dates without treating them as ISO", () => {
     expect(compareAsOf("2026-08-28", "2026")).toBeGreaterThan(0);
     expect(compareAsOf("consolidated statute", "2026-08-01")).toBeGreaterThan(0);

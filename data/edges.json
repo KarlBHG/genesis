@@ -4362,7 +4362,7 @@
     "from": "asgeir-jonsson",
     "to": "governor-of-sedlabanki",
     "type": "holds-office",
-    "asOf": "undated on https://www.cb.is/monetary-policy/monetary-policy-committee/",
+    "asOf": "undated on the cited page",
     "source": "https://www.cb.is/monetary-policy/monetary-policy-committee/",
     "quotation": "Ásgeir Jónsson (chair)",
     "start": "not printed",
@@ -4912,7 +4912,7 @@
     "from": "ministry-of-finance",
     "to": "skatturinn",
     "type": "regulates",
-    "asOf": "undated on https://www.stjornarradid.is/raduneyti/stofnanir",
+    "asOf": "undated on the cited page",
     "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
     "quotation": "Stofnanaskra Stjornarradsins places Skatturinn under Fjarmala- og efnahagsraduneytid."
   },
@@ -4920,7 +4920,7 @@
     "from": "prime-ministers-office",
     "to": "hagstofa-islands",
     "type": "regulates",
-    "asOf": "undated on https://www.stjornarradid.is/raduneyti/stofnanir",
+    "asOf": "undated on the cited page",
     "source": "https://www.stjornarradid.is/raduneyti/stofnanir",
     "quotation": "Stofnanaskra Stjornarradsins places Hagstofa Islands under Forsaetisraduneytid."
   },
@@ -4928,7 +4928,7 @@
     "from": "ministry-of-industries",
     "to": "fiskistofa",
     "type": "regulates",
-    "asOf": "undated on https://www.sfs.is/en/efni/fisheries-management",
+    "asOf": "undated on the cited page",
     "source": "https://www.sfs.is/en/efni/fisheries-management",
     "quotation": "The Ministry of Industries and Innovations sets the TAC and issues fisheries regulations. The Directorate of Fisheries then allots quotas."
   },
@@ -4936,7 +4936,7 @@
     "from": "althingi",
     "to": "rikisendurskodun",
     "type": "regulates",
-    "asOf": "undated on https://www.rikisendurskodun.is/um-rikisendurskodun",
+    "asOf": "undated on the cited page",
     "source": "https://www.rikisendurskodun.is/um-rikisendurskodun",
     "quotation": "Rikisendurskodun says it operates on behalf of Althingi and audits state finances and state entities."
   }
