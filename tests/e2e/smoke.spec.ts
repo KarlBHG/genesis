@@ -185,7 +185,7 @@ test("ownership statements are dated and holes sit on public entities", async ({
   await expect(caption).toContainText("5 have none");
 
   const landsvirkjun = ownership.locator("tr", {
-    has: ownership.getByRole("link", { name: "Landsvirkjun", exact: true }),
+    has: page.getByRole("link", { name: "Landsvirkjun", exact: true }),
   });
   await landsvirkjun.getByRole("link", { name: "Ríkissjóður Íslands" }).click();
   await expect(
