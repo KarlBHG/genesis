@@ -20,8 +20,9 @@ export function contradictionAnchor(id: string): string {
 
 /**
  * One contradiction as the first-class unit: the disagreement, both sourced
- * sentences side by side with their own as-of values, an explicit unresolved
- * state, and links into the entries the disagreement lands on.
+ * sentences in the citation gutter with their own as-of values, an explicit
+ * unresolved state, and links into the entries the disagreement lands on.
+ * Variorum facing-pages are a later slice; stacking is not a ruling.
  */
 export function ContradictionCard({
   record,
@@ -35,10 +36,10 @@ export function ContradictionCard({
 
   return (
     <article
-      className="flex min-w-0 scroll-mt-24 flex-col gap-4 rounded-2xl border border-border/70 bg-background/60 p-5"
+      className="flex min-w-0 scroll-mt-24 flex-col gap-4 py-5"
       id={anchor}
     >
-      <header className="flex min-w-0 flex-col gap-3">
+      <header className="flex min-w-0 max-w-reading flex-col gap-3">
         <div className="flex min-w-0 flex-wrap items-center gap-2">
           <Badge className="font-normal" variant="destructive">
             {CONTRADICTION_STATE.label}
@@ -56,7 +57,7 @@ export function ContradictionCard({
         </p>
       </header>
 
-      <div className="grid min-w-0 gap-3 md:grid-cols-2">
+      <div className="flex min-w-0 flex-col gap-3">
         {[first, second].map((side, index) => (
           <ProvenanceCard
             asOf={side.asOf}

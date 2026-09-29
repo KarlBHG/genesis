@@ -572,6 +572,45 @@ test("citation gutter cites the proving sentence, not a card", async ({
 
   await page.goto("/anomalies#audits");
   await expect(page.locator("#audits [data-citation-gutter]").first()).toBeVisible();
+
+  await page.goto("/anomalies#contradictions");
+  const pair = page.locator("#contradictions article").first();
+  await expect(pair.locator("[data-citation-gutter]")).toHaveCount(2);
+  await expect(pair.locator("blockquote.hang-quote")).toHaveCount(2);
+  await expect(pair).toContainText("Unresolved");
+  await expect(pair).not.toHaveClass(/rounded-2xl/);
+  await expect(
+    page.locator("#contradictions [data-slot=card] [data-citation-gutter]"),
+  ).toHaveCount(0);
+
+  await page.goto("/money");
+  const intro = page.locator("#government-programs .citation-claim").first();
+  await expect(intro.locator("[data-citation-gutter]")).toBeVisible();
+  await expect(intro.locator("blockquote.hang-quote")).toBeVisible();
+  await expect(
+    page.locator("#government-programs .glass-panel [data-citation-gutter]"),
+  ).toHaveCount(0);
+  await expect(
+    page.locator("#government-programs [data-slot=card] [data-citation-gutter]"),
+  ).toHaveCount(0);
+
+  if (testInfo.project.name === "desktop") {
+    const introBody = await intro.locator(".citation-claim-body").boundingBox();
+    const introGutter = await intro
+      .locator("[data-citation-gutter]")
+      .boundingBox();
+    expect(introBody).toBeTruthy();
+    expect(introGutter).toBeTruthy();
+    expect(introGutter!.x).toBeGreaterThan(introBody!.x + introBody!.width - 8);
+  }
+
+  await page.goto("/money/policy-area-02-domstolar");
+  const invoices = page.locator("[data-program-invoices]");
+  await expect(invoices.locator("[data-citation-gutter]").first()).toBeVisible();
+  await expect(invoices.locator("[data-slot=card]")).toHaveCount(0);
+  await expect(page.locator("[data-slot=card] [data-citation-gutter]")).toHaveCount(
+    0,
+  );
 });
 
 test("night plate caption reads as a legend, not a GIS inspector", async ({

@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 import { BudgetPolicyMagnitude } from "@/components/budget-policy-magnitude";
+import { ProvenanceCard } from "@/components/provenance-card";
 import { EntryIndex } from "@/components/entry-index";
 import { getPolicyAreas, hrefFor } from "@/lib/content";
-import { icelandicLang } from "@/lib/lang";
 
 const INTRO = [
   "Hér á eftir fer umfjöllun um stefnumið, áform og aðgerðir næsta fjárlagaárs fyrir þau 35 málefnasvið og 105 málaflokka sem frumvarpið tekur til. Í umfjölluninni er gerð grein fyrir ábyrgð á einstökum sviðum, fjárhagslegri þróun á málefnasviði og einstökum málaflokkum á tímabilinu 2024–2026. Þá eru breytingar sundurliðaðar á útgjaldaramma málefnasviðs eftir helstu tilefnum og helstu tillögum um breytingar á fjárheimildum málaflokka frá gildandi fjárlögum.",
@@ -13,6 +13,14 @@ const INTRO = [
 
 const ARTICLE_FOUR =
   "Árið 2026 er gert ráð fyrir að framlög úr ríkissjóði (A1-hluta) og fjárheimildir fyrir heildargjöldum, án rekstrartekna, sundurliðaðar eftir málefnasviðum, málaflokkum og ráðuneytum verði eins og tilgreint er í þessari grein.";
+
+/** Same inngangur page already cited on every policy-area record. */
+export const BUDGET_INTRO_SOURCE =
+  "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/greinargerdir-raduneyta/greinargerd/inngangur-greinargerd-raduneyta-um-malefnasvid-og-malaflokka/";
+
+/** Same lagagreinar page already cited on every policy-area record. */
+export const ARTICLE_FOUR_SOURCE =
+  "https://www.stjornarradid.is/verkefni/opinber-fjarmal/fjarlog/fjarlog-fyrir-arid-2026/lagagreinar/";
 
 export function BudgetProgramsSection() {
   const areas = getPolicyAreas();
@@ -29,31 +37,36 @@ export function BudgetProgramsSection() {
       id="government-programs"
     >
       <BudgetPolicyMagnitude />
-      <div className="glass-panel flex max-w-reading flex-col gap-3 p-6">
-        <h2 className="font-serif text-xl font-medium">Government programs, 2026</h2>
-        <p className="text-sm leading-6 text-muted-foreground">
-          {areas.length} policy areas. Each card quotes the spending line that area’s
-          ministry report prints for 2026. Article 4 authorisation rows are listed on
-          each area page. Rows are not added together.
-        </p>
+      <div className="flex max-w-folio flex-col gap-5">
+        <header className="flex max-w-reading flex-col gap-2">
+          <h2 className="font-serif text-xl font-medium">Government programs, 2026</h2>
+          <p className="text-sm leading-6 text-muted-foreground">
+            {areas.length} policy areas. Each card quotes the spending line that area’s
+            ministry report prints for 2026. Article 4 authorisation rows are listed on
+            each area page. Rows are not added together.
+          </p>
+        </header>
         <h3 className="text-lg font-medium">What the introduction says</h3>
-        {INTRO.map((quote) => (
-          <blockquote
-            className="border-l-2 border-primary/20 pl-4 text-sm leading-6"
-            key={quote.slice(0, 40)}
-            lang={icelandicLang(quote)}
-          >
-            {quote}
-          </blockquote>
-        ))}
+        <ul className="flex min-w-0 flex-col gap-3">
+          {INTRO.map((quote) => (
+            <ProvenanceCard
+              as="li"
+              asOf="2026"
+              key={quote.slice(0, 40)}
+              quotation={quote}
+              source={BUDGET_INTRO_SOURCE}
+              title="Ministry-report introduction"
+            />
+          ))}
+        </ul>
         <h3 className="text-lg font-medium">How Article 4 says the money is set</h3>
-        <blockquote
-          className="border-l-2 border-primary/20 pl-4 text-sm leading-6"
-          lang={icelandicLang(ARTICLE_FOUR)}
-        >
-          {ARTICLE_FOUR}
-        </blockquote>
-        <p className="text-sm text-muted-foreground">
+        <ProvenanceCard
+          asOf="2026"
+          quotation={ARTICLE_FOUR}
+          source={ARTICLE_FOUR_SOURCE}
+          title="Article 4 of the 2026 budget law"
+        />
+        <p className="max-w-reading text-sm text-muted-foreground">
           Compare two policy areas side by side on{" "}
           <Link className="underline underline-offset-4" href="/compare">
             Compare

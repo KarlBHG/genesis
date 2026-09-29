@@ -207,7 +207,7 @@ export function EvidenceRoom({
                   </li>
                 ))}
               </ul>
-              <ul className="flex min-w-0 flex-col gap-4">
+              <ul className="flex min-w-0 flex-col divide-y divide-border/60">
                 {visibleContradictions.map((record) => (
                   <li className="min-w-0" key={record.id}>
                     <ContradictionCard
