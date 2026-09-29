@@ -3,6 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { scrollHashPastMasthead } from "@/lib/scroll-past-masthead";
 
 function tabFromHash(hash: string): "authorisations" | "invoices" | "contracts" {
   const id = hash.replace(/^#/, "");
@@ -38,10 +39,7 @@ export function MoneyRoomTabs({
   }, []);
 
   useEffect(() => {
-    const id = window.location.hash.replace(/^#/, "");
-    if (!id) return;
-    const target = document.getElementById(id);
-    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollHashPastMasthead();
   }, [tab]);
 
   return (

@@ -2224,6 +2224,17 @@ body:has(.geo-room) footer {
   outline-offset: 2px;
 }
 
+/* Sticky two-row masthead is ~6.5rem on desktop, one row on a phone. */
+html {
+  scroll-padding-top: 5.25rem;
+}
+
+@media (min-width: 1024px) {
+  html {
+    scroll-padding-top: 6.75rem;
+  }
+}
+
 .site-masthead {
   border-top: 3px solid var(--paper-masthead-edge);
   background: var(--paper-masthead);

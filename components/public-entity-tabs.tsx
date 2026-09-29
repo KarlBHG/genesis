@@ -3,6 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { scrollHashPastMasthead } from "@/lib/scroll-past-masthead";
 
 function tabFromHash(
   hash: string,
@@ -44,10 +45,7 @@ export function PublicEntityTabs({
   }, []);
 
   useEffect(() => {
-    const id = window.location.hash.replace(/^#/, "");
-    if (!id) return;
-    const target = document.getElementById(id);
-    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollHashPastMasthead();
   }, [tab]);
 
   return (
@@ -70,29 +68,26 @@ export function PublicEntityTabs({
       <TabsContent className="flex flex-col gap-8 outline-none" value="inventory">
         {inventory}
       </TabsContent>
-      <TabsContent
-        className="flex scroll-mt-24 flex-col gap-4 outline-none"
-        id="ownership"
-        value="ownership"
-      >
-        {ownership}
+      <TabsContent className="flex flex-col gap-4 outline-none" value="ownership">
+        <div className="flex min-w-0 flex-col gap-4" id="ownership">
+          {ownership}
+        </div>
       </TabsContent>
       <TabsContent
-        className="flex scroll-mt-24 flex-col gap-4 outline-none"
-        id="parent-ministry"
+        className="flex flex-col gap-4 outline-none"
         value="parent-ministry"
       >
-        {parentMinistry}
+        <div className="flex min-w-0 flex-col gap-4" id="parent-ministry">
+          {parentMinistry}
+        </div>
       </TabsContent>
       <TabsContent className="flex flex-col gap-4 outline-none" value="checklist">
         {checklist}
       </TabsContent>
-      <TabsContent
-        className="flex scroll-mt-24 flex-col gap-4 outline-none"
-        id="quoted-names"
-        value="quoted-names"
-      >
-        {quotedNames}
+      <TabsContent className="flex flex-col gap-4 outline-none" value="quoted-names">
+        <div className="flex min-w-0 flex-col gap-4" id="quoted-names">
+          {quotedNames}
+        </div>
       </TabsContent>
     </Tabs>
   );
