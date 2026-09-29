@@ -786,7 +786,7 @@ export default function MethodologyPage() {
               {
                 title: "No inferred current from a missing end",
                 body:
-                  "An empty end is labelled “no end date stored,” never “current.” Current membership is a holds-office row with no end date stored and a cited as-of. Board seats and invoices are not assumed still true because the end field is empty.",
+                  "An empty end is labelled “no end date stored,” never “current.” Current membership is a holds-office row with no end date stored and a cited as-of. Board seats and disclosed holdings that print no end stay on the Connections checklist — listed, not filled. Invoices are not assumed still true because the end field is empty.",
               },
               {
                 title: "No Wikidata edges",
@@ -811,8 +811,15 @@ export default function MethodologyPage() {
             <Link className="underline underline-offset-4" href="/anomalies">
               Evidence
             </Link>
-            . Where a reading changed, the change is logged. Where the graph is
-            thin, it looks thin.
+            . Where a reading changed, the change is logged. Where a career line
+            has no printed end and is not current membership, it stays on the{" "}
+            <Link
+              className="underline underline-offset-4"
+              href="/connections#unprinted-ends"
+            >
+              Connections checklist
+            </Link>
+            . Where the graph is thin, it looks thin.
           </p>
         </Section>
       </div>

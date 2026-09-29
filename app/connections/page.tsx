@@ -5,6 +5,7 @@ import { ConnectionGroupedPanels, edgeKey } from "@/components/connection-graph"
 import { ConnectionTenureFilter } from "@/components/connection-tenure-filter";
 import { HashScroll } from "@/components/hash-scroll";
 import { PageHero } from "@/components/page-hero";
+import { UnprintedCareerEndsChecklist } from "@/components/unprinted-career-ends-checklist";
 import {
   Empty,
   EmptyDescription,
@@ -29,6 +30,7 @@ import {
   parseTenureFilter,
   tenureCounts,
   unlabeledCareerEnds,
+  unprintedCareerRows,
 } from "@/lib/connection-tenure";
 import { compareAsOf } from "@/lib/as-of";
 import { kindLabel } from "@/lib/format";
@@ -172,7 +174,9 @@ export default async function ConnectionsPage({
             separate money phases — a permission to spend is not a payment, and a
             power-purchase line is not an invoice. Each line is one typed
             relationship with its own page. Filter current membership against ended:
-            an empty end is labelled {NO_END_STORED}, never “current.” Full names wrap.
+            an empty end is labelled {NO_END_STORED}, never “current.” Leftover
+            board seats and disclosed holdings sit on a checklist — listed, not
+            filled. Full names wrap.
             The budget drawing is on{" "}
             <Link className="underline underline-offset-4" href="/overview">Overview</Link>.
           </>
@@ -222,6 +226,9 @@ export default async function ConnectionsPage({
           total={scoped.length}
           unlabeledCount={unlabeledCareer.length}
         />
+        {focusSlug ? null : (
+          <UnprintedCareerEndsChecklist rows={unprintedCareerRows(allEdges)} />
+        )}
       <nav aria-label="Connection views" className="flex flex-wrap gap-2">
         {byView.map((view) => (
           <a

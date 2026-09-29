@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ConnectionTenureFilter } from "@/components/connection-tenure-filter";
 import { PrintPlateColophon, PrintPlateHead } from "@/components/print-plate";
 import { ProvenanceEdgeCard } from "@/components/provenance-edge";
+import { UnprintedCareerCallout } from "@/components/unprinted-career-ends-checklist";
 import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
@@ -197,6 +198,8 @@ export default async function ConnectionPermalinkPage({
           unlabeledCount={unlabeledCareer.length}
         />
       </div>
+
+      <UnprintedCareerCallout edge={edge} />
 
       <ProvenanceEdgeCard
         as="article"

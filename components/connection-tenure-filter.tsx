@@ -6,6 +6,7 @@ import {
   ENDED_LABEL,
   NO_END_STORED,
   TENURE_PARAM,
+  UNPRINTED_CAREER_HREF,
   serializeTenureFilter,
   toggleTenureFilter,
   type TenureFilter,
@@ -139,8 +140,20 @@ export function ConnectionTenureFilter({
           {NO_END_STORED} and a cited as-of. An empty end is never labelled
           “current.” {unlabeledCount} career{" "}
           {unlabeledCount === 1 ? "line has" : "lines have"} no end date stored
-          and {unlabeledCount === 1 ? "is" : "are"} not current membership.{" "}
-          <code className="text-[0.7rem]">related</code> stays a mention.
+          and {unlabeledCount === 1 ? "is" : "are"} not current membership
+          {unlabeledCount > 0 ? (
+            <>
+              {" "}
+              — listed, not filled, on{" "}
+              <Link
+                className="underline underline-offset-4 hover:text-foreground"
+                href={UNPRINTED_CAREER_HREF}
+              >
+                the checklist
+              </Link>
+            </>
+          ) : null}
+          . <code className="text-[0.7rem]">related</code> stays a mention.
         </p>
       ) : (
         <p className="flex flex-wrap items-center gap-2 text-xs leading-5 text-muted-foreground">
@@ -177,7 +190,14 @@ export function ConnectionTenureFilter({
           {unlabeledCount === 1 ? "line has" : "lines have"} no end date stored
           and {unlabeledCount === 1 ? "is" : "are"} not current membership —
           board seats and disclosed holdings stay unlabeled when the page prints
-          no end.
+          no end.{" "}
+          <Link
+            className="underline underline-offset-4 hover:text-foreground"
+            href={UNPRINTED_CAREER_HREF}
+          >
+            Open the checklist
+          </Link>
+          .
         </p>
       ) : null}
     </section>

@@ -345,6 +345,56 @@ test("connections tenure filter labels empty ends and does not invent current", 
   await expect(endedCareers.locator("li").getByText("current membership")).toHaveCount(0);
 });
 
+test("unprinted career ends are listed, not filled", async ({ page }) => {
+  await page.goto("/connections#unprinted-ends");
+  const checklist = page.locator("#unprinted-ends");
+  await expect(
+    checklist.getByRole("heading", { name: "No end date stored" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Primary" }).getByRole("link", {
+      name: "No end date stored",
+    }),
+  ).toHaveCount(0);
+  await expect(
+    checklist.getByText("no end date stored", { exact: true }),
+  ).toHaveCount(23);
+  await expect(checklist.getByText("current", { exact: true })).toHaveCount(0);
+  const caption = checklist.locator("[data-slot=table-caption]");
+  await expect(caption).toContainText("23 career lines");
+  await expect(caption).toContainText("3 disclosed holdings");
+  await expect(caption).toContainText("20 board seats");
+  await expect(caption).toContainText("Counts are rows, not totals");
+  await expect(caption).toContainText("Listed, not filled");
+  await expect(
+    checklist.getByRole("link", { name: "Brynja Baldursdóttir" }),
+  ).toBeVisible();
+  await expect(
+    checklist.getByRole("link", { name: "Landsvirkjun" }),
+  ).toBeVisible();
+  await expect(
+    checklist.getByRole("link", { name: "Daði Már Kristófersson" }).first(),
+  ).toBeVisible();
+  await expect(
+    checklist.getByRole("link", { name: "Staðarhóll ráðgjöf slf." }),
+  ).toBeVisible();
+  await expect(
+    checklist.locator("code").filter({ hasText: "invests-in" }),
+  ).toHaveCount(3);
+  await expect(
+    checklist.locator("code").filter({ hasText: "sits-on-board" }),
+  ).toHaveCount(20);
+
+  await checklist.getByRole("link", { name: "Open this connection" }).first().click();
+  await expect(page).toHaveURL(/\/connections\//);
+  await expect(page.getByText("Open the checklist")).toBeVisible();
+  const endField = page.locator(".folio-gutter > div").filter({
+    has: page.getByText("End", { exact: true }),
+  });
+  await expect(endField.getByText("no end date stored")).toBeVisible();
+  await expect(endField.getByText("current", { exact: true })).toHaveCount(0);
+});
+
 
 test("parent-ministry checklist labels empty parents and stays off the nav", async ({
   page,

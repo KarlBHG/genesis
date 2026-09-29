@@ -9,6 +9,8 @@ import {
   CURRENT_MEMBERSHIP_LABEL,
   ENDED_LABEL,
   NO_END_STORED,
+  UNPRINTED_CAREER_ANCHOR,
+  UNPRINTED_CAREER_HREF,
   connectionTenure,
   displayConnectionEnd,
   filterByTenure,
@@ -20,6 +22,8 @@ import {
   toggleTenureFilter,
   unlabeledCareerCaption,
   unlabeledCareerEnds,
+  unprintedCareerRows,
+  unprintedCareerTypeCounts,
 } from "@/lib/connection-tenure";
 import { isCurrentMembership, isUnprinted } from "@/lib/office-membership";
 
@@ -33,6 +37,8 @@ describe("connections current/ended filter", () => {
     );
     expect(hrefs).toContain("/connections");
     expect(hrefs).not.toContain("/tenure");
+    expect(hrefs).not.toContain("/unprinted-ends");
+    expect(UNPRINTED_CAREER_HREF).toBe("/connections#unprinted-ends");
   });
 
   it("labels an empty end no end date stored, never current", () => {
@@ -136,26 +142,75 @@ describe("connections current/ended filter", () => {
   it("lists leftover unlabeled career ends and does not mint edges or fill dates", () => {
     const edges = getEdges();
     const leftover = unlabeledCareerEnds(edges);
+    const rows = unprintedCareerRows(edges);
     const counts = tenureCounts(edges);
-    expect(leftover.length).toBeGreaterThan(0);
+    const byType = unprintedCareerTypeCounts(leftover);
+    const pairs = leftover
+      .map((edge) => `${edge.from}\t${edge.relationship}\t${edge.to}`)
+      .sort();
+
+    expect(leftover).toHaveLength(23);
+    expect(rows).toHaveLength(23);
+    expect(byType).toEqual({ investsIn: 3, sitsOnBoard: 20, holdsOffice: 0 });
     expect(leftover.every(isCareerStored)).toBe(true);
     expect(leftover.every((edge) => isUnprinted(edge.end))).toBe(true);
+    expect(leftover.every((edge) => edge.end === "not printed")).toBe(true);
     expect(leftover.every((edge) => !isCurrentConnection(edge))).toBe(true);
-    expect(leftover.some((edge) => edge.relationship === "sits-on-board")).toBe(
-      true,
+    expect(rows.every((row) => row.label === NO_END_STORED)).toBe(true);
+    expect(rows.every((row) => !/current/i.test(row.label))).toBe(true);
+    expect(pairs).toEqual(
+      [
+        ["alma-d-moller", "sits-on-board", "ssai"],
+        ["brynja-baldursdottir", "sits-on-board", "landsvirkjun"],
+        ["dadi-mar-kristofersson", "invests-in", "stadarholl-radgjof"],
+        ["dadi-mar-kristofersson", "sits-on-board", "ferdifelagid-utivist"],
+        ["eirikur-s-johannsson", "sits-on-board", "hagar"],
+        ["eyjolfur-armannsson", "invests-in", "islandsbanki"],
+        ["greta-maria-gretarsdottir", "sits-on-board", "isavia"],
+        ["gylfi-magnusson", "sits-on-board", "orkuveita-reykjavikur"],
+        ["hanna-katrin-fridriksson", "sits-on-board", "hlidarendi-ses"],
+        ["hanna-katrin-fridriksson", "sits-on-board", "sjalfstaedir-evropumenn"],
+        ["harpa-thuridur-bodvarsdottir", "sits-on-board", "landsnet"],
+        ["heidar-gudjonsson", "sits-on-board", "islandsbanki"],
+        ["helga-jonsdottir", "sits-on-board", "on-power"],
+        ["helga-jonsdottir", "sits-on-board", "orka-natturunnar"],
+        ["inga-saeland", "invests-in", "icelandair"],
+        ["jon-thorvardur-sigurgeirsson", "sits-on-board", "landsbankinn"],
+        ["paul-horner", "sits-on-board", "arion-banki"],
+        ["ragnar-thor-ingolfsson", "sits-on-board", "bjarg-ibudafelag"],
+        ["stefan-jon-hafstein", "sits-on-board", "ruv"],
+        ["thorbjorg-sigurdur-gunnlaugsdottir", "sits-on-board", "bjarkarhlid"],
+        ["thorgerdur-katrin-gunnarsdottir", "sits-on-board", "golfsamband-islands"],
+        ["thorgerdur-katrin-gunnarsdottir", "sits-on-board", "leikfelag-reykjavikur"],
+        ["thorgerdur-katrin-gunnarsdottir", "sits-on-board", "throskahjalp"],
+      ]
+        .map(([from, type, to]) => `${from}\t${type}\t${to}`)
+        .sort(),
     );
-    expect(
-      leftover.some(
-        (edge) =>
-          edge.from === "brynja-baldursdottir" && edge.to === "landsvirkjun",
-      ),
-    ).toBe(true);
     expect(counts.current + counts.ended + counts.unlabeled).toBe(edges.length);
-    expect(unlabeledCareerCaption(leftover)).toContain(String(leftover.length));
-    expect(unlabeledCareerCaption(leftover)).toContain(NO_END_STORED);
+    const caption = unlabeledCareerCaption(leftover);
+    expect(caption).toContain("23 career lines");
+    expect(caption).toContain("3 disclosed holdings");
+    expect(caption).toContain("20 board seats");
+    expect(caption).toContain(NO_END_STORED);
+    expect(caption).toContain("Counts are rows, not totals");
+    expect(caption).toContain("Listed, not filled");
+    expect(caption).toContain("never “current.”");
     for (const edge of leftover) {
       expect(edge.end).not.toBe(edge.asOf);
     }
+    const connections = fs.readFileSync(
+      path.join(ROOT, "app", "connections", "page.tsx"),
+      "utf8",
+    );
+    expect(connections).toContain("UnprintedCareerEndsChecklist");
+    expect(UNPRINTED_CAREER_ANCHOR).toBe("unprinted-ends");
+    expect(
+      fs.readFileSync(
+        path.join(ROOT, "components", "unprinted-career-ends-checklist.tsx"),
+        "utf8",
+      ),
+    ).toContain("id={UNPRINTED_CAREER_ANCHOR}");
   });
 
   it("does not draw related as a connection or tenure row", () => {
@@ -180,6 +235,7 @@ describe("connections current/ended filter", () => {
     const files = [
       "lib/connection-tenure.ts",
       "components/connection-tenure-filter.tsx",
+      "components/unprinted-career-ends-checklist.tsx",
       "components/viz/edge-row.tsx",
       "app/connections/page.tsx",
       "app/connections/[id]/page.tsx",

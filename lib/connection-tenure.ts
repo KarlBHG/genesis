@@ -1,12 +1,19 @@
-import { formatDate } from "@/lib/format";
+import { resolveSlug } from "@/lib/content";
+import { edgeHref } from "@/lib/edge-id";
+import { formatDate, labelize } from "@/lib/format";
 import {
   isCurrentMembership,
   isUnprinted,
 } from "@/lib/office-membership";
-import type { Edge } from "@/lib/types";
+import type { Edge, Relationship } from "@/lib/types";
 
 /** Empty end on a connection is this phrase — never “current”. */
 export const NO_END_STORED = "no end date stored";
+
+/** Checklist of leftover career ends on the existing Connections leaf. */
+export const UNPRINTED_CAREER_ANCHOR = "unprinted-ends";
+
+export const UNPRINTED_CAREER_HREF = `/connections#${UNPRINTED_CAREER_ANCHOR}`;
 
 export const TENURE_PARAM = "tenure";
 
@@ -124,10 +131,93 @@ export function unlabeledCareerEnds(edges: readonly Edge[]): Edge[] {
   );
 }
 
-export function unlabeledCareerCaption(rows: readonly Edge[]): string {
+export function unlabeledCareerCaption(
+  rows: readonly Pick<Edge, "relationship">[],
+): string {
+  const counts = unprintedCareerTypeCounts(rows);
   return (
     `${rows.length} career lines have no end date stored and are not current membership. ` +
-    `Current membership is a holds-office row with an empty end and a cited as-of. ` +
-    `Board seats and disclosed holdings stay unlabeled when the cited page prints no end.`
+    `${counts.investsIn} disclosed holdings (invests-in) and ${counts.sitsOnBoard} board seats. ` +
+    (counts.holdsOffice === 0
+      ? `No leftover holds-office row: every empty-end office membership already has a cited as-of. `
+      : `${counts.holdsOffice} holds-office rows with an empty end and no cited as-of. `) +
+    `Empty end stays “${NO_END_STORED},” never “current.” ` +
+    `Counts are rows, not totals. Listed, not filled.`
+  );
+}
+
+export type UnprintedCareerRelationship = Extract<
+  Relationship,
+  "invests-in" | "sits-on-board" | "holds-office"
+>;
+
+export type UnprintedCareerRow = {
+  from: string;
+  fromTitle: string;
+  fromHref: string | null;
+  relationship: UnprintedCareerRelationship;
+  relationshipLabel: string;
+  to: string;
+  toTitle: string;
+  toHref: string | null;
+  href: string;
+  asOf: string;
+  label: typeof NO_END_STORED;
+};
+
+export function unprintedCareerTypeCounts(
+  rows: readonly Pick<Edge, "relationship">[],
+): { investsIn: number; sitsOnBoard: number; holdsOffice: number } {
+  let investsIn = 0;
+  let sitsOnBoard = 0;
+  let holdsOffice = 0;
+  for (const row of rows) {
+    if (row.relationship === "invests-in") investsIn += 1;
+    else if (row.relationship === "sits-on-board") sitsOnBoard += 1;
+    else if (row.relationship === "holds-office") holdsOffice += 1;
+  }
+  return { investsIn, sitsOnBoard, holdsOffice };
+}
+
+/**
+ * Leftover career ends as checklist rows. Empty end stays
+ * “no end date stored.” Nothing is filled from as-of or a neighbouring term.
+ */
+export function unprintedCareerRows(
+  edges: readonly Edge[],
+): UnprintedCareerRow[] {
+  return unlabeledCareerEnds(edges)
+    .map((edge) => {
+      const from = resolveSlug(edge.from);
+      const to = resolveSlug(edge.to);
+      return {
+        from: edge.from,
+        fromTitle: edge.fromTitle,
+        fromHref: from?.href ?? null,
+        relationship: edge.relationship as UnprintedCareerRelationship,
+        relationshipLabel: labelize(edge.relationship),
+        to: edge.to,
+        toTitle: edge.toTitle,
+        toHref: to?.href ?? null,
+        href: edgeHref(edge),
+        asOf: edge.asOf,
+        label: NO_END_STORED as typeof NO_END_STORED,
+      };
+    })
+    .sort(
+      (a, b) =>
+        a.fromTitle.localeCompare(b.fromTitle, "en") ||
+        a.relationship.localeCompare(b.relationship) ||
+        a.toTitle.localeCompare(b.toTitle, "en"),
+    );
+}
+
+export function isUnprintedCareerEnd(
+  edge: Pick<Edge, "relationship" | "end" | "asOf" | "channel">,
+): boolean {
+  return (
+    isCareerStored(edge) &&
+    isUnprinted(edge.end) &&
+    !isCurrentConnection(edge)
   );
 }
