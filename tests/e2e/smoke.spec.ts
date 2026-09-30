@@ -566,6 +566,9 @@ test("resident standing walks sourced hops or prints no sourced line", async ({
   await page.locator("#standing-program").selectOption(
     "policy-area-05-skatta-eigna-og-fjarmalaumsysla",
   );
+  await expect(page).toHaveURL(
+    /program=policy-area-05-skatta-eigna-og-fjarmalaumsysla/,
+  );
   await expect(
     page.locator("#taxpayer").getByText("no sourced line"),
   ).toBeVisible();
