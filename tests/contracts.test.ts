@@ -38,7 +38,11 @@ import {
 } from "@/lib/map-query";
 import { GROUP_BY_VIEW, groupEdges } from "@/lib/connection-groups";
 import { asOfMeta, classifyAsOfBucket, compareAsOf } from "@/lib/as-of";
-import { touchesOf } from "@/lib/compare";
+import {
+  droppedCompareTouches,
+  sharedTouches,
+  touchesOf,
+} from "@/lib/compare";
 import { edgeHref, edgeId, findEdgeById } from "@/lib/edge-id";
 import { partitionOtherFlows } from "@/lib/fiscal-phases";
 import {
@@ -160,6 +164,33 @@ describe("edge fields", () => {
     for (const slug of slugs) {
       const keys = touchesOf(slug, edges).map((touch) => touch.key);
       if (new Set(keys).size !== keys.length) leftover.push(slug);
+    }
+    expect(leftover).toEqual([]);
+  });
+
+  it("does not drop a cited compare row when a pair-key repeats", () => {
+    const edges = getEdges();
+    const bySlug = new Map<string, ReturnType<typeof touchesOf>>();
+    for (const edge of edges) {
+      if (!bySlug.has(edge.from)) bySlug.set(edge.from, touchesOf(edge.from, edges));
+      if (!bySlug.has(edge.to)) bySlug.set(edge.to, touchesOf(edge.to, edges));
+    }
+    const leftover: string[] = [];
+    const slugs = [...bySlug.keys()];
+    for (let i = 0; i < slugs.length; i++) {
+      const leftSlug = slugs[i]!;
+      const left = bySlug.get(leftSlug)!;
+      for (let j = i + 1; j < slugs.length; j++) {
+        const rightSlug = slugs[j]!;
+        const right = bySlug.get(rightSlug)!;
+        if (sharedTouches(left, right).length === 0) continue;
+        if (droppedCompareTouches(left, right).length > 0) {
+          leftover.push(`${leftSlug}|${rightSlug}`);
+        }
+        if (droppedCompareTouches(right, left).length > 0) {
+          leftover.push(`${rightSlug}|${leftSlug}`);
+        }
+      }
     }
     expect(leftover).toEqual([]);
   });

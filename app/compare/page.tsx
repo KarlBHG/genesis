@@ -209,7 +209,7 @@ export default async function ComparePage({
                     touch.otherTitle
                   );
                   return (
-                    <li className="rounded-lg border border-amber-300 bg-amber-50 p-3 dark:bg-amber-400/10" key={touch.key}>
+                    <li className="rounded-lg border border-amber-300 bg-amber-50 p-3 dark:bg-amber-400/10" key={`${touch.key}::${other.key}`}>
                       <p>
                         <Badge>Shared</Badge>{" "}
                         {touch.direction === "out" ? (

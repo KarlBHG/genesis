@@ -146,27 +146,62 @@ export function touchesOf(slug: string, edges: Edge[]): Touch[] {
   return touches;
 }
 
+function touchesByPair(touches: Touch[]): Map<string, Touch[]> {
+  const grouped = new Map<string, Touch[]>();
+  for (const touch of touches) {
+    const list = grouped.get(touch.pairKey);
+    if (list) list.push(touch);
+    else grouped.set(touch.pairKey, [touch]);
+  }
+  return grouped;
+}
+
+/**
+ * Zip every cited row that shares a pair. A second invoice to the same
+ * vendor is a second shared row, not a silent collision.
+ */
 export function sharedTouches(
   left: Touch[],
   right: Touch[],
 ): { left: Touch; right: Touch }[] {
-  const rightByPair = new Map<string, Touch>();
-  for (const touch of right) {
-    if (!rightByPair.has(touch.pairKey)) rightByPair.set(touch.pairKey, touch);
-  }
-  const seen = new Set<string>();
+  const rightByPair = touchesByPair(right);
+  const usedRight = new Map<string, number>();
   const matched: { left: Touch; right: Touch }[] = [];
   for (const touch of left) {
-    if (seen.has(touch.pairKey)) continue;
-    const match = rightByPair.get(touch.pairKey);
+    const candidates = rightByPair.get(touch.pairKey);
+    if (!candidates) continue;
+    const used = usedRight.get(touch.pairKey) ?? 0;
+    if (used >= candidates.length) continue;
+    const match = candidates[used];
     if (!match) continue;
-    seen.add(touch.pairKey);
+    usedRight.set(touch.pairKey, used + 1);
     matched.push({ left: touch, right: match });
   }
   return matched;
 }
 
 export function onlyTouches(own: Touch[], other: Touch[]): Touch[] {
-  const otherPairs = new Set(other.map((touch) => touch.pairKey));
-  return own.filter((touch) => !otherPairs.has(touch.pairKey));
+  const otherCount = new Map<string, number>();
+  for (const touch of other) {
+    otherCount.set(touch.pairKey, (otherCount.get(touch.pairKey) ?? 0) + 1);
+  }
+  const used = new Map<string, number>();
+  return own.filter((touch) => {
+    const available = otherCount.get(touch.pairKey) ?? 0;
+    const consumed = used.get(touch.pairKey) ?? 0;
+    if (consumed < available) {
+      used.set(touch.pairKey, consumed + 1);
+      return false;
+    }
+    return true;
+  });
+}
+
+/** Cited rows omitted by shared/only matching. Must stay empty. */
+export function droppedCompareTouches(own: Touch[], other: Touch[]): Touch[] {
+  const kept = new Set([
+    ...sharedTouches(own, other).map((row) => row.left.key),
+    ...onlyTouches(own, other).map((touch) => touch.key),
+  ]);
+  return own.filter((touch) => !kept.has(touch.key));
 }

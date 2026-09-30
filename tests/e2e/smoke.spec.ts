@@ -1335,6 +1335,46 @@ test.describe("pocket folio", () => {
     ).toEqual([]);
   });
 
+  test("compare lists both Landspítali invoices to Sýn and Nova", async ({
+    page,
+  }) => {
+    const duplicateKeys: string[] = [];
+    page.on("console", (message) => {
+      const text = message.text();
+      if (message.type() === "error" && /duplicate key/i.test(text)) {
+        duplicateKeys.push(text);
+      }
+    });
+    await page.goto("/compare?left=syn&right=nova");
+    await expect(page.getByRole("heading", { name: "Compare" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Shared connections" })).toBeVisible();
+    await expect(page.getByText("SB0629049")).toBeVisible();
+    await expect(page.getByText("PB14458005")).toBeVisible();
+    await expect(page.getByText("BR2607-6741095")).toBeVisible();
+    await expect(page.getByText("BR2512-6968644")).toBeVisible();
+    expect(duplicateKeys.filter((text) => /in:pays:/.test(text))).toEqual([]);
+  });
+
+  test("compare lists both Trackwell and Verifone invoices", async ({
+    page,
+  }) => {
+    const duplicateKeys: string[] = [];
+    page.on("console", (message) => {
+      const text = message.text();
+      if (message.type() === "error" && /duplicate key/i.test(text)) {
+        duplicateKeys.push(text);
+      }
+    });
+    await page.goto("/compare?left=trackwell&right=verifone-a-islandi");
+    await expect(page.getByRole("heading", { name: "Compare" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Shared connections" })).toBeVisible();
+    await expect(page.getByText("SR26-11815")).toBeVisible();
+    await expect(page.getByText("SR26-11816")).toBeVisible();
+    await expect(page.getByText("R633054")).toBeVisible();
+    await expect(page.getByText("R633055")).toBeVisible();
+    expect(duplicateKeys.filter((text) => /in:pays:/.test(text))).toEqual([]);
+  });
+
   test("night leader drops from the pin toward the sheet when anchors work", async ({
     page,
   }, testInfo) => {
