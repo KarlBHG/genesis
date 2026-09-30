@@ -132,6 +132,85 @@ describe("office membership", () => {
     expect(transport.memberships[0]?.end).toBe("2025-03-15");
   });
 
+  it("keeps leftover holder fields vacant when cited pages print an end", () => {
+    const leftovers = [
+      {
+        officeId: "director-of-health",
+        holder: "alma-d-moller",
+        end: "2024",
+        quotation: "Landlæknir 2018–2024.",
+      },
+      {
+        officeId: "minister-of-transport-and-local-government",
+        holder: "eyjolfur-armannsson",
+        end: "2025-03-15",
+        quotation:
+          "Eyjólfur assumed the office of Minister of Transport and Local Government on 21 December 2024, and became Minister of Infrastructure on 15 March 2025 when the title of the office was changed by presidential decree.",
+      },
+      {
+        officeId: "alternate-mp-dadi",
+        holder: "dadi-mar-kristofersson",
+        end: "2024",
+        quotation:
+          "Varaþingmaður Reykjavíkurkjördæmis suður desember 2021, júní 2022, desember 2022, nóvember 2023 og september–október 2024 (Viðreisn).",
+      },
+      {
+        officeId: "chair-vidreisn-parliamentary-group",
+        holder: "hanna-katrin-fridriksson",
+        end: "2024",
+        quotation: "Formaður þingflokks Viðreisnar 2016–2024.",
+      },
+      {
+        officeId: "chair-peoples-party-parliamentary-group",
+        holder: "ragnar-thor-ingolfsson",
+        end: "2026",
+        quotation: "Formaður þingflokks Flokks fólksins 2025–2026.",
+      },
+      {
+        officeId: "chair-samfylkingin-parliamentary-group",
+        holder: "logi-einarsson",
+        end: "2025",
+        quotation: "Formaður þingflokks Samfylkingarinnar 2022–2025.",
+      },
+    ] as const;
+
+    for (const leftover of leftovers) {
+      const view = officeMembershipView(getOfficeById(leftover.officeId)!);
+      expect(view.vacant, leftover.officeId).toBe(true);
+      expect(view.current, leftover.officeId).toHaveLength(0);
+      expect(view.office.holder, leftover.officeId).toBe(leftover.holder);
+      expect(view.mismatch?.kind, leftover.officeId).toBe("vacant-holder-named");
+      const holderRows = view.memberships.filter(
+        (row) => row.personSlug === leftover.holder,
+      );
+      expect(holderRows.length, leftover.officeId).toBeGreaterThan(0);
+      expect(
+        holderRows.every((row) => !row.current),
+        leftover.officeId,
+      ).toBe(true);
+      expect(
+        holderRows.some(
+          (row) =>
+            row.end === leftover.end &&
+            row.edge.quotation === leftover.quotation,
+        ),
+        leftover.officeId,
+      ).toBe(true);
+    }
+
+    const logiChair = getEdges().filter(
+      (edge) =>
+        edge.from === "logi-einarsson" &&
+        edge.to === "chair-samfylkingin-parliamentary-group",
+    );
+    expect(logiChair).toHaveLength(1);
+    expect(logiChair[0]?.end).toBe("2025");
+    expect(logiChair[0]?.source).toMatch(/althingi\.is\/altext\/cv/);
+    expect(
+      logiChair.some((edge) => /government\.is/.test(edge.source)),
+    ).toBe(false);
+  });
+
   it("does not scrape, fetch, or call a model from the office modules", () => {
     const files = [
       "lib/office-membership.ts",

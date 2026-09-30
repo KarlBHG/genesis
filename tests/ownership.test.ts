@@ -101,6 +101,48 @@ describe("ownership statements", () => {
     expect(soeOwnershipFor("althingi", rows)).toBeNull();
   });
 
+  it("does not mint owns from a completed sale, oversight, or group name", () => {
+    const edges = getEdges();
+    expect(incomingOwns("islandsbanki", edges)).toEqual([]);
+    expect(incomingOwns("il-sjodur", edges)).toEqual([]);
+    expect(incomingOwns("lsr", edges)).toEqual([]);
+    expect(incomingOwns("on-power", edges)).toEqual([]);
+    expect(incomingOwns("orka-natturunnar", edges)).toEqual([]);
+    expect(
+      edges.some(
+        (edge) =>
+          edge.to === "islandsbanki" &&
+          /completed the sale of its remaining 45\.2%/.test(edge.quotation),
+      ),
+    ).toBe(false);
+    expect(
+      edges.some(
+        (edge) =>
+          edge.to === "il-sjodur" &&
+          edge.relationship === "regulates" &&
+          edge.from === "ministry-of-finance",
+      ),
+    ).toBe(true);
+    expect(
+      edges.some(
+        (edge) =>
+          edge.to === "orka-natturunnar" &&
+          edge.relationship === "owns",
+      ),
+    ).toBe(false);
+    expect(
+      soeHoleRows()
+        .map((row) => row.slug)
+        .sort(),
+    ).toEqual([
+      "il-sjodur",
+      "islandsbanki",
+      "lsr",
+      "on-power",
+      "orka-natturunnar",
+    ]);
+  });
+
   it("keeps Landsbankinn’s shareholder-count sides as a contradiction, not a replacement owns row", () => {
     const row = soeOwnershipFor("landsbankinn");
     expect(row?.status).toBe("sourced");

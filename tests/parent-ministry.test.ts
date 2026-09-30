@@ -75,6 +75,57 @@ describe("parent-ministry density", () => {
     expect(caption).not.toMatch(/\b(ISK|mkr|makr|USD)\b/);
   });
 
+  it("does not fill empty parents from cited near-miss sentences", () => {
+    const edges = getEdges();
+    expect(parentMinistryFor("samband-islenskra-sveitarfelaga")?.status).toBe(
+      "empty",
+    );
+    expect(parentMinistryFor("vinnumalastofnun")?.status).toBe("empty");
+    expect(parentMinistryFor("islandsbanki")?.status).toBe("empty");
+    expect(parentMinistryFor("lsr")?.status).toBe("empty");
+    expect(parentMinistryFor("on-power")?.status).toBe("empty");
+    expect(parentMinistryFor("orka-natturunnar")?.status).toBe("empty");
+
+    expect(
+      edges.some(
+        (edge) =>
+          edge.to === "vinnumalastofnun" &&
+          edge.relationship === "appoints" &&
+          isParentMinistryFrom(edge.from),
+      ),
+    ).toBe(false);
+    expect(
+      edges.some(
+        (edge) =>
+          edge.to === "vinnumalastofnun" &&
+          edge.quotation.includes("Ráðherra skipar") &&
+          !edge.quotation.includes("félags- og húsnæðismálaráðherra"),
+      ),
+    ).toBe(true);
+    expect(
+      edges.some(
+        (edge) =>
+          edge.to === "lsr" &&
+          edge.relationship === "appoints" &&
+          isParentMinistryFrom(edge.from),
+      ),
+    ).toBe(false);
+    expect(
+      edges.some(
+        (edge) =>
+          edge.to === "islandsbanki" &&
+          ["regulates", "appoints", "owns"].includes(edge.relationship) &&
+          isParentMinistryFrom(edge.from),
+      ),
+    ).toBe(false);
+    expect(
+      incomingParentMinistry("on-power", edges),
+    ).toEqual([]);
+    expect(
+      incomingParentMinistry("orka-natturunnar", edges),
+    ).toEqual([]);
+  });
+
   it("does not treat MFA represents or union seats as a parent", () => {
     const edges = getEdges();
     expect(
