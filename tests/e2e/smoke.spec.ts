@@ -1142,25 +1142,25 @@ test.describe("pocket folio", () => {
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/institutions");
-    const institutionCards = page.locator("main [data-slot=card]");
-    await expect(institutionCards.first()).toBeVisible();
-    const instFirst = await institutionCards.nth(0).boundingBox();
-    const instSecond = await institutionCards.nth(1).boundingBox();
+    const institutionRows = page.locator("main .folio-index-row");
+    await expect(institutionRows.first()).toBeVisible();
+    const instFirst = await institutionRows.nth(0).boundingBox();
+    const instSecond = await institutionRows.nth(1).boundingBox();
     expect(instSecond!.y).toBeGreaterThan(instFirst!.y + instFirst!.height / 2);
     expect(instFirst!.width).toBeGreaterThan(280);
 
     await page.goto("/treaties");
-    const treatyCards = page.locator("main [data-slot=card]");
-    await expect(treatyCards.first()).toBeVisible();
-    const treatyFirst = await treatyCards.nth(0).boundingBox();
-    const treatySecond = await treatyCards.nth(1).boundingBox();
+    const treatyRows = page.locator("main .folio-index-row");
+    await expect(treatyRows.first()).toBeVisible();
+    const treatyFirst = await treatyRows.nth(0).boundingBox();
+    const treatySecond = await treatyRows.nth(1).boundingBox();
     expect(treatySecond!.y).toBeGreaterThan(treatyFirst!.y + treatyFirst!.height / 2);
 
     await page.goto("/players");
-    const playerCards = page.locator("main ul li");
-    await expect(playerCards.first()).toBeVisible();
-    const playerFirst = await playerCards.nth(0).boundingBox();
-    const playerSecond = await playerCards.nth(1).boundingBox();
+    const playerRows = page.locator("main .folio-index-row");
+    await expect(playerRows.first()).toBeVisible();
+    const playerFirst = await playerRows.nth(0).boundingBox();
+    const playerSecond = await playerRows.nth(1).boundingBox();
     expect(playerSecond!.y).toBeGreaterThan(playerFirst!.y + playerFirst!.height / 2);
 
     await page.goto("/standing");
@@ -1259,7 +1259,7 @@ test.describe("pocket folio", () => {
     await page.goto("/public-entities");
     await expect(page.locator("[data-tabs-live]")).toHaveCount(1);
     await clickLive(page.getByRole("tab", { name: "Govdirectory checklist" }));
-    const summaries = page.locator(".govdirectory-summary [data-slot=card]");
+    const summaries = page.locator(".govdirectory-summary .catalog-index-row");
     await expect(summaries).toHaveCount(3);
     const summaryFirst = await summaries.nth(0).boundingBox();
     const summarySecond = await summaries.nth(1).boundingBox();

@@ -39,7 +39,7 @@ function Highlighted({ text, query }: { text: string; query: string }) {
       {parts.map((part, index) =>
         part.match ? (
           <mark
-            className="rounded-sm bg-amber-200 px-0.5 font-medium text-foreground dark:bg-amber-400/40"
+            className="rounded-sm bg-primary/15 px-0.5 font-medium text-foreground"
             key={`${index}-${part.text}`}
           >
             {part.text}
@@ -69,46 +69,48 @@ export function SearchPanel({ docs }: { docs: SearchDoc[] }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <FieldGroup>
-        <Field>
-          <FieldLabel htmlFor="map-search">Search the map</FieldLabel>
-          <Input
-            id="map-search"
-            autoComplete="off"
-            onValueChange={(next) => setQuery(next)}
-            placeholder="Try EEA, Landsvirkjun, sells power, regulates"
-            type="search"
-            value={query}
-          />
-          <FieldDescription>
-            Matches titles, summaries, topics, entry text, and typed connections.
-          </FieldDescription>
-        </Field>
-      </FieldGroup>
-      {trimmed ? (
-        <Tabs
-          className="gap-3"
-          onValueChange={(value) => setFacet(value as SearchKind | "all")}
-          value={facet}
-        >
-          <TabsList
-            aria-label="Filter results by type"
-            className="h-auto w-full flex-wrap justify-start"
-            variant="line"
+      <div className="folio-facet">
+        <FieldGroup>
+          <Field>
+            <FieldLabel htmlFor="map-search">Search the map</FieldLabel>
+            <Input
+              id="map-search"
+              autoComplete="off"
+              onValueChange={(next) => setQuery(next)}
+              placeholder="Try EEA, Landsvirkjun, sells power, regulates"
+              type="search"
+              value={query}
+            />
+            <FieldDescription>
+              Matches titles, summaries, topics, entry text, and typed connections.
+            </FieldDescription>
+          </Field>
+        </FieldGroup>
+        {trimmed ? (
+          <Tabs
+            className="gap-3"
+            onValueChange={(value) => setFacet(value as SearchKind | "all")}
+            value={facet}
           >
-            <TabsTrigger value="all">
-              All
-              <Badge variant="outline">{results.length}</Badge>
-            </TabsTrigger>
-            {FACETS.map((item) => (
-              <TabsTrigger key={item.id} value={item.id}>
-                {item.label}
-                <Badge variant="outline">{counts.get(item.id) ?? 0}</Badge>
+            <TabsList
+              aria-label="Filter results by type"
+              className="h-auto w-full flex-wrap justify-start"
+              variant="line"
+            >
+              <TabsTrigger value="all">
+                All
+                <Badge variant="outline">{results.length}</Badge>
               </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
-      ) : null}
+              {FACETS.map((item) => (
+                <TabsTrigger key={item.id} value={item.id}>
+                  {item.label}
+                  <Badge variant="outline">{counts.get(item.id) ?? 0}</Badge>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        ) : null}
+      </div>
       {trimmed && visible.length === 0 ? (
         <Empty className="border">
           <EmptyHeader>
@@ -122,26 +124,19 @@ export function SearchPanel({ docs }: { docs: SearchDoc[] }) {
         </Empty>
       ) : null}
       {visible.length > 0 ? (
-        <ul className="flex flex-col gap-2">
+        <ul className="folio-index">
           {visible.map((result) => (
-            <li key={result.slug}>
-              <Link
-                className="flex flex-col gap-1 rounded-lg border px-3 py-3 hover:bg-muted"
-                href={result.href}
-              >
-                <span className="flex flex-wrap items-center gap-2">
-                  <span className="font-medium">
-                    <Highlighted query={trimmed} text={result.title} />
-                  </span>
-                  <Badge variant="secondary">{labelize(result.kind)}</Badge>
-                </span>
-                <span className="text-sm text-muted-foreground">
-                  <Highlighted
-                    query={trimmed}
-                    text={snippetText(result, trimmed)}
-                  />
-                </span>
+            <li className="folio-index-row" key={result.slug}>
+              <p className="folio-index-meta">{labelize(result.kind)}</p>
+              <Link className="folio-index-title" href={result.href}>
+                <Highlighted query={trimmed} text={result.title} />
               </Link>
+              <p className="folio-index-summary">
+                <Highlighted
+                  query={trimmed}
+                  text={snippetText(result, trimmed)}
+                />
+              </p>
             </li>
           ))}
         </ul>

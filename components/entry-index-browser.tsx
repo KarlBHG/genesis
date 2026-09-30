@@ -7,13 +7,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Empty,
   EmptyDescription,
   EmptyHeader,
@@ -112,6 +105,20 @@ function Highlighted({ text, query }: { text: string; query: string }) {
       )}
     </>
   );
+}
+
+function itemMeta(item: IndexItem): string {
+  const edges =
+    item.degree === 0
+      ? "No typed edges"
+      : `${item.degree} typed ${item.degree === 1 ? "edge" : "edges"}`;
+  const sources =
+    item.sources === 0
+      ? "No sources"
+      : `${item.sources} ${item.sources === 1 ? "source" : "sources"}`;
+  const parts = [item.dateLabel, edges, sources];
+  if (!item.authoredLede) parts.push("Auto summary");
+  return parts.join(" · ");
 }
 
 export function EntryIndexBrowser({
@@ -237,7 +244,7 @@ export function EntryIndexBrowser({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="glass-panel flex flex-col gap-5 p-5 sm:p-6 print:hidden">
+      <div className="folio-facet print:hidden">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <label className="flex w-full flex-col gap-1.5 sm:max-w-sm">
             <span className="text-sm text-muted-foreground">{searchLabel}</span>
@@ -365,45 +372,16 @@ export function EntryIndexBrowser({
                 </span>
               </h2>
             ) : null}
-            <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+            <ul className="folio-index">
               {groupItems.map((item) => (
-                <li className="flex" key={item.href}>
-                  <Card className="w-full">
-                    <CardHeader>
-                      <CardTitle>
-                        <Link
-                          className="underline underline-offset-4"
-                          href={item.href}
-                        >
-                          <Highlighted query={query} text={item.title} />
-                        </Link>
-                      </CardTitle>
-                      <CardDescription className="line-clamp-3">
-                        {item.lead || "No summary recorded yet."}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-wrap gap-1.5">
-                      <Badge variant="secondary">{item.dateLabel}</Badge>
-                      <Badge variant="outline">
-                        {item.degree === 0
-                          ? "No typed edges"
-                          : `${item.degree} typed ${item.degree === 1 ? "edge" : "edges"}`}
-                      </Badge>
-                      <Badge variant="outline">
-                        {item.sources === 0
-                          ? "No sources"
-                          : `${item.sources} ${item.sources === 1 ? "source" : "sources"}`}
-                      </Badge>
-                      {item.authoredLede ? null : (
-                        <Badge
-                          title="No authored lede yet — this is the record's opening paragraph."
-                          variant="outline"
-                        >
-                          Auto summary
-                        </Badge>
-                      )}
-                    </CardContent>
-                  </Card>
+                <li className="folio-index-row" key={item.href}>
+                  <p className="folio-index-meta">{itemMeta(item)}</p>
+                  <Link className="folio-index-title" href={item.href}>
+                    <Highlighted query={query} text={item.title} />
+                  </Link>
+                  <p className="folio-index-summary">
+                    {item.lead || "No summary recorded yet."}
+                  </p>
                 </li>
               ))}
             </ul>

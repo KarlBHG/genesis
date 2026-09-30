@@ -42,23 +42,13 @@ export default function OverviewPage() {
       />
       <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 py-10 sm:px-6">
         <ConnectionStrips edges={edges} only="budget" />
-        <div className="glass-panel p-6 sm:p-8">
-          <SearchPanel docs={toSearchDocs(entries)} />
-        </div>
-        <nav
-          aria-label="Sections"
-          className="overview-sections grid grid-cols-1 gap-3 lg:grid-cols-4"
-        >
+        <SearchPanel docs={toSearchDocs(entries)} />
+        <nav aria-label="Sections" className="overview-sections catalog-index">
           {counts.map((item) => (
-            <Link
-              className="glass-panel ink-card px-4 py-3"
-              href={item.href}
-              key={item.href}
-            >
-              <span className="text-xs text-muted-foreground uppercase tracking-wide">
-                {item.label}
-              </span>
-              <span className="mt-1 block font-serif text-2xl tabular-nums">
+            <Link className="catalog-index-row" href={item.href} key={item.href}>
+              <span className="font-medium">{item.label}</span>
+              <span aria-hidden className="catalog-index-leader" />
+              <span className="font-serif text-lg tabular-nums">
                 {item.count}
               </span>
             </Link>

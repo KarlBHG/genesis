@@ -3,14 +3,6 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Empty,
   EmptyDescription,
@@ -32,6 +24,10 @@ function unique(values: string[]) {
   return [...new Set(values)].sort();
 }
 
+function institutionMeta(item: InstitutionItem): string {
+  return item.founded ? `Founded ${item.founded}` : "Founded not stated";
+}
+
 export function InstitutionBrowser({ items }: { items: InstitutionItem[] }) {
   const [roles, setRoles] = useState<string[]>([]);
   const roleOptions = unique(items.map((item) => item.role));
@@ -50,23 +46,25 @@ export function InstitutionBrowser({ items }: { items: InstitutionItem[] }) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <p className="text-sm text-muted-foreground">Role</p>
-        <ToggleGroup
-          className="flex max-w-full flex-wrap"
-          multiple
-          onValueChange={setRoles}
-          size="sm"
-          spacing={1}
-          value={roles}
-          variant="outline"
-        >
-          {roleOptions.map((role) => (
-            <ToggleGroupItem key={role} value={role}>
-              {labelize(role)}
-            </ToggleGroupItem>
-          ))}
-        </ToggleGroup>
+      <div className="folio-facet">
+        <div className="flex flex-col gap-2">
+          <p className="text-sm text-muted-foreground">Role</p>
+          <ToggleGroup
+            className="flex max-w-full flex-wrap"
+            multiple
+            onValueChange={setRoles}
+            size="sm"
+            spacing={1}
+            value={roles}
+            variant="outline"
+          >
+            {roleOptions.map((role) => (
+              <ToggleGroupItem key={role} value={role}>
+                {labelize(role)}
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+        </div>
       </div>
       {filtered.length === 0 ? (
         <Empty className="border">
@@ -80,24 +78,20 @@ export function InstitutionBrowser({ items }: { items: InstitutionItem[] }) {
       ) : (
         [...groups.entries()].map(([role, groupItems]) => (
           <section className="flex flex-col gap-3" key={role}>
-            <h2 className="text-lg font-medium">{labelize(role)}</h2>
-            <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+            <h2 className="font-serif text-xl font-medium tracking-tight">
+              {labelize(role)}
+            </h2>
+            <ul className="folio-index">
               {groupItems.map((item) => (
-                <Card key={item.href}>
-                  <CardHeader>
-                    <CardTitle>
-                      <Link className="underline underline-offset-4" href={item.href}>{item.title}</Link>
-                    </CardTitle>
-                    <CardDescription>{item.summary}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Badge variant="outline">
-                      {item.founded ? `Founded ${item.founded}` : "Founded not stated"}
-                    </Badge>
-                  </CardContent>
-                </Card>
+                <li className="folio-index-row" key={item.href}>
+                  <p className="folio-index-meta">{institutionMeta(item)}</p>
+                  <Link className="folio-index-title" href={item.href}>
+                    {item.title}
+                  </Link>
+                  <p className="folio-index-summary">{item.summary}</p>
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
         ))
       )}

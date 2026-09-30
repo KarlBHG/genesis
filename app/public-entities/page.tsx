@@ -10,12 +10,6 @@ import { QuotedNameLedgerTable } from "@/components/quoted-name-ledger";
 import { SoeOwnershipChecklist } from "@/components/soe-ownership-checklist";
 import { Badge } from "@/components/ui/badge";
 import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Table,
   TableBody,
   TableCaption,
@@ -137,22 +131,23 @@ export default function PublicEntitiesPage() {
                   . {GOVDIRECTORY_ICELAND.license}
                 </p>
               </div>
-              <div className="govdirectory-summary grid gap-3 lg:grid-cols-3">
+              <ul className="govdirectory-summary catalog-index">
                 {ledger.map((group) => (
-                  <Card key={group.id}>
-                    <CardHeader>
-                      <CardDescription>{group.label}</CardDescription>
-                      <CardTitle className="display-figure text-[2.4rem]">
-                        {group.matched} / {group.total}
-                      </CardTitle>
-                      <p className="text-xs text-muted-foreground">
+                  <li className="catalog-index-row" key={group.id}>
+                    <span className="min-w-0">
+                      <span className="block font-medium">{group.label}</span>
+                      <span className="text-xs text-muted-foreground">
                         {group.unmatched} unmatched
                         {group.grouped > 0 ? ` · ${group.grouped} grouped` : ""}
-                      </p>
-                    </CardHeader>
-                  </Card>
+                      </span>
+                    </span>
+                    <span aria-hidden className="catalog-index-leader" />
+                    <span className="font-serif text-lg tabular-nums">
+                      {group.matched} / {group.total}
+                    </span>
+                  </li>
                 ))}
-              </div>
+              </ul>
               {ledger.map((group) => {
                 const unmatched = group.rows.filter((row) => row.matchKind === "unmatched");
                 const grouped = group.rows.filter((row) => row.matchKind === "grouped");

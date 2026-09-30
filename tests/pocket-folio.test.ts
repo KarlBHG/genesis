@@ -142,21 +142,24 @@ describe("pocket folio leftover surfaces", () => {
       path.join(process.cwd(), "components", "institution-browser.tsx"),
       "utf8",
     );
-    expect(institutions).toContain("lg:grid-cols-2");
+    expect(institutions).toContain("folio-index");
+    expect(institutions).not.toContain("lg:grid-cols-2");
     expect(institutions).not.toContain("md:grid-cols-2");
 
     const treaties = fs.readFileSync(
       path.join(process.cwd(), "components", "treaty-browser.tsx"),
       "utf8",
     );
-    expect(treaties).toContain("lg:grid-cols-2");
+    expect(treaties).toContain("folio-index");
+    expect(treaties).not.toContain("lg:grid-cols-2");
     expect(treaties).not.toContain("md:grid-cols-2");
 
     const index = fs.readFileSync(
       path.join(process.cwd(), "components", "entry-index-browser.tsx"),
       "utf8",
     );
-    expect(index).toContain("lg:grid-cols-2");
+    expect(index).toContain("folio-index");
+    expect(index).not.toContain("lg:grid-cols-2");
     expect(index).not.toContain("md:grid-cols-2");
 
     const standing = fs.readFileSync(
@@ -188,7 +191,8 @@ describe("pocket folio leftover surfaces", () => {
       "utf8",
     );
     expect(publicEntities).toContain("govdirectory-summary");
-    expect(publicEntities).toContain("lg:grid-cols-3");
+    expect(publicEntities).toContain("catalog-index");
+    expect(publicEntities).not.toContain("lg:grid-cols-3");
     expect(publicEntities).not.toContain("md:grid-cols-3");
 
     const fiscal = fs.readFileSync(
@@ -204,8 +208,9 @@ describe("pocket folio leftover surfaces", () => {
       "utf8",
     );
     expect(overview).toContain("overview-sections");
-    expect(overview).toContain("grid-cols-1");
-    expect(overview).toContain("lg:grid-cols-4");
+    expect(overview).toContain("catalog-index");
+    expect(overview).not.toContain("glass-panel");
+    expect(overview).not.toContain("lg:grid-cols-4");
     expect(overview).not.toContain("grid-cols-2");
     expect(overview).not.toContain("sm:grid-cols-3");
 

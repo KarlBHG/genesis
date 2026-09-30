@@ -3,14 +3,6 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Empty,
   EmptyDescription,
@@ -31,6 +23,12 @@ export type TreatyItem = {
 
 function unique(values: string[]) {
   return [...new Set(values)].sort();
+}
+
+function treatyMeta(item: TreatyItem): string {
+  const parts = [`Signed ${formatDate(item.signed)}`];
+  for (const topic of item.topics) parts.push(labelize(topic));
+  return parts.join(" · ");
 }
 
 export function TreatyBrowser({ items }: { items: TreatyItem[] }) {
@@ -60,7 +58,7 @@ export function TreatyBrowser({ items }: { items: TreatyItem[] }) {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="glass-panel flex flex-col gap-5 p-5 sm:p-6">
+      <div className="folio-facet">
         <div className="flex flex-col gap-2">
           <p className="text-sm text-muted-foreground">Status</p>
           <ToggleGroup
@@ -114,29 +112,17 @@ export function TreatyBrowser({ items }: { items: TreatyItem[] }) {
             <h2 className="font-serif text-xl font-medium tracking-tight">
               {labelize(group)}
             </h2>
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <ul className="folio-index">
               {groupItems.map((item) => (
-                <Card
-                  className="glass-panel border-border/60 bg-card/50 transition-all hover:-translate-y-0.5 hover:shadow-lg"
-                  key={item.href}
-                >
-                  <CardHeader>
-                    <CardTitle>
-                      <Link className="underline underline-offset-4" href={item.href}>{item.title}</Link>
-                    </CardTitle>
-                    <CardDescription>{item.summary}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex flex-wrap gap-1">
-                    <Badge variant="secondary">Signed {formatDate(item.signed)}</Badge>
-                    {item.topics.map((topic) => (
-                      <Badge key={topic} variant="outline">
-                        {labelize(topic)}
-                      </Badge>
-                    ))}
-                  </CardContent>
-                </Card>
+                <li className="folio-index-row" key={item.href}>
+                  <p className="folio-index-meta">{treatyMeta(item)}</p>
+                  <Link className="folio-index-title" href={item.href}>
+                    {item.title}
+                  </Link>
+                  <p className="folio-index-summary">{item.summary}</p>
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
         ))
       )}

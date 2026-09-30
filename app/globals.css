@@ -1454,6 +1454,17 @@ body:has(.geo-room) footer {
   transform: translateY(-0.28em);
 }
 
+a.catalog-index-row {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.catalog-index-row:hover .font-medium,
+a.catalog-index-row:focus-visible .font-medium {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .ink-card {
   position: relative;
   isolation: isolate;
@@ -1825,6 +1836,32 @@ body:has(.geo-room) footer {
 
 .folio-index-title:hover {
   text-decoration: underline;
+}
+
+a.folio-index-title {
+  color: inherit;
+  text-decoration: none;
+}
+
+button.folio-index-title {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.folio-facet {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0 0 1.35rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .folio-index-summary {
