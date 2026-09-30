@@ -155,7 +155,7 @@ export function HomeDashboard({
               >
                 Standing
               </Button>
-              <p className="text-sm text-muted-foreground">
+              <p className="hidden text-sm text-muted-foreground sm:block">
                 Index{" "}
                 <kbd className="rounded-sm border border-border px-1 font-sans text-xs text-muted-foreground">
                   ⌘K

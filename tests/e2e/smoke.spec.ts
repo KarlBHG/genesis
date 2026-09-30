@@ -1329,7 +1329,7 @@ test.describe("pocket folio", () => {
       .poll(async () => {
         const box = await dialog.boundingBox();
         if (!box) return false;
-        return box.y > 200 && box.width > 300;
+        return box.y > 200 && box.width > 300 && box.x >= 0;
       })
       .toBe(true);
     await page.keyboard.press("Escape");
