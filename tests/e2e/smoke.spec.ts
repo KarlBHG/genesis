@@ -817,6 +817,45 @@ test("night plate caption reads as a legend, not a GIS inspector", async ({
   await expect(page.getByText("listed here instead of pinned in Reykjavík")).toBeVisible();
 });
 
+test("night plate stamps vacant versus typed pins on the drawing", async ({
+  page,
+}) => {
+  await page.goto("/map?focus=althingi");
+  await expect(page.getByRole("heading", { name: "Alþingi" })).toBeVisible();
+  await expect(
+    page.locator(".geo-mast .kicker").filter({ hasText: "Plate 02" }),
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "Copy this plate" })).toBeVisible();
+  await expect(
+    page.locator(".geo-stage svg g[data-place=reykjavik]"),
+  ).toHaveAttribute("data-pin-kind", "mixed");
+  await expect(page.locator(".geo-stage svg .geo-plate-furniture")).toHaveCount(1);
+  await expect(page.locator(".geo-stage svg #geo-engrave")).toHaveCount(1);
+
+  await page.goto("/map?focus=930-althingi");
+  await expect(
+    page.getByRole("region", { name: "Plate caption" }).getByText(
+      "On the drawing, no typed line",
+    ),
+  ).toBeVisible();
+  await expect(
+    page.locator(".geo-stage svg g[data-place=thingvellir]"),
+  ).toHaveAttribute("data-pin-kind", "vacant");
+
+  await page.goto("/map?place=straumsvik");
+  await expect(
+    page.locator(".geo-stage svg g[data-place=straumsvik]"),
+  ).toHaveAttribute("data-pin-kind", "typed");
+
+  await page.goto("/map");
+  const key = page.getByRole("region", { name: "How to read this plate" });
+  await expect(key).toBeVisible();
+  await expect(key.getByText("Filled disc — typed line on file")).toBeVisible();
+  await expect(
+    key.getByText("Open ring — on the drawing, no typed line"),
+  ).toBeVisible();
+});
+
 test.describe("pocket folio", () => {
   test("thumb index is the mobile door and stays ten plates", async ({
     page,

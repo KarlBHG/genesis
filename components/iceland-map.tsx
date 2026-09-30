@@ -22,7 +22,10 @@ import {
   MAP_LAYERS,
   MAP_VIEWS,
   PLACES,
+  placePinKind,
   type LayerId,
+  type PinKind,
+  type Place,
   type PlaceId,
   type ViewId,
 } from "@/lib/geo-map";
@@ -31,7 +34,10 @@ import {
   serializeMapQuery,
   type MapQuery,
 } from "@/lib/map-query";
+import { printFolio } from "@/lib/print-plate";
 import type { Relationship } from "@/lib/types";
+
+const MAP_FOLIO = printFolio("/map") ?? "02";
 
 export type MapFlowLink = {
   title: string;
@@ -296,6 +302,75 @@ function captionAsOf(asOf: string): string {
   return printed;
 }
 
+function pinAria(place: Place, atPlace: MapEntryView[], kind: PinKind): string {
+  const cluster = atPlace.length > 1;
+  if (kind === "vacant") {
+    return cluster
+      ? `${place.name}, ${atPlace.length} records on one pin, none typed`
+      : `${place.name}, on the drawing, no typed line`;
+  }
+  if (kind === "mixed") {
+    return `${place.name}, ${atPlace.length} records on one pin, mixed typed and vacant`;
+  }
+  return cluster
+    ? `${place.name}, ${atPlace.length} records on one pin`
+    : place.name;
+}
+
+function graticuleLabels(scene: ReturnType<typeof projectCoast>) {
+  const labels: {
+    x: number;
+    y: number;
+    text: string;
+    anchor: "start" | "middle" | "end";
+  }[] = [];
+  for (let lon = Math.ceil(scene.minLon); lon <= Math.floor(scene.maxLon); lon += 2) {
+    const point = scene.project(lon, scene.maxLat);
+    labels.push({
+      x: point.x,
+      y: 22,
+      text: `${Math.abs(lon)}°W`,
+      anchor: "middle",
+    });
+  }
+  for (let lat = Math.ceil(scene.minLat); lat <= Math.floor(scene.maxLat); lat += 1) {
+    const point = scene.project(scene.minLon, lat);
+    labels.push({
+      x: 18,
+      y: point.y,
+      text: `${lat}°N`,
+      anchor: "start",
+    });
+  }
+  return labels;
+}
+
+function PlateKey() {
+  return (
+    <div className="geo-plate-key">
+      <p className="geo-caption-kicker">How to read this plate</p>
+      <ul aria-label="Pin stamps">
+        <li>
+          <span className="geo-key-mark" data-kind="typed" aria-hidden />
+          Filled disc — typed line on file
+        </li>
+        <li>
+          <span className="geo-key-mark" data-kind="vacant" aria-hidden />
+          Open ring — on the drawing, no typed line
+        </li>
+        <li>
+          <span className="geo-key-mark" data-kind="mixed" aria-hidden />
+          Ring on a fill — mixed cluster, still one Nominatim point
+        </li>
+      </ul>
+      <p className="geo-caption-empty">
+        Touch a named place. Off-map endpoints stay under the island, never extra
+        dots.
+      </p>
+    </div>
+  );
+}
+
 function PlateCaption({
   focus,
   placeName,
@@ -495,6 +570,7 @@ export function IcelandMap({
     layer,
     entries: placeEntries.filter((entry) => entry.layer === layer.id),
   })).filter((group) => group.entries.length > 0);
+  const selectedPlaceKind = placeEntries.length > 0 ? placePinKind(placeEntries) : null;
   const visiblePlaces = PLACES.filter((place) =>
     visible.some((entry) => entry.place === place.id),
   );
@@ -653,12 +729,13 @@ export function IcelandMap({
       <div className="geo-theater">
         <header className="geo-mast">
           <div className="min-w-0">
-            <p className="kicker">Geographic view</p>
+            <p className="kicker">Plate {MAP_FOLIO}</p>
             <h1>Iceland, only where a page names the place.</h1>
             <p className="geo-lede">
-              One pin per named town. Reykjavík is a cluster, not a door for each office. Mixed
-              colours on a pin are the layers actually on file there. Trade-partner countries stay
-              off the island. The address bar holds this view.
+              One pin per named town. A filled disc has a typed line; an open ring is on the
+              drawing with none. Reykjavík is a cluster, not a door for each office. Mixed colours
+              on a pin are the layers actually on file there. Trade-partner countries stay off the
+              island. The address bar holds this plate.
             </p>
             <span className="geo-permalink" title={sharePath}>
               {sharePath}
@@ -672,10 +749,10 @@ export function IcelandMap({
               className={MAP_CONTROL}
               onClick={copyLink}
             >
-              {copied ? "Link copied" : "Copy this view"}
+              {copied ? "Plate link copied" : "Copy this plate"}
             </Button>
             <span className="sr-only" aria-live="polite">
-              {copied ? "Link copied" : ""}
+              {copied ? "Plate link copied" : ""}
             </span>
           </div>
         </header>
@@ -732,7 +809,7 @@ export function IcelandMap({
                 key={layer.id}
                 type="button"
                 aria-pressed={enabled[layer.id]}
-                className={`rounded-md border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
+                className={`border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
                 style={{
                   borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
                   color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
@@ -754,7 +831,7 @@ export function IcelandMap({
                 key={view.id}
                 type="button"
                 aria-pressed={viewsOn[view.id]}
-                className={`rounded-md border border-(--geo-line) px-3 py-1.5 text-sm ${MAP_CONTROL}`}
+                className={`border border-(--geo-line) px-3 py-1.5 text-sm ${MAP_CONTROL}`}
                 style={{
                   color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
                   background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
@@ -775,7 +852,7 @@ export function IcelandMap({
                 key={layer.id}
                 type="button"
                 aria-pressed={selected}
-                className={`flex w-[5.1rem] flex-col items-center gap-1 rounded-md border px-1 py-2 text-center text-[11px] leading-tight ${MAP_CONTROL}`}
+                className={`flex w-[5.1rem] flex-col items-center gap-1 border px-1 py-2 text-center text-[11px] leading-tight ${MAP_CONTROL}`}
                 style={{
                   borderColor: selected ? layer.swatch : "var(--geo-line)",
                   color: selected ? "var(--geo-ink)" : "var(--geo-ink-muted)",
@@ -797,7 +874,7 @@ export function IcelandMap({
             preserveAspectRatio="xMidYMid meet"
             className="h-auto w-full"
             role="img"
-            aria-label="Outline of Iceland with sourced pins. One pin per named place; a number is how many records share that pin."
+            aria-label="Engraved night plate of Iceland with sourced pins. Filled discs have a typed line; open rings are on the drawing with none. A number is how many records share that pin."
           >
             <defs>
               <radialGradient id="geo-sea-wash" cx="48%" cy="42%" r="68%">
@@ -815,6 +892,23 @@ export function IcelandMap({
                 <stop offset="45%" stopColor="var(--geo-aurora-mid)" stopOpacity="0.22" />
                 <stop offset="100%" stopColor="var(--geo-canvas)" stopOpacity="0" />
               </radialGradient>
+              <pattern
+                id="geo-engrave"
+                width="7"
+                height="7"
+                patternUnits="userSpaceOnUse"
+                patternTransform="rotate(38)"
+              >
+                <line
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="7"
+                  stroke="var(--geo-coast)"
+                  strokeWidth="0.45"
+                  opacity="0.42"
+                />
+              </pattern>
               <filter id="geo-glow-soft" x="-20%" y="-20%" width="140%" height="140%">
                 <feGaussianBlur stdDeviation="7" />
               </filter>
@@ -879,10 +973,109 @@ export function IcelandMap({
             </g>
             <path
               d={scene.d}
+              fill="url(#geo-engrave)"
+              stroke="none"
+              opacity="0.9"
+            />
+            <path
+              d={scene.d}
               fill="none"
               stroke="var(--geo-coast)"
               strokeWidth="1.7"
             />
+            <g className="geo-plate-furniture" aria-hidden>
+              <rect
+                x="10"
+                y="10"
+                width={scene.width - 20}
+                height={scene.height - 20}
+                fill="none"
+                stroke="var(--geo-coast)"
+                strokeWidth="1.1"
+              />
+              <rect
+                x="14"
+                y="14"
+                width={scene.width - 28}
+                height={scene.height - 28}
+                fill="none"
+                stroke="var(--geo-line-bright)"
+                strokeWidth="0.45"
+              />
+              {graticuleLabels(scene).map((label) => (
+                <text
+                  key={`${label.text}-${label.x}-${label.y}`}
+                  x={label.x}
+                  y={label.y}
+                  textAnchor={label.anchor}
+                  fill="var(--geo-ink-muted)"
+                  fontSize="9"
+                  letterSpacing="0.06em"
+                >
+                  {label.text}
+                </text>
+              ))}
+              <g transform={`translate(${scene.width - 186}, ${scene.height - 84})`}>
+                <rect
+                  x="0"
+                  y="0"
+                  width="168"
+                  height="66"
+                  fill="var(--geo-sea-deep)"
+                  stroke="var(--geo-coast)"
+                  strokeWidth="0.9"
+                />
+                <rect
+                  x="3.5"
+                  y="3.5"
+                  width="161"
+                  height="59"
+                  fill="none"
+                  stroke="var(--geo-line-bright)"
+                  strokeWidth="0.4"
+                />
+                <text
+                  x="12"
+                  y="24"
+                  fill="var(--geo-accent)"
+                  fontSize="18"
+                  fontFamily="var(--font-serif), Georgia, serif"
+                >
+                  {MAP_FOLIO}
+                </text>
+                <text
+                  x="12"
+                  y="42"
+                  fill="var(--geo-ink)"
+                  fontSize="11"
+                  letterSpacing="0.32em"
+                >
+                  ICELAND
+                </text>
+                <text x="12" y="56" fill="var(--geo-ink-muted)" fontSize="8">
+                  only named places
+                </text>
+              </g>
+              <g transform={`translate(${scene.width - 36}, 34)`}>
+                <path
+                  d="M0 16 L0 0 M-3.5 6 L0 0 L3.5 6"
+                  fill="none"
+                  stroke="var(--geo-coast)"
+                  strokeWidth="1.1"
+                  strokeLinejoin="miter"
+                />
+                <text
+                  x="0"
+                  y="-6"
+                  textAnchor="middle"
+                  fill="var(--geo-ink-muted)"
+                  fontSize="9"
+                  letterSpacing="0.12em"
+                >
+                  N
+                </text>
+              </g>
+            </g>
             <g className="geo-print-ornament">
             {strings.map(({ edge, bend, year }) => {
               const drawn = curve(points[edge.fromPlace!], points[edge.toPlace!], bend);
@@ -926,6 +1119,7 @@ export function IcelandMap({
               const point = points[place.id];
               const mix = layerMix(atPlace);
               const cluster = atPlace.length > 1;
+              const kind = placePinKind(atPlace);
               const selected = selectedPlace === place.id;
               const involved =
                 !selectedSlug ||
@@ -939,21 +1133,35 @@ export function IcelandMap({
               const radius = selected ? 10 : cluster ? 8 : 5.5;
               const label = LABEL_AT[place.id];
               const gap = (2 * Math.PI) / Math.max(mix.length, 1);
+              const vacant = kind === "vacant";
+              const fill = vacant
+                ? "var(--geo-sea-deep)"
+                : mix.length > 1
+                  ? "var(--geo-chip)"
+                  : (LAYERS.find((layer) => layer.id === mix[0])?.swatch ?? "var(--layer-state)");
+              const countFill = vacant
+                ? "var(--geo-accent-soft)"
+                : mix.length > 1
+                  ? "var(--geo-ink)"
+                  : "var(--geo-canvas)";
               return (
                 <g
                   key={place.id}
+                  data-place={place.id}
+                  data-pin-kind={kind}
                   data-print-pin={selected ? "selected" : "rest"}
                   style={{ opacity: involved ? 1 : 0.32, transition: motionTransition }}
                 >
-                  {selected && !reduceMotion ? (
-                    <circle
-                      className="geo-pulse-ring"
-                      cx={point.x}
-                      cy={point.y}
-                      r={radius + 3}
+                  {selected ? (
+                    <rect
+                      className="geo-focus-tick"
+                      x={point.x - radius - 7}
+                      y={point.y - radius - 7}
+                      width={(radius + 7) * 2}
+                      height={(radius + 7) * 2}
                       fill="none"
                       stroke="var(--geo-accent)"
-                      strokeWidth="1.2"
+                      strokeWidth="0.9"
                     />
                   ) : null}
                   {Math.hypot(label.dx, label.dy) > 14 ? (
@@ -965,14 +1173,35 @@ export function IcelandMap({
                       opacity="0.7"
                     />
                   ) : null}
+                  {kind === "mixed" ? (
+                    <circle
+                      cx={point.x}
+                      cy={point.y}
+                      r={radius + (mix.length > 1 ? 6.4 : 4.4)}
+                      fill="none"
+                      stroke="var(--geo-coast)"
+                      strokeWidth="1"
+                      strokeDasharray="2.2 1.5"
+                    />
+                  ) : null}
                   <circle
                     cx={point.x}
                     cy={point.y}
                     r={radius}
-                    fill={mix.length > 1 ? "var(--geo-chip)" : (LAYERS.find((layer) => layer.id === mix[0])?.swatch ?? "var(--layer-state)")}
-                    stroke="var(--geo-ink)"
-                    strokeWidth={selected ? 1.8 : 0.9}
+                    fill={fill}
+                    stroke={vacant ? "var(--geo-coast)" : "var(--geo-ink)"}
+                    strokeWidth={selected ? 1.8 : vacant ? 1.35 : 0.9}
                   />
+                  {vacant ? (
+                    <circle
+                      cx={point.x}
+                      cy={point.y}
+                      r={Math.max(2.2, radius - 2.4)}
+                      fill="none"
+                      stroke="var(--geo-accent-dim)"
+                      strokeWidth="0.7"
+                    />
+                  ) : null}
                   {mix.length > 1
                     ? mix.map((layerId, index) => {
                         const start = -Math.PI / 2 + index * gap + 0.08;
@@ -995,7 +1224,7 @@ export function IcelandMap({
                       y={point.y}
                       textAnchor="middle"
                       dominantBaseline="central"
-                      fill={mix.length > 1 ? "var(--geo-ink)" : "var(--geo-canvas)"}
+                      fill={countFill}
                       fontSize="9"
                       fontWeight="600"
                       pointerEvents="none"
@@ -1024,6 +1253,7 @@ export function IcelandMap({
             if (atPlace.length === 0) return null;
             const point = points[place.id];
             const cluster = atPlace.length > 1;
+            const kind = placePinKind(atPlace);
             return (
               <button
                 key={place.id}
@@ -1032,16 +1262,14 @@ export function IcelandMap({
                 data-geo-anchor={
                   focus && place.id === focus.place ? "focus" : undefined
                 }
+                data-place={place.id}
+                data-pin-kind={kind}
                 style={{
                   left: `${(point.x / scene.width) * 100}%`,
                   top: `${(point.y / scene.height) * 100}%`,
                   zIndex: atPlace.length,
                 }}
-                aria-label={
-                  cluster
-                    ? `${place.name}, ${atPlace.length} records on one pin`
-                    : place.name
-                }
+                aria-label={pinAria(place, atPlace, kind)}
                 aria-current={
                   focus && place.id === focus.place ? "true" : undefined
                 }
@@ -1052,50 +1280,32 @@ export function IcelandMap({
           </div>
         </div>
 
-        <nav className="geo-pins" aria-label="Places on the map">
-          <p className="mb-2 text-xs tracking-wide text-(--geo-ink-muted) uppercase">
-            Pins · one per named place
-          </p>
+        <nav className="geo-pins" aria-label="Named places on this plate">
+          <p className="geo-caption-kicker">Named places · one pin each</p>
           {emptyLayers ? (
             <p className="text-sm leading-6 text-(--geo-ink-muted)">
               Every layer is off. The coast is still Iceland; the pins wait.
             </p>
           ) : (
-            <ul className="flex flex-wrap gap-2">
+            <ul className="geo-pins-index">
               {visiblePlaces.map((place) => {
                 const atPlace = visible.filter((entry) => entry.place === place.id);
                 const selected = selectedPlace === place.id;
                 const cluster = atPlace.length > 1;
-                const mix = layerMix(atPlace);
+                const kind = placePinKind(atPlace);
                 return (
                   <li key={place.id}>
                     <button
                       type="button"
                       aria-pressed={selected}
-                      className={`rounded-md border px-3 py-1 text-sm ${MAP_CONTROL}`}
-                      style={{
-                        borderColor: selected ? "var(--geo-accent)" : "var(--geo-line-strong)",
-                        color: selected ? "var(--geo-ink)" : "var(--geo-ink-muted)",
-                        background: selected ? "var(--geo-chip-active)" : "transparent",
-                      }}
+                      data-pin-kind={kind}
+                      className={`geo-pins-name ${MAP_CONTROL}`}
                       onClick={() => selectPlace(place.id)}
                     >
-                      <span className="mr-1.5 inline-flex items-center gap-0.5" aria-hidden>
-                        {mix.map((layerId) => (
-                          <span
-                            key={layerId}
-                            className="inline-block h-1.5 w-1.5 rounded-full"
-                            style={{
-                              background: LAYERS.find((layer) => layer.id === layerId)?.swatch,
-                            }}
-                          />
-                        ))}
-                      </span>
+                      <span className="geo-key-mark" data-kind={kind} aria-hidden />
                       {place.name}
                       {cluster ? (
-                        <span className="ml-1.5 inline-flex min-w-[1.25rem] justify-center rounded-full bg-(--geo-chip-active) px-1 text-[11px] font-medium text-(--geo-ink)">
-                          {atPlace.length}
-                        </span>
+                        <span className="geo-pins-count">{atPlace.length}</span>
                       ) : null}
                     </button>
                   </li>
@@ -1114,13 +1324,15 @@ export function IcelandMap({
           id="geo-pocket-sheet"
           style={dragHeight != null ? { height: `${dragHeight}px` } : undefined}
           aria-live="polite"
-          role={focus || placeEntries.length > 1 ? "region" : undefined}
+          role="region"
           aria-label={
             focus
               ? "Plate caption"
-              : placeEntries.length > 1
-                ? `${placeName} entries`
-                : undefined
+              : selectedPlace
+                ? placeEntries.length > 1
+                  ? `${placeName} entries`
+                  : `${placeName} on this plate`
+                : "How to read this plate"
           }
           tabIndex={captionCluster ? 0 : undefined}
           onKeyDown={
@@ -1166,10 +1378,15 @@ export function IcelandMap({
             />
           ) : selectedPlace ? (
             <div className="flex flex-col gap-3">
-              <p className="text-xs tracking-wide text-(--geo-ink-muted) uppercase">
+              <p className="geo-caption-kicker">
                 Place · {placeEntries.length > 1 ? `${placeEntries.length} on one pin` : "one record"}
+                {selectedPlaceKind === "vacant"
+                  ? " · no typed line"
+                  : selectedPlaceKind === "mixed"
+                    ? " · mixed typed and vacant"
+                    : " · typed"}
               </p>
-              <h2 className="text-xl font-medium text-(--geo-ink)">{placeName}</h2>
+              <h2 className="geo-caption-title">{placeName}</h2>
               {placeEntries.length > 1 ? (
                 <p className="text-sm leading-6 text-(--geo-ink-muted)">
                   {selectedPlace === "reykjavik"
@@ -1179,7 +1396,7 @@ export function IcelandMap({
               ) : null}
               {grouped.map((group) => (
                 <div key={group.layer.id} className="flex flex-col gap-2">
-                  <p className="text-xs tracking-wide text-(--geo-ink-muted) uppercase">{group.layer.label}</p>
+                  <p className="geo-caption-kicker">{group.layer.label}</p>
                   <ul className="geo-scroll">
                     {group.entries.map((entry) => (
                       <li key={entry.slug}>
@@ -1191,7 +1408,7 @@ export function IcelandMap({
                         >
                           {entry.title}
                           {entry.pinOnly ? (
-                            <span className="mt-0.5 block text-[10px] font-normal text-(--geo-ink-muted) no-underline">
+                            <span className="mt-0.5 block text-[10px] font-normal tracking-wide text-(--geo-ink-muted) no-underline uppercase">
                               On the drawing, no typed line
                             </span>
                           ) : null}
@@ -1202,32 +1419,41 @@ export function IcelandMap({
                 </div>
               ))}
             </div>
-          ) : selectedLayer ? (
-            <div className="flex flex-col gap-3">
-              <p className="text-xs tracking-wide text-(--geo-ink-muted) uppercase">Layer</p>
-              <h2 className="text-xl font-medium text-(--geo-ink)">{LAYER_LABEL[selectedLayer]}</h2>
-              {layerEntries.length === 0 ? (
-                <p className="text-sm leading-6 text-(--geo-ink-muted)">Nothing sourced on this layer yet.</p>
-              ) : (
-                <ul className="geo-scroll">
-                  {layerEntries.map((entry) => (
-                    <li key={entry.slug}>
-                        <button
-                          type="button"
-                          className={`text-left text-sm text-(--geo-ink) underline underline-offset-4 ${MAP_CONTROL}`}
-                          onClick={() => selectSlug(entry.slug, entry.place)}
-                        >
-                        {entry.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
           ) : (
-            <p className="text-sm leading-6 text-(--geo-ink-muted)">
-              Touch a named place. The island stays dark where a page has not named it.
-            </p>
+            <div className="flex flex-col gap-3">
+              <PlateKey />
+              {selectedLayer ? (
+                <div className="geo-layer-index">
+                  <p className="geo-caption-kicker">
+                    {LAYER_LABEL[selectedLayer]} · {layerEntries.length} on this plate
+                  </p>
+                  {layerEntries.length === 0 ? (
+                    <p className="text-sm leading-6 text-(--geo-ink-muted)">
+                      Nothing sourced on this layer yet.
+                    </p>
+                  ) : (
+                    <ul className="geo-scroll">
+                      {layerEntries.map((entry) => (
+                        <li key={entry.slug}>
+                          <button
+                            type="button"
+                            className={`text-left text-sm text-(--geo-ink) underline underline-offset-4 ${MAP_CONTROL}`}
+                            onClick={() => selectSlug(entry.slug, entry.place)}
+                          >
+                            {entry.title}
+                            {entry.pinOnly ? (
+                              <span className="mt-0.5 block text-[10px] font-normal tracking-wide text-(--geo-ink-muted) no-underline uppercase">
+                                On the drawing, no typed line
+                              </span>
+                            ) : null}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ) : null}
+            </div>
           )}
           </div>
         </aside>
@@ -1310,8 +1536,8 @@ export function IcelandMap({
 
       <p className="geo-credit">
         Coastline: Natural Earth 1:50m, public domain. Place points: Nominatim names for the
-        pinned towns. A number on a pin is how many catalog pages share that point, not a total
-        and not a score.
+        pinned towns. A filled disc has a typed line; an open ring is on the drawing with none. A
+        number on a pin is how many catalog pages share that point, not a total and not a score.
       </p>
       <PrintPlateColophon />
     </div>

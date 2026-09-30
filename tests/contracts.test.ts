@@ -22,7 +22,7 @@ import {
   getTreaties,
   toSearchDocs,
 } from "@/lib/content";
-import { MAP_ENTRIES, MAP_VIEWS, viewOf } from "@/lib/geo-map";
+import { MAP_ENTRIES, MAP_VIEWS, placePinKind, viewOf } from "@/lib/geo-map";
 import { mapSlugHasTypedLinkage } from "@/lib/map-graph";
 import { icelandicLang } from "@/lib/lang";
 import { highlightParts, searchEntries } from "@/lib/search";
@@ -247,6 +247,19 @@ describe("map membership", () => {
     expect(source).toContain("geo-caption-legend");
     expect(source).toContain("edgeHref");
     expect(source).toContain("Off-map endpoints");
+    expect(source).toContain("data-pin-kind");
+    expect(source).toContain("geo-engrave");
+    expect(source).toContain("Copy this plate");
+    expect(source).toContain("geo-plate-key");
+    expect(source).not.toContain("geo-pulse-ring");
+    expect(source).not.toMatch(/Mapbox|Google Maps|cesium/i);
+  });
+
+  it("stamps vacant, typed, and mixed pins without splitting a Nominatim cluster", () => {
+    expect(placePinKind([{ pinOnly: true }])).toBe("vacant");
+    expect(placePinKind([{ pinOnly: false }])).toBe("typed");
+    expect(placePinKind([{ pinOnly: true }, { pinOnly: false }])).toBe("mixed");
+    expect(placePinKind([{ pinOnly: false }, { pinOnly: false }])).toBe("typed");
   });
 
   it("ratchets edge endpoints missing from the map (baseline 39)", () => {

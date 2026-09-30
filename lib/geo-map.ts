@@ -299,3 +299,23 @@ export const MAP_LAYERS = LAYERS.filter((layer) =>
   MAP_ENTRIES.some((entry) => entry.layer === layer.id),
 );
 
+/**
+ * How a Nominatim pin should stamp. Mixed stays one disc — never a second
+ * invented coordinate when a vacant record shares the point with a typed one.
+ */
+export type PinKind = "typed" | "vacant" | "mixed";
+
+export function placePinKind(
+  entries: readonly { pinOnly?: boolean }[],
+): PinKind {
+  let vacant = false;
+  let typed = false;
+  for (const entry of entries) {
+    if (entry.pinOnly) vacant = true;
+    else typed = true;
+  }
+  if (vacant && typed) return "mixed";
+  if (vacant) return "vacant";
+  return "typed";
+}
+
