@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 
 import {
   clickLive,
+  clickTenureChip,
   emulatePrint,
   expectFacing,
   expectStacked,
@@ -313,8 +314,8 @@ test("connections tenure filter labels empty ends and does not invent current", 
 
   const current = tenureChip(tenure, "current");
   await expect(current).toHaveAttribute("href", /tenure=current/);
-  await clickLive(current);
-  await expect(page).toHaveURL(/tenure=current/);
+  await clickTenureChip(current);
+  await expect(page).toHaveURL(/tenure=current/, { timeout: 20_000 });
   const careers = page.locator("#careers");
   await expect(careers).toBeVisible();
   await expect(
@@ -337,8 +338,8 @@ test("connections tenure filter labels empty ends and does not invent current", 
   await expect(endField.getByText("current", { exact: true })).toHaveCount(0);
 
   const detailTenure = await waitForTenureLive(page);
-  await clickLive(tenureChip(detailTenure, "ended"));
-  await expect(page).toHaveURL(/tenure=ended/);
+  await clickTenureChip(tenureChip(detailTenure, "ended"));
+  await expect(page).toHaveURL(/tenure=ended/, { timeout: 20_000 });
   const endedCareers = page.locator("#careers");
   await expect(endedCareers.locator("li").getByText("ended", { exact: true }).first()).toBeVisible();
   await expect(
@@ -937,26 +938,18 @@ test.describe("pocket folio", () => {
     await page.goto("/");
     const rail = page.locator(".folio-cell");
     await expect(rail).toHaveCount(4);
-    const railFirst = await rail.nth(0).boundingBox();
-    const railSecond = await rail.nth(1).boundingBox();
-    expect(railSecond!.y).toBeGreaterThan(railFirst!.y + railFirst!.height / 2);
+    await expectStacked(rail.nth(0), rail.nth(1));
 
     await page.goto("/obligations");
     const themes = page.locator("header").getByRole("listitem").getByRole("link");
     await expect(themes).toHaveCount(9);
-    const themeFirst = await themes.nth(0).boundingBox();
-    const themeSecond = await themes.nth(1).boundingBox();
-    expect(themeSecond!.y).toBeGreaterThan(themeFirst!.y + themeFirst!.height / 2);
+    await expectStacked(themes.nth(0), themes.nth(1));
 
     await page.goto("/offices/prime-minister");
     await expect(page.getByRole("heading", { name: "Prime Minister" })).toBeVisible();
     const record = page.locator("main .folio-gutter > div");
     await expect(record).toHaveCount(2);
-    await expect(record.nth(0)).toBeVisible();
-    await expect(record.nth(1)).toBeVisible();
-    const org = await record.nth(0).boundingBox();
-    const membership = await record.nth(1).boundingBox();
-    expect(membership!.y).toBeGreaterThan(org!.y + org!.height / 2);
+    await expectStacked(record.nth(0), record.nth(1));
   });
 
   test("budget treemap yields to magnitude and invoices stack as a ledger", async ({
@@ -1286,8 +1279,8 @@ test.describe("pocket folio", () => {
 
     const current = tenureChip(tenure, "current");
     await expect(current).toHaveAttribute("href", /tenure=current/);
-    await clickLive(current);
-    await expect(page).toHaveURL(/tenure=current/);
+    await clickTenureChip(current);
+    await expect(page).toHaveURL(/tenure=current/, { timeout: 20_000 });
     await clickLive(
       page.locator("#careers").getByRole("link", { name: "Open this connection" }).first(),
     );

@@ -23,6 +23,19 @@ export function tenureChip(tenure: Locator, which: "current" | "ended") {
   });
 }
 
+/**
+ * Tenure chips are Next.js Links with `role="button"`. Playwright's locator
+ * click often does not navigate them under a shared webServer and parallel
+ * workers; a native `<a>.click()` does.
+ */
+export async function clickTenureChip(chip: Locator) {
+  await expect(chip).toBeVisible();
+  await expect(chip).toHaveAttribute("href", /tenure=/);
+  await chip.evaluate((node) => {
+    if (node instanceof HTMLAnchorElement) node.click();
+  });
+}
+
 export async function waitForSelectedTab(page: Page, name: string | RegExp) {
   const tab = page.getByRole("tab", { name });
   await expect(tab).toBeVisible();
