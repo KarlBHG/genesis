@@ -509,7 +509,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           </div>
         ) : null}
         <FactStrip entry={entry} />
-        <div className="fade-rise-4 flex flex-wrap items-center gap-2 print:hidden">
+        <div className="fade-rise-4 rise-ink flex flex-wrap items-center gap-2 print:hidden">
           <Button
             nativeButton={false}
             render={<Link href={kindPath(entry.kind)} />}

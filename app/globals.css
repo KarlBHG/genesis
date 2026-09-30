@@ -80,7 +80,11 @@
   --muted-foreground: oklch(0.3 0.03 255);
   --accent: oklch(0.91 0.018 88);
   --accent-foreground: oklch(0.16 0.04 255);
-  --destructive: oklch(0.577 0.245 27.325);
+  /*
+   * Hairline stamp only — not letters. Badges and field errors use --foreground.
+   * Dark enough that 12px ink would still clear 4.5:1 on the page wash.
+   */
+  --destructive: oklch(0.48 0.2 27.325);
   --border: oklch(0.74 0.022 88);
   --input: oklch(0.74 0.022 88);
   --ring: oklch(0.38 0.055 255);
@@ -284,6 +288,8 @@ body:has(.geo-room) {
   --muted-foreground: var(--geo-ink-muted);
   --accent: var(--geo-chip-active);
   --accent-foreground: var(--geo-ink);
+  /* Keep the existing night red; paper's passing token is too dark on the canvas. */
+  --destructive: oklch(0.577 0.245 27.325);
   --border: var(--geo-line);
   --input: var(--geo-line);
   --ring: var(--geo-accent);
@@ -1187,6 +1193,7 @@ body:has(.geo-room) footer {
   .fade-rise-delayed,
   .fade-rise-3,
   .fade-rise-4,
+  .rise-ink,
   .hero-display,
   .display-italic,
   .page-hero-glow,
@@ -1205,6 +1212,7 @@ body:has(.geo-room) footer {
   .fade-rise-delayed,
   .fade-rise-3,
   .fade-rise-4,
+  .rise-ink,
   .hero-display,
   .display-italic,
   .hero-stat-rail > div,
@@ -1428,6 +1436,11 @@ body:has(.geo-room) footer {
   animation: fade-rise 920ms ease 250ms both;
 }
 
+/* Same rise as fade-rise, full ink — outline buttons cannot sit below 4.5:1. */
+.rise-ink {
+  animation-name: rise-ink;
+}
+
 @keyframes fade-rise {
   from {
     opacity: 0;
@@ -1435,6 +1448,15 @@ body:has(.geo-room) footer {
   }
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rise-ink {
+  from {
+    transform: translateY(14px);
+  }
+  to {
     transform: translateY(0);
   }
 }
