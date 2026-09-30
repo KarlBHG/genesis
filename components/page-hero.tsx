@@ -67,7 +67,7 @@ export function PageHero({
           {children}
         </div>
         {aside ? (
-          <div className="fade-rise-delayed w-full shrink-0 lg:max-w-sm lg:flex-1">
+          <div className="fade-rise-delayed rise-ink w-full shrink-0 lg:max-w-sm lg:flex-1">
             {aside}
           </div>
         ) : null}

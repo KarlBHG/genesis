@@ -1465,16 +1465,13 @@ body:has(.geo-room) footer {
   }
 }
 
+/* Same rise as display-reveal, full ink — titles cannot sit below 4.5:1 while they blur in. */
 @keyframes display-reveal {
   from {
-    opacity: 0;
     transform: translateY(22px);
-    filter: blur(6px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
@@ -1596,7 +1593,7 @@ body:has(.geo-room) footer {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  animation: fade-rise 800ms ease both;
+  animation: rise-ink 800ms ease both;
 }
 
 .hero-stat-rail > div:nth-child(1) {
@@ -1681,7 +1678,7 @@ body:has(.geo-room) footer {
 }
 
 .entry-fact-strip > div {
-  animation: fade-rise 640ms ease both;
+  animation: rise-ink 640ms ease both;
 }
 
 .entry-fact-strip > div:nth-child(1) {

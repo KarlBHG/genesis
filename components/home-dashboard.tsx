@@ -238,7 +238,7 @@ export function HomeDashboard({
               ))}
             </dl>
           </div>
-          <div className="fade-rise-delayed flex w-full min-w-0 flex-col items-center gap-4 sm:gap-5 lg:max-w-md lg:flex-1">
+          <div className="fade-rise-delayed rise-ink flex w-full min-w-0 flex-col items-center gap-4 sm:gap-5 lg:max-w-md lg:flex-1">
             <p className="text-center text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase">
               {padIndex(obligationThemeCount)} themes ·{" "}
               <Link className="underline underline-offset-4" href="/obligations">

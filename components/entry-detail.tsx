@@ -488,7 +488,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
       <header className="glass-panel atlas-page-header entry-masthead max-w-reading">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <p className="kicker fade-rise rise-ink">{labelize(entry.kind)}</p>
-          <p className="entry-running-head fade-rise print:hidden">
+          <p className="entry-running-head fade-rise rise-ink print:hidden">
             {kindPath(entry.kind)}/{entry.slug}
           </p>
         </div>

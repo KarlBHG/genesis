@@ -136,7 +136,7 @@ export default async function ConnectionPermalinkPage({
           </p>
           {view && viewLabel ? (
             <Link
-              className="entry-running-head fade-rise underline-offset-4 hover:underline"
+              className="entry-running-head fade-rise rise-ink underline-offset-4 hover:underline"
               href={`/connections#${view}`}
             >
               {viewLabel} view
