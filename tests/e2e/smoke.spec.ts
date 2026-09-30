@@ -1317,6 +1317,28 @@ test.describe("pocket folio", () => {
     expect(right!.y).toBeGreaterThan(left!.y + left!.height / 2);
   });
 
+  test("compare lists both Landspítali invoices to Íslandsbanki", async ({
+    page,
+  }) => {
+    const duplicateKeys: string[] = [];
+    page.on("console", (message) => {
+      const text = message.text();
+      if (message.type() === "error" && /duplicate key/i.test(text)) {
+        duplicateKeys.push(text);
+      }
+    });
+    await page.goto("/compare?left=arion-banki&right=islandsbanki");
+    await expect(page.getByRole("heading", { name: "Compare" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Only Íslandsbanki" }),
+    ).toBeVisible();
+    await expect(page.getByText("3546720")).toBeVisible();
+    await expect(page.getByText("1775476")).toBeVisible();
+    expect(
+      duplicateKeys.filter((text) => text.includes("in:pays:landspitali")),
+    ).toEqual([]);
+  });
+
   test("night leader drops from the pin toward the sheet when anchors work", async ({
     page,
   }, testInfo) => {

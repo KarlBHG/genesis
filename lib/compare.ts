@@ -8,7 +8,10 @@ export const DEFAULT_RIGHT = "islandsbanki";
 export type Fact = { label: string; value: string };
 
 export type Touch = {
+  /** Unique per cited sentence. Pair identity plus asOf, start, amount basis, quotation. */
   key: string;
+  /** Same relationship to the same other entry. Used to match shared/only columns. */
+  pairKey: string;
   relationship: Relationship;
   direction: "out" | "in";
   otherSlug: string;
@@ -16,6 +19,32 @@ export type Touch = {
   note: string;
   asOf: string;
 };
+
+export function touchPairKey(
+  direction: "out" | "in",
+  relationship: Relationship,
+  otherSlug: string,
+): string {
+  return `${direction}:${relationship}:${otherSlug}`;
+}
+
+/** Honest list identity. Two invoices to the same vendor stay two keys. */
+export function touchKey(
+  direction: "out" | "in",
+  edge: Pick<
+    Edge,
+    "relationship" | "from" | "to" | "asOf" | "start" | "quotation" | "amount"
+  >,
+): string {
+  const otherSlug = direction === "out" ? edge.to : edge.from;
+  return [
+    touchPairKey(direction, edge.relationship, otherSlug),
+    edge.asOf,
+    edge.start ?? "",
+    edge.amount?.basis ?? "",
+    edge.quotation,
+  ].join("|");
+}
 
 export function factsFor(entry: Entry): Fact[] {
   const section: Fact = { label: "Section", value: kindLabel(entry.kind) };
@@ -92,7 +121,8 @@ export function touchesOf(slug: string, edges: Edge[]): Touch[] {
   for (const edge of edges) {
     if (edge.from === slug) {
       touches.push({
-        key: `out:${edge.relationship}:${edge.to}`,
+        key: touchKey("out", edge),
+        pairKey: touchPairKey("out", edge.relationship, edge.to),
         relationship: edge.relationship,
         direction: "out",
         otherSlug: edge.to,
@@ -102,7 +132,8 @@ export function touchesOf(slug: string, edges: Edge[]): Touch[] {
       });
     } else if (edge.to === slug) {
       touches.push({
-        key: `in:${edge.relationship}:${edge.from}`,
+        key: touchKey("in", edge),
+        pairKey: touchPairKey("in", edge.relationship, edge.from),
         relationship: edge.relationship,
         direction: "in",
         otherSlug: edge.from,
@@ -119,14 +150,23 @@ export function sharedTouches(
   left: Touch[],
   right: Touch[],
 ): { left: Touch; right: Touch }[] {
-  const rightByKey = new Map(right.map((touch) => [touch.key, touch]));
-  return left.flatMap((touch) => {
-    const match = rightByKey.get(touch.key);
-    return match ? [{ left: touch, right: match }] : [];
-  });
+  const rightByPair = new Map<string, Touch>();
+  for (const touch of right) {
+    if (!rightByPair.has(touch.pairKey)) rightByPair.set(touch.pairKey, touch);
+  }
+  const seen = new Set<string>();
+  const matched: { left: Touch; right: Touch }[] = [];
+  for (const touch of left) {
+    if (seen.has(touch.pairKey)) continue;
+    const match = rightByPair.get(touch.pairKey);
+    if (!match) continue;
+    seen.add(touch.pairKey);
+    matched.push({ left: touch, right: match });
+  }
+  return matched;
 }
 
 export function onlyTouches(own: Touch[], other: Touch[]): Touch[] {
-  const otherKeys = new Set(other.map((touch) => touch.key));
-  return own.filter((touch) => !otherKeys.has(touch.key));
+  const otherPairs = new Set(other.map((touch) => touch.pairKey));
+  return own.filter((touch) => !otherPairs.has(touch.pairKey));
 }

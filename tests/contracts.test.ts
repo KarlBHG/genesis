@@ -38,6 +38,7 @@ import {
 } from "@/lib/map-query";
 import { GROUP_BY_VIEW, groupEdges } from "@/lib/connection-groups";
 import { asOfMeta, classifyAsOfBucket, compareAsOf } from "@/lib/as-of";
+import { touchesOf } from "@/lib/compare";
 import { edgeHref, edgeId, findEdgeById } from "@/lib/edge-id";
 import { partitionOtherFlows } from "@/lib/fiscal-phases";
 import {
@@ -150,6 +151,17 @@ describe("edge fields", () => {
   it("gives every edge a unique key", () => {
     const keys = getEdges().map(edgeKey);
     expect(new Set(keys).size).toBe(keys.length);
+  });
+
+  it("gives every compare touch a unique key", () => {
+    const edges = getEdges();
+    const slugs = new Set(edges.flatMap((edge) => [edge.from, edge.to]));
+    const leftover: string[] = [];
+    for (const slug of slugs) {
+      const keys = touchesOf(slug, edges).map((touch) => touch.key);
+      if (new Set(keys).size !== keys.length) leftover.push(slug);
+    }
+    expect(leftover).toEqual([]);
   });
 
   it("gives every edge a unique permalink id", () => {
