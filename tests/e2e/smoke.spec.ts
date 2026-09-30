@@ -888,11 +888,7 @@ test.describe("pocket folio", () => {
     await page.goto("/institutions/sedlabanki");
     const facts = page.locator(".entry-fact-strip > div");
     await expect(facts).toHaveCount(4);
-    const first = await facts.nth(0).boundingBox();
-    const second = await facts.nth(1).boundingBox();
-    expect(first).toBeTruthy();
-    expect(second).toBeTruthy();
-    expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
+    await expectStacked(facts.nth(0), facts.nth(1));
   });
 
   test("home folio-rail, obligation index, and office record stack", async ({
