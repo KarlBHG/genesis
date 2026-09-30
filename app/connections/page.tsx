@@ -182,7 +182,7 @@ export default async function ConnectionsPage({
           </>
         }
         eyebrow="Typed public record"
-        folio="05"
+        folio="09"
         italic="named, sourced, typed."
         size="dramatic"
         title="Connections"
@@ -229,16 +229,18 @@ export default async function ConnectionsPage({
         {focusSlug ? null : (
           <UnprintedCareerEndsChecklist rows={unprintedCareerRows(allEdges)} />
         )}
-      <nav aria-label="Connection views" className="flex flex-wrap gap-2">
+      <nav aria-label="Connection views" className="type-rail flex min-w-0 flex-col gap-3">
+        <div className="type-chip-row flex min-w-0 flex-wrap gap-2">
         {byView.map((view) => (
           <a
-            className="connection-view-chip rounded-md border px-3 py-1.5 text-sm underline-offset-4 transition-colors hover:bg-muted hover:underline"
+            className="type-chip connection-view-chip inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition-colors"
             href={`#${view.id}`}
             key={view.id}
           >
-            {view.label} · <span className="count">{view.edges.length}</span>
+            {view.label} · <span className="count tabular-nums">{view.edges.length}</span>
           </a>
         ))}
+        </div>
       </nav>
       {byView.map((view, index) => {
         if (tenureFilter && view.edges.length === 0) return null;
@@ -344,7 +346,7 @@ export default async function ConnectionsPage({
               does not support an allowlisted relationship, the record is labelled prose-only
               instead of left unexplained.
             </p>
-            <Table className="pocket-ledger">
+            <Table className="pocket-ledger folio-register">
               <TableCaption>
                 Catalog records with no typed edge on this drawing. Related links on
                 their pages are not edges.

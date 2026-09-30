@@ -53,6 +53,7 @@ export default function OfficesPage() {
           </>
         }
         eyebrow="Post · not one current holder"
+        folio="Offices"
         title="Offices"
       />
       <div className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-10 px-4 py-10 sm:px-6">

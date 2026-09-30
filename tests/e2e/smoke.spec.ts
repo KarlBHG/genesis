@@ -1186,13 +1186,13 @@ test.describe("pocket folio", () => {
     test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
 
     await page.goto("/money");
-    const phases = page.locator(".fiscal-phases [data-slot=card]");
+    const phases = page.locator(".fiscal-phases article");
     await expect(phases).toHaveCount(3);
     await expectStacked(phases.nth(0), phases.nth(1), { minWidth: 280 });
 
     await page.setViewportSize({ width: 800, height: 844 });
     await page.goto("/money");
-    const tabletPhases = page.locator(".fiscal-phases [data-slot=card]");
+    const tabletPhases = page.locator(".fiscal-phases article");
     await expectStacked(tabletPhases.nth(0), tabletPhases.nth(1), { minWidth: 500 });
 
     await page.setViewportSize({ width: 390, height: 844 });

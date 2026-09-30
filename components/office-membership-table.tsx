@@ -100,7 +100,7 @@ function MembershipTableFrame({
   children: ReactNode;
 }) {
   return (
-    <Table className="pocket-ledger">
+    <Table className="pocket-ledger folio-register">
       <TableCaption>{caption}</TableCaption>
       <TableHeader>
         <TableRow>

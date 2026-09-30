@@ -1722,6 +1722,194 @@ body:has(.geo-room) footer {
   color: var(--muted-foreground);
 }
 
+/* Reading rooms: a typeset folio, not a card grid or a dashboard table. */
+.folio-phase {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.1rem 0 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-phase .kicker::after {
+  width: min(5.5rem, 28vw);
+}
+
+.fiscal-phases {
+  border-top: 1px solid var(--border);
+}
+
+.folio-index {
+  display: flex;
+  min-width: 0;
+  max-width: var(--container-reading);
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.folio-index-row {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.95rem 0 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-index-meta {
+  font-size: 0.625rem;
+  font-weight: 650;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.16em;
+  color: var(--muted-foreground);
+}
+
+.folio-index-title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.folio-index-title:hover {
+  text-decoration: underline;
+}
+
+.folio-index-summary {
+  max-width: var(--container-lede);
+  font-size: 0.925rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+  color: var(--muted-foreground);
+}
+
+.folio-question {
+  min-width: 0;
+  padding: 1.2rem 0 1.4rem;
+  border-top: 1px solid var(--border);
+}
+
+.standing-questions {
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-group {
+  min-width: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-group > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.7rem 0;
+}
+
+.folio-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.folio-pair {
+  min-width: 0;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.folio-note {
+  max-width: var(--container-reading);
+  border-top: 1px dashed var(--border);
+  padding: 0.95rem 0 0.35rem;
+}
+
+.folio-stamp {
+  border: 1px solid var(--destructive);
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.folio-register [data-slot="table-head"] {
+  height: auto;
+  padding: 0.55rem 0.85rem 0.55rem 0;
+  font-size: 0.625rem;
+  font-weight: 650;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.folio-register [data-slot="table-row"],
+.folio-register [data-slot="table-row"]:hover,
+.folio-register [data-slot="table-row"]:focus-within {
+  background-color: transparent !important;
+}
+
+.folio-register [data-slot="table-cell"] {
+  padding: 0.7rem 0.85rem 0.7rem 0;
+  vertical-align: baseline;
+}
+
+.folio-register .pocket-ledger-group [data-slot="table-cell"] {
+  padding-top: 1.05rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 1024px) {
+  .folio-phase {
+    border-bottom: 0;
+    padding: 1.15rem 1.5rem 1.35rem 0;
+    border-right: 1px solid var(--border);
+  }
+
+  .folio-phase:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .folio-phase:not(:first-child) {
+    padding-left: 1.5rem;
+  }
+
+  .folio-gutter > div {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (min-width: 1280px) {
+  .standing-questions-spread {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .standing-questions-spread .folio-question {
+    padding: 1.2rem 1.5rem 1.4rem 0;
+    border-top: 0;
+    border-right: 1px solid var(--border);
+  }
+
+  .standing-questions-spread .folio-question:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .standing-questions-spread .folio-question:not(:first-child) {
+    padding-left: 1.5rem;
+  }
+}
+
 .entry-running-head {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.6875rem;

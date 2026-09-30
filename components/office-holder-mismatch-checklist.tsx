@@ -39,7 +39,7 @@ export function OfficeHolderMismatchChecklist({
           succession, and not a start date copied from as-of.
         </p>
       </header>
-      <Table className="pocket-ledger">
+      <Table className="pocket-ledger folio-register">
         <TableCaption>{holderMismatchCaption(rows)}</TableCaption>
         <TableHeader>
           <TableRow>
@@ -121,10 +121,7 @@ export function OfficeMismatchCallout({
   if (!view.mismatch) return null;
   const row = view.mismatch;
   return (
-    <aside
-      className="flex flex-col gap-2 rounded-lg border border-destructive/30 bg-destructive/5 p-4"
-      id="holder-mismatch"
-    >
+    <aside className="folio-stamp flex flex-col gap-2 p-4" id="holder-mismatch">
       <p className="text-sm font-medium">{HOLDER_MISMATCH_LABEL}</p>
       <p className="text-sm leading-6 text-muted-foreground">{row.detail}</p>
       <p className="text-sm leading-6">

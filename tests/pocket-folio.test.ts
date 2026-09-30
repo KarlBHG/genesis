@@ -77,7 +77,8 @@ describe("pocket folio leftover surfaces", () => {
       path.join(process.cwd(), "components", "office-membership-table.tsx"),
       "utf8",
     );
-    expect(membership).toContain('className="pocket-ledger"');
+    expect(membership).toMatch(/className="pocket-ledger[^"]*"/);
+    expect(membership).toContain("folio-register");
     expect(membership).toContain('data-label="Person"');
     expect(membership).toContain('data-label="Permalink"');
 
@@ -85,7 +86,7 @@ describe("pocket folio leftover surfaces", () => {
       path.join(process.cwd(), "components", "unprinted-career-ends-checklist.tsx"),
       "utf8",
     );
-    expect(unprinted).toContain('className="pocket-ledger"');
+    expect(unprinted).toMatch(/className="pocket-ledger[^"]*"/);
     expect(unprinted).toContain("pocket-ledger-row");
     expect(unprinted).toContain('data-label="End"');
     expect(unprinted).toContain("NO_END_STORED");
@@ -220,7 +221,8 @@ describe("pocket folio leftover surfaces", () => {
       path.join(process.cwd(), "components", "printed-heading-identities.tsx"),
       "utf8",
     );
-    expect(headings).toContain('className="pocket-ledger"');
+    expect(headings).toMatch(/className="pocket-ledger[^"]*"/);
+    expect(headings).toContain("folio-register");
     expect(headings).toContain("pocket-ledger-row");
     expect(headings).toContain('data-label="Printed heading"');
     expect(headings).toContain('data-label="Sits on"');

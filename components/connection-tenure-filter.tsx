@@ -106,7 +106,7 @@ export function ConnectionTenureFilter({
   return (
     <section
       aria-label="Filter current or ended connections"
-      className="as-of-rail flex min-w-0 flex-col gap-3 rounded-2xl border border-border/70 bg-muted/20 p-4"
+      className="as-of-rail flex min-w-0 flex-col gap-3"
     >
       <div className="flex min-w-0 flex-wrap items-baseline justify-between gap-2">
         <h3 className="text-sm font-medium">Tenure</h3>

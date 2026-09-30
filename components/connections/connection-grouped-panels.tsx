@@ -26,8 +26,8 @@ export function ConnectionGroupedPanels({
         const title =
           groupBy === "from" ? first.fromTitle : labelize(first.relationship);
         return (
-          <section className="min-w-0 rounded-lg border px-4" key={group.key}>
-            <header className="flex flex-wrap items-baseline gap-x-2 border-b py-3">
+          <section className="folio-group min-w-0" key={group.key}>
+            <header className="flex flex-wrap items-baseline gap-x-2 border-b border-border py-3">
               {target ? (
                 <Link
                   className="font-medium underline underline-offset-4"

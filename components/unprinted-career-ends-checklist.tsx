@@ -59,7 +59,7 @@ export function UnprintedCareerEndsChecklist({
           retrieval day, or a neighbouring term.
         </p>
       </header>
-      <Table className="pocket-ledger">
+      <Table className="pocket-ledger folio-register">
         <TableCaption>{unlabeledCareerCaption(rows)}</TableCaption>
         <TableHeader>
           <TableRow>

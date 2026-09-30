@@ -14,12 +14,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { edgeKey } from "@/components/connection-graph";
 import { EdgeRow, EgoNetwork, egoLayout, type EdgeRowSide } from "@/components/viz";
@@ -61,7 +55,9 @@ function Fact({
 }) {
   return (
     <div className="flex flex-col gap-1">
-      <dt className="text-muted-foreground">{term}</dt>
+      <dt className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+        {term}
+      </dt>
       <dd>{children}</dd>
     </div>
   );
@@ -192,85 +188,81 @@ function OwnershipFact({ slug }: { slug: string }) {
 
 function Record({ entry }: { entry: Entry }) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Record</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <dl className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {entry.kind === "treaty" ? (
-            <>
-              <Fact term="Signed">{formatDate(entry.signed)}</Fact>
-              <Fact term="Effective">{formatDate(entry.effective)}</Fact>
-              <Fact term="Status">{labelize(entry.status)}</Fact>
-              <Fact term="Parties">{entry.parties.join(", ") || "Not stated"}</Fact>
-              <Fact term="Topics">
-                <span className="flex flex-wrap gap-1">
-                  {entry.topics.map((topic) => (
-                    <Badge key={topic} variant="outline">
-                      {labelize(topic)}
-                    </Badge>
-                  ))}
-                </span>
-              </Fact>
-            </>
-          ) : null}
-          {entry.kind === "institution" ? (
-            <>
-              <Fact term="Founded">{formatDate(entry.founded)}</Fact>
-              <Fact term="Role">{labelize(entry.role)}</Fact>
-              <Fact term="Parent">
-                <ParentValue
-                  inScope={isParentMinistryScope(entry.slug)}
-                  parent={entry.parent}
-                />
-              </Fact>
-              <Fact term="Website">
-                {entry.website ? (
-                  <ExternalLink href={entry.website}>
-                    {entry.website.replace(/^https:\/\//, "")}
-                  </ExternalLink>
-                ) : (
-                  "Not stated"
-                )}
-              </Fact>
-            </>
-          ) : null}
-          {entry.kind === "event" ? (
-            <>
-              <Fact term="Date">{formatDate(entry.date)}</Fact>
-              <Fact term="Type">{labelize(entry.type)}</Fact>
-            </>
-          ) : null}
-          {entry.kind === "sector" ? (
-            <Fact term="Area">{labelize(entry.area)}</Fact>
-          ) : null}
-          {entry.kind === "flow" ? (
-            <Fact term="Year">{entry.year}</Fact>
-          ) : null}
-          {entry.kind === "player" ? (
-            <>
-              <Fact term="Type">{labelize(entry.playerType)}</Fact>
-              <Fact term="Role">{entry.role}</Fact>
-              <Fact term="As of">
-                {entry.asOf ? formatDate(entry.asOf) : "Not dated on the source page"}
-              </Fact>
-              <Fact term="Website">
-                {entry.website ? (
-                  <ExternalLink href={entry.website}>
-                    {entry.website.replace(/^https:\/\//, "")}
-                  </ExternalLink>
-                ) : (
-                  "Not stated"
-                )}
-              </Fact>
-            </>
-          ) : null}
-          <OwnershipFact slug={entry.slug} />
-          <ParentMinistryFact slug={entry.slug} />
-        </dl>
-      </CardContent>
-    </Card>
+    <section className="flex min-w-0 flex-col gap-4">
+      <h2 className="reading-head">Record</h2>
+      <dl className="folio-gutter grid grid-cols-1 gap-0 lg:grid-cols-2 lg:gap-x-8">
+        {entry.kind === "treaty" ? (
+          <>
+            <Fact term="Signed">{formatDate(entry.signed)}</Fact>
+            <Fact term="Effective">{formatDate(entry.effective)}</Fact>
+            <Fact term="Status">{labelize(entry.status)}</Fact>
+            <Fact term="Parties">{entry.parties.join(", ") || "Not stated"}</Fact>
+            <Fact term="Topics">
+              <span className="flex flex-wrap gap-1">
+                {entry.topics.map((topic) => (
+                  <Badge key={topic} variant="outline">
+                    {labelize(topic)}
+                  </Badge>
+                ))}
+              </span>
+            </Fact>
+          </>
+        ) : null}
+        {entry.kind === "institution" ? (
+          <>
+            <Fact term="Founded">{formatDate(entry.founded)}</Fact>
+            <Fact term="Role">{labelize(entry.role)}</Fact>
+            <Fact term="Parent">
+              <ParentValue
+                inScope={isParentMinistryScope(entry.slug)}
+                parent={entry.parent}
+              />
+            </Fact>
+            <Fact term="Website">
+              {entry.website ? (
+                <ExternalLink href={entry.website}>
+                  {entry.website.replace(/^https:\/\//, "")}
+                </ExternalLink>
+              ) : (
+                "Not stated"
+              )}
+            </Fact>
+          </>
+        ) : null}
+        {entry.kind === "event" ? (
+          <>
+            <Fact term="Date">{formatDate(entry.date)}</Fact>
+            <Fact term="Type">{labelize(entry.type)}</Fact>
+          </>
+        ) : null}
+        {entry.kind === "sector" ? (
+          <Fact term="Area">{labelize(entry.area)}</Fact>
+        ) : null}
+        {entry.kind === "flow" ? (
+          <Fact term="Year">{entry.year}</Fact>
+        ) : null}
+        {entry.kind === "player" ? (
+          <>
+            <Fact term="Type">{labelize(entry.playerType)}</Fact>
+            <Fact term="Role">{entry.role}</Fact>
+            <Fact term="As of">
+              {entry.asOf ? formatDate(entry.asOf) : "Not dated on the source page"}
+            </Fact>
+            <Fact term="Website">
+              {entry.website ? (
+                <ExternalLink href={entry.website}>
+                  {entry.website.replace(/^https:\/\//, "")}
+                </ExternalLink>
+              ) : (
+                "Not stated"
+              )}
+            </Fact>
+          </>
+        ) : null}
+        <OwnershipFact slug={entry.slug} />
+        <ParentMinistryFact slug={entry.slug} />
+      </dl>
+    </section>
   );
 }
 
@@ -342,7 +334,7 @@ function EdgeSection({
       </h3>
       {groups.map((group) => (
         <details
-          className="entry-edge-group rounded-lg border px-4"
+          className="entry-edge-group folio-group"
           key={group.key}
           open={openByDefault}
         >
@@ -428,16 +420,14 @@ function PaysProgramNullNotice({ slug }: { slug: string }) {
   const reasons = uniqueProgramNullReasons([...out, ...inn]);
   if (reasons.length === 0) return null;
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Ledger prints no program</CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-2 text-sm text-muted-foreground">
-        {reasons.map((reason) => (
-          <p key={reason}>{reason}</p>
-        ))}
-      </CardContent>
-    </Card>
+    <aside className="folio-note flex flex-col gap-2">
+      <h2 className="reading-head text-lg">Ledger prints no program</h2>
+      {reasons.map((reason) => (
+        <p className="text-sm leading-6 text-muted-foreground" key={reason}>
+          {reason}
+        </p>
+      ))}
+    </aside>
   );
 }
 

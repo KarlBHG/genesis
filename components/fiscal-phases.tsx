@@ -1,12 +1,5 @@
 import Link from "next/link";
 
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 const PHASES = [
   {
     href: "#authorisations",
@@ -55,21 +48,27 @@ const PHASES = [
   },
 ] as const;
 
+function padIndex(n: number) {
+  return String(n).padStart(2, "0");
+}
+
 export function FiscalPhasesNav() {
   return (
-    <section className="fiscal-phases grid gap-3 lg:grid-cols-3">
-      {PHASES.map((phase) => (
-        <Card className="ink-card" key={phase.href}>
-          <CardHeader>
-            <p className="kicker">{phase.kicker}</p>
-            <CardTitle>
-              <a className="underline-offset-4 hover:underline" href={phase.href}>
-                {phase.title}
-              </a>
-            </CardTitle>
-            <CardDescription className="text-sm leading-6">{phase.body}</CardDescription>
-          </CardHeader>
-        </Card>
+    <section
+      aria-label="Fiscal phases"
+      className="fiscal-phases grid gap-0 lg:grid-cols-3"
+    >
+      {PHASES.map((phase, index) => (
+        <article className="folio-phase" key={phase.href}>
+          <p className="toc-num">{padIndex(index + 1)}</p>
+          <p className="kicker">{phase.kicker}</p>
+          <h2 className="font-serif text-xl font-medium tracking-tight">
+            <a className="underline-offset-4 hover:underline" href={phase.href}>
+              {phase.title}
+            </a>
+          </h2>
+          <p className="text-sm leading-6 text-muted-foreground">{phase.body}</p>
+        </article>
       ))}
     </section>
   );

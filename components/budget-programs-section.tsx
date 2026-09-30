@@ -41,9 +41,9 @@ export function BudgetProgramsSection() {
         <header className="flex max-w-reading flex-col gap-2">
           <h2 className="font-serif text-xl font-medium">Government programs, 2026</h2>
           <p className="text-sm leading-6 text-muted-foreground">
-            {areas.length} policy areas. Each card quotes the spending line that area’s
-            ministry report prints for 2026. Article 4 authorisation rows are listed on
-            each area page. Rows are not added together.
+            {areas.length} policy areas. Each line quotes the spending sentence that
+            area’s ministry report prints for 2026. Article 4 authorisation rows are
+            listed on each area page. Rows are not added together.
           </p>
         </header>
         <h3 className="text-lg font-medium">What the introduction says</h3>

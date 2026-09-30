@@ -30,7 +30,7 @@ export function OfficePostsIndex({
           holder field does not fill it.
         </p>
       </header>
-      <Table className="pocket-ledger">
+      <Table className="pocket-ledger folio-register">
         <TableCaption>{officeIndexCaption(views)}</TableCaption>
         <TableHeader>
           <TableRow>

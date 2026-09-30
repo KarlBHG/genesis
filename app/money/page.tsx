@@ -134,7 +134,7 @@ export default function MoneyPage() {
                 <span className="section-index">02</span>
                 <h2 className="reading-head">Invoices</h2>
               </header>
-              <div className="glass-panel flex max-w-reading flex-col gap-3 p-6">
+              <div className="flex max-w-reading flex-col gap-3">
                 <p className="text-base leading-7 text-muted-foreground">
                   {pays.length} stored Opnir reikningar {pays.length === 1 ? "row" : "rows"}{" "}
                   from {buyers.length} {buyers.length === 1 ? "buyer" : "buyers"}.
@@ -145,7 +145,7 @@ export default function MoneyPage() {
                 </p>
                 <p className="text-base leading-7 text-muted-foreground">
                   Coverage of those rows — joined, explicit null, or unreviewed — is the
-                  table below. Typed lines are also under{" "}
+                  register below. Typed lines are also under{" "}
                   <Link className="underline underline-offset-4" href="/connections#spending">
                     Connections · Invoices
                   </Link>

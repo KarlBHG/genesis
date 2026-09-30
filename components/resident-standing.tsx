@@ -145,10 +145,7 @@ function QuestionCard({
       : (parts?.invoices ?? question.hops);
 
   return (
-    <article
-      className="glass-panel ink-card flex flex-col gap-4 p-5"
-      id={question.id}
-    >
+    <article className="folio-question flex flex-col gap-4" id={question.id}>
       <header className="flex flex-col gap-1">
         <p className="toc-num">{padIndex(index)}</p>
         <h3 className="font-serif text-lg font-medium tracking-tight">
@@ -232,8 +229,8 @@ export function ResidentStanding({
       <div
         className={
           compact
-            ? "grid grid-cols-1 gap-4 xl:grid-cols-3"
-            : "grid grid-cols-1 gap-4 lg:grid-cols-1"
+            ? "standing-questions standing-questions-spread grid grid-cols-1 gap-0 xl:grid-cols-3"
+            : "standing-questions grid grid-cols-1 gap-0"
         }
       >
         {questions.map((question, index) => (

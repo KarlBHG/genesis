@@ -80,7 +80,7 @@ function SectionShell({
 
 function NothingInScope({ what }: { what: string }) {
   return (
-    <p className="rounded-xl border border-dashed border-border/70 p-4 text-sm text-muted-foreground">
+    <p className="folio-note text-sm leading-6 text-muted-foreground">
       No {what} match the current as-of filter. Clear it above to see the whole
       list.
     </p>
@@ -294,10 +294,7 @@ export function EvidenceRoom({
                   : first.asOf;
                 const rows = filterByAsOf(group, (edge) => edge.asOf, asOfFilter);
                 return (
-                  <li
-                    className="flex min-w-0 flex-col gap-3 rounded-2xl border border-border/70 p-4"
-                    key={`${first.from}-${first.to}-${month}`}
-                  >
+                  <li className="folio-pair flex min-w-0 flex-col gap-3" key={`${first.from}-${first.to}-${month}`}>
                     <p className="flex min-w-0 flex-wrap items-baseline gap-2 break-words font-medium">
                       {first.fromTitle} pays {first.toTitle}
                       <Badge className="font-normal" variant="outline">

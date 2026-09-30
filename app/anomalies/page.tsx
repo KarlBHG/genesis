@@ -108,6 +108,7 @@ export default async function AnomaliesPage({
           </>
         }
         eyebrow={`Evidence · ${contradictions.length} unresolved contradictions`}
+        folio="10"
         title="Evidence"
       />
       <div className="mx-auto flex w-full min-w-0 max-w-shell flex-col gap-8 px-4 py-10 sm:px-6">

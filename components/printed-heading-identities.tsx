@@ -64,7 +64,7 @@ export function PrintedHeadingIdentityTable({
           No sitting or refused heading identities are on file.
         </p>
       ) : (
-        <Table className="pocket-ledger">
+        <Table className="pocket-ledger folio-register">
           <TableCaption>
             {sittingOrRefused.length}{" "}
             {sittingOrRefused.length === 1 ? "identity" : "identities"} where the
@@ -160,7 +160,7 @@ export function PrintedHeadingIdentityTable({
             </EmptyHeader>
           </Empty>
         ) : (
-          <Table className="pocket-ledger">
+          <Table className="pocket-ledger folio-register">
             <TableCaption>
               {unmatched.length} unmatched{" "}
               {unmatched.length === 1 ? "heading" : "headings"}. Not catalogued.

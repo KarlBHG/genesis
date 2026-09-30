@@ -48,7 +48,7 @@ export function InvoiceCoverageLedgerTable({
       {ledger.total === 0 ? (
         <p className="text-muted-foreground">No invoice rows are on file.</p>
       ) : (
-        <Table className="pocket-ledger">
+        <Table className="pocket-ledger folio-register">
           <TableCaption>{coverageCaption(ledger)}</TableCaption>
           <TableHeader>
             <TableRow>
@@ -87,7 +87,7 @@ function BuyerGroupRows({
   const program = (slug: string | null) => (slug ? resolveSlug(slug) : null);
   return (
     <>
-      <TableRow className="pocket-ledger-group bg-muted/40 hover:bg-muted/40">
+      <TableRow className="pocket-ledger-group hover:bg-transparent">
         <TableCell className="whitespace-normal" colSpan={5}>
           <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-3">
             <span className="font-medium">
