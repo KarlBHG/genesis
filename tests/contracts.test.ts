@@ -250,6 +250,12 @@ describe("map membership", () => {
     expect(source).toContain("data-pin-kind");
     expect(source).toContain("geo-engrave");
     expect(source).toContain("Copy this plate");
+    expect(source).toContain("geo-share-copy");
+    expect(source).toContain('variant="ghost"');
+    expect(source).not.toContain('variant="outline"');
+    expect(source).toContain("geo-chip");
+    expect(source).toContain("geo-figure");
+    expect(source).toContain('data-pan={panPoint ? "focus" : undefined}');
     expect(source).toContain("geo-plate-key");
     expect(source).not.toContain("geo-pulse-ring");
     expect(source).not.toMatch(/Mapbox|Google Maps|cesium/i);

@@ -39,6 +39,12 @@ describe("pocket folio CSS", () => {
     expect(css).toContain(".geo-plate-strip");
     expect(css).toContain(".geo-sheet-handle");
     expect(css).toContain(".thumb-cut-num");
+    expect(css).toContain(".geo-share-copy");
+    expect(css).toContain(".geo-figure");
+    expect(css).toMatch(/\.geo-plate-row \{[^}]*overflow: visible/);
+    expect(css).not.toMatch(/\.geo-plate-row \{[^}]*overflow-x:\s*auto/);
+    expect(css).toContain("padding-bottom: var(--geo-sheet-peek)");
+    expect(css).toContain('[data-pan="focus"]');
   });
 
   it("stacks the fact strip as a folio gutter on a phone", () => {

@@ -826,7 +826,8 @@ test("night plate stamps vacant versus typed pins on the drawing", async ({
   await expect(
     page.locator(".geo-mast .kicker").filter({ hasText: "Plate 02" }),
   ).toBeVisible();
-  await expect(page.getByRole("button", { name: "Copy this plate" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Copy this plate" })).toBeVisible();
+    await expect(page.locator(".geo-share-copy")).toBeVisible();
   await expect(
     page.locator(".geo-stage svg g[data-place=reykjavik]"),
   ).toHaveAttribute("data-pin-kind", "mixed");
@@ -900,6 +901,34 @@ test.describe("pocket folio", () => {
     const stage = await page.locator(".geo-stage").boundingBox();
     expect(stage).toBeTruthy();
     expect(peek!.y).toBeGreaterThan(stage!.y);
+
+    const rows = page.locator(".geo-plate-row");
+    await expect(rows).toHaveCount(2);
+    for (const row of await rows.all()) {
+      await expect(row).toHaveCSS("overflow-x", "visible");
+      const box = await row.evaluate((el) => ({
+        scroll: el.scrollWidth,
+        client: el.clientWidth,
+      }));
+      expect(box.scroll).toBeLessThanOrEqual(box.client + 1);
+    }
+
+    const pin = page.locator(".geo-pin-hit[data-geo-anchor=focus]");
+    const pinBox = await pin.boundingBox();
+    expect(pinBox).toBeTruthy();
+    expect(pinBox!.y + pinBox!.height).toBeLessThan(peek!.y + 4);
+
+    await page.goto("/map?place=straumsvik");
+    const straum = page.locator(".geo-pin-hit[data-place=straumsvik]");
+    const straumBox = await straum.boundingBox();
+    const straumSheet = await page
+      .getByRole("region", { name: "Straumsvík on this plate" })
+      .boundingBox();
+    expect(straumBox).toBeTruthy();
+    expect(straumSheet).toBeTruthy();
+    expect(straumBox!.y + straumBox!.height).toBeLessThan(straumSheet!.y + 4);
+
+    await page.goto("/map?focus=althingi");
 
     await caption.getByRole("button", { name: "Pull to read quotations" }).click();
     const open = await caption.boundingBox();
@@ -1460,6 +1489,8 @@ test.describe("pocket folio", () => {
     await expect(page.getByRole("group", { name: "This plate" })).toBeHidden();
     await expect(page.locator(".geo-chips")).toBeVisible();
     await expect(page.locator(".geo-rail")).toBeVisible();
+    await expect(page.locator(".geo-chip").first()).toBeVisible();
+    await expect(page.locator(".geo-figure").first()).toBeVisible();
     const stage = await page.locator(".geo-stage").boundingBox();
     const caption = await page.getByRole("region", { name: "Plate caption" }).boundingBox();
     expect(stage).toBeTruthy();

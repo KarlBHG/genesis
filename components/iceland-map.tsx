@@ -560,6 +560,7 @@ export function IcelandMap({
   const captionPlaceName = captionPlaceId
     ? PLACES.find((place) => place.id === captionPlaceId)?.name
     : undefined;
+  const panPoint = captionPlaceId ? points[captionPlaceId] : null;
   const captionPlaceEntries = captionPlaceId
     ? visible.filter((entry) => entry.place === captionPlaceId)
     : [];
@@ -744,9 +745,9 @@ export function IcelandMap({
           <div className="geo-share">
             <Button
               type="button"
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className={MAP_CONTROL}
+              className={`geo-share-copy ${MAP_CONTROL}`}
               onClick={copyLink}
             >
               {copied ? "Plate link copied" : "Copy this plate"}
@@ -766,16 +767,11 @@ export function IcelandMap({
                 type="button"
                 aria-pressed={enabled[layer.id]}
                 className={`geo-plate-swatch ${MAP_CONTROL}`}
-                style={{
-                  borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
-                  color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
-                  background: enabled[layer.id] ? "var(--geo-chip-active)" : "transparent",
-                }}
                 title={layer.label}
                 onClick={() => toggle(layer.id)}
               >
                 <span
-                  className="inline-block h-1.5 w-1.5 rounded-full"
+                  className="geo-chip-swatch"
                   style={{ background: layer.swatch }}
                 />
                 {layer.label}
@@ -789,11 +785,6 @@ export function IcelandMap({
                 type="button"
                 aria-pressed={viewsOn[view.id]}
                 className={`geo-plate-swatch ${MAP_CONTROL}`}
-                style={{
-                  color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
-                  background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
-                  borderColor: viewsOn[view.id] ? "var(--geo-line-bright)" : "var(--geo-line)",
-                }}
                 onClick={() => toggleView(view.id)}
               >
                 {view.label}
@@ -804,21 +795,17 @@ export function IcelandMap({
 
         <div className="geo-chips">
           <div className="geo-chip-row" role="group" aria-label="Layers">
+            <p className="geo-caption-kicker">Layers</p>
             {MAP_LAYERS.map((layer) => (
               <button
                 key={layer.id}
                 type="button"
                 aria-pressed={enabled[layer.id]}
-                className={`border px-3 py-1.5 text-sm ${MAP_CONTROL}`}
-                style={{
-                  borderColor: enabled[layer.id] ? layer.swatch : "var(--geo-line)",
-                  color: enabled[layer.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
-                  background: enabled[layer.id] ? "var(--geo-chip-active)" : "transparent",
-                }}
+                className={`geo-chip ${MAP_CONTROL}`}
                 onClick={() => toggle(layer.id)}
               >
                 <span
-                  className="mr-2 inline-block h-2 w-2 rounded-full"
+                  className="geo-chip-swatch"
                   style={{ background: layer.swatch }}
                 />
                 {layer.label}
@@ -826,16 +813,13 @@ export function IcelandMap({
             ))}
           </div>
           <div className="geo-chip-row" role="group" aria-label="Views">
+            <p className="geo-caption-kicker">Views</p>
             {MAP_VIEWS.map((view) => (
               <button
                 key={view.id}
                 type="button"
                 aria-pressed={viewsOn[view.id]}
-                className={`border border-(--geo-line) px-3 py-1.5 text-sm ${MAP_CONTROL}`}
-                style={{
-                  color: viewsOn[view.id] ? "var(--geo-ink)" : "var(--geo-ink-muted)",
-                  background: viewsOn[view.id] ? "var(--geo-chip-active)" : "transparent",
-                }}
+                className={`geo-chip ${MAP_CONTROL}`}
                 onClick={() => toggleView(view.id)}
               >
                 {view.label}
@@ -845,6 +829,7 @@ export function IcelandMap({
         </div>
 
         <div className="geo-rail" aria-label="Figures">
+          <p className="geo-caption-kicker">Figures</p>
           {MAP_LAYERS.map((layer) => {
             const selected = selectedLayer === layer.id;
             return (
@@ -852,12 +837,12 @@ export function IcelandMap({
                 key={layer.id}
                 type="button"
                 aria-pressed={selected}
-                className={`flex w-[5.1rem] flex-col items-center gap-1 border px-1 py-2 text-center text-[11px] leading-tight ${MAP_CONTROL}`}
-                style={{
-                  borderColor: selected ? layer.swatch : "var(--geo-line)",
-                  color: selected ? "var(--geo-ink)" : "var(--geo-ink-muted)",
-                  background: "var(--geo-panel-sunken)",
-                }}
+                className={`geo-figure ${MAP_CONTROL}`}
+                style={
+                  {
+                    "--geo-figure-ink": layer.swatch,
+                  } as CSSProperties
+                }
                 onClick={() => selectLayer(layer.id)}
               >
                 <RoleFigure layer={layer.id} />
@@ -873,7 +858,18 @@ export function IcelandMap({
             <span className="geo-stage-title">Iceland</span>
             <span className="geo-stage-note">only named places</span>
           </p>
-          <div className="geo-stage-art">
+          <div
+            className="geo-stage-art"
+            data-pan={panPoint ? "focus" : undefined}
+            style={
+              panPoint
+                ? ({
+                    "--geo-fx": `${panPoint.x / scene.width}`,
+                    "--geo-fy": `${panPoint.y / scene.height}`,
+                  } as CSSProperties)
+                : undefined
+            }
+          >
           <svg
             viewBox={`0 0 ${scene.width} ${scene.height}`}
             preserveAspectRatio="xMidYMid meet"
