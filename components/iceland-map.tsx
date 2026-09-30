@@ -868,6 +868,11 @@ export function IcelandMap({
         </div>
 
         <div className="geo-stage">
+          <p className="geo-stage-cartouche" aria-hidden>
+            <span className="geo-stage-folio">{MAP_FOLIO}</span>
+            <span className="geo-stage-title">Iceland</span>
+            <span className="geo-stage-note">only named places</span>
+          </p>
           <div className="geo-stage-art">
           <svg
             viewBox={`0 0 ${scene.width} ${scene.height}`}
@@ -1015,48 +1020,7 @@ export function IcelandMap({
                   {label.text}
                 </text>
               ))}
-              <g transform={`translate(${scene.width - 186}, ${scene.height - 84})`}>
-                <rect
-                  x="0"
-                  y="0"
-                  width="168"
-                  height="66"
-                  fill="var(--geo-sea-deep)"
-                  stroke="var(--geo-coast)"
-                  strokeWidth="0.9"
-                />
-                <rect
-                  x="3.5"
-                  y="3.5"
-                  width="161"
-                  height="59"
-                  fill="none"
-                  stroke="var(--geo-line-bright)"
-                  strokeWidth="0.4"
-                />
-                <text
-                  x="12"
-                  y="24"
-                  fill="var(--geo-accent)"
-                  fontSize="18"
-                  fontFamily="var(--font-serif), Georgia, serif"
-                >
-                  {MAP_FOLIO}
-                </text>
-                <text
-                  x="12"
-                  y="42"
-                  fill="var(--geo-ink)"
-                  fontSize="11"
-                  letterSpacing="0.32em"
-                >
-                  ICELAND
-                </text>
-                <text x="12" y="56" fill="var(--geo-ink-muted)" fontSize="8">
-                  only named places
-                </text>
-              </g>
-              <g transform={`translate(${scene.width - 36}, 34)`}>
+              <g className="geo-north-mark" transform={`translate(${scene.width - 36}, 34)`}>
                 <path
                   d="M0 16 L0 0 M-3.5 6 L0 0 L3.5 6"
                   fill="none"
