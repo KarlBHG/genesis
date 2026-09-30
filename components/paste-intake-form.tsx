@@ -4,12 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
-  Empty,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyTitle,
-} from "@/components/ui/empty";
-import {
   Field,
   FieldDescription,
   FieldError,
@@ -505,7 +499,7 @@ export function PasteIntakeForm({
         ref={liveRef}
       >
         {errors.length > 0 ? (
-          <div className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">
+          <aside className="folio-stamp flex min-w-0 flex-col gap-2 p-4">
             <p className="text-sm font-medium">The contract refuses this row.</p>
             <FieldError errors={errors.map((message) => ({ message }))} />
             {errors.some((error) => error.includes("does not exist")) ? (
@@ -518,10 +512,10 @@ export function PasteIntakeForm({
                 . Unmatched stays unmatched.
               </p>
             ) : null}
-          </div>
+          </aside>
         ) : null}
         {result?.ok && !result.queued ? (
-          <div className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">
+          <aside className="folio-note flex min-w-0 flex-col gap-2">
             <p className="text-sm font-medium">The contract accepts this row.</p>
             <p className="text-sm leading-6 text-muted-foreground">
               It has not been written to{" "}
@@ -531,10 +525,10 @@ export function PasteIntakeForm({
             <pre className="max-h-80 overflow-auto text-xs leading-5">
               {JSON.stringify(result.row, null, 2)}
             </pre>
-          </div>
+          </aside>
         ) : null}
         {result?.ok && result.queued ? (
-          <div className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">
+          <aside className="folio-note flex min-w-0 flex-col gap-2">
             <p className="text-sm font-medium">
               {result.created === false
                 ? "Already in the review queue"
@@ -547,24 +541,19 @@ export function PasteIntakeForm({
             <pre className="max-h-80 overflow-auto text-xs leading-5">
               {JSON.stringify(result.row, null, 2)}
             </pre>
-          </div>
+          </aside>
         ) : null}
         {errors.length === 0 && result == null ? (
-          <Empty className="border border-dashed">
-            <EmptyHeader>
-              <EmptyTitle>Nothing queued yet</EmptyTitle>
-              <EmptyDescription>
-                Check a pasted sentence before it can sit in the review file.
-                Preview of the object as filled:{" "}
-                <code className="text-sm">
-                  {typeof preview.type === "string" && preview.type
-                    ? preview.type
-                    : "no type"}
-                </code>
-                .
-              </EmptyDescription>
-            </EmptyHeader>
-          </Empty>
+          <p className="folio-note text-sm leading-6 text-muted-foreground">
+            Nothing queued yet. Check a pasted sentence before it can sit in the
+            review file. Preview of the object as filled:{" "}
+            <code className="text-sm">
+              {typeof preview.type === "string" && preview.type
+                ? preview.type
+                : "no type"}
+            </code>
+            .
+          </p>
         ) : null}
       </div>
     </form>

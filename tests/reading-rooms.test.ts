@@ -85,6 +85,7 @@ describe("folio reading rooms", () => {
     expect(tenure).toContain("CURRENT_MEMBERSHIP_LABEL");
     expect(tenure).toContain("ENDED_LABEL");
     expect(tenure).not.toContain("rounded-2xl");
+    expect(tenure).not.toContain("rounded-full");
 
     const offices = fs.readFileSync(
       path.join(ROOT, "components/office-membership-table.tsx"),
@@ -117,6 +118,83 @@ describe("folio reading rooms", () => {
       expect(source, file).not.toMatch(/\bfetch\s*\(\s*['"`]https?:/);
       expect(source.toLowerCase(), file).not.toMatch(/ollama/);
       expect(source, file).not.toMatch(/\bscrape\w*\s*\(/i);
+    }
+  });
+});
+
+const LEDGERS = [
+  "app/compare/page.tsx",
+  "components/paste-intake-form.tsx",
+  "components/opnir-review-feed.tsx",
+  "components/quoted-name-ledger.tsx",
+  "components/connection-tenure-filter.tsx",
+  "components/provenance-as-of-filter.tsx",
+];
+
+describe("folio compare, intake, quoted names, and tenure", () => {
+  it("does not add a nav leaf", () => {
+    expect(navLeafCount()).toBe(10);
+  });
+
+  it("drops leftover Card soup on compare, intake, quoted names, and tenure", () => {
+    for (const file of LEDGERS) {
+      const source = fs.readFileSync(path.join(ROOT, file), "utf8");
+      expect(source, file).not.toMatch(/from ["']@\/components\/ui\/card["']/);
+      expect(source, file).not.toContain("<Card");
+      expect(source, file).not.toContain("rounded-xl");
+      expect(source, file).not.toContain("rounded-full");
+      expect(source, file).not.toContain("bg-amber");
+      expect(source, file).not.toContain("glass-panel");
+    }
+
+    const compare = fs.readFileSync(path.join(ROOT, "app/compare/page.tsx"), "utf8");
+    expect(compare).toContain("compare-spread");
+    expect(compare).toContain("folio-phase");
+    expect(compare).toContain("folio-pair");
+    expect(compare).toContain("data-compare-column");
+    expect(compare).toContain("touch.key");
+    expect(compare).toContain("other.key");
+
+    const quoted = fs.readFileSync(
+      path.join(ROOT, "components/quoted-name-ledger.tsx"),
+      "utf8",
+    );
+    expect(quoted).toContain("folio-register");
+    expect(quoted).toContain("pocket-ledger");
+    expect(quoted).not.toContain("Empty");
+
+    const intake = fs.readFileSync(
+      path.join(ROOT, "components/paste-intake-form.tsx"),
+      "utf8",
+    );
+    expect(intake).toContain("intake-folio");
+    expect(intake).toContain("folio-stamp");
+    expect(intake).toContain("folio-note");
+    expect(intake).not.toContain("Empty");
+
+    const opnir = fs.readFileSync(
+      path.join(ROOT, "components/opnir-review-feed.tsx"),
+      "utf8",
+    );
+    expect(opnir).toContain("opnir-index");
+    expect(opnir).toContain("folio-note");
+    expect(opnir).not.toContain("Empty");
+
+    const tenure = fs.readFileSync(
+      path.join(ROOT, "components/connection-tenure-filter.tsx"),
+      "utf8",
+    );
+    expect(tenure).toContain("as-of-chip");
+    expect(tenure).toContain("as-of-rail");
+  });
+
+  it("does not scrape or write edges.json from these ledgers", () => {
+    for (const file of LEDGERS) {
+      const source = fs.readFileSync(path.join(ROOT, file), "utf8");
+      expect(source, file).not.toMatch(/\bfetch\s*\(\s*['"`]https?:/);
+      expect(source.toLowerCase(), file).not.toMatch(/ollama/);
+      expect(source, file).not.toMatch(/\bscrape\w*\s*\(/i);
+      expect(source, file).not.toMatch(/writeFile.*edges\.json/);
     }
   });
 });

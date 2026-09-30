@@ -9,12 +9,6 @@ import {
 } from "@/components/paste-intake-form";
 import { Button } from "@/components/ui/button";
 import {
-  Empty,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyTitle,
-} from "@/components/ui/empty";
-import {
   Field,
   FieldDescription,
   FieldError,
@@ -185,29 +179,20 @@ export function OpnirReviewFeed({
       </section>
 
       {items.length === 0 ? (
-        <Empty className="border border-dashed">
-          <EmptyHeader>
-            <EmptyTitle>No official rows in review</EmptyTitle>
-            <EmptyDescription>
-              Read a paste, load the bundled fixture, or load already-stored
-              Opnir pays. Program joins stay empty until you confirm them.
-            </EmptyDescription>
-          </EmptyHeader>
-        </Empty>
+        <p className="folio-note text-sm leading-6 text-muted-foreground">
+          No official rows in review. Read a paste, load the bundled fixture, or
+          load already-stored Opnir pays. Program joins stay empty until you
+          confirm them.
+        </p>
       ) : (
         <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
-          <ol className="flex min-w-0 flex-col gap-2">
+          <ol className="opnir-index">
             {items.map((item, index) => {
               const active = item.id === selectedId;
               return (
                 <li key={item.id}>
                   <button
                     aria-current={active ? "true" : undefined}
-                    className={`w-full min-w-0 rounded-xl border px-3 py-3 text-left text-sm transition-colors ${
-                      active
-                        ? "border-foreground/40 bg-muted/40"
-                        : "border-border/70 hover:bg-muted/20"
-                    }`}
                     onClick={() => setSelectedId(item.id)}
                     type="button"
                   >
@@ -218,9 +203,7 @@ export function OpnirReviewFeed({
                       {item.official.vendor} · {item.official.date} ·{" "}
                       {item.official.amountText} ISK
                     </p>
-                    <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
-                      Needs program decision
-                    </p>
+                    <p className="folio-index-meta mt-1">Needs program decision</p>
                   </button>
                 </li>
               );
@@ -228,7 +211,7 @@ export function OpnirReviewFeed({
           </ol>
           {selected && initial ? (
             <div className="flex min-w-0 flex-col gap-6">
-              <article className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">
+              <article className="folio-note flex min-w-0 flex-col gap-2">
                 <h2 className="text-base font-medium">Official row</h2>
                 <p
                   className="text-sm leading-6"

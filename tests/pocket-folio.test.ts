@@ -56,7 +56,9 @@ describe("pocket folio CSS", () => {
     expect(css).toContain(".variorum-spread");
     expect(css).toContain(".command-folio");
     expect(css).toContain(".intake-folio");
-    expect(css).toContain("[data-compare-column]");
+    expect(css).toContain(".compare-spread");
+    expect(css).toContain(".opnir-index");
+    expect(css).toContain("Tenure / as-of index at every width");
     expect(css).toContain("anchor(--geo-caption top)");
     expect(css).toContain(".strip-drawing");
   });
@@ -68,7 +70,8 @@ describe("pocket folio leftover surfaces", () => {
       path.join(process.cwd(), "components", "quoted-name-ledger.tsx"),
       "utf8",
     );
-    expect(quoted).toContain('className="pocket-ledger"');
+    expect(quoted).toMatch(/className="pocket-ledger[^"]*"/);
+    expect(quoted).toContain("folio-register");
     expect(quoted).toContain("pocket-ledger-row");
     expect(quoted).toContain('data-label="Printed name"');
     expect(quoted).toContain('data-label="Quoted on"');

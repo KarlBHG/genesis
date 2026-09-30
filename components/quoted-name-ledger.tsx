@@ -7,12 +7,6 @@ import { ExternalLink } from "@/components/external-link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Empty,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyTitle,
-} from "@/components/ui/empty";
-import {
   Field,
   FieldDescription,
   FieldError,
@@ -71,18 +65,13 @@ export function QuotedNameLedgerTable({
   return (
     <div className="flex min-w-0 flex-col gap-3">
       {items.length === 0 ? (
-        <Empty className="border border-dashed">
-          <EmptyHeader>
-            <EmptyTitle>No unmatched names on file</EmptyTitle>
-            <EmptyDescription>
-              When a cited sentence names a party that has no catalog slug and
-              no office id, it is stored here. It is not a player. It is not
-              drawn as a dashed edge.
-            </EmptyDescription>
-          </EmptyHeader>
-        </Empty>
+        <p className="folio-note text-sm leading-6 text-muted-foreground">
+          No unmatched names on file. When a cited sentence names a party that
+          has no catalog slug and no office id, it is stored here. It is not a
+          player. It is not drawn as a dashed edge.
+        </p>
       ) : (
-        <Table className="pocket-ledger">
+        <Table className="pocket-ledger folio-register">
           <TableCaption>{quotedNameCaption(items.length)}</TableCaption>
           <TableHeader>
             <TableRow>
@@ -364,15 +353,15 @@ export function QuotedNameForm({
           ref={liveRef}
         >
           {errors.length > 0 ? (
-            <div className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">
+            <aside className="folio-stamp flex min-w-0 flex-col gap-2 p-4">
               <p className="text-sm font-medium">
                 The contract refuses this placeholder.
               </p>
               <FieldError errors={errors.map((message) => ({ message }))} />
-            </div>
+            </aside>
           ) : null}
           {result?.ok && !result.queued ? (
-            <div className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">
+            <aside className="folio-note flex min-w-0 flex-col gap-2">
               <p className="text-sm font-medium">
                 The contract accepts this placeholder.
               </p>
@@ -384,10 +373,10 @@ export function QuotedNameForm({
               <pre className="max-h-80 overflow-auto text-xs leading-5">
                 {JSON.stringify(result.statement, null, 2)}
               </pre>
-            </div>
+            </aside>
           ) : null}
           {result?.ok && result.queued ? (
-            <div className="flex min-w-0 flex-col gap-2 rounded-xl border border-border/70 p-4">
+            <aside className="folio-note flex min-w-0 flex-col gap-2">
               <p className="text-sm font-medium">
                 {result.created === false
                   ? "Already in the unmatched ledger"
@@ -400,7 +389,7 @@ export function QuotedNameForm({
               <pre className="max-h-80 overflow-auto text-xs leading-5">
                 {JSON.stringify(result.statement, null, 2)}
               </pre>
-            </div>
+            </aside>
           ) : null}
         </div>
       </form>

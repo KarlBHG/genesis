@@ -1407,6 +1407,26 @@ test.describe("pocket folio", () => {
     expect(duplicateKeys.filter((text) => /in:pays:/.test(text))).toEqual([]);
   });
 
+  test("desktop compare columns face and tenure stays an index", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop", "Facing register is at lg");
+    await page.goto("/compare?left=arion-banki&right=islandsbanki");
+    const columns = page.locator("[data-compare-column]");
+    await expect(columns).toHaveCount(2);
+    await expectFacing(columns.nth(0), columns.nth(1));
+    await expect(page.getByText("3546720")).toBeVisible();
+    await expect(page.getByText("1775476")).toBeVisible();
+
+    await page.goto("/connections");
+    const tenure = await waitForTenureLive(page);
+    const chips = tenure.locator(".as-of-chip");
+    await expect(chips).toHaveCount(2);
+    await expectStacked(chips.nth(0), chips.nth(1));
+    const radius = await chips.nth(0).evaluate((el) => getComputedStyle(el).borderRadius);
+    expect(radius === "0px" || radius === "0").toBe(true);
+  });
+
   test("night leader drops from the pin toward the sheet when anchors work", async ({
     page,
   }, testInfo) => {

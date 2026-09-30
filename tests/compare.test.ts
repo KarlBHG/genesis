@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { describe, expect, it } from "vitest";
 
 import { NAV, navLeafCount } from "@/components/site-header";
@@ -208,8 +210,23 @@ describe("compare touch keys", () => {
     expect(
       shared.filter((row) => row.left.pairKey === "in:pays:landspitali"),
     ).toHaveLength(2);
-    expect(onlyTouches(syn, nova).some((touch) => touch.pairKey === "in:pays:landspitali")).toBe(
-      false,
+    expect(
+      onlyTouches(syn, nova).some((touch) => touch.pairKey === "in:pays:landspitali"),
+    ).toBe(false);
+  });
+});
+
+describe("compare folio register", () => {
+  it("does not wrap columns in Cards or amber plates", () => {
+    const page = fs.readFileSync(
+      path.join(process.cwd(), "app/compare/page.tsx"),
+      "utf8",
     );
+    expect(page).not.toMatch(/from ["']@\/components\/ui\/card["']/);
+    expect(page).not.toContain("<Card");
+    expect(page).not.toContain("bg-amber");
+    expect(page).toContain("compare-spread");
+    expect(page).toContain("touch.key");
+    expect(page).toContain("data-compare-column");
   });
 });

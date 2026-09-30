@@ -1908,6 +1908,96 @@ body:has(.geo-room) footer {
   letter-spacing: -0.02em;
 }
 
+.compare-spread {
+  border-top: 1px solid var(--border);
+}
+
+/* Tenure / as-of index at every width — not pill chrome. */
+.as-of-rail {
+  max-width: var(--container-reading);
+  gap: 0.75rem;
+}
+
+.as-of-chip-row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+
+.as-of-rail .as-of-chip {
+  display: grid;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-radius: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  padding: 0.6rem 0;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.02rem;
+  letter-spacing: -0.02em;
+  color: var(--muted-foreground);
+}
+
+.as-of-rail .as-of-chip:hover {
+  color: var(--foreground);
+}
+
+.as-of-rail .as-of-chip[aria-pressed="true"] {
+  background: transparent;
+  box-shadow: inset 2px 0 0 var(--paper-ink-bar);
+  color: var(--foreground);
+}
+
+.intake-folio [data-slot="field-set"] {
+  padding: 1.1rem 0 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.intake-folio [data-slot="field-legend"] {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.opnir-index {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.opnir-index button {
+  width: 100%;
+  min-width: 0;
+  padding: 0.95rem 0 1rem;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.opnir-index button:hover {
+  color: var(--foreground);
+}
+
+.opnir-index button[aria-current="true"] {
+  box-shadow: inset 2px 0 0 var(--paper-ink-bar);
+}
+
 @media (min-width: 1024px) {
   .folio-phase {
     border-bottom: 0;
@@ -2077,7 +2167,6 @@ body:has(.geo-room) footer {
     display: none;
   }
 
-  .as-of-rail,
   .type-rail {
     gap: 0.75rem;
     border-radius: 0;
@@ -2085,7 +2174,6 @@ body:has(.geo-room) footer {
     padding: 0.15rem 0 0.5rem;
   }
 
-  .as-of-chip-row,
   .type-chip-row {
     display: flex;
     flex-direction: column;
@@ -2094,7 +2182,6 @@ body:has(.geo-room) footer {
     border-top: 1px solid var(--border);
   }
 
-  .as-of-rail .as-of-chip,
   .type-rail .type-chip {
     display: grid;
     width: 100%;
@@ -2111,7 +2198,6 @@ body:has(.geo-room) footer {
     letter-spacing: -0.02em;
   }
 
-  .as-of-rail .as-of-chip[aria-pressed="true"],
   .type-rail .type-chip[aria-current="true"],
   .type-rail .type-chip[aria-pressed="true"] {
     background: transparent;
@@ -2241,17 +2327,6 @@ body:has(.geo-room) footer {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-  }
-
-  [data-compare-column]::before {
-    content: attr(data-compare-side);
-    display: block;
-    padding: 0 1rem 0;
-    font-size: 0.625rem;
-    font-weight: 650;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--muted-foreground);
   }
 
   [data-compare-value]::before {
