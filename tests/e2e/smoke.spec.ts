@@ -1330,7 +1330,7 @@ test.describe("pocket folio", () => {
     await page.goto("/compare?left=arion-banki&right=islandsbanki");
     await expect(page.getByRole("heading", { name: "Compare" })).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "Only Íslandsbanki" }),
+      page.getByRole("heading", { name: "Only Íslandsbanki", level: 2 }),
     ).toBeVisible();
     await expect(page.getByText("3546720")).toBeVisible();
     await expect(page.getByText("1775476")).toBeVisible();
