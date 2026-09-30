@@ -288,7 +288,11 @@ body:has(.geo-room) {
   --muted-foreground: var(--geo-ink-muted);
   --accent: var(--geo-chip-active);
   --accent-foreground: var(--geo-ink);
-  /* Keep the existing night red; paper's passing token is too dark on the canvas. */
+  /*
+   * Hairline stamp only. This kit red is ~4.3:1 on the canvas, so 12px
+   * letters cannot pass. Paper's passing token is too dark here. Do not
+   * invent a second night red.
+   */
   --destructive: oklch(0.577 0.245 27.325);
   --border: var(--geo-line);
   --input: var(--geo-line);
@@ -1436,7 +1440,7 @@ body:has(.geo-room) footer {
   animation: fade-rise 920ms ease 250ms both;
 }
 
-/* Same rise as fade-rise, full ink — outline buttons cannot sit below 4.5:1. */
+/* Same rise as fade-rise, full ink — letters and outline buttons cannot sit below 4.5:1. */
 .rise-ink {
   animation-name: rise-ink;
 }

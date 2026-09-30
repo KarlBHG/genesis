@@ -40,7 +40,7 @@ export function PageHero({
         }`}
       >
         <div className="flex max-w-lede flex-col gap-5">
-          {eyebrow ? <p className="kicker fade-rise">{eyebrow}</p> : null}
+          {eyebrow ? <p className="kicker fade-rise rise-ink">{eyebrow}</p> : null}
           <h1
             className={`display-title text-balance ${
               dramatic
@@ -55,7 +55,7 @@ export function PageHero({
           </h1>
           {description ? (
             <div
-              className={`fade-rise-3 max-w-lede ${
+              className={`fade-rise-3 rise-ink max-w-lede ${
                 dramatic
                   ? "standfirst-body"
                   : "text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8"

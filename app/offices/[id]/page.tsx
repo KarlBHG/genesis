@@ -75,7 +75,7 @@ export default async function OfficePage({
       </Breadcrumb>
 
       <header className="glass-panel atlas-page-header entry-masthead flex flex-col gap-4">
-        <p className="kicker fade-rise">Post</p>
+        <p className="kicker fade-rise rise-ink">Post</p>
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="display-title hero-display text-[2.05rem] leading-[1.02] text-balance sm:text-4xl lg:text-[2.85rem]">
             {office.title}

@@ -176,7 +176,7 @@ export function HomeDashboard({
     <div className="dashboard-canvas">
       <section className="dashboard-hero relative">
         <div className="mx-auto flex w-full max-w-shell flex-col gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
-          <div className="fade-rise flex max-w-xl flex-col gap-7">
+          <div className="fade-rise rise-ink flex max-w-xl flex-col gap-7">
             <p className="kicker">Sourced atlas</p>
             <h1 className="text-balance">
               <span className="home-display-how block">How</span>

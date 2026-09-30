@@ -131,7 +131,7 @@ export default async function ConnectionPermalinkPage({
 
       <header className="glass-panel atlas-page-header entry-masthead">
         <div className="flex flex-wrap items-end justify-between gap-3">
-          <p className="kicker fade-rise">
+          <p className="kicker fade-rise rise-ink">
             {statement ? "Ownership statement" : "Typed connection"}
           </p>
           {view && viewLabel ? (
@@ -159,7 +159,7 @@ export default async function ConnectionPermalinkPage({
             </>
           )}
         </h1>
-        <p className="standfirst-body fade-rise-3">
+        <p className="standfirst-body fade-rise-3 rise-ink">
           {statement ? (
             <>
               A dated statement that {statement.interestedPartyTitle} has an

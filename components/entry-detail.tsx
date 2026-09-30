@@ -487,7 +487,7 @@ export function EntryDetail({ entry }: { entry: Entry }) {
       </Breadcrumb>
       <header className="glass-panel atlas-page-header entry-masthead max-w-reading">
         <div className="flex flex-wrap items-end justify-between gap-3">
-          <p className="kicker fade-rise">{labelize(entry.kind)}</p>
+          <p className="kicker fade-rise rise-ink">{labelize(entry.kind)}</p>
           <p className="entry-running-head fade-rise print:hidden">
             {kindPath(entry.kind)}/{entry.slug}
           </p>
@@ -496,9 +496,9 @@ export function EntryDetail({ entry }: { entry: Entry }) {
           {entry.title}
         </h1>
         {entry.lede ? (
-          <p className="standfirst fade-rise-3">{entry.lede}</p>
+          <p className="standfirst fade-rise-3 rise-ink">{entry.lede}</p>
         ) : entry.summary ? (
-          <div className="fade-rise-3 flex max-w-lede flex-col gap-1">
+          <div className="fade-rise-3 rise-ink flex max-w-lede flex-col gap-1">
             <p className="standfirst-body">
               {entry.summary}
             </p>
