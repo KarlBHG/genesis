@@ -13,10 +13,19 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
 } from "@/components/ui/command";
 import { labelize } from "@/lib/format";
+import { navLeaves, OFF_INDEX, padFolio } from "@/lib/nav";
 import { searchEntries } from "@/lib/search";
 import type { SearchDoc } from "@/lib/types";
+
+const INDEX_ROOMS = OFF_INDEX.filter(
+  (room) =>
+    room.href === "/standing" ||
+    room.href === "/obligations" ||
+    room.href === "/methodology",
+);
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
@@ -100,6 +109,8 @@ export function CommandPalette() {
     () => (docs ? searchEntries(docs, query).slice(0, 10) : []),
     [docs, query],
   );
+  const plates = navLeaves();
+  const trimmed = query.trim();
 
   return (
     <>
@@ -113,8 +124,8 @@ export function CommandPalette() {
         variant="outline"
       >
         <SearchIcon data-icon="inline-start" />
-        <span className="hidden sm:inline">Search</span>
-        <kbd className="hidden rounded border px-1 text-xs text-muted-foreground md:inline">
+        <span className="hidden sm:inline">Index</span>
+        <kbd className="hidden rounded-sm border border-border px-1 text-xs text-muted-foreground md:inline">
           ⌘K
         </kbd>
       </Button>
@@ -136,15 +147,50 @@ export function CommandPalette() {
             value={query}
           />
           <CommandList>
-            {docs == null ? (
+            {!trimmed ? (
+              <>
+                <p className="command-folio-count">
+                  {docs == null
+                    ? "Loading the index…"
+                    : `${docs.length} records. Start typing, or open a plate.`}
+                </p>
+                <CommandGroup heading="Plates 01–10">
+                  {plates.map((plate) => (
+                    <CommandItem
+                      key={plate.href}
+                      onSelect={() => {
+                        router.push(plate.href);
+                        close();
+                      }}
+                      value={`plate-${plate.index}-${plate.label}`}
+                    >
+                      <span className="masthead-link-index w-8 shrink-0">
+                        {padFolio(plate.index)}
+                      </span>
+                      <span className="font-serif font-medium">{plate.label}</span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+                <CommandSeparator />
+                <CommandGroup heading="Off the index">
+                  {INDEX_ROOMS.map((room) => (
+                    <CommandItem
+                      key={room.href}
+                      onSelect={() => {
+                        router.push(room.href);
+                        close();
+                      }}
+                      value={`room-${room.label}`}
+                    >
+                      <span className="font-serif font-medium">{room.label}</span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </>
+            ) : docs == null ? (
               <CommandEmpty>Loading the index…</CommandEmpty>
-            ) : !query.trim() ? (
-              <CommandEmpty>
-                {docs.length} records. Start typing to search titles, summaries,
-                and typed connections.
-              </CommandEmpty>
             ) : results.length === 0 ? (
-              <CommandEmpty>No matches for “{query.trim()}”.</CommandEmpty>
+              <CommandEmpty>No matches for “{trimmed}”.</CommandEmpty>
             ) : (
               <CommandGroup heading="Records">
                 {results.map((doc) => (
@@ -157,12 +203,14 @@ export function CommandPalette() {
                     value={doc.slug}
                   >
                     <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                      <span className="truncate font-medium">{doc.title}</span>
+                      <span className="truncate font-serif font-medium">
+                        {doc.title}
+                      </span>
                       <span className="line-clamp-1 text-xs text-muted-foreground">
                         {doc.summary}
                       </span>
                     </span>
-                    <span className="shrink-0 text-xs text-muted-foreground">
+                    <span className="shrink-0 text-[0.62rem] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
                       {labelize(doc.kind)}
                     </span>
                   </CommandItem>

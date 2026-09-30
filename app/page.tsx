@@ -6,7 +6,6 @@ import {
   getEdges,
   getOffices,
   getTreaties,
-  toSearchDocs,
 } from "@/lib/content";
 import { MAP_ENTRIES } from "@/lib/geo-map";
 import { OBLIGATION_SECTIONS } from "@/lib/obligations";
@@ -52,7 +51,6 @@ export default async function HomePage({
         mapPinCount={MAP_ENTRIES.length}
         obligationThemeCount={OBLIGATION_SECTIONS.length}
         officeCount={offices.length}
-        searchDocs={toSearchDocs(entries)}
         standing={{
           board,
           municipalitySlug: municipality,

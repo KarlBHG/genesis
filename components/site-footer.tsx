@@ -1,25 +1,12 @@
 import Link from "next/link";
 
-const LINKS = [
-  { href: "/map", label: "Map" },
-  { href: "/obligations", label: "Obligations" },
-  { href: "/treaties", label: "Treaties" },
-  { href: "/connections", label: "Connections" },
-  { href: "/system", label: "How to read" },
-  { href: "/methodology", label: "Methodology" },
-  { href: "/standing", label: "Standing" },
-  { href: "/offices", label: "Offices" },
-  { href: "/intake", label: "Paste a line" },
-  { href: "/intake/opnir", label: "Review Opnir rows" },
-] as const;
-
-function padIndex(n: number) {
-  return String(n).padStart(2, "0");
-}
+import { navLeaves, OFF_INDEX, padFolio } from "@/lib/nav";
 
 export function SiteFooter() {
+  const plates = navLeaves();
+
   return (
-    <footer className="site-footer-glow relative mt-auto border-t border-border/70 print:hidden">
+    <footer className="site-footer-glow relative mt-auto border-t border-border print:hidden">
       <div className="mx-auto flex w-full max-w-shell flex-col gap-10 px-4 py-12 sm:px-6 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
         <div className="flex max-w-md flex-col gap-3">
           <p className="kicker">Colophon</p>
@@ -40,19 +27,37 @@ export function SiteFooter() {
             .
           </p>
         </div>
-        <nav aria-label="Footer" className="colophon-index min-w-0 flex-1 lg:max-w-sm">
-          {LINKS.map((link, index) => (
-            <Link
-              className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
-              href={link.href}
-              key={link.href}
-            >
-              <span aria-hidden className="masthead-link-index">
-                {padIndex(index + 1)}
-              </span>
-              {link.label}
-            </Link>
-          ))}
+        <nav
+          aria-label="Footer"
+          className="colophon-index min-w-0 flex-1"
+        >
+          <div className="colophon-group">
+            <p className="kicker">Plates 01–10</p>
+            {plates.map((plate) => (
+              <Link
+                className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                href={plate.href}
+                key={plate.href}
+              >
+                <span aria-hidden className="masthead-link-index">
+                  {padFolio(plate.index)}
+                </span>
+                {plate.label}
+              </Link>
+            ))}
+          </div>
+          <div className="colophon-group">
+            <p className="kicker">Off the index</p>
+            {OFF_INDEX.map((room) => (
+              <Link
+                className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                href={room.href}
+                key={room.href}
+              >
+                {room.label}
+              </Link>
+            ))}
+          </div>
         </nav>
         <p className="max-w-xs text-xs leading-6 text-muted-foreground lg:text-right">
           No influence scores. No summed totals this project invented. Printed

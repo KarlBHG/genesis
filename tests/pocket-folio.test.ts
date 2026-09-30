@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { describe, expect, it } from "vitest";
 
-import { NAV, navLeafCount, navLeaves, padFolio } from "@/lib/nav";
+import { NAV, navLeafCount, navLeaves, padFolio, PLATE_STANDFIRSTS } from "@/lib/nav";
 
 describe("pocket folio keeps the ten plates", () => {
   it("does not add a nav leaf", () => {
@@ -19,6 +19,12 @@ describe("pocket folio keeps the ten plates", () => {
     expect(leaves[0]!.label).toBe("System");
     expect(leaves[1]!.href).toBe("/map");
     expect(padFolio(leaves[9]!.index)).toBe("10");
+  });
+
+  it("quotes each plate's own standfirst on the home contents", () => {
+    for (const leaf of navLeaves()) {
+      expect(PLATE_STANDFIRSTS[leaf.href]).toBeTruthy();
+    }
   });
 });
 
@@ -125,6 +131,8 @@ describe("pocket folio leftover surfaces", () => {
     expect(home).toContain("landing-chains");
     expect(home).toContain("lg:grid-cols-2");
     expect(home).not.toContain("md:grid-cols-2");
+    expect(home).toContain("plate-index");
+    expect(home).not.toContain("lg:grid-cols-3");
 
     const institutions = fs.readFileSync(
       path.join(process.cwd(), "components", "institution-browser.tsx"),

@@ -964,14 +964,14 @@ test.describe("pocket folio", () => {
     expect(first!.width).toBeGreaterThan(280);
   });
 
-  test("home portals stay one plate before lg", async ({
+  test("home plates stay one plate before lg", async ({
     page,
   }, testInfo) => {
     test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
     await page.setViewportSize({ width: 800, height: 844 });
     await page.goto("/");
     const portals = page.locator(".home-portals a");
-    await expect(portals).toHaveCount(6);
+    await expect(portals).toHaveCount(10);
     const first = await portals.nth(0).boundingBox();
     const second = await portals.nth(1).boundingBox();
     expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);

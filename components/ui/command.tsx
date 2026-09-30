@@ -34,8 +34,8 @@ function Command({
 }
 
 function CommandDialog({
-  title = "Command Palette",
-  description = "Search for a command to run...",
+  title = "Search the records",
+  description = "Titles, summaries, and typed connections.",
   children,
   className,
   showCloseButton = false,
@@ -51,12 +51,12 @@ function CommandDialog({
     <Dialog {...props}>
       <DialogContent
         className={cn(
-          "command-folio top-1/3 translate-y-0 overflow-hidden rounded-xl p-0 sm:max-w-xl",
+          "command-folio top-1/3 translate-y-0 overflow-hidden rounded-sm p-0 sm:max-w-xl",
           className
         )}
         showCloseButton={showCloseButton}
       >
-        <DialogHeader className="sr-only">
+        <DialogHeader className="command-folio-head">
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>

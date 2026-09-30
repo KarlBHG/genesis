@@ -30,6 +30,40 @@ export const NAV: NavEntry[] = [
   { href: "/anomalies", label: "Evidence" },
 ];
 
+/**
+ * First sentence already printed on each plate. Home contents and the ⌘K
+ * index quote these; they are not a second marketing line.
+ */
+export const PLATE_STANDFIRSTS: Record<string, string> = {
+  "/system":
+    "How the Icelandic state, the central bank, trade, and outside arrangements are recorded.",
+  "/map": "Iceland at night, only where a sourced page names the place.",
+  "/institutions": "Public bodies, grouped by role.",
+  "/money": "Authorisations, invoices, and contracts are different fiscal phases.",
+  "/players":
+    "Organizations, and people only where a public page names them in office.",
+  "/treaties": "Agreements Iceland is party to.",
+  "/events":
+    "A full date is shown when the source gave one; otherwise the year.",
+  "/business": "How the main sectors are structured.",
+  "/connections": "The same buckets as the map.",
+  "/anomalies":
+    "Public records that disagree, change, repeat, or come from Ríkisendurskoðun.",
+};
+
+/**
+ * Rooms the folio keeps off the thumb index. Not an eleventh nav leaf.
+ * Labels match the footer and the standing / intake doors already in copy.
+ */
+export const OFF_INDEX: NavLink[] = [
+  { href: "/standing", label: "Standing" },
+  { href: "/obligations", label: "Obligations" },
+  { href: "/methodology", label: "Methodology" },
+  { href: "/offices", label: "Offices" },
+  { href: "/intake", label: "Paste a line" },
+  { href: "/intake/opnir", label: "Review Opnir rows" },
+];
+
 export function navLeafCount(entries: NavEntry[] = NAV): number {
   return entries.reduce(
     (count, entry) => count + ("href" in entry ? 1 : entry.items.length),

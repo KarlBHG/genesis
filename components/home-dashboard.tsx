@@ -1,25 +1,19 @@
 import Link from "next/link";
-import {
-  ArrowUpRightIcon,
-  Globe2Icon,
-  LandmarkIcon,
-  MapIcon,
-  ScaleIcon,
-  ScrollTextIcon,
-  SearchIcon,
-  ShieldIcon,
-  SparklesIcon,
-} from "lucide-react";
 
-import { SearchPanel } from "@/components/search-panel";
 import { ConstellationLegend, HomeConstellation } from "@/components/home-constellation";
 import { ResidentStanding } from "@/components/resident-standing";
 import { Button } from "@/components/ui/button";
 import { catalogSlices } from "@/lib/dashboard-stats";
 import { labelize } from "@/lib/format";
 import { LANDING_CHAINS, resolveChain, type LandingChain } from "@/lib/landing";
+import {
+  navLeaves,
+  OFF_INDEX,
+  padFolio,
+  PLATE_STANDFIRSTS,
+} from "@/lib/nav";
 import type { StandingBoard, StandingQuestionView } from "@/lib/standing";
-import type { Entry, SearchDoc } from "@/lib/types";
+import type { Entry } from "@/lib/types";
 
 type HomeDashboardProps = {
   entries: Entry[];
@@ -28,7 +22,6 @@ type HomeDashboardProps = {
   treatyCount: number;
   mapPinCount: number;
   obligationThemeCount: number;
-  searchDocs: SearchDoc[];
   standing: {
     board: StandingBoard;
     questions: StandingQuestionView[];
@@ -37,70 +30,16 @@ type HomeDashboardProps = {
   };
 };
 
-const PORTALS = [
-  {
-    href: "/map",
-    title: "Map",
-    description: "Geography of state, companies, and multinationals.",
-    icon: MapIcon,
-    tint: "portal-tint-map",
-  },
-  {
-    href: "/obligations",
-    title: "Obligations",
-    description: "Security, Europe, trade, investment, and aid.",
-    icon: ShieldIcon,
-    tint: "portal-tint-obligations",
-  },
-  {
-    href: "/treaties",
-    title: "Treaties",
-    description: "Every agreement record with source lines.",
-    icon: ScaleIcon,
-    tint: "portal-tint-treaties",
-  },
-  {
-    href: "/money#government-programs",
-    title: "Budget",
-    description: "2026 policy areas, Article 4 rows, trade, and Treasury totals.",
-    icon: LandmarkIcon,
-    tint: "portal-tint-budget",
-  },
-  {
-    href: "/events",
-    title: "Events",
-    description: "Crises, accession, and turning points.",
-    icon: SparklesIcon,
-    tint: "portal-tint-events",
-  },
-  {
-    href: "/methodology",
-    title: "Methodology",
-    description:
-      "Six required fields, as-of buckets, and what this project refuses to publish.",
-    icon: ScrollTextIcon,
-    tint: "portal-tint-method",
-  },
-] as const;
-
-function padIndex(n: number) {
-  return String(n).padStart(2, "0");
-}
-
-function ChainCard({ chain, index }: { chain: LandingChain; index: number }) {
+function ChainPlate({ chain, index }: { chain: LandingChain; index: number }) {
   const steps = resolveChain(chain);
   const stepKeys = chain.steps.map(
     (step, stepIndex) =>
       `${chain.id}-${stepIndex}-${step.from}-${step.relationship}-${step.to}`,
   );
   return (
-    <article className="glass-panel ink-card group relative flex flex-col gap-4 overflow-hidden p-5">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full bg-primary/5 blur-2xl transition-opacity group-hover:opacity-100"
-      />
+    <article className="chain-plate">
       <header className="flex flex-col gap-1">
-        <p className="toc-num">{padIndex(index)}</p>
+        <p className="toc-num">{padFolio(index)}</p>
         <Link
           className="font-serif text-lg font-medium tracking-tight underline-offset-4 hover:underline"
           href={chain.href}
@@ -111,7 +50,7 @@ function ChainCard({ chain, index }: { chain: LandingChain; index: number }) {
           {chain.blurb}
         </p>
       </header>
-      <ol className="relative m-0 flex list-none flex-col gap-0 p-0">
+      <ol className="relative m-0 mt-4 flex list-none flex-col gap-0 p-0">
         {steps.map((step, stepIndex) => (
           <li className="relative flex gap-3 pb-4 last:pb-0" key={stepKeys[stepIndex]}>
             {stepIndex < steps.length - 1 ? (
@@ -122,7 +61,7 @@ function ChainCard({ chain, index }: { chain: LandingChain; index: number }) {
             ) : null}
             <span
               aria-hidden
-              className="relative z-10 mt-1.5 size-2 shrink-0 rounded-full border border-primary/40 bg-background"
+              className="relative z-10 mt-1.5 size-2 shrink-0 rounded-full border border-primary bg-background"
             />
             <p className="text-sm leading-6">
               {step.fromHref ? (
@@ -164,13 +103,12 @@ export function HomeDashboard({
   treatyCount,
   mapPinCount,
   obligationThemeCount,
-  searchDocs,
   standing,
 }: HomeDashboardProps) {
   const entryCount = entries.length;
   const slices = catalogSlices(entries);
   const total = slices.reduce((sum, s) => sum + s.count, 0);
-  const widest = Math.max(...slices.map((slice) => slice.count), 1);
+  const plates = navLeaves();
 
   return (
     <div className="dashboard-canvas">
@@ -205,20 +143,24 @@ export function HomeDashboard({
               </Link>
               .
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <Button nativeButton={false} render={<Link href="/map" />} size="lg">
-                <MapIcon className="size-4" data-icon="inline-start" />
                 Open the map
               </Button>
               <Button
                 nativeButton={false}
-                render={<Link href="/obligations" />}
+                render={<Link href="/standing" />}
                 size="lg"
                 variant="outline"
               >
-                <Globe2Icon className="size-4" data-icon="inline-start" />
-                Obligations
+                Standing
               </Button>
+              <p className="text-sm text-muted-foreground">
+                Index{" "}
+                <kbd className="rounded-sm border border-border px-1 font-sans text-xs text-muted-foreground">
+                  ⌘K
+                </kbd>
+              </p>
             </div>
             <dl className="folio-rail">
               {[
@@ -240,7 +182,7 @@ export function HomeDashboard({
           </div>
           <div className="fade-rise-delayed rise-ink flex w-full min-w-0 flex-col items-center gap-4 sm:gap-5 lg:max-w-md lg:flex-1">
             <p className="text-center text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase">
-              {padIndex(obligationThemeCount)} themes ·{" "}
+              {padFolio(obligationThemeCount)} themes ·{" "}
               <Link className="underline underline-offset-4" href="/obligations">
                 full index
               </Link>
@@ -279,45 +221,44 @@ export function HomeDashboard({
       </section>
 
       <section className="mx-auto w-full max-w-shell px-4 py-14 sm:px-6">
-        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div className="flex flex-col gap-2">
-            <p className="kicker">Contents</p>
-            <h2 className="text-2xl font-medium">Enter anywhere</h2>
-            <p className="text-sm text-muted-foreground">
-              Six doors into the graph — map, law, money, and time.
-            </p>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            {officeCount} public offices tracked
+        <div className="mb-8 flex flex-col gap-2">
+          <p className="kicker">Contents</p>
+          <h2 className="text-2xl font-medium">Ten plates</h2>
+          <p className="max-w-lede text-sm text-muted-foreground">
+            The same numbered index as the masthead. Standing, offices, and
+            intake stay off this list.
           </p>
         </div>
-        <div className="home-portals grid grid-cols-1 gap-3 lg:grid-cols-3">
-          {PORTALS.map((portal, index) => (
-            <Link
-              className="glass-panel ink-card group relative flex flex-col gap-4 overflow-hidden p-5"
-              href={portal.href}
-              key={portal.href}
-            >
-              <div aria-hidden className={`pointer-events-none absolute inset-0 ${portal.tint}`} />
-              <div className="relative flex items-start justify-between gap-2">
-                <span className="toc-num">{padIndex(index + 1)}</span>
-                <div className="flex items-center gap-2">
-                  <portal.icon className="size-4 text-primary/70" strokeWidth={1.5} />
-                  <ArrowUpRightIcon className="size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-                </div>
-              </div>
-              <div className="relative">
-                <h3 className="font-serif text-lg font-medium">{portal.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                  {portal.description}
-                </p>
-              </div>
+        <nav aria-label="Ten plates" className="home-portals plate-index">
+          {plates.map((plate) => (
+            <Link className="plate-index-row" href={plate.href} key={plate.href}>
+              <span className="toc-num">{padFolio(plate.index)}</span>
+              <span className="min-w-0">
+                <span className="block font-serif text-lg font-medium tracking-tight">
+                  {plate.label}
+                </span>
+                <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">
+                  {PLATE_STANDFIRSTS[plate.href]}
+                </span>
+              </span>
             </Link>
           ))}
-        </div>
+        </nav>
+        <p className="off-index-line">
+          Off the index ·{" "}
+          {OFF_INDEX.map((room, index) => (
+            <span key={room.href}>
+              {index > 0 ? " · " : null}
+              <Link className="underline-offset-4 hover:underline" href={room.href}>
+                {room.label}
+              </Link>
+            </span>
+          ))}
+          {` · ${officeCount} public offices tracked`}
+        </p>
       </section>
 
-      <section className="border-y border-border/60 bg-muted/20 backdrop-blur-sm">
+      <section className="border-y border-border">
         <div className="mx-auto w-full max-w-shell px-4 py-14 sm:px-6">
           <p className="kicker">Width of the atlas</p>
           <h2 className="mb-2 text-2xl font-medium">Catalog shape</h2>
@@ -325,24 +266,14 @@ export function HomeDashboard({
             {total} indexed records across six kinds — width of the atlas, not a
             ranking.
           </p>
-          <ul className="flex flex-col gap-4">
+          <ul className="catalog-index">
             {slices.map((slice) => (
-              <li className="flex flex-col gap-1.5" key={slice.kind}>
-                <div className="flex items-baseline justify-between gap-4 text-sm">
-                  <span className="font-medium">{slice.label}</span>
-                  <span className="font-serif text-lg tabular-nums">
-                    {slice.count}
-                  </span>
-                </div>
-                <div className="catalog-track" aria-hidden>
-                  <div
-                    className="catalog-fill"
-                    style={{
-                      width: `${(slice.count / widest) * 100}%`,
-                      backgroundColor: slice.swatch,
-                    }}
-                  />
-                </div>
+              <li className="catalog-index-row" key={slice.kind}>
+                <span className="font-medium">{slice.label}</span>
+                <span className="catalog-index-leader" aria-hidden />
+                <span className="font-serif text-lg tabular-nums">
+                  {slice.count}
+                </span>
               </li>
             ))}
           </ul>
@@ -360,21 +291,10 @@ export function HomeDashboard({
             quotation.
           </p>
         </div>
-        <div className="landing-chains grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="landing-chains grid grid-cols-1 gap-0 lg:grid-cols-2 lg:gap-x-12">
           {LANDING_CHAINS.map((chain, index) => (
-            <ChainCard chain={chain} index={index + 1} key={chain.id} />
+            <ChainPlate chain={chain} index={index + 1} key={chain.id} />
           ))}
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-shell px-4 pb-20 sm:px-6">
-        <div className="glass-panel p-6 sm:p-8">
-          <div className="mb-4 flex items-center gap-3">
-            <p className="toc-num">07</p>
-            <SearchIcon className="size-5 text-muted-foreground" strokeWidth={1.5} />
-            <h2 className="text-xl font-medium">Search the records</h2>
-          </div>
-          <SearchPanel docs={searchDocs} />
         </div>
       </section>
     </div>
