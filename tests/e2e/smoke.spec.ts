@@ -813,7 +813,7 @@ test("night plate caption reads as a legend, not a GIS inspector", async ({
   await expect(pinOnly.getByRole("link", { name: "permalink" })).toHaveCount(0);
 
   await page.goto("/map?views=trade");
-  await expect(page.getByText("Off-map endpoints")).toBeVisible();
+  await expect(page.getByText("Off-map endpoints ·")).toBeVisible();
   await expect(page.getByText("listed here instead of pinned in Reykjavík")).toBeVisible();
 });
 

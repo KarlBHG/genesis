@@ -364,8 +364,8 @@ function PlateKey() {
         </li>
       </ul>
       <p className="geo-caption-empty">
-        Touch a named place. Off-map endpoints stay under the island, never extra
-        dots.
+        Touch a named place. Leftovers without an Icelandic seat stay listed under
+        the island, never extra dots.
       </p>
     </div>
   );
@@ -1361,7 +1361,7 @@ export function IcelandMap({
               <span className="geo-sheet-hint">{sheetHint}</span>
             </button>
           </div>
-          <div className="geo-sheet-body">
+          <div className="geo-sheet-body" tabIndex={0}>
           {focus ? (
             <PlateCaption
               focus={focus}
