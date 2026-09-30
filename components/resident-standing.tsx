@@ -7,6 +7,7 @@ import {
   article4Caption,
   invoiceRowCaption,
   NO_SOURCED_LINE,
+  standingFolioHref,
   type StandingBoard,
   type StandingEmptyHop,
   type StandingHop,
@@ -129,10 +130,14 @@ function QuestionCard({
   question,
   index,
   compact,
+  programSlug,
+  municipalitySlug,
 }: {
   question: StandingQuestionView;
   index: number;
   compact: boolean;
+  programSlug: string;
+  municipalitySlug: string | null;
 }) {
   const parts = question.id === "taxpayer" ? splitTaxpayerHops(question.hops) : null;
   const invoiceSourced =
@@ -175,7 +180,11 @@ function QuestionCard({
                 <p className="text-sm text-muted-foreground">
                   <Link
                     className="underline underline-offset-4"
-                    href={`/standing#${question.id}`}
+                    href={standingFolioHref(
+                      programSlug,
+                      municipalitySlug,
+                      question.id,
+                    )}
                   >
                     {invoiceSourced - HOME_INVOICE_CAP} more invoice rows on
                     the standing folio
@@ -238,6 +247,8 @@ export function ResidentStanding({
             compact={compact}
             index={index + 1}
             key={question.id}
+            municipalitySlug={municipalitySlug}
+            programSlug={programSlug}
             question={question}
           />
         ))}

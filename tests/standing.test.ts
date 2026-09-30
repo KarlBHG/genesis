@@ -15,6 +15,7 @@ import {
   invoiceRowCaption,
   NO_SOURCED_LINE,
   sourcedHops,
+  standingFolioHref,
   standingMunicipalities,
   standingPrograms,
   standingQuestions,
@@ -173,6 +174,17 @@ describe("resident standing", () => {
     );
     expect(invoiceRowCaption(12)).not.toMatch(/\b(ISK|mkr|makr|USD)\b/);
     expect(NO_SOURCED_LINE).toBe("no sourced line");
+  });
+
+  it("keeps standing folio hops on the same municipality and program", () => {
+    expect(standingFolioHref(DEFAULT_PROGRAM_SLUG, null, "taxpayer")).toBe(
+      `/standing?program=${DEFAULT_PROGRAM_SLUG}#taxpayer`,
+    );
+    expect(
+      standingFolioHref(DEFAULT_PROGRAM_SLUG, "reykjavikurborg", "taxpayer"),
+    ).toBe(
+      `/standing?program=${DEFAULT_PROGRAM_SLUG}&municipality=reykjavikurborg#taxpayer`,
+    );
   });
 
   it("exposes three authored questions and catalog policy areas", () => {

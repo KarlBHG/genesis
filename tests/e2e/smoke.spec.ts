@@ -8,6 +8,7 @@ import {
   expectFacing,
   expectStacked,
   tenureChip,
+  headingClearsMasthead,
   waitForSearchLive,
   waitForSelectedTab,
   waitForTenureLive,
@@ -593,6 +594,21 @@ test("resident standing walks sourced hops or prints no sourced line", async ({
     page.locator("main").getByRole("link", { name: "Standing" }),
   ).toHaveAttribute("href", "/standing");
 
+  await page.goto("/");
+  await page.locator("#standing-municipality").selectOption("reykjavikurborg");
+  await expect(page).toHaveURL(/municipality=reykjavikurborg/);
+  const moreInvoices = page.getByRole("link", {
+    name: /more invoice rows on the standing folio/i,
+  });
+  await expect(moreInvoices).toHaveAttribute(
+    "href",
+    "/standing?program=policy-area-23-sjukrahusthjonusta&municipality=reykjavikurborg#taxpayer",
+  );
+  await moreInvoices.click();
+  await expect(page).toHaveURL(/\/standing\?.*municipality=reykjavikurborg.*#taxpayer/);
+  await headingClearsMasthead(page, "taxpayer");
+  await expect(page.locator("#voter").getByText("Reykjavíkurborg elects a member of Alþingi")).toBeVisible();
+
   await page.goto("/methodology#standing");
   await expect(
     page.locator("#standing").getByRole("heading", { name: "Resident standing" }),
@@ -600,6 +616,7 @@ test("resident standing walks sourced hops or prints no sourced line", async ({
   await expect(
     page.locator("#standing").getByRole("link", { name: "See their standing" }),
   ).toHaveAttribute("href", "/standing");
+  await headingClearsMasthead(page, "standing");
 });
 
 test("command palette opens with Ctrl+K", async ({ page }) => {

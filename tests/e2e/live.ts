@@ -99,3 +99,31 @@ export async function expectStacked(
     })
     .toBe(true);
 }
+
+/** Hash target heading sits below the sticky masthead and inside the viewport. */
+export async function headingClearsMasthead(page: Page, id: string) {
+  await expect
+    .poll(
+      async () => {
+        return page.evaluate((targetId) => {
+          const header = document.querySelector(".site-masthead");
+          const el = document.getElementById(targetId);
+          if (!header || !el) return { ok: false, reason: "missing" };
+          const heading = el.querySelector("h1,h2,h3") ?? el;
+          const style = getComputedStyle(el);
+          if (style.display === "none") return { ok: false, reason: "hidden" };
+          const box = heading.getBoundingClientRect();
+          const bottom = header.getBoundingClientRect().bottom;
+          const inView = box.top < window.innerHeight && box.bottom > 0;
+          return {
+            ok: box.height >= 1 && box.top >= bottom - 1 && inView,
+            top: Math.round(box.top),
+            headerBottom: Math.round(bottom),
+            inView,
+          };
+        }, id);
+      },
+      { timeout: 12_000 },
+    )
+    .toMatchObject({ ok: true });
+}

@@ -380,6 +380,18 @@ export function isValidMunicipality(
   return municipalities.some((item) => item.slug === slug);
 }
 
+export function standingFolioHref(
+  programSlug: string,
+  municipalitySlug: string | null,
+  hash?: StandingQuestionId,
+): string {
+  const params = new URLSearchParams();
+  params.set("program", programSlug);
+  if (municipalitySlug) params.set("municipality", municipalitySlug);
+  const path = `/standing?${params.toString()}`;
+  return hash ? `${path}#${hash}` : path;
+}
+
 export function isValidProgram(
   slug: string | null | undefined,
   programs: readonly StandingOption[],

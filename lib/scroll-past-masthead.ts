@@ -14,6 +14,9 @@ export function scrollHashPastMasthead() {
   const target = document.getElementById(id);
   if (!target) return false;
   if (getComputedStyle(target).display === "none") return false;
+  // First paint can leave a late section with a 0×0 box at the top of the
+  // page. Scrolling then would "succeed" and leave the hash under the fold.
+  if (target.getBoundingClientRect().height < 1) return false;
   scrollPastMasthead(target);
   return true;
 }
@@ -27,7 +30,7 @@ export function scheduleScrollHashPastMasthead() {
   let frame = 0;
   function go() {
     if (scrollHashPastMasthead()) return;
-    if (attempts++ < 30) frame = requestAnimationFrame(go);
+    if (attempts++ < 90) frame = requestAnimationFrame(go);
   }
   frame = requestAnimationFrame(go);
   return () => cancelAnimationFrame(frame);

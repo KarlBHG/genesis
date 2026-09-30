@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { AsOfChip } from "@/components/as-of-chip";
+import { HashScroll } from "@/components/hash-scroll";
 import { PageHero } from "@/components/page-hero";
 import { ProvenanceEdgeCard } from "@/components/provenance-edge";
 import { Badge } from "@/components/ui/badge";
@@ -91,6 +92,7 @@ export default function MethodologyPage() {
 
   return (
     <main className="dashboard-canvas min-w-0">
+      <HashScroll />
       <PageHero
         description={
           <>
