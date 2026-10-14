@@ -86,7 +86,7 @@ describe("catalog loads", () => {
     expect(getEdges().length).toBeGreaterThan(0);
   });
 
-  it("keeps dashboard treaty and obligation indexes populated", () => {
+  it("keeps treaty and obligation indexes populated", () => {
     expect(getTreaties().length).toBeGreaterThanOrEqual(14);
     expect(OBLIGATION_SECTIONS.length).toBeGreaterThanOrEqual(9);
     expect(LANDING_CHAINS.length).toBe(6);
@@ -679,14 +679,14 @@ describe("edge amounts are source-bound", () => {
 });
 
 describe("visualisation primitives", () => {
-  it("ships the five primitives and no generic chart library", () => {
+  it("ships the visualisation primitives and no generic chart library", () => {
     for (const file of [
       "bar.tsx",
       "magnitude.tsx",
-      "time-ruler.tsx",
       "ego-network.tsx",
       "ego-layout.ts",
       "edge-row.tsx",
+      "policy-treemap.tsx",
       "index.ts",
       "money.ts",
     ]) {

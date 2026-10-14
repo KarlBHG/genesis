@@ -145,14 +145,6 @@
   --paper-skip: oklch(0.155 0.058 258);
   --paper-skip-ink: oklch(0.985 0.01 90);
 
-  /* Landing portal washes — one token per door, no Tailwind palette names. */
-  --portal-map: oklch(0.7 0.09 230 / 0.18);
-  --portal-obligations: oklch(0.6 0.1 275 / 0.16);
-  --portal-treaties: oklch(0.76 0.11 75 / 0.18);
-  --portal-budget: oklch(0.68 0.09 155 / 0.16);
-  --portal-events: oklch(0.7 0.11 25 / 0.14);
-  --portal-method: oklch(0.5 0.03 255 / 0.12);
-
   /* The constellation on the landing page, drawn on paper. */
   --constellation-core: oklch(0.58 0.12 255 / 0.5);
   --constellation-core-mid: oklch(0.84 0.06 220 / 0.16);
@@ -186,14 +178,6 @@
   --theme-investment: oklch(0.48 0.13 305);
   --theme-development: oklch(0.52 0.12 145);
   --theme-fallback: oklch(0.5 0.06 255);
-
-  /* The six entry kinds, for the catalogue swatches. */
-  --kind-treaty: oklch(0.52 0.1 255);
-  --kind-institution: oklch(0.42 0.07 255);
-  --kind-event: oklch(0.62 0.08 75);
-  --kind-sector: oklch(0.52 0.1 155);
-  --kind-flow: oklch(0.58 0.12 45);
-  --kind-player: oklch(0.55 0.07 320);
 }
 
 /*
@@ -1599,30 +1583,6 @@ a.catalog-index-row:focus-visible .font-medium {
 .ink-card:hover::before,
 .ink-card:focus-visible::before {
   transform: scaleY(1);
-}
-
-.portal-tint-map {
-  background: linear-gradient(135deg, var(--portal-map), transparent 68%);
-}
-
-.portal-tint-obligations {
-  background: linear-gradient(135deg, var(--portal-obligations), transparent 68%);
-}
-
-.portal-tint-treaties {
-  background: linear-gradient(135deg, var(--portal-treaties), transparent 68%);
-}
-
-.portal-tint-budget {
-  background: linear-gradient(135deg, var(--portal-budget), transparent 68%);
-}
-
-.portal-tint-events {
-  background: linear-gradient(135deg, var(--portal-events), transparent 68%);
-}
-
-.portal-tint-method {
-  background: linear-gradient(135deg, var(--portal-method), transparent 68%);
 }
 
 .theme-wash-security {

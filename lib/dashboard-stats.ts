@@ -9,20 +9,10 @@ const KIND_LABELS: Record<Kind, string> = {
   player: "Players",
 };
 
-const KIND_SWATCH: Record<Kind, string> = {
-  treaty: "var(--kind-treaty)",
-  institution: "var(--kind-institution)",
-  event: "var(--kind-event)",
-  sector: "var(--kind-sector)",
-  flow: "var(--kind-flow)",
-  player: "var(--kind-player)",
-};
-
 export type CatalogSlice = {
   kind: Kind;
   label: string;
   count: number;
-  swatch: string;
 };
 
 export function catalogSlices(entries: Entry[]): CatalogSlice[] {
@@ -34,10 +24,5 @@ export function catalogSlices(entries: Entry[]): CatalogSlice[] {
     kind,
     label: KIND_LABELS[kind],
     count: counts.get(kind) ?? 0,
-    swatch: KIND_SWATCH[kind],
   }));
-}
-
-export function catalogTotal(entries: Entry[]): number {
-  return entries.length;
 }

@@ -229,7 +229,7 @@ export function HomeDashboard({
             intake stay off this list.
           </p>
         </div>
-        <nav aria-label="Ten plates" className="home-portals plate-index">
+        <nav aria-label="Ten plates" className="plate-index">
           {plates.map((plate) => (
             <Link className="plate-index-row" href={plate.href} key={plate.href}>
               <span className="toc-num">{padFolio(plate.index)}</span>

@@ -1051,12 +1051,10 @@ test.describe("pocket folio", () => {
     test.skip(testInfo.project.name !== "mobile", "Pocket grammar is below lg");
     await page.setViewportSize({ width: 800, height: 844 });
     await page.goto("/");
-    const portals = page.locator(".home-portals a");
+    const portals = page.locator('nav[aria-label="Ten plates"] a');
     await expect(portals).toHaveCount(10);
-    const first = await portals.nth(0).boundingBox();
-    const second = await portals.nth(1).boundingBox();
-    expect(second!.y).toBeGreaterThan(first!.y + first!.height / 2);
-    expect(first!.width).toBeGreaterThan(500);
+    await portals.nth(0).scrollIntoViewIfNeeded();
+    await expectStacked(portals.nth(0), portals.nth(1), { minWidth: 500 });
   });
 
   test("office, connections, and public-entity tables stack as pocket rows", async ({
@@ -1207,10 +1205,7 @@ test.describe("pocket folio", () => {
 
     await page.goto("/players");
     const playerRows = page.locator("main .folio-index-row");
-    await expect(playerRows.first()).toBeVisible();
-    const playerFirst = await playerRows.nth(0).boundingBox();
-    const playerSecond = await playerRows.nth(1).boundingBox();
-    expect(playerSecond!.y).toBeGreaterThan(playerFirst!.y + playerFirst!.height / 2);
+    await expectStacked(playerRows.nth(0), playerRows.nth(1), { minWidth: 280 });
 
     await page.goto("/standing");
     const municipality = page.locator("#standing-municipality");

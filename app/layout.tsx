@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   // NEXT_PUBLIC_SITE_URL wherever this is deployed; locally the dev origin
   // keeps the generated cards resolvable.
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:3000",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:38471",
   ),
   title: {
     default: "AlltÍkerfi",

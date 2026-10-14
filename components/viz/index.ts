@@ -21,4 +21,3 @@ export {
   unitLabel,
   widestFigure,
 } from "@/components/viz/money";
-export { TimeRuler, type TimeMark } from "@/components/viz/time-ruler";
