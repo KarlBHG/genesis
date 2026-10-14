@@ -1,0 +1,3473 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * This site has exactly two rooms and no light/dark pair, so `dark:` is
+ * pinned to a class nothing ever applies. That keeps the variant inert in the
+ * shadcn primitives rather than half-activating it from an OS preference.
+ */
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* One frame width for the header, the footer, and every page inside them. */
+  --container-shell: 72rem;
+  /* The reading column: prose, ledes, and quotations. */
+  --container-reading: 48rem;
+  /* The narrow measure for ledes and standfirsts. */
+  --container-lede: 42rem;
+  /* Margin for citation gutters beside the reading column. */
+  --container-gutter: 16.5rem;
+  /* Reading column plus gutter, used on entry pages that cite in the margin. */
+  --container-folio: calc(
+    var(--container-reading) + var(--container-gutter) + 1.75rem
+  );
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: var(--font-serif);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(0.954 0.018 88);
+  --foreground: oklch(0.12 0.04 258);
+  --card: oklch(0.988 0.008 90);
+  --card-foreground: oklch(0.14 0.035 255);
+  --popover: oklch(0.988 0.008 90);
+  --popover-foreground: oklch(0.14 0.035 255);
+  --primary: oklch(0.155 0.058 258);
+  --primary-foreground: oklch(0.985 0.01 90);
+  --secondary: oklch(0.925 0.016 90);
+  --secondary-foreground: oklch(0.16 0.04 255);
+  --muted: oklch(0.93 0.014 88);
+  --muted-foreground: oklch(0.3 0.03 255);
+  --accent: oklch(0.91 0.018 88);
+  --accent-foreground: oklch(0.16 0.04 255);
+  /*
+   * Hairline stamp only — not letters. Badges and field errors use --foreground.
+   * Dark enough that 12px ink would still clear 4.5:1 on the page wash.
+   */
+  --destructive: oklch(0.48 0.2 27.325);
+  --border: oklch(0.74 0.022 88);
+  --input: oklch(0.74 0.022 88);
+  --ring: oklch(0.38 0.055 255);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.16rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* —— Visualisation primitives (components/viz) —— */
+  --viz-bar: oklch(0.38 0.07 255);
+  --viz-credit: oklch(0.5 0.14 30);
+  --viz-track: oklch(0.88 0.012 90);
+  --viz-axis: oklch(0.72 0.016 90);
+  --viz-link: oklch(0.5 0.05 255);
+  --viz-node: oklch(0.62 0.04 255);
+  --viz-node-ring: oklch(0.99 0.004 90);
+
+  /*
+   * —— Room one: the light paper reading surface ——
+   * Every ambient wash, orb, glass panel, and halo on the reading side of the
+   * site resolves here. Components carry no colour literals of their own.
+   */
+  --paper-wash-cool: oklch(0.76 0.08 255 / 0.34);
+  --paper-wash-warm: oklch(0.86 0.09 72 / 0.28);
+  --paper-orb-cool: oklch(0.68 0.13 255 / 0.42);
+  --paper-orb-warm: oklch(0.76 0.14 70 / 0.34);
+  --paper-orb-sea: oklch(0.74 0.1 175 / 0.28);
+  --paper-vignette: oklch(0.36 0.04 258 / 0.14);
+  --paper-hero-cool: oklch(0.7 0.12 230 / 0.22);
+  --paper-hero-warm: oklch(0.8 0.11 48 / 0.2);
+  --paper-glass: oklch(0.99 0.007 90 / 0.82);
+  --paper-glass-border: oklch(0.68 0.024 88 / 0.95);
+  --paper-glass-shadow: oklch(0.18 0.05 258 / 0.12);
+  --paper-glass-sheen: oklch(1 0 0 / 0.5);
+  --paper-halo: oklch(0.99 0.006 90 / 0.94);
+  --paper-halo-soft: oklch(0.99 0.006 90 / 0.88);
+  --paper-halo-faint: oklch(0.99 0.006 90 / 0.58);
+  --paper-footer-near: oklch(0.92 0.022 90 / 0.97);
+  --paper-footer-far: oklch(0.954 0.018 88 / 0.28);
+  --paper-ink-bar: oklch(0.155 0.058 258);
+  --paper-masthead: oklch(0.99 0.008 90 / 0.7);
+  --paper-masthead-edge: oklch(0.155 0.058 258);
+  /* Quiet folio numerals: same ink as captions, no alpha wash. */
+  --paper-folio: var(--muted-foreground);
+  --paper-rule-double: oklch(0.155 0.058 258);
+  --paper-compass: oklch(0.5 0.04 255 / 0.55);
+  --paper-orbit-tick: oklch(0.62 0.05 255 / 0.45);
+  --paper-skip: oklch(0.155 0.058 258);
+  --paper-skip-ink: oklch(0.985 0.01 90);
+
+  /* The constellation on the landing page, drawn on paper. */
+  --constellation-core: oklch(0.58 0.12 255 / 0.5);
+  --constellation-core-mid: oklch(0.84 0.06 220 / 0.16);
+  --constellation-orbit-a: oklch(0.55 0.1 255 / 0.62);
+  --constellation-orbit-b: oklch(0.74 0.12 72 / 0.48);
+  --constellation-orbit-c: oklch(0.66 0.09 200 / 0.55);
+  --constellation-node-ring: oklch(0.99 0.006 90);
+  --constellation-cross: oklch(0.5 0.05 255 / 0.28);
+  --constellation-plate: oklch(0.99 0.006 90 / 0.45);
+  --constellation-plate-border: oklch(0.68 0.024 88 / 0.7);
+
+  /*
+   * The six map layers. One categorical palette, shared by the map pins, the
+   * layer chips, and the relationship strokes below.
+   */
+  --layer-state: #d7c4a3;
+  --layer-companies: #8fb59a;
+  --layer-multinationals: #d08b62;
+  --layer-ngos: #8eabcc;
+  --layer-societies: #c6b06a;
+  --layer-family: #b7a3b0;
+
+  /* The nine obligation themes. Categorical, like the map layers. */
+  --theme-security: oklch(0.5 0.07 265);
+  --theme-europe: oklch(0.52 0.11 275);
+  --theme-bilateral-trade: oklch(0.6 0.13 65);
+  --theme-multilateral: oklch(0.54 0.09 200);
+  --theme-financial: oklch(0.52 0.15 25);
+  --theme-budget: oklch(0.5 0.11 155);
+  --theme-aviation: oklch(0.54 0.11 235);
+  --theme-investment: oklch(0.48 0.13 305);
+  --theme-development: oklch(0.52 0.12 145);
+  --theme-fallback: oklch(0.5 0.06 255);
+}
+
+/*
+ * —— Room two: the dark geographic room ——
+ * Tokens live on the room itself and on the document when the map is open, so
+ * the masthead and footer can inherit the same night palette without a third
+ * theme. Paper pages never set these properties.
+ */
+.geo-room,
+html:has(.geo-room),
+body:has(.geo-room) {
+  --geo-canvas: #040604;
+  --geo-plate: #07100c;
+  --geo-panel: #10160f;
+  --geo-panel-sunken: #0c110c;
+  --geo-frame: #151c14;
+  --geo-chip: #1c2418;
+  --geo-chip-active: #2a3322;
+  --geo-land: #2a3524;
+  --geo-land-lit: #3e4c32;
+  --geo-highland: #1c2618;
+  --geo-sea: #08110e;
+  --geo-sea-deep: #030705;
+  --geo-line: #3a4334;
+  --geo-line-strong: #5a6350;
+  --geo-line-bright: #7a715c;
+  --geo-grid: #eddaa8;
+  --geo-star: #f6efe2;
+  --geo-coast: #f3e2b4;
+  --geo-ink: #f7f1e4;
+  --geo-ink-soft: #ebe4d6;
+  --geo-ink-muted: #cfc6b6;
+  /* Decorative marks only — captions, chips, and chrome use --geo-ink-muted. */
+  --geo-ink-dim: #8f8674;
+  --geo-accent: #f0d89a;
+  --geo-accent-soft: #f7ebc8;
+  --geo-accent-dim: #c9b896;
+  --geo-aurora: #eddaa8;
+  --geo-aurora-mid: #8fb59a;
+  --geo-glass: #10160f;
+  --geo-glow: 0 0 88px rgb(240 216 154 / 0.16);
+  --geo-glow-strong: 0 0 120px rgb(240 216 154 / 0.28);
+
+  /* Relationship families, drawn from the same palette as the layer chips. */
+  --edge-money: var(--layer-state);
+  --edge-ownership: var(--layer-companies);
+  --edge-trade: var(--layer-multinationals);
+  --edge-investment: var(--layer-societies);
+  --edge-power: var(--geo-accent);
+}
+
+.geo-room {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  background:
+    radial-gradient(ellipse 70% 42% at 50% -8%, color-mix(in srgb, var(--geo-aurora) 18%, transparent), transparent 58%),
+    radial-gradient(ellipse 38% 28% at 82% 108%, color-mix(in srgb, var(--geo-aurora-mid) 14%, transparent), transparent 52%),
+    var(--geo-canvas);
+  color: var(--geo-ink-soft);
+}
+
+.geo-room::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.11;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.geo-room > * {
+  position: relative;
+  z-index: 1;
+}
+
+html:has(.geo-room),
+body:has(.geo-room) {
+  --background: var(--geo-canvas);
+  --foreground: var(--geo-ink);
+  --card: var(--geo-panel);
+  --card-foreground: var(--geo-ink);
+  --popover: var(--geo-panel);
+  --popover-foreground: var(--geo-ink);
+  --primary: var(--geo-accent);
+  --primary-foreground: var(--geo-canvas);
+  --secondary: var(--geo-chip);
+  --secondary-foreground: var(--geo-ink);
+  --muted: var(--geo-chip);
+  --muted-foreground: var(--geo-ink-muted);
+  --accent: var(--geo-chip-active);
+  --accent-foreground: var(--geo-ink);
+  /*
+   * Hairline stamp only. This kit red is ~4.3:1 on the canvas, so 12px
+   * letters cannot pass. Paper's passing token is too dark here. Do not
+   * invent a second night red.
+   */
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--geo-line);
+  --input: var(--geo-line);
+  --ring: var(--geo-accent);
+  /*
+   * Folio chrome still reads these paper tokens after compose. Remap them
+   * here so the numbered index, ink rule, and glass dropdown inherit night.
+   */
+  --paper-masthead-edge: var(--geo-accent);
+  --paper-ink-bar: var(--geo-accent);
+  --paper-rule-double: var(--geo-line-strong);
+  --paper-masthead: color-mix(in srgb, var(--geo-canvas) 78%, transparent);
+  --paper-glass: color-mix(in srgb, var(--geo-panel) 92%, transparent);
+  --paper-glass-border: var(--geo-line-strong);
+  --paper-glass-shadow: rgb(0 0 0 / 0.45);
+  --paper-glass-sheen: rgb(247 241 228 / 0.06);
+  background: var(--geo-canvas);
+  color: var(--geo-ink-soft);
+}
+
+body:has(.geo-room) .atmosphere {
+  display: none;
+}
+
+body:has(.geo-room) .site-footer-glow {
+  background: none;
+}
+
+body:has(.geo-room) .site-masthead {
+  background-color: var(--geo-canvas);
+  background-image: none;
+  border-bottom-color: var(--geo-line);
+  box-shadow: none;
+  color: var(--geo-ink);
+}
+
+body:has(.geo-room) footer {
+  background: var(--geo-canvas);
+  border-top-color: var(--geo-line);
+}
+
+.geo-room .map-control:focus-visible {
+  outline: 2px solid var(--geo-accent);
+  outline-offset: 2px;
+}
+
+.geo-room .geo-theater {
+  position: relative;
+  display: grid;
+  /* Two-row folio masthead is ~6.5rem; keep the night stage in the viewport. */
+  min-height: calc(100dvh - 6.5rem);
+  grid-template-columns: 5.25rem minmax(0, 1fr) minmax(17.5rem, 22rem);
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "mast mast inspector"
+    "rail chips inspector"
+    "rail stage inspector"
+    "rail pins inspector";
+  gap: 0.7rem 0.9rem;
+  padding: 0.85rem 1rem 1.15rem;
+}
+
+.geo-room .geo-mast {
+  grid-area: mast;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.85rem 1.25rem;
+}
+
+.geo-room .geo-mast h1 {
+  max-width: 38rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.85rem, 3.4vw, 3.05rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.038em;
+  color: var(--geo-ink);
+  text-wrap: balance;
+}
+
+.geo-room .geo-lede {
+  max-width: 36rem;
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-permalink {
+  display: block;
+  margin-top: 0.4rem;
+  overflow: hidden;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--geo-ink-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.geo-room .geo-share {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.geo-room .geo-share-copy {
+  height: auto;
+  min-height: 0;
+  border: 1px solid var(--geo-coast);
+  border-radius: 0;
+  background: var(--geo-sea-deep);
+  padding: 0.38rem 0.7rem;
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--geo-accent);
+  box-shadow: inset 0 0 0 1px var(--geo-line-bright);
+}
+
+.geo-room .geo-share-copy:hover {
+  background: var(--geo-chip);
+  color: var(--geo-accent-soft);
+}
+
+.geo-room .geo-chips {
+  grid-area: chips;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border: 1px solid var(--geo-coast);
+  background: var(--geo-panel-sunken);
+  padding: 0.45rem 0.7rem 0.5rem;
+  box-shadow: inset 0 0 0 1px var(--geo-line-bright);
+}
+
+.geo-room .geo-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.85rem;
+}
+
+.geo-room .geo-chip-row .geo-caption-kicker {
+  flex: 1 0 100%;
+  margin-bottom: 0.1rem;
+}
+
+.geo-room .geo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  padding: 0.28rem 0 0.22rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-chip[aria-pressed="true"] {
+  border-bottom-color: var(--geo-accent);
+  color: var(--geo-ink);
+}
+
+.geo-room .geo-chip-swatch {
+  display: inline-block;
+  width: 0.42rem;
+  height: 0.42rem;
+  flex-shrink: 0;
+  border: 1px solid var(--geo-coast);
+  background: var(--geo-line);
+}
+
+.geo-room .geo-rail {
+  grid-area: rail;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border: 1px solid var(--geo-coast);
+  background: var(--geo-panel-sunken);
+  padding: 0.35rem 0.28rem 0.4rem;
+  box-shadow: inset 0 0 0 1px var(--geo-line-bright);
+}
+
+.geo-room .geo-rail .geo-caption-kicker {
+  padding: 0.1rem 0.2rem 0.25rem;
+  text-align: center;
+}
+
+.geo-room .geo-figure {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 0.4rem 0.1rem 0.35rem;
+  text-align: center;
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-figure[aria-pressed="true"] {
+  border-color: var(--geo-figure-ink, var(--geo-coast));
+  background: color-mix(in srgb, var(--geo-chip-active) 78%, transparent);
+  color: var(--geo-ink);
+  box-shadow: inset 0 0 0 1px var(--geo-line-bright);
+}
+
+.geo-room .geo-stage {
+  grid-area: stage;
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 28rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--geo-coast);
+  background: var(--geo-sea-deep);
+  box-shadow:
+    inset 0 0 0 3px var(--geo-sea-deep),
+    inset 0 0 0 4px var(--geo-line-bright);
+}
+
+.geo-room .geo-stage-art {
+  position: relative;
+  width: 100%;
+}
+
+.geo-room .geo-stage-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.geo-room .geo-stage-cartouche {
+  pointer-events: none;
+  position: absolute;
+  right: 0.65rem;
+  bottom: 0.55rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  border: 1px solid var(--geo-coast);
+  background: var(--geo-sea-deep);
+  padding: 0.4rem 0.6rem 0.45rem;
+  box-shadow: inset 0 0 0 1px var(--geo-line-bright);
+}
+
+.geo-room .geo-stage-folio {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--geo-accent);
+}
+
+.geo-room .geo-stage-title {
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--geo-ink);
+}
+
+.geo-room .geo-stage-note {
+  font-size: 0.62rem;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-pins {
+  grid-area: pins;
+}
+
+.geo-room .geo-inspector {
+  grid-area: inspector;
+  display: flex;
+  min-width: 0;
+  max-height: calc(100dvh - 6.5rem);
+  flex-direction: column;
+  gap: 0.85rem;
+  overflow: auto;
+  border: 1px solid var(--geo-line-strong);
+  background: var(--geo-plate);
+  padding: 1rem 1.05rem 1.15rem;
+}
+
+.geo-room .geo-inspector.geo-caption {
+  background: color-mix(in srgb, var(--geo-plate) 92%, transparent);
+  border-left: 2px solid var(--geo-accent);
+  box-shadow: none;
+}
+
+.geo-room .geo-caption-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.geo-room .geo-caption-kicker {
+  font-size: 0.625rem;
+  font-weight: 650;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--geo-accent-dim);
+}
+
+.geo-room .geo-caption-stamp {
+  width: fit-content;
+  border: 1px solid var(--geo-line-bright);
+  background: var(--geo-chip);
+  padding: 0.2rem 0.55rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--geo-accent-dim);
+}
+
+.geo-room .geo-caption-title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--geo-ink);
+  text-wrap: balance;
+}
+
+.geo-room .geo-caption-place {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--geo-accent-soft);
+}
+
+.geo-room .geo-caption-fact {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-caption-entry,
+.geo-room .geo-caption-permalink {
+  color: var(--geo-accent);
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+}
+
+.geo-room .geo-caption-legend {
+  margin: 0.1rem 0 0;
+  padding-left: 1.45rem;
+  list-style: decimal;
+  font-variant-numeric: tabular-nums;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-caption-legend li {
+  min-width: 0;
+}
+
+.geo-room .geo-caption-legend li + li {
+  margin-top: 0.55rem;
+}
+
+.geo-room .geo-caption-line {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto auto;
+  align-items: baseline;
+  gap: 0.35rem;
+  min-width: 0;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.geo-room .geo-caption-meta {
+  color: var(--geo-accent-dim);
+  white-space: nowrap;
+}
+
+.geo-room .geo-caption-dot {
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-caption-quote {
+  min-width: 0;
+  overflow: hidden;
+  font-style: italic;
+  color: var(--geo-ink-soft);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.geo-room .geo-caption-permalink {
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.geo-room .geo-caption-note,
+.geo-room .geo-caption-empty {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-caption-flows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.geo-room .geo-caption-back {
+  text-align: left;
+  font-size: 0.8rem;
+  color: var(--geo-ink-muted);
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+}
+
+.geo-room .geo-plate-key ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-plate-key li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+
+.geo-room .geo-key-mark {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+  border: 1.5px solid var(--geo-coast);
+  border-radius: 99px;
+  background: var(--geo-coast);
+}
+
+.geo-room .geo-key-mark[data-kind="vacant"] {
+  background: var(--geo-sea-deep);
+}
+
+.geo-room .geo-key-mark[data-kind="mixed"] {
+  background: var(--geo-coast);
+  box-shadow:
+    0 0 0 2px var(--geo-plate),
+    0 0 0 3px var(--geo-coast);
+}
+
+.geo-room .geo-pins-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.15rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.geo-room .geo-pins-name {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  border: 0;
+  background: none;
+  padding: 0.15rem 0;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 0.95rem;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-pins-name .geo-key-mark {
+  margin-top: 0;
+}
+
+.geo-room .geo-pins-name[aria-pressed="true"] {
+  color: var(--geo-ink);
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+}
+
+.geo-room .geo-pins-count {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--geo-accent-dim);
+}
+
+.geo-room .geo-leader {
+  display: none;
+}
+
+.geo-room .geo-plate-strip,
+.geo-room .geo-sheet-handle {
+  display: none;
+}
+
+.geo-room .geo-sheet-body {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.geo-room .geo-sheet-body:focus-visible {
+  outline: 2px solid var(--geo-accent);
+  outline-offset: 2px;
+}
+
+@supports (anchor-name: --geo-focus-pin) {
+  .geo-room .geo-pin-hit[data-geo-anchor="focus"] {
+    anchor-name: --geo-focus-pin;
+  }
+
+  .geo-room .geo-inspector.geo-caption {
+    anchor-name: --geo-caption;
+  }
+
+  .geo-room .geo-leader {
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+    left: anchor(--geo-focus-pin right);
+    top: calc(anchor(--geo-focus-pin center) - 0.5px);
+    right: anchor(--geo-caption left);
+    height: 0;
+    border-top: 1px solid color-mix(in srgb, var(--geo-accent) 62%, transparent);
+  }
+}
+
+.geo-room .geo-scroll {
+  display: flex;
+  max-height: min(42dvh, 22rem);
+  flex-direction: column;
+  gap: 0.35rem;
+  overflow: auto;
+}
+
+.geo-room .geo-folio {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  padding: 0.25rem 1rem 1.5rem;
+}
+
+.geo-room .geo-folio-panel {
+  border: 1px solid var(--geo-line);
+  background: color-mix(in srgb, var(--geo-panel) 88%, transparent);
+  padding: 0.9rem 1rem 1rem;
+}
+
+.geo-room .geo-credit {
+  padding: 0 1rem 1.5rem;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--geo-ink-muted);
+}
+
+.geo-room .geo-aurora-band {
+  animation: geo-aurora 11s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes geo-aurora {
+  from {
+    opacity: 0.35;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0.7;
+    transform: translateY(-1.2%) scale(1.04);
+  }
+}
+
+@media (min-width: 1024px) {
+  .geo-room .geo-theater {
+    height: calc(100dvh - 6.5rem);
+    max-height: calc(100dvh - 6.5rem);
+  }
+
+  .geo-room .geo-stage {
+    min-height: 0;
+  }
+
+  .geo-room .geo-inspector {
+    max-height: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .geo-room .geo-theater {
+    --geo-sheet-peek: 10.75rem;
+    --geo-sheet-half: 48dvh;
+    --geo-sheet-full: min(88dvh, calc(100dvh - 5.25rem));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr);
+    grid-template-areas:
+      "mast"
+      "plate"
+      "stage";
+    height: calc(100dvh - 5.25rem);
+    min-height: calc(100dvh - 5.25rem);
+    overflow: hidden;
+    padding: 0.55rem 0.75rem 0;
+    gap: 0.45rem;
+  }
+
+  .geo-room .geo-mast {
+    grid-area: mast;
+  }
+
+  .geo-room .geo-plate-strip {
+    display: flex;
+    grid-area: plate;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.28rem;
+    padding-bottom: 0.1rem;
+  }
+
+  .geo-room .geo-plate-kicker {
+    font-size: 0.6rem;
+    font-weight: 650;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--geo-accent-dim);
+  }
+
+  .geo-room .geo-plate-row {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: repeat(auto-fill, minmax(5.4rem, 1fr));
+    gap: 0.15rem 0.35rem;
+    overflow: visible;
+  }
+
+  .geo-room .geo-plate-swatch {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.28rem;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    padding: 0.18rem 0 0.2rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    text-align: left;
+    white-space: normal;
+    color: var(--geo-ink-muted);
+  }
+
+  .geo-room .geo-plate-swatch[aria-pressed="true"] {
+    border-bottom-color: var(--geo-accent);
+    color: var(--geo-ink);
+  }
+
+  .geo-room .geo-chips,
+  .geo-room .geo-rail,
+  .geo-room .geo-pins {
+    display: none;
+  }
+
+  .geo-room .geo-stage {
+    grid-area: stage;
+    min-height: 0;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: var(--geo-sheet-peek);
+  }
+
+  .geo-room .geo-inspector {
+    position: absolute;
+    z-index: 6;
+    left: 0.45rem;
+    right: 0.45rem;
+    bottom: 0;
+    display: flex;
+    max-height: none;
+    height: var(--geo-sheet-peek);
+    flex-direction: column;
+    gap: 0;
+    overflow: hidden;
+    border-bottom: 0;
+    border-radius: 0.55rem 0.55rem 0 0;
+    padding: 0.35rem 0.9rem 0.7rem;
+    overscroll-behavior: contain;
+    transition: height 180ms ease;
+  }
+
+  .geo-room .geo-inspector[data-sheet-height="peek"] {
+    height: var(--geo-sheet-peek);
+  }
+
+  .geo-room .geo-inspector[data-sheet-height="half"] {
+    height: var(--geo-sheet-half);
+  }
+
+  .geo-room .geo-inspector[data-sheet-height="full"] {
+    height: var(--geo-sheet-full);
+  }
+
+  .geo-room .geo-sheet-handle {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    padding: 0.1rem 0 0.35rem;
+  }
+
+  .geo-room .geo-sheet-grip {
+    display: flex;
+    min-width: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.28rem;
+    padding: 0.15rem 0.4rem 0.2rem;
+    touch-action: none;
+    color: var(--geo-ink-muted);
+  }
+
+  .geo-room .geo-sheet-pip {
+    display: block;
+    width: 2.4rem;
+    height: 0.22rem;
+    border-radius: 99px;
+    background: var(--geo-line-bright);
+  }
+
+  .geo-room .geo-sheet-hint {
+    max-width: 100%;
+    overflow: hidden;
+    font-size: 0.62rem;
+    font-weight: 650;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .geo-room .geo-sheet-body {
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .geo-room .geo-caption-line {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.35rem;
+    row-gap: 0.12rem;
+  }
+
+  .geo-room .geo-caption-meta {
+    flex: 1 1 100%;
+    white-space: normal;
+  }
+
+  .geo-room .geo-caption-quote {
+    flex: 1 1 8rem;
+  }
+
+  .geo-room .geo-inspector[data-sheet-height="peek"] .geo-caption-fact {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .geo-room .geo-inspector[data-sheet-height="peek"] .geo-layer-index,
+  .geo-room .geo-inspector[data-sheet-height="peek"] .geo-plate-key .geo-caption-empty {
+    display: none;
+  }
+
+  .geo-room .geo-leader {
+    display: none;
+  }
+
+  @supports (anchor-name: --geo-focus-pin) {
+    .geo-room .geo-leader {
+      display: block;
+      z-index: 5;
+      left: calc(anchor(--geo-focus-pin center) - 0.5px);
+      top: anchor(--geo-focus-pin bottom);
+      right: auto;
+      bottom: anchor(--geo-caption top);
+      width: 0;
+      height: auto;
+      border-top: none;
+      border-left: 1px solid color-mix(in srgb, var(--geo-accent) 62%, transparent);
+    }
+  }
+
+  .geo-room .geo-stage-art {
+    width: 118%;
+    max-width: none;
+    transition: transform 220ms ease, left 220ms ease;
+  }
+
+  .geo-room .geo-stage-art[data-pan="focus"] {
+    position: relative;
+    width: 148%;
+    left: calc(50% - var(--geo-fx) * 148%);
+    transform-origin: calc(var(--geo-fx) * 100%) calc(var(--geo-fy) * 100%);
+    transform: translateY(-8%);
+  }
+
+  .geo-room .geo-lede,
+  .geo-room .geo-permalink,
+  .geo-room .geo-north-mark,
+  .geo-room .geo-stage-cartouche {
+    display: none;
+  }
+
+  .geo-room .geo-mast h1 {
+    font-size: 1.35rem;
+  }
+
+  .geo-room .geo-share {
+    align-items: flex-start;
+  }
+
+  .geo-room .geo-share-copy {
+    min-height: 2rem;
+    font-size: 0.62rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .geo-room .geo-aurora-band {
+    animation: none;
+  }
+
+  .geo-room .geo-inspector {
+    transition: none;
+  }
+
+  .geo-room .geo-stage-art {
+    transition: none;
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    height: auto;
+    min-height: 100%;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif), Georgia, serif;
+  }
+  h1 {
+    letter-spacing: -0.04em;
+    line-height: 1.04;
+  }
+  h2 {
+    letter-spacing: -0.028em;
+    line-height: 1.12;
+  }
+  h3 {
+    letter-spacing: -0.018em;
+  }
+  .entry-prose {
+    font-size: 1.125rem;
+    line-height: 1.78;
+  }
+  .entry-prose h2 {
+    margin-top: 2.35rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.028em;
+    line-height: 1.15;
+  }
+  .entry-prose h3 {
+    margin-top: 1.5rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: -0.018em;
+  }
+  .entry-prose p,
+  .entry-prose ul,
+  .entry-prose ol {
+    margin-top: 0.9rem;
+  }
+  .atlas-page > .entry-prose > p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 3.35em;
+    font-weight: 500;
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+    padding-right: 0.14em;
+    padding-top: 0.06em;
+  }
+  .entry-prose ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .entry-prose ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+  }
+  .entry-prose li + li {
+    margin-top: 0.35rem;
+  }
+  .entry-prose a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .entry-prose a,
+  .entry-prose code {
+    overflow-wrap: anywhere;
+  }
+  .entry-prose code {
+    white-space: pre-wrap;
+  }
+}
+
+.dashboard-canvas {
+  background:
+    radial-gradient(ellipse 80% 48% at 8% -8%, var(--paper-wash-cool), transparent 58%),
+    radial-gradient(ellipse 70% 42% at 100% 12%, var(--paper-wash-warm), transparent 52%),
+    radial-gradient(ellipse 50% 30% at 50% 100%, var(--paper-orb-sea), transparent 70%),
+    var(--background);
+}
+
+.dashboard-hero {
+  overflow: hidden;
+}
+
+.dashboard-hero::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 28%, var(--paper-hero-cool), transparent 42%),
+    radial-gradient(circle at 88% 64%, var(--paper-hero-warm), transparent 38%);
+  opacity: 0.95;
+}
+
+.dashboard-hero::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background:
+    linear-gradient(to bottom, var(--paper-rule-double) 0 1px, transparent 1px 2px, var(--border) 2px 3px);
+}
+
+.dashboard-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* —— Ambient atmosphere (sitewide) —— */
+.atmosphere {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.atmosphere-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 85% 70% at 50% 45%,
+    transparent 40%,
+    var(--paper-vignette) 100%
+  );
+}
+
+.atmosphere-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+.atmosphere-orb-a {
+  width: min(55vw, 520px);
+  height: min(55vw, 520px);
+  top: -12%;
+  left: -8%;
+  background: var(--paper-orb-cool);
+  animation: aurora-drift-a 28s ease-in-out infinite alternate;
+}
+
+.atmosphere-orb-b {
+  width: min(45vw, 420px);
+  height: min(45vw, 420px);
+  top: 35%;
+  right: -12%;
+  background: var(--paper-orb-warm);
+  animation: aurora-drift-b 34s ease-in-out infinite alternate;
+}
+
+.atmosphere-orb-c {
+  width: min(38vw, 360px);
+  height: min(38vw, 360px);
+  bottom: -8%;
+  left: 28%;
+  background: var(--paper-orb-sea);
+  animation: aurora-drift-c 40s ease-in-out infinite alternate;
+}
+
+.atmosphere-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+@keyframes aurora-drift-a {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(4%, 6%) scale(1.08);
+  }
+}
+
+@keyframes aurora-drift-b {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-5%, 4%) scale(1.05);
+  }
+}
+
+@keyframes aurora-drift-c {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(3%, -5%) scale(1.1);
+  }
+}
+
+@keyframes constellation-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.constellation-orbit {
+  animation: orbit-spin 300s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere-orb,
+  .constellation-orbit,
+  .constellation-node,
+  .fade-rise,
+  .fade-rise-delayed,
+  .fade-rise-3,
+  .fade-rise-4,
+  .rise-ink,
+  .hero-display,
+  .display-italic,
+  .page-hero-glow,
+  .page-hero-rule,
+  .page-hero .kicker::after,
+  .entry-masthead .kicker::after,
+  .hero-stat-rail > div,
+  .entry-fact-strip > div,
+  .hero-folio,
+  .ink-card::before {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .fade-rise,
+  .fade-rise-delayed,
+  .fade-rise-3,
+  .fade-rise-4,
+  .rise-ink,
+  .hero-display,
+  .display-italic,
+  .hero-stat-rail > div,
+  .entry-fact-strip > div {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    clip-path: none;
+  }
+
+  .page-hero-glow {
+    opacity: 0.85;
+    transform: none;
+  }
+
+  .page-hero-rule,
+  .page-hero .kicker::after,
+  .entry-masthead .kicker::after,
+  .hero-folio {
+    transform: none;
+    opacity: 1;
+  }
+
+  .ink-card:hover::before,
+  .ink-card:focus-visible::before {
+    transform: scaleY(1);
+  }
+}
+
+.glass-panel {
+  border: 1px solid var(--paper-glass-border);
+  background: var(--paper-glass);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 1px 0 var(--paper-glass-sheen) inset,
+    0 18px 44px var(--paper-glass-shadow);
+  backdrop-filter: blur(16px);
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.625rem;
+  font-weight: 650;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+
+.kicker::before {
+  content: "";
+  display: block;
+  width: 0.45rem;
+  height: 0.45rem;
+  background: var(--paper-ink-bar);
+  flex-shrink: 0;
+}
+
+.kicker::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: min(8.5rem, 32vw);
+  background: var(--border);
+}
+
+.section-rule {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+}
+
+.stat-cell {
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 0.7rem 0.85rem;
+}
+
+.folio-rail {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-cell {
+  flex: 1 1 8.5rem;
+  min-width: 7.5rem;
+  padding: 0.95rem 1.15rem 1rem 0;
+  border-right: 1px solid var(--border);
+}
+
+.folio-cell:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.toc-num {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--paper-folio);
+}
+
+.catalog-index {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.catalog-index-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.catalog-index-leader {
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  border-bottom: 1px dotted var(--border);
+  transform: translateY(-0.28em);
+}
+
+a.catalog-index-row {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.catalog-index-row:hover .font-medium,
+a.catalog-index-row:focus-visible .font-medium {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ink-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.ink-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--paper-ink-bar);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 280ms ease;
+  z-index: 1;
+}
+
+.ink-card:hover::before,
+.ink-card:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.theme-wash-security {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-security) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-europe {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-europe) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-bilateral-trade {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-bilateral-trade) 22%, transparent), transparent 70%);
+}
+
+.theme-wash-multilateral {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-multilateral) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-financial {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-financial) 18%, transparent), transparent 70%);
+}
+
+.theme-wash-budget {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-budget) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-aviation {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-aviation) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-investment {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-investment) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-development {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-development) 20%, transparent), transparent 70%);
+}
+
+.theme-wash-fallback {
+  background: linear-gradient(135deg, color-mix(in oklch, var(--theme-fallback) 16%, transparent), transparent 70%);
+}
+
+.fade-rise {
+  animation: fade-rise 700ms ease both;
+}
+
+.fade-rise-delayed {
+  animation: fade-rise 800ms ease 90ms both;
+}
+
+.fade-rise-3 {
+  animation: fade-rise 860ms ease 170ms both;
+}
+
+.fade-rise-4 {
+  animation: fade-rise 920ms ease 250ms both;
+}
+
+/* Same rise as fade-rise, full ink — letters and outline buttons cannot sit below 4.5:1. */
+.rise-ink {
+  animation-name: rise-ink;
+}
+
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rise-ink {
+  from {
+    transform: translateY(14px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Same rise as display-reveal, full ink — titles cannot sit below 4.5:1 while they blur in. */
+@keyframes display-reveal {
+  from {
+    transform: translateY(22px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes hero-breathe {
+  from {
+    opacity: 0.72;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+.display-title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.046em;
+  line-height: 0.98;
+}
+
+.hero-display {
+  animation: display-reveal 920ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.display-italic {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.032em;
+  color: var(--muted-foreground);
+}
+
+.page-hero .display-italic {
+  animation: display-reveal 1s cubic-bezier(0.16, 1, 0.3, 1) 70ms both;
+}
+
+.standfirst {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 1.4rem;
+  line-height: 1.42;
+  letter-spacing: -0.018em;
+  max-width: var(--container-lede);
+}
+
+.standfirst-body {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  letter-spacing: -0.012em;
+  color: color-mix(in oklch, var(--foreground) 88%, var(--muted-foreground));
+}
+
+@media (min-width: 640px) {
+  .standfirst-body {
+    font-size: 1.25rem;
+    line-height: 1.72;
+  }
+}
+
+.display-figure {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  font-size: clamp(2.4rem, 5vw, 4.1rem);
+}
+
+.display-over {
+  font-size: 0.42em;
+  letter-spacing: -0.02em;
+  color: var(--muted-foreground);
+  margin-left: 0.08em;
+}
+
+.hero-folio {
+  pointer-events: none;
+  position: absolute;
+  top: 1.1rem;
+  right: max(1rem, calc((100% - var(--container-shell)) / 2 + 1.25rem));
+  z-index: 1;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(4.5rem, 18vw, 11rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.08em;
+  line-height: 0.8;
+  color: color-mix(in oklch, var(--foreground) 7%, transparent);
+  animation: fade-rise 1.1s ease both;
+}
+
+.hero-stat-rail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+  padding-top: 0.25rem;
+}
+
+@media (min-width: 1024px) {
+  .hero-stat-rail {
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+    border-left: 1px solid var(--border);
+    padding-left: 1.75rem;
+  }
+}
+
+.hero-stat-rail > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  animation: rise-ink 800ms ease both;
+}
+
+.hero-stat-rail > div:nth-child(1) {
+  animation-delay: 160ms;
+}
+
+.hero-stat-rail > div:nth-child(2) {
+  animation-delay: 240ms;
+}
+
+.hero-stat-rail > div:nth-child(3) {
+  animation-delay: 320ms;
+}
+
+.hero-stat-rail dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.hero-stat-rail dd {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.15rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+}
+
+.reading-head {
+  font-size: 1.65rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.reading-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.85rem 1.15rem;
+}
+
+.section-index {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* Reading rooms: a typeset folio, not a card grid or a dashboard table. */
+.folio-phase {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.1rem 0 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-phase .kicker::after {
+  width: min(5.5rem, 28vw);
+}
+
+.fiscal-phases {
+  border-top: 1px solid var(--border);
+}
+
+.folio-index {
+  display: flex;
+  min-width: 0;
+  max-width: var(--container-reading);
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.folio-index-row {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.95rem 0 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-index-meta {
+  font-size: 0.625rem;
+  font-weight: 650;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.16em;
+  color: var(--muted-foreground);
+}
+
+.folio-index-title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.folio-index-title:hover {
+  text-decoration: underline;
+}
+
+a.folio-index-title {
+  color: inherit;
+  text-decoration: none;
+}
+
+button.folio-index-title {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.folio-facet {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0 0 1.35rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-index-summary {
+  max-width: var(--container-lede);
+  font-size: 0.925rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+  color: var(--muted-foreground);
+}
+
+.folio-question {
+  min-width: 0;
+  padding: 1.2rem 0 1.4rem;
+  border-top: 1px solid var(--border);
+}
+
+.standing-questions {
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-group {
+  min-width: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.folio-group > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.7rem 0;
+}
+
+.folio-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.folio-pair {
+  min-width: 0;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.folio-note {
+  max-width: var(--container-reading);
+  border-top: 1px dashed var(--border);
+  padding: 0.95rem 0 0.35rem;
+}
+
+.folio-stamp {
+  border: 1px solid var(--destructive);
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.folio-register [data-slot="table-head"] {
+  height: auto;
+  padding: 0.55rem 0.85rem 0.55rem 0;
+  font-size: 0.625rem;
+  font-weight: 650;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.folio-register [data-slot="table-row"],
+.folio-register [data-slot="table-row"]:hover,
+.folio-register [data-slot="table-row"]:focus-within {
+  background-color: transparent !important;
+}
+
+.folio-register [data-slot="table-cell"] {
+  padding: 0.7rem 0.85rem 0.7rem 0;
+  vertical-align: baseline;
+}
+
+.folio-register .pocket-ledger-group [data-slot="table-cell"] {
+  padding-top: 1.05rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.compare-spread {
+  border-top: 1px solid var(--border);
+}
+
+/* Tenure / as-of index at every width — not pill chrome. */
+.as-of-rail {
+  max-width: var(--container-reading);
+  gap: 0.75rem;
+}
+
+.as-of-chip-row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+
+.as-of-rail .as-of-chip {
+  display: grid;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-radius: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  padding: 0.6rem 0;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.02rem;
+  letter-spacing: -0.02em;
+  color: var(--muted-foreground);
+}
+
+.as-of-rail .as-of-chip:hover {
+  color: var(--foreground);
+}
+
+.as-of-rail .as-of-chip[aria-pressed="true"] {
+  background: transparent;
+  box-shadow: inset 2px 0 0 var(--paper-ink-bar);
+  color: var(--foreground);
+}
+
+.intake-folio [data-slot="field-set"] {
+  padding: 1.1rem 0 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.intake-folio [data-slot="field-legend"] {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.opnir-index {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.opnir-index button {
+  width: 100%;
+  min-width: 0;
+  padding: 0.95rem 0 1rem;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.opnir-index button:hover {
+  color: var(--foreground);
+}
+
+.opnir-index button[aria-current="true"] {
+  box-shadow: inset 2px 0 0 var(--paper-ink-bar);
+}
+
+@media (min-width: 1024px) {
+  .folio-phase {
+    border-bottom: 0;
+    padding: 1.15rem 1.5rem 1.35rem 0;
+    border-right: 1px solid var(--border);
+  }
+
+  .folio-phase:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .folio-phase:not(:first-child) {
+    padding-left: 1.5rem;
+  }
+
+  .folio-gutter > div {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (min-width: 1280px) {
+  .standing-questions-spread {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .standing-questions-spread .folio-question {
+    padding: 1.2rem 1.5rem 1.4rem 0;
+    border-top: 0;
+    border-right: 1px solid var(--border);
+  }
+
+  .standing-questions-spread .folio-question:last-child {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .standing-questions-spread .folio-question:not(:first-child) {
+    padding-left: 1.5rem;
+  }
+}
+
+.entry-running-head {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--muted-foreground);
+  overflow-wrap: anywhere;
+}
+
+.entry-masthead {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.entry-masthead .kicker::after,
+.page-hero .kicker::after {
+  transform-origin: left center;
+  animation: rule-draw 900ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both;
+}
+
+.entry-fact-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.75rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.entry-fact-strip > div {
+  animation: rise-ink 640ms ease both;
+}
+
+.entry-fact-strip > div:nth-child(1) {
+  animation-delay: 220ms;
+}
+
+.entry-fact-strip > div:nth-child(2) {
+  animation-delay: 280ms;
+}
+
+.entry-fact-strip > div:nth-child(3) {
+  animation-delay: 340ms;
+}
+
+.entry-fact-strip > div:nth-child(4) {
+  animation-delay: 400ms;
+}
+
+.entry-fact-strip dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.entry-fact-strip dd {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 1023px) {
+  .entry-fact-strip,
+  .folio-gutter {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+
+  .entry-fact-strip > div,
+  .folio-gutter > div {
+    display: grid;
+    grid-template-columns: 7.25rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.35rem 0.85rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .entry-fact-strip dt,
+  .folio-gutter dt {
+    font-size: 0.625rem;
+  }
+
+  .entry-fact-strip dd,
+  .folio-gutter dd {
+    min-width: 0;
+    font-size: 0.98rem;
+    overflow-wrap: anywhere;
+  }
+
+  .folio-rail {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .folio-cell {
+    display: grid;
+    grid-template-columns: 7.25rem minmax(0, 1fr);
+    align-items: baseline;
+    flex: none;
+    min-width: 0;
+    width: 100%;
+    border-right: none;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .folio-cell:last-child {
+    border-bottom: none;
+    padding-right: 0;
+  }
+
+  .folio-cell dd {
+    font-size: 1.65rem;
+    text-align: right;
+  }
+
+  .policy-treemap {
+    display: none;
+  }
+
+  .type-rail {
+    gap: 0.75rem;
+    border-radius: 0;
+    background: transparent;
+    padding: 0.15rem 0 0.5rem;
+  }
+
+  .type-chip-row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .type-rail .type-chip {
+    display: grid;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    justify-content: space-between;
+    border-radius: 0;
+    border-color: transparent;
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 0;
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 1.02rem;
+    letter-spacing: -0.02em;
+  }
+
+  .type-rail .type-chip[aria-current="true"],
+  .type-rail .type-chip[aria-pressed="true"] {
+    background: transparent;
+    box-shadow: inset 2px 0 0 var(--paper-ink-bar);
+    color: var(--foreground);
+  }
+
+  .strip-drawing {
+    display: none;
+  }
+
+  [data-slot="table-container"]:has(> .pocket-ledger) {
+    overflow: visible;
+  }
+
+  .pocket-ledger thead {
+    display: none;
+  }
+
+  .pocket-ledger tbody,
+  .pocket-ledger tr,
+  .pocket-ledger td {
+    display: block;
+    width: 100%;
+  }
+
+  .pocket-ledger .pocket-ledger-group td {
+    padding: 1rem 0 0.35rem;
+    border-bottom: none;
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    white-space: normal;
+  }
+
+  .pocket-ledger .pocket-ledger-row {
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pocket-ledger .pocket-ledger-row td {
+    display: grid;
+    grid-template-columns: 7.25rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.3rem 0.85rem;
+    padding: 0.4rem 0;
+    border-bottom: none;
+    white-space: normal;
+    text-align: left;
+  }
+
+  .pocket-ledger .pocket-ledger-row td::before {
+    content: attr(data-label);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .folio-tabs {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: 100%;
+    height: auto;
+    gap: 0;
+    overflow: visible;
+    border-radius: 0;
+    border-top: 1px solid var(--border);
+    background: transparent;
+    padding: 0;
+  }
+
+  .folio-tabs [data-slot="tabs-trigger"] {
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex: none;
+    justify-content: flex-start;
+    border-radius: 0;
+    border-color: transparent;
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 0;
+    white-space: normal;
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: 1.02rem;
+    letter-spacing: -0.02em;
+    text-align: left;
+  }
+
+  .folio-tabs [data-slot="tabs-trigger"]::after {
+    display: none;
+  }
+
+  .folio-tabs [data-slot="tabs-trigger"][data-active],
+  .folio-tabs [data-slot="tabs-trigger"][data-active]:hover {
+    background: transparent;
+    box-shadow: inset 2px 0 0 var(--paper-ink-bar);
+    color: var(--foreground);
+  }
+
+  [data-slot="dialog-content"].command-folio {
+    top: auto !important;
+    right: 0.45rem !important;
+    bottom: 0 !important;
+    left: 0.45rem !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: min(88dvh, calc(100dvh - 5.25rem));
+    transform: none !important;
+    --tw-translate-x: 0px !important;
+    --tw-translate-y: 0px !important;
+    border-radius: 0.55rem 0.55rem 0 0;
+  }
+
+  .command-folio [data-slot="dialog-description"] {
+    display: none;
+  }
+
+  .command-folio [data-slot="command-list"] {
+    max-height: min(58dvh, 24rem);
+  }
+
+  .intake-folio .intake-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  [data-compare-value]::before {
+    content: attr(data-compare-side);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.625rem;
+    font-weight: 650;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+}
+
+@media (min-width: 1024px) {
+  .folio-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .strip-drawing {
+    overflow-x: auto;
+  }
+}
+
+.connection-view-chip {
+  font-variant-numeric: tabular-nums;
+}
+
+.connection-view-chip .count {
+  font-family: var(--font-serif), Georgia, serif;
+  letter-spacing: -0.03em;
+}
+
+.constellation-label {
+  color: var(--foreground);
+  text-shadow:
+    0 0 1px var(--paper-halo),
+    0 1px 3px var(--paper-halo-soft),
+    0 0 10px var(--paper-halo-faint);
+}
+
+.page-hero {
+  background:
+    radial-gradient(ellipse 90% 90% at 6% -40%, var(--paper-wash-cool), transparent 55%),
+    radial-gradient(ellipse 60% 70% at 100% -20%, var(--paper-wash-warm), transparent 50%),
+    transparent;
+  box-shadow:
+    0 1px 0 var(--paper-rule-double),
+    0 3px 0 var(--background),
+    0 4px 0 var(--border);
+}
+
+.page-hero-dramatic .page-hero-glow {
+  opacity: 1;
+}
+
+.page-hero-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: -8%;
+  opacity: 0.85;
+  transform-origin: 50% 20%;
+  background:
+    radial-gradient(circle at 15% 40%, var(--paper-hero-cool), transparent 42%),
+    radial-gradient(circle at 88% 25%, var(--paper-hero-warm), transparent 38%);
+  animation: hero-breathe 16s ease-in-out infinite alternate;
+}
+
+.page-hero-rule {
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--border);
+  transform-origin: left center;
+  animation: rule-draw 1.15s cubic-bezier(0.16, 1, 0.3, 1) 40ms both;
+}
+
+.atlas-page {
+  position: relative;
+}
+
+.atlas-page-header {
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.85rem;
+  margin-bottom: 0.5rem;
+  box-shadow:
+    0 1px 0 var(--paper-glass-sheen) inset,
+    3px 0 0 var(--paper-ink-bar);
+}
+
+/* Quotations: same grammar on screen as on the print plate. Never truncated. */
+.hang-quote {
+  font-style: italic;
+}
+
+.hang-quote[lang="is"] {
+  padding-left: 0.7em;
+  text-indent: -0.55em;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  quotes: "„" "“" "‚" "‘";
+}
+
+.hang-quote[lang="is"]::before {
+  content: open-quote;
+}
+
+.hang-quote[lang="is"]::after {
+  content: close-quote;
+}
+
+.citation-claim {
+  container-type: inline-size;
+  container-name: citation-claim;
+  min-width: 0;
+}
+
+.citation-claim-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem 1.75rem;
+  align-items: start;
+  min-width: 0;
+}
+
+.citation-claim-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.citation-gutter {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.45rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.7rem;
+}
+
+.citation-as-of {
+  font-size: 0.6875rem;
+  font-weight: 650;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.12em;
+  color: var(--muted-foreground);
+}
+
+.citation-quote {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.citation-source {
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  word-break: break-all;
+  color: var(--muted-foreground);
+}
+
+.citation-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+}
+
+.citation-plate {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.citation-plate > .citation-gutter {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* Facing variorum: two stored sentences, equal weight, hairline spine.
+   One column until lg — same pocket contract as the leftover phone plates. */
+.variorum-spread {
+  min-width: 0;
+}
+
+.variorum-spread-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: start;
+  min-width: 0;
+}
+
+.variorum-leaf {
+  min-width: 0;
+}
+
+.variorum-leaf .citation-gutter {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.variorum-spine {
+  height: 0;
+  border-top: 1px solid var(--border);
+}
+
+.variorum-ruling {
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .variorum-spread-grid {
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    gap: 0 1.35rem;
+  }
+
+  .variorum-spine {
+    height: auto;
+    align-self: stretch;
+    border-top: 0;
+    border-left: 1px solid var(--border);
+    width: 1px;
+  }
+}
+
+@container citation-claim (min-width: 56rem) {
+  .citation-claim-grid {
+    grid-template-columns: minmax(0, 1fr) var(--container-gutter);
+  }
+
+  .citation-gutter {
+    border-top: 0;
+    padding-top: 0.15rem;
+    border-left: 1px solid var(--border);
+    padding-left: 0.95rem;
+  }
+}
+
+.paper-sheet {
+  position: relative;
+  isolation: isolate;
+}
+
+.paper-sheet:focus,
+.paper-sheet:focus-visible {
+  outline: none;
+}
+
+.skip-to-records {
+  position: fixed;
+  left: 1rem;
+  top: 0;
+  z-index: 80;
+  transform: translateY(-140%);
+  background: var(--paper-skip);
+  color: var(--paper-skip-ink);
+  padding: 0.55rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.skip-to-records:focus {
+  transform: translateY(0.75rem);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Sticky two-row masthead is ~6.5rem on desktop, one row on a phone. */
+html {
+  scroll-padding-top: 5.25rem;
+}
+
+@media (min-width: 1024px) {
+  html {
+    scroll-padding-top: 6.75rem;
+  }
+}
+
+.site-masthead {
+  border-top: 3px solid var(--paper-masthead-edge);
+  background: var(--paper-masthead);
+  box-shadow: 0 1px 0 var(--border);
+  backdrop-filter: blur(18px) saturate(1.15);
+}
+
+.masthead-folio {
+  font-size: 0.6rem;
+  font-weight: 650;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.masthead-wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.masthead-wordmark-name {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  line-height: 1;
+}
+
+.masthead-index {
+  display: none;
+}
+
+.masthead-link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.28rem;
+  padding: 0.55rem 0.28rem 0.62rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.masthead-link:hover,
+.masthead-link:focus-visible {
+  color: var(--foreground);
+}
+
+.masthead-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.masthead-link[aria-current="page"],
+.masthead-link[data-active="true"] {
+  color: var(--foreground);
+}
+
+.masthead-link[aria-current="page"]::after,
+.masthead-link[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  left: 0.28rem;
+  right: 0.28rem;
+  bottom: 0;
+  height: 2px;
+  background: var(--paper-ink-bar);
+}
+
+.masthead-link-index {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  color: var(--paper-folio);
+}
+
+.masthead-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  min-width: 13.5rem;
+  padding: 0.4rem;
+  border: 1px solid var(--paper-glass-border);
+  background: var(--paper-glass);
+  box-shadow:
+    0 1px 0 var(--paper-glass-sheen) inset,
+    0 18px 40px var(--paper-glass-shadow);
+  backdrop-filter: blur(16px);
+}
+
+.masthead-dropdown a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: var(--foreground);
+}
+
+.masthead-dropdown a:hover,
+.masthead-dropdown a[aria-current="page"] {
+  background: var(--muted);
+}
+
+.thumb-folio {
+  width: min(22rem, 88vw);
+}
+
+.thumb-index {
+  display: flex;
+  flex-direction: column;
+  padding: 0.15rem 0 1.25rem;
+}
+
+.thumb-cut {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.55rem;
+  align-items: stretch;
+  min-height: 2.7rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.thumb-cut-label {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.95rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+}
+
+.thumb-cut-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  background: var(--muted);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+  color: var(--paper-folio);
+}
+
+.thumb-cut:hover .thumb-cut-label,
+.thumb-cut:hover .thumb-cut-num,
+.thumb-cut[aria-current="page"] .thumb-cut-label {
+  background: var(--accent);
+}
+
+.thumb-cut[aria-current="page"] .thumb-cut-num {
+  margin-right: -0.4rem;
+  border-radius: 0 0.18rem 0.18rem 0;
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.home-display-how {
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+}
+
+.home-display-iceland {
+  font-size: clamp(3.15rem, 8.4vw, 5.5rem);
+  font-weight: 500;
+  letter-spacing: -0.048em;
+  line-height: 0.9;
+}
+
+.home-display-wired {
+  margin-top: 0.12em;
+  font-size: clamp(2rem, 5.2vw, 3.35rem);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: var(--muted-foreground);
+}
+
+.constellation-plate {
+  border: 1px solid var(--constellation-plate-border);
+  background: var(--constellation-plate);
+  box-shadow: 0 1px 0 var(--paper-glass-sheen) inset;
+}
+
+.site-footer-glow {
+  background: linear-gradient(
+    to top,
+    var(--paper-footer-near),
+    var(--paper-footer-far)
+  );
+}
+
+.site-footer-glow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background:
+    linear-gradient(to bottom, var(--paper-rule-double) 0 1px, transparent 1px 2px, var(--border) 2px 3px);
+}
+
+.colophon-index {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.75rem 2.5rem;
+}
+
+.colophon-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.colophon-group .kicker {
+  margin-bottom: 0.35rem;
+}
+
+.colophon-index a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.plate-index {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+}
+
+.plate-index-row {
+  display: grid;
+  grid-template-columns: 2.55rem minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: start;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  color: inherit;
+  text-decoration: none;
+}
+
+.plate-index-row:hover .font-serif,
+.plate-index-row:focus-visible .font-serif {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.off-index-line {
+  margin: 1.15rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+
+.chain-plate {
+  border-top: 1px solid var(--border);
+  padding: 1.25rem 0 1.6rem;
+}
+
+.command-folio-count {
+  margin: 0;
+  padding: 0.55rem 0.75rem 0.15rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+[data-slot="dialog-content"].command-folio {
+  gap: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  padding: 0;
+  background: var(--popover);
+  color: var(--popover-foreground);
+  box-shadow:
+    0 1px 0 var(--paper-glass-sheen) inset,
+    0 18px 44px var(--paper-glass-shadow);
+}
+
+.command-folio [data-slot="command"] {
+  border-radius: 0 !important;
+  background: transparent;
+  padding: 0;
+}
+
+.command-folio [data-slot="dialog-header"] {
+  margin: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 0.95rem 0.7rem;
+}
+
+.command-folio [data-slot="dialog-title"] {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.command-folio [data-slot="dialog-description"] {
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.command-folio [data-slot="command-input-wrapper"] {
+  padding: 0;
+}
+
+.command-folio [data-slot="command-input-wrapper"] [data-slot="input-group"] {
+  height: auto !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0.35rem 0.55rem;
+}
+
+.command-folio [data-slot="command-list"] {
+  max-height: min(58dvh, 28rem);
+}
+
+.command-folio [data-slot="command-item"] {
+  align-items: flex-start;
+  border-radius: 0;
+  padding: 0.55rem 0.75rem;
+}
+
+.command-folio [data-slot="command-item"] > svg:last-child {
+  display: none;
+}
+
+.command-folio [data-slot="command-separator"] {
+  background: var(--border);
+}
+
+@media (min-width: 1024px) {
+  .masthead-index {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.15rem;
+    border-top: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .masthead-index::-webkit-scrollbar {
+    display: none;
+  }
+
+  .colophon-index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+body:has(.geo-room) .dashboard-hero::after,
+body:has(.geo-room) .site-footer-glow::before,
+body:has(.geo-room) .page-hero {
+  box-shadow: none;
+}
+
+body:has(.geo-room) .dashboard-hero::after,
+body:has(.geo-room) .site-footer-glow::before {
+  display: none;
+}
+
+/* --- Print: entry and program pages as a readable, citable document --- */
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 18mm 15mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+  }
+
+  /* Decoration: ambient orbs, grain, gradients, glass, shadows. */
+  .atmosphere,
+  .page-hero-glow,
+  .page-hero-rule,
+  .hero-folio,
+  .site-footer-glow,
+  .home-constellation,
+  .skip-to-records,
+  .skeleton {
+    display: none !important;
+  }
+
+  .glass-panel,
+  .dashboard-canvas,
+  .page-hero,
+  .atlas-page-header,
+  [class*="backdrop-blur"] {
+    background: none !important;
+    border-color: #999 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .ink-card::before,
+  .kicker::before,
+  .kicker::after,
+  .dashboard-hero::after,
+  .site-footer-glow::before,
+  .page-hero-glow,
+  .page-hero-rule,
+  .hero-folio {
+    display: none !important;
+  }
+
+  .atlas-page > .entry-prose > p:first-of-type::first-letter {
+    float: none;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0;
+    letter-spacing: inherit;
+  }
+
+  /* Navigation and controls: nothing a reader can click on paper. */
+  nav,
+  button:not([data-print-keep]),
+  [role="dialog"],
+  [role="group"],
+  [data-slot="toggle-group"],
+  [data-print-hide] {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  .print-plate-running {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 10pt;
+    border-bottom: 0.4pt solid #000;
+    padding-bottom: 4pt;
+    font-size: 8pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #444;
+  }
+
+  .print-colophon {
+    margin-top: 16pt;
+    border-top: 0.4pt solid #000;
+    padding-top: 8pt;
+    font-size: 8pt;
+    letter-spacing: 0.02em;
+    color: #333;
+  }
+
+  /* Muted greys wash out on paper; sources and quotations must stay legible. */
+  .text-muted-foreground,
+  blockquote,
+  [lang="is"] {
+    color: #333 !important;
+  }
+
+  .citation-claim-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 6pt;
+  }
+
+  .citation-gutter {
+    border-left: none !important;
+    padding-left: 0 !important;
+    border-top: 0.4pt solid #000;
+    padding-top: 6pt;
+  }
+
+  .citation-plate > .citation-gutter {
+    border-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .variorum {
+    break-inside: avoid;
+  }
+
+  .variorum-list > li {
+    break-after: page;
+  }
+
+  .variorum-list > li:last-child {
+    break-after: auto;
+  }
+
+  .variorum-spread-grid {
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr) !important;
+    gap: 0 12pt !important;
+  }
+
+  .variorum-spine {
+    height: auto !important;
+    align-self: stretch !important;
+    border-top: 0 !important;
+    border-left: 0.4pt solid #000 !important;
+    width: 1px !important;
+  }
+
+  .variorum-leaf .citation-gutter {
+    border: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Every sourced quotation in this app is Icelandic prose in an English page. */
+  p[lang="is"],
+  .hang-quote {
+    font-style: italic;
+  }
+
+  /* Icelandic hang-quotes: low-9 / high-9 marks, hanging into the gutter. */
+  .hang-quote[lang="is"] {
+    padding-left: 0.7em;
+    text-indent: -0.55em;
+    hyphens: auto;
+    quotes: "„" "“" "‚" "‘";
+  }
+
+  .hang-quote[lang="is"]::before {
+    content: open-quote;
+  }
+
+  .hang-quote[lang="is"]::after {
+    content: close-quote;
+  }
+
+  /* Every collapsed group opens: a printed record hides nothing. */
+  details > summary {
+    list-style: none;
+    font-weight: 600;
+  }
+
+  details::details-content {
+    content-visibility: visible !important;
+    display: block !important;
+    block-size: auto !important;
+  }
+
+  details > summary ~ * {
+    display: revert !important;
+  }
+
+  .entry-edge-preview {
+    display: none !important;
+  }
+
+  /* Expand link targets so a citation survives the page. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8.5pt;
+    color: #444;
+    word-break: break-all;
+  }
+
+  a[href^="/"]::after {
+    content: " [" attr(href) "]";
+    font-size: 8.5pt;
+    color: #444;
+  }
+
+  /* Links that already print their own URL must not print it twice. */
+  a.print-literal-url::after,
+  a[href^="#"]::after,
+  a[href^="mailto:"]::after {
+    content: "" !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid-page;
+  }
+
+  li,
+  tr,
+  blockquote,
+  [data-slot="card"] {
+    break-inside: avoid;
+  }
+
+  .atlas-page,
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  /* Night map is a high-contrast plate, not a white sanitised page. */
+  html:has(.geo-room),
+  body:has(.geo-room),
+  .geo-room {
+    background: var(--geo-canvas) !important;
+    color: var(--geo-ink) !important;
+  }
+
+  html:has(.geo-room) .print-plate-running,
+  html:has(.geo-room) .print-colophon {
+    border-color: var(--geo-coast);
+    color: var(--geo-accent-dim) !important;
+  }
+
+  html:has(.geo-room) .text-muted-foreground,
+  html:has(.geo-room) blockquote,
+  html:has(.geo-room) [lang="is"] {
+    color: var(--geo-ink-soft) !important;
+  }
+
+  html:has(.geo-room) a {
+    color: var(--geo-accent) !important;
+  }
+
+  .geo-room .geo-theater {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0;
+    gap: 1rem;
+  }
+
+  .geo-room .geo-mast,
+  .geo-room .geo-chips,
+  .geo-room .geo-rail,
+  .geo-room .geo-pins,
+  .geo-room .geo-share,
+  .geo-room .geo-leader,
+  .geo-room .geo-plate-strip,
+  .geo-room .geo-sheet-handle,
+  .geo-room .geo-aurora-band,
+  .geo-room .geo-focus-tick,
+  .geo-print-ornament {
+    display: none !important;
+  }
+
+  .geo-room .geo-stage {
+    min-height: 0;
+    overflow: visible;
+    background: var(--geo-sea-deep) !important;
+    border-color: var(--geo-coast) !important;
+    box-shadow: none !important;
+  }
+
+  .geo-room .geo-inspector {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    height: auto !important;
+    max-height: none;
+    overflow: visible;
+    border-radius: 0;
+    background: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .geo-room .geo-sheet-body {
+    overflow: visible;
+  }
+
+  .geo-room .geo-caption-quote {
+    overflow: visible;
+    white-space: normal;
+    text-overflow: unset;
+  }
+
+  .geo-room .geo-caption-line {
+    display: block;
+  }
+
+  .geo-room [data-print-pin="rest"] {
+    opacity: 0.35 !important;
+  }
+
+  .geo-room [data-print-pin="selected"] {
+    opacity: 1 !important;
+  }
+
+  .geo-room .geo-folio-panel:not(:has([data-print-off-plate])) {
+    display: none !important;
+  }
+
+  .geo-room .geo-folio-panel > h2,
+  .geo-room .geo-folio-panel > p,
+  .geo-room .geo-folio-panel > ul:not([data-print-off-plate]) {
+    display: none !important;
+  }
+
+  .print-off-plate-kicker {
+    font-size: 8pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--geo-accent-dim);
+  }
+
+  .geo-caption-source {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 8pt;
+    letter-spacing: 0;
+    text-transform: none;
+    word-break: break-all;
+  }
+}

@@ -1,0 +1,19 @@
+---
+title: "Netherlands"
+slug: "netherlands"
+type: "trading-partner"
+founded: ""
+role: "Country named on the 2024 goods-trade release"
+parent: ""
+related: ["goods-exports-2024"]
+website: "https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/"
+lede: "Statistics Iceland’s 2024 goods-trade release names the Netherlands among Iceland’s largest export partners, without printing a value for the country."
+---
+
+# Netherlands
+
+## Summary
+Statistics Iceland’s goods-trade release of 14 May 2025 names Netherlands as an export partner and does not print a separate value or a selling company. The sentence is: “Largest trading countries in export of goods were the Netherlands, the United States and the United Kingdom while 77% of all exports went to EEA countries.”
+
+## Sources
+- [Statistics Iceland: Trade in goods 2024, final data, 14 May 2025](https://statice.is/publications/news-archive/external-trade/trade-in-goods-2024-final-data/)

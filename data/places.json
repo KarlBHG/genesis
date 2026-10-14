@@ -1,0 +1,21 @@
+[
+  { "id": "reykjavik", "name": "Reykjavík", "lat": 64.145981, "lon": -21.9422367 },
+  { "id": "straumsvik", "name": "Straumsvík", "lat": 64.0434623, "lon": -22.0442726 },
+  { "id": "grundartangi", "name": "Grundartangi", "lat": 64.3601585, "lon": -21.7841266 },
+  { "id": "reydarfjordur", "name": "Reyðarfjörður", "lat": 65.0340671, "lon": -14.2084678 },
+  { "id": "keflavik", "name": "Keflavík", "lat": 63.9850119, "lon": -22.6266959 },
+  { "id": "reykjanesbaer", "name": "Reykjanesbær", "lat": 63.9832697, "lon": -22.5561494 },
+  { "id": "blonduos", "name": "Blönduós", "lat": 65.6601344, "lon": -20.280998 },
+  { "id": "kopavogur", "name": "Kópavogur", "lat": 64.1113504, "lon": -21.9048106 },
+  { "id": "hafnarfjordur", "name": "Hafnarfjörður", "lat": 64.0695354, "lon": -21.9575664 },
+  { "id": "akureyri", "name": "Akureyri", "lat": 65.6839036, "lon": -18.1121756 },
+  { "id": "gardabaer", "name": "Garðabær", "lat": 64.0880255, "lon": -21.9193961 },
+  { "id": "mosfellsbaer", "name": "Mosfellsbær", "lat": 64.1674922, "lon": -21.6971313 },
+  { "id": "arborg", "name": "Árborg", "lat": 63.9013377, "lon": -21.0667223 },
+  { "id": "akranes", "name": "Akranes", "lat": 64.3170806, "lon": -22.0833512 },
+  { "id": "fjardabyggd", "name": "Fjarðabyggð", "lat": 64.9875916, "lon": -14.172221 },
+  { "id": "vestmannaeyjar", "name": "Vestmannaeyjar", "lat": 63.4266646, "lon": -20.2698816 },
+  { "id": "seltjarnarnes", "name": "Seltjarnarnes", "lat": 64.1526552, "lon": -21.9879563 },
+  { "id": "hvanneyri", "name": "Hvanneyri", "lat": 64.5604248, "lon": -21.7703682 },
+  { "id": "thingvellir", "name": "Þingvellir", "lat": 64.2590998, "lon": -21.1212537 }
+]

@@ -1,0 +1,138 @@
+[
+  {
+    "id": "eea-country-count",
+    "entries": [
+      "eea-agreement"
+    ],
+    "summary": "One government page says 30 EEA countries. Another says 31 EEA States. Both sentences stay.",
+    "sides": [
+      {
+        "source": "https://www.government.is/topics/foreign-affairs/iceland-in-europe/european-economic-area/",
+        "quotation": "Citizens of all 30 countries have the right to move freely throughout the EEA",
+        "asOf": "undated on the cited page"
+      },
+      {
+        "source": "https://www.government.is/topics/business-and-industry/the-eea-agreement/",
+        "quotation": "The EEA Agreement provides for the inclusion of EU legislation covering the four freedoms — the free movement of goods, services, persons and capital — throughout the 31 EEA States.",
+        "asOf": "undated on the cited page"
+      }
+    ]
+  },
+  {
+    "id": "landsvirkjun-form-and-holding",
+    "entries": [
+      "landsvirkjun"
+    ],
+    "summary": "The company registry prints one legal form. The act prints an ownership split. Neither sentence replaces the other.",
+    "sides": [
+      {
+        "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/4202691299",
+        "quotation": "B1 Sameignarfélag almennt (sf)",
+        "asOf": "undated on the registry page"
+      },
+      {
+        "source": "https://www.althingi.is/lagas/nuna/1983042.html",
+        "quotation": "Á ríkissjóður 99,9% eignarhluta í fyrirtækinu og Eignarhlutir ehf. 0,1%.",
+        "asOf": "consolidated statute"
+      }
+    ]
+  },
+  {
+    "id": "services-import-growth",
+    "entries": [
+      "services-trade-2024"
+    ],
+    "summary": "The same release prints a 12% heading and an 8% sentence for the growth in service imports. Both stay.",
+    "sides": [
+      {
+        "source": "https://statice.is/publications/news-archive/external-trade/trade-in-services-by-classification-and-countries-2024/",
+        "quotation": "Imports of services increased by 12% between years",
+        "asOf": "2025-09-05"
+      },
+      {
+        "source": "https://statice.is/publications/news-archive/external-trade/trade-in-services-by-classification-and-countries-2024/",
+        "quotation": "In 2024, the total value of service imports was 55.4 billion ISK higher than in 2023, representing an 8% increase at current exchange rates.",
+        "asOf": "2025-09-05"
+      }
+    ]
+  },
+  {
+    "id": "landsbankinn-shareholder-count",
+    "entries": [
+      "landsbankinn",
+      "landsbankinn-state-holding"
+    ],
+    "summary": "The ownership page says shareholders are around 800 and does not date that sentence. The fact sheet dated 31 December 2025 says the number amounts to approximately 819. Both print a 98.2% state holding.",
+    "sides": [
+      {
+        "source": "https://www.landsbankinn.is/en/the-bank/about-us/strategy-and-organisation/ownership",
+        "quotation": "Landsbankinn's shareholders are around 800 with the National Treasury as the largest owner of a 98.2% share.",
+        "asOf": "undated on the ownership page"
+      },
+      {
+        "source": "https://www.landsbankinn.is/uploads/documents/arsskyrsluroguppgjor/fact-book-2025-en.pdf",
+        "quotation": "The Icelandic State holds 98.2% of the shares and the total number of shareholders amount to approximately 819.",
+        "asOf": "2025-12-31"
+      }
+    ]
+  },
+  {
+    "id": "on-power-ledger-name",
+    "entries": [
+      "on-power",
+      "orka-natturunnar"
+    ],
+    "summary": "The vendor lookup prints Orka náttúrunnar ohf. for kennitala 5212130190. The company registry heading for that kennitala is ON Power ohf. Kennitala 4711190830 is a second registry record and is headed Orka náttúrunnar ohf.",
+    "sides": [
+      {
+        "source": "https://opnirreikningar.is/rest/vendor?term=Orka%20n%C3%A1tt%C3%BArunnar%20ohf.",
+        "quotation": "\"id\":\"5212130190\",\"text\":\"Orka náttúrunnar ohf.\"",
+        "asOf": "undated on the vendor lookup"
+      },
+      {
+        "source": "https://www.skatturinn.is/fyrirtaekjaskra/leit/kennitala/5212130190",
+        "quotation": "ON Power ohf. (5212130190)",
+        "asOf": "undated on the registry page"
+      }
+    ]
+  },
+  {
+    "id": "bsrb-affiliate-count",
+    "entries": [
+      "bsrb"
+    ],
+    "summary": "BSRB's own site prints three different counts of affiliated unions and members on three pages. All three sentences stay.",
+    "sides": [
+      {
+        "source": "https://www.bsrb.is/is/bsrb/um-bsrb",
+        "quotation": "Bandalagið var stofnað 14. febrúar 1942 og í dag eru aðildarfélög BSRB 19 talsins og fjöldi félagsmanna um 25.000.",
+        "asOf": "undated on the cited page"
+      },
+      {
+        "source": "https://www.bsrb.is/is/adildarfelog/adildarfelog-bsrb",
+        "quotation": "Í dag eiga 18 stéttarfélög með samtals tæplega 25.000 félagsmenn aðild að bandalaginu. Auk þess á Samband lífeyrisþega ríkis og bæja aðild að BSRB.",
+        "asOf": "undated on the cited page"
+      }
+    ]
+  },
+  {
+    "id": "liv-rank-within-asi",
+    "entries": [
+      "landssamband-verslunarmanna",
+      "asi"
+    ],
+    "summary": "LIV's own about page calls the federation both the largest and the second largest landssamband inside ASI, in the same text. Neither sentence is dropped.",
+    "sides": [
+      {
+        "source": "https://www.landssamband.is/um-liv/",
+        "quotation": "LÍV - Landssamband íslenzkra verzlunarmanna sem er fjölmennasta landssamband launafólks á Íslandi og stærsta landssambandið innan ASÍ, með samtals um 50.000 félagsmenn, var stofnað 2. júní 1957.",
+        "asOf": "undated on the about page"
+      },
+      {
+        "source": "https://www.landssamband.is/um-liv/",
+        "quotation": "LÍV er aðili að: ASÍ - www.asi.is Alþýðusamband Íslands og er annað stærsta landssambandið innan ASÍ.",
+        "asOf": "undated on the about page"
+      }
+    ]
+  }
+]

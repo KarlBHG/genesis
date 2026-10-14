@@ -1,0 +1,225 @@
+"use client";
+
+import { useRouter, usePathname } from "next/navigation";
+import { SearchIcon } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "@/components/ui/command";
+import { labelize } from "@/lib/format";
+import { navLeaves, OFF_INDEX, padFolio } from "@/lib/nav";
+import { searchEntries } from "@/lib/search";
+import type { SearchDoc } from "@/lib/types";
+
+const INDEX_ROOMS = OFF_INDEX.filter(
+  (room) =>
+    room.href === "/standing" ||
+    room.href === "/obligations" ||
+    room.href === "/methodology",
+);
+
+export function CommandPalette() {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [docs, setDocs] = useState<SearchDoc[] | null>(null);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const close = useCallback(() => {
+    setOpen(false);
+    setQuery("");
+  }, []);
+  const openRef = useRef(open);
+  openRef.current = open;
+  const searchRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      const isOpen = openRef.current;
+      const isPaletteKey =
+        event.code === "KeyK" || event.key === "k" || event.key === "K";
+      if (event.key === "Escape" && isOpen) {
+        event.preventDefault();
+        event.stopPropagation();
+        close();
+        return;
+      }
+      if (isPaletteKey && (event.metaKey || event.ctrlKey)) {
+        const target = event.target;
+        if (
+          target instanceof HTMLElement &&
+          !isOpen &&
+          (target.isContentEditable ||
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT")
+        ) {
+          return;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+        setOpen((current) => !current);
+        return;
+      }
+    }
+    document.addEventListener("keydown", onKey, true);
+    const search =
+      searchRef.current ??
+      document.querySelector<HTMLElement>(
+        'button[aria-label="Search the records"]',
+      );
+    search?.setAttribute("data-search-live", "");
+    return () => {
+      document.removeEventListener("keydown", onKey, true);
+      search?.removeAttribute("data-search-live");
+    };
+  }, [close]);
+
+  useEffect(() => {
+    close();
+  }, [pathname, close]);
+
+  useEffect(() => {
+    if (!open) return;
+    if (docs) return;
+    let cancelled = false;
+    fetch("/api/search")
+      .then((response) => response.json() as Promise<SearchDoc[]>)
+      .then((loaded) => {
+        if (!cancelled) setDocs(loaded);
+      })
+      .catch(() => {
+        if (!cancelled) setDocs([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [open, docs]);
+
+  const results = useMemo(
+    () => (docs ? searchEntries(docs, query).slice(0, 10) : []),
+    [docs, query],
+  );
+  const plates = navLeaves();
+  const trimmed = query.trim();
+
+  return (
+    <>
+      <Button
+        aria-keyshortcuts="meta+k control+k"
+        aria-label="Search the records"
+        className="gap-2"
+        onClick={() => setOpen(true)}
+        ref={searchRef}
+        size="sm"
+        variant="outline"
+      >
+        <SearchIcon data-icon="inline-start" />
+        <span className="hidden sm:inline">Index</span>
+        <kbd className="hidden rounded-sm border border-border px-1 text-xs text-muted-foreground md:inline">
+          ⌘K
+        </kbd>
+      </Button>
+      <CommandDialog
+        className="command-folio"
+        description="Titles, summaries, and typed connections. Icelandic accents fold, so Sedlabanki finds Seðlabanki."
+        onOpenChange={(next) => {
+          if (next) setOpen(true);
+          else close();
+        }}
+        open={open}
+        title="Search the records"
+      >
+        <Command label="Search the records" shouldFilter={false}>
+          <CommandInput
+            aria-label="Search the records"
+            onValueChange={setQuery}
+            placeholder="Try EEA, Landsvirkjun, sells power, regulates"
+            value={query}
+          />
+          <CommandList>
+            {!trimmed ? (
+              <>
+                <p className="command-folio-count">
+                  {docs == null
+                    ? "Loading the index…"
+                    : `${docs.length} records. Start typing, or open a plate.`}
+                </p>
+                <CommandGroup heading="Plates 01–10">
+                  {plates.map((plate) => (
+                    <CommandItem
+                      key={plate.href}
+                      onSelect={() => {
+                        router.push(plate.href);
+                        close();
+                      }}
+                      value={`plate-${plate.index}-${plate.label}`}
+                    >
+                      <span className="masthead-link-index w-8 shrink-0">
+                        {padFolio(plate.index)}
+                      </span>
+                      <span className="font-serif font-medium">{plate.label}</span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+                <CommandSeparator />
+                <CommandGroup heading="Off the index">
+                  {INDEX_ROOMS.map((room) => (
+                    <CommandItem
+                      key={room.href}
+                      onSelect={() => {
+                        router.push(room.href);
+                        close();
+                      }}
+                      value={`room-${room.label}`}
+                    >
+                      <span className="font-serif font-medium">{room.label}</span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </>
+            ) : docs == null ? (
+              <CommandEmpty>Loading the index…</CommandEmpty>
+            ) : results.length === 0 ? (
+              <CommandEmpty>No matches for “{trimmed}”.</CommandEmpty>
+            ) : (
+              <CommandGroup heading="Records">
+                {results.map((doc) => (
+                  <CommandItem
+                    key={doc.slug}
+                    onSelect={() => {
+                      router.push(doc.href);
+                      close();
+                    }}
+                    value={doc.slug}
+                  >
+                    <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                      <span className="truncate font-serif font-medium">
+                        {doc.title}
+                      </span>
+                      <span className="line-clamp-1 text-xs text-muted-foreground">
+                        {doc.summary}
+                      </span>
+                    </span>
+                    <span className="shrink-0 text-[0.62rem] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
+                      {labelize(doc.kind)}
+                    </span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+          </CommandList>
+        </Command>
+      </CommandDialog>
+    </>
+  );
+}

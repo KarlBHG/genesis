@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "source": "https://opnirreikningar.is/",
+  "note": "Official-shaped invoice rows copied from already-stored Opnir lookups. This file is the runtime fixture so the review feed never fetches the live ledger. Columns are kaupandi, dagsetning, seljandi, reikningsnúmer, upphæð. A málaflokkur value is printed text only and is never mapped to a policy-area slug.",
+  "rows": [
+    {
+      "kaupandi": "Landspítali",
+      "dagsetning": "2026-08-25",
+      "seljandi": "Íslandsbanki hf.",
+      "reikningsnumer": "3546720",
+      "upphaed": "245"
+    },
+    {
+      "kaupandi": "Forsætisráðuneyti, aðalskrifstofa",
+      "dagsetning": "2026-08-10",
+      "seljandi": "Síminn hf.",
+      "reikningsnumer": "0615317321",
+      "upphaed": "8994"
+    },
+    {
+      "kaupandi": "Náttúruverndarstofnun",
+      "dagsetning": "2026-08-28",
+      "seljandi": "N1 ehf.",
+      "reikningsnumer": "Srn27960663",
+      "upphaed": "8954",
+      "malaflokkur": ""
+    }
+  ]
+}

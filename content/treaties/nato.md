@@ -1,0 +1,24 @@
+---
+title: "North Atlantic Treaty"
+slug: "nato"
+type: "treaty"
+signed: "1949-04-04"
+effective: "1949-04-04"
+parties: ["Iceland"]
+status: "active"
+topics: ["security"]
+related: ["althingi", "1944-republic", "1951-defense-agreement", "2006-keflavik-base"]
+source: "https://www.nato.int/en/about-us/nato-history/history-by-theme/my-country-and-nato/iceland-and-nato"
+lede: "Iceland is a founding member of NATO, signing the North Atlantic Treaty on 4 April 1949 after an Alþingi vote five days earlier, and remains the only Ally without its own military forces."
+---
+
+# North Atlantic Treaty
+
+## Summary
+Iceland is a founding member of NATO. NATO's history of Iceland records that Alþingi voted on 30 March 1949 to join, and that five days later, on 4 April 1949, Iceland formally joined by signing the North Atlantic Treaty in Washington. A caption on the same page dates a different document: President Sveinn Björnsson signing the instrument of accession in Reykjavík on 22 July 1949.
+
+## What Iceland contributes
+NATO describes Iceland as the only Ally without its own military forces. The same account says Iceland signed a bilateral defence agreement with the United States in 1951, hosted a permanent US defence force at Keflavík until 2006, and still operates NATO radar there and provides host-nation support to Allies.
+
+## Sources
+- [NATO: Iceland and NATO](https://www.nato.int/en/about-us/nato-history/history-by-theme/my-country-and-nato/iceland-and-nato)

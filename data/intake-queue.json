@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "note": "Human-proposed edges awaiting review. This file is not loaded as catalog. Copy a row into data/edges.json only after the six fields, allowlisted type, endpoints, and amount-quotation checks would pass.",
+  "items": []
+}
